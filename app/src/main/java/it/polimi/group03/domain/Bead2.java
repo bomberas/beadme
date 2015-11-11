@@ -1,11 +1,11 @@
 package it.polimi.group03.domain;
+
 import java.util.ArrayList;
 
 /**
- * Created by Megi on 11/11/2015.
+ * Created by megi on 11/11/2015.
  */
-
-public class Beads {
+public class Bead2 {
 
     String color=" "; //here the bead will take its color according to the color in the arraylist
     ArrayList<String> beads=new ArrayList<String>();
@@ -53,6 +53,7 @@ public class Beads {
         return beads.get(indexBead);
 
     }
+
 
 
 
