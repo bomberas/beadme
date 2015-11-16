@@ -1,8 +1,14 @@
 package it.polimi.group03.engine;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
+
 import it.polimi.group03.domain.Board;
 import it.polimi.group03.domain.Player;
+import it.polimi.group03.util.BarOrientation;
+import it.polimi.group03.util.BarPosition;
 
 /**
  * @author cecibloom
@@ -14,6 +20,7 @@ public class GameEngine {
 
     private Board board;
     private GameValidator validator;
+    private Properties properties;
 
     /**
 
@@ -22,7 +29,14 @@ public class GameEngine {
      **/
     public void startGame(List<Player> players) {
         this.board = new Board(players);
+        this.validator = new GameValidator(this.board);
         this.board.init();
+        properties = new Properties();
+        try {
+            properties.loadFromXML(new FileInputStream("strings.xml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -30,8 +44,15 @@ public class GameEngine {
      * before refresh the state of the board, it will perform a validation
      * according to the rules stablish for the game itself
      **/
-    public void makeMove() {
-        //TODO
+    public boolean makeMove(int id, BarOrientation orientation, BarPosition targetPosition, Player currentPlayer) {
+        
+        if ( !this.validator.isMoveValid(id,orientation,targetPosition,currentPlayer) ) {
+            System.out.println("move invalid");
+            return false;
+        }
+
+        //this.board.se
+        return true;
     }
 
     /**
