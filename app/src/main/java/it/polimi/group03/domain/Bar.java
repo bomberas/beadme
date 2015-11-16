@@ -2,6 +2,9 @@ package it.polimi.group03.domain;
 
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
+import it.polimi.group03.util.Constant;
+
+import static it.polimi.group03.util.Constant.*;
 
 /**
  * Created by tatibloom on 08/11/2015.
@@ -11,7 +14,7 @@ public class Bar {
     private int id;
     private BarPosition position;
     private BarOrientation orientation;
-    private int[] keys = new int[9];
+    private int[] keys = new int[BAR_SLOTS];
 
     public Bar(int id, BarOrientation orientation, int[] keys) {
         this.id = id;

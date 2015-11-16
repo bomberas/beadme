@@ -1,4 +1,4 @@
-package it.polimi.group03.domain;
+package it.polimi.group03.deprecated;
 import java.util.Scanner;
 
 /**
