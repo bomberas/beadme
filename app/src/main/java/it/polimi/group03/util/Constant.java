@@ -5,5 +5,7 @@ package it.polimi.group03.util;
  */
 public class Constant {
 
-    public static final int BAR_SLOTS = 7;
+    public static final int BAR_SLOTS = 9;
+    public static final int BOARD_INDEX = 7;
+
 }

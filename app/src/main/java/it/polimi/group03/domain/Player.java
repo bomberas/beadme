@@ -46,14 +46,15 @@ public class Player {
         beads.add(bead);
     }
 
-    public int activeBeads() {
-        int count = 0;
-        for ( Bead bead : beads ) {
+    public List<Bead> activeBeads() {
+        List<Bead> beads = new ArrayList<Bead>();
+
+        for ( Bead bead : this.beads ) {
             if ( bead.isActive() ) {
-                count++;
+                beads.add(bead);
             }
         }
 
-        return count;
+        return beads;
     }
 }
