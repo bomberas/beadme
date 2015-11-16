@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Board;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.util.BarOrientation;
@@ -42,16 +43,30 @@ public class GameEngine {
     /**
      * This method should be called when a player try to make a move,
      * before refresh the state of the board, it will perform a validation
-     * according to the rules stablish for the game itself
+     * according to the rules established for the game itself
      **/
     public boolean makeMove(int id, BarOrientation orientation, BarPosition targetPosition, Player currentPlayer) {
-        
-        if ( !this.validator.isMoveValid(id,orientation,targetPosition,currentPlayer) ) {
-            System.out.println("move invalid");
+        Bar bar = this.board.findBar(id,orientation);
+        if ( !this.validator.isMoveValid(bar,targetPosition,currentPlayer) ) {
+            System.out.println("Move Invalid");
             return false;
         }
+        System.out.println("Player " + currentPlayer.getNickname() + " authorized to move " + bar.getOrientation().toString() + " bar number " + bar.getId() +
+                "to " + targetPosition.toString());
 
-        //this.board.se
+        this.board.setLastPlayer(currentPlayer);
+        this.board.setLastBarMoved(bar);
+
+        //If the current turn equals the number of player remaining in the game it means a round is complete, the turn must be reset
+        if(this.board.getTurn() == this.board.activePlayers().size()){
+            this.board.setTurn(1);
+            this.board.setRound(this.board.getRound() + 1);
+        }else {
+            this.board.setTurn(this.board.getTurn() + 1);
+        }
+
+        this.board.findBeadsOnBar(bar);
+
         return true;
     }
 

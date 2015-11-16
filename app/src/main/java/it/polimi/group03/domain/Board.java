@@ -17,8 +17,8 @@ public class Board {
     private String[][] state = new String[Constant.BOARD_INDEX][Constant.BOARD_INDEX];
     private Bar lastBarMoved; //maybe this can be obtained from a method
     private Player lastPlayer; //maybe this can be obtained from a method
-    private int activeNumberOfPlayers; //maybe this can be obtained from a method
     private int round; //Useful also for statistics
+    private int turn; //Useful also for statistics
     private List<Bar> movedBarsInCurrentRound;
     private List<Bar> movedBarsInTwoPreviousRound;
 
@@ -34,12 +34,36 @@ public class Board {
         this.players = players;
     }
 
+    public String[][] getState() {
+        return state;
+    }
+
+    public void setState(String[][] state) {
+        this.state = state;
+    }
+
+    public void setLastBarMoved(Bar lastBarMoved) {
+        this.lastBarMoved = lastBarMoved;
+    }
+
+    public void setLastPlayer(Player lastPlayer) {
+        this.lastPlayer = lastPlayer;
+    }
+
     public int getRound(){
         return round;
     }
 
     public void setRound(int round){
         this.round = round;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
     }
 
     public List<Bar> getMovedBarsInCurrentRound() {
