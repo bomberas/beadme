@@ -5,9 +5,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -28,51 +28,58 @@ import it.polimi.group03.util.Constant;
  */
 public class GameEngineTest {
 
-    /**
-     * Please use the xml file TestScenarios for test data
-     */
-    private static Logger logger = Logger.getLogger(GameEngineTest.class.getName());
+    private GameEngine engine;
+    List<Player> players;
+
+    private int numberOfPlayers;
+    private String beadsInTheGrid;
+    private int movingPlayer;
+    private List<Bar> moves;
 
     @Test
     public void moveTest() throws Exception {
-        String scenario = getScenario(0).getAttribute("input");
-        logger.info(scenario);
-
-        int numberOfPlayers = Integer.parseInt(scenario.substring(0, 1));
-        String beadsInTheGrid = scenario.substring(16, 65);
-        GameEngine engine = new GameEngine();
-        engine.startGame(getPlayersConfig(numberOfPlayers, beadsInTheGrid));
-
-        String initialHorizontalBar = scenario.substring(2, 9);
-        String initialVerticalBar = scenario.substring(9, 16);
-//        reConfigureBars(engine.getBoard(), BarOrientation.HORIZONTAL, initialHorizontalBar.toCharArray());
-//        reConfigureBars(engine.getBoard(), BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
-
-        int movingPlayer = Integer.parseInt(scenario.substring(1, 2));
-        logger.info(String.valueOf(movingPlayer));
-
-        List<char[]> moves = setMoves(scenario.substring(65, scenario.length()));
-        logger.info(moves.toString());
-
-        for ( int i = 0; i < Constant.BOARD_INDEX; i++) {
-            String row = "";
-            for ( int j = 0; j < Constant.BOARD_INDEX; j++) {
-                row += " " + engine.getBoard().getGrid()[i][j].name();
-            }
-            logger.info(row);
+        configureGame(0);
+        for ( Bar move : moves ) {
+            engine.makeMove(move.getId(), move.getOrientation(), move.getPosition(), players.get(movingPlayer));
         }
     }
 
-    private List<Player> getPlayersConfig(int numberOfPlayers, String initialGrid) {
-        List<Player> players = new ArrayList<>();
-        char beadsInTheGrid[] = initialGrid.substring(0, 49).toCharArray();
+    private void configureGame(int nTest) throws Exception {
+        String test = getScenario(nTest).getAttribute("input");
+        System.out.println("Given scenario: " + test);
+
+        numberOfPlayers = Integer.parseInt(test.substring(0, 1));
+        beadsInTheGrid = test.substring(16, 65);
+
+        engine = new GameEngine();
+        engine.startGame(getPlayersConfig());
+
+        String initialHorizontalBar = test.substring(2, 9);
+        System.out.println("Horizontal Bar: " + initialHorizontalBar);
+        reConfigureBars(engine.getBoard(), BarOrientation.HORIZONTAL, initialHorizontalBar.toCharArray());
+
+        String initialVerticalBar = test.substring(9, 16);
+        System.out.println("Vertical Bar: " + initialVerticalBar);
+        reConfigureBars(engine.getBoard(), BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
+
+        movingPlayer = Integer.parseInt(test.substring(1, 2));
+        System.out.println("Moving player: " + String.valueOf(movingPlayer));
+
+        moves = setMoves(test.substring(65, test.length()));
+
+        printCurrentGrid();
+    }
+
+    private List<Player> getPlayersConfig() {
+        players = new ArrayList<>();
+        char beads[] = beadsInTheGrid.substring(0, 49).toCharArray();
 
         for ( int i = 1; i <= numberOfPlayers; i++ ) {
             Player player = new Player();
             player.setNickname(String.valueOf(i));
             player.setActive(true);
-            for ( int x = 0; x < beadsInTheGrid.length; x++ ) {
-                if ( ((Character)((char)i)).equals(beadsInTheGrid[x]) ) {
+            for ( int x = 0; x < beads.length; x++ ) {
+                if ( ((Character)((char)i)).equals(beads[x]) ) {
                     Bead bead = new Bead();
                     bead.setIsActive(true);
                     bead.setPosition(new Position((x+1)%7 == 0 ? (x+1)/7 : ((x+1)/7)+1,(x+1)%7 == 0 ? 7 : (x+1)%7));
@@ -107,15 +114,34 @@ public class GameEngineTest {
             } else {
                 bar.setPosition(BarPosition.OUTER);
             }
+            System.out.println(MessageFormat.format("Bar[{0}-{1},{2}]", bar.getOrientation(), bar.getId(), bar.getPosition()));
         }
     }
 
-    private List<char[]> setMoves(String moves) {
-        List<char[]> givenMoves = new ArrayList<>();
+    private List<Bar> setMoves(String moves) {
+        List<Bar> givenMoves = new ArrayList<>();
+        int count = 1;
         for( int i = 0; i < moves.length()/3; i += 3 ) {
-            givenMoves.add(moves.substring(i, i+3).toCharArray());
+            String move = moves.substring(i, i + 3);
+            System.out.println("Move[" + count + "]: " + move);
+            Bar bar = new Bar(Integer.valueOf(move.substring(1, 2)), CommonUtil.equalsIgnoreCase(move.substring(0, 1), "H") ?
+                    BarOrientation.HORIZONTAL : BarOrientation.VERTICAL, CommonUtil.equalsIgnoreCase(move.substring(2,3), "I") ?
+                    BarPosition.INNER : CommonUtil.equalsIgnoreCase(move.substring(2, 3), "C") ? BarPosition.CENTRAL : BarPosition.OUTER);
+            givenMoves.add(bar);
+            count++;
         }
         return givenMoves;
+    }
+
+    private void printCurrentGrid() {
+        System.out.println("Printing current board ...");
+        for ( int i = 0; i < Constant.BOARD_INDEX; i++) {
+            String row = "";
+            for ( int j = 0; j < Constant.BOARD_INDEX; j++) {
+                row += CommonUtil.rPad(engine.getBoard().getGrid()[i][j].name(), 8);
+            }
+            System.out.println(row);
+        }
     }
 
     private Element getScenario(int index) throws Exception {

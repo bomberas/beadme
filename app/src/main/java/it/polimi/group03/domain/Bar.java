@@ -24,6 +24,15 @@ public class Bar {
         this.keys = keys;
     }
 
+    /**
+     * For testing purposes
+     */
+    public Bar(int id, BarOrientation orientation, BarPosition position) {
+        this.id = id;
+        this.position = position;
+        this.orientation = orientation;
+    }
+
     public int getId() {
         return id;
     }

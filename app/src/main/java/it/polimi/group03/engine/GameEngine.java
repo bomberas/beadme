@@ -35,20 +35,27 @@ public class GameEngine {
         this.validator = new GameValidator(this.board);
         this.board.init();
         properties = new Properties();
-
+/*
         try {
            properties.loadFromXML(new FileInputStream("src/main/res/values/strings.xml"));
         } catch (IOException e) {
             e.printStackTrace();
             logger.log(Level.SEVERE, e.getMessage());
         }
+*/
     }
 
     /**
      * This method should be called when a player try to make a move,
      * before refresh the state of the board, it will perform a validation
      * according to the rules established for the game itself
-     **/
+     * @param id Moved bar <b>id</b>
+     * @param orientation Moved bar <b>orientation</b>
+     * @param targetPosition Moved bar <b>position</b> (target position)
+     * @param currentPlayer Player making move
+     * @return <tt>true</tt> if the move is valid or
+     *         <tt>false</tt> if not
+     */
     public boolean makeMove(int id, BarOrientation orientation, BarPosition targetPosition, Player currentPlayer) {
         Bar bar = this.board.findBar(id,orientation);
         if ( !this.validator.isMoveValid(bar,targetPosition,currentPlayer) ) {

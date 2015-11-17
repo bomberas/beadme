@@ -1,5 +1,8 @@
 package it.polimi.group03.domain;
 
+import android.util.Log;
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,11 +145,12 @@ public class Board {
      * @param orientation <i>horizontal</i> or <i>vertical</i>
      */
     private void configureBar(BarOrientation orientation) {
-        this.bars = new ArrayList<>();
+        this.bars = CommonUtil.isEmpty(this.bars) ?  new ArrayList<Bar>() : this.bars;
 
         for ( int i = 1; i <= Constant.BOARD_INDEX; i++ ) {
             Bar bar = new Bar(i, orientation, getKeys(i, orientation));
             //initializing each slot in the grid (RED, BLUE, EMPTY)
+            Log.d("Setup", MessageFormat.format("Bar[{0}-{1},{2}]", bar.getOrientation(),bar.getId(),bar.getPosition()));
             refreshGrid(bar);
             this.bars.add(bar);
         }
