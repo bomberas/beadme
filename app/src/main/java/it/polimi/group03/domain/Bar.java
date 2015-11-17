@@ -2,11 +2,12 @@ package it.polimi.group03.domain;
 
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
-import it.polimi.group03.util.Constant;
+import it.polimi.group03.util.SlotInfo;
 
 import static it.polimi.group03.util.Constant.*;
 
 /**
+ * @author tatibloom
  * Created by tatibloom on 08/11/2015.
  */
 public class Bar {
@@ -14,9 +15,9 @@ public class Bar {
     private int id;
     private BarPosition position;
     private BarOrientation orientation;
-    private int[] keys = new int[BAR_SLOTS];
+    private SlotInfo[] keys = new SlotInfo[BAR_SLOTS];
 
-    public Bar(int id, BarOrientation orientation, int[] keys) {
+    public Bar(int id, BarOrientation orientation, SlotInfo[] keys) {
         this.id = id;
         this.position = BarPosition.randomPosition();
         this.orientation = orientation;
@@ -43,26 +44,17 @@ public class Bar {
     }
 
     /**
-     * Orientation: V for vertical and H for Horizontal
+     * Orientation: Horizontal or Vertical
      **/
     public BarOrientation getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(BarOrientation orientation) {
-        this.orientation = orientation;
-    }
-
     /**
-     * keys: Fixed configuration for the seven slots that
-     * a Bar has: 0 for empty and 1 for covered
-     **/
-    public int[] getKeys() {
+     * Keys: Red or Blue when it's covered nad Black when it's not.
+     */
+    public SlotInfo[] getKeys() {
         return keys;
-    }
-
-    public void setKeys(int[] keys) {
-        this.keys = keys;
     }
 
 }

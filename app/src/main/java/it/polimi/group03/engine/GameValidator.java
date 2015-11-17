@@ -7,26 +7,17 @@ import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.CommonUtil;
 
 /**
- * Created by tatibloom on 11/11/2015.
+ * @author cecibloom
+ * @author megireci
+ * @author tatibloom
  */
 public class GameValidator {
 
-    /**
-     * @author cecibloom
-     * @author megireci
-     * @author tatibloom
-     * This method will validate the initial constraint for starting a <b>new</> game.
-     **/
-
     private Board board;
-
-    public GameValidator(Board board){
-        this.board = board;
-    }
 
     /**
      * This method checks whether the player movement complies with the rules established for the game. Further information in the
-     * methods <b>isPositionMoveValid()</> <b>isSelectedBarMoveValid()</> and <b>isSelectedBarMoveValidTwoPlayers()</>
+     * methods <b>isPositionMoveValid()</b>, <b>isSelectedBarMoveValid()</b> and <b>isSelectedBarMoveValidTwoPlayers()</b>
      * @param selectedBar the bar the player wants to move
      * @param targetPosition the target position of the bar
      * @param currentPlayer the player making the move
@@ -35,20 +26,18 @@ public class GameValidator {
      */
     public boolean isMoveValid(Bar selectedBar, BarPosition targetPosition, Player currentPlayer){
         //check if the movement of the bar is allowed
-        if (isPositionMoveValid(selectedBar, targetPosition)){
+        if ( isPositionMoveValid(selectedBar, targetPosition) ) {
             //if there are only two players left is necessary another validation
-            if (board.activePlayers().size() == 2 ){
-                if(isSelectedBarMoveValidTwoPlayers(selectedBar)){
+            if ( board.activePlayers().size() == 2 ) {
+                if ( isSelectedBarMoveValidTwoPlayers(selectedBar) ) {
                     return true;
-                }else {
-                    return false;
                 }
-            }else {
+            } else {
                 return true;
             }
         }
-        return false;
 
+        return false;
     }
 
     /**
@@ -64,17 +53,16 @@ public class GameValidator {
     private boolean isPositionMoveValid(Bar selectedBar, BarPosition targetPosition){
         Bar sourceBar = board.findBar(selectedBar.getId(),selectedBar.getOrientation());
 
-        if(targetPosition.equals(BarPosition.CENTRAL) && (sourceBar.getPosition().equals(BarPosition.INNER)
-            || sourceBar.getPosition().equals(BarPosition.OUTER))){
+        if ( targetPosition.equals(BarPosition.CENTRAL) && (sourceBar.getPosition().equals(BarPosition.INNER)
+            || sourceBar.getPosition().equals(BarPosition.OUTER)) ) {
                 return true;
-        }else if(targetPosition.equals(BarPosition.INNER) && sourceBar.getPosition().equals(BarPosition.CENTRAL)){
+        } else if ( targetPosition.equals(BarPosition.INNER) && sourceBar.getPosition().equals(BarPosition.CENTRAL) ) {
             return true;
-        }else {if(targetPosition.equals(BarPosition.OUTER) && sourceBar.getPosition().equals(BarPosition.CENTRAL)){
+        } else if ( targetPosition.equals(BarPosition.OUTER) && sourceBar.getPosition().equals(BarPosition.CENTRAL) ) {
             return true;
         }
 
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -88,7 +76,7 @@ public class GameValidator {
      */
     private boolean isSelectedBarMoveValid(Bar selectedBar){
         for ( Bar bar : board.getMovedBarsInCurrentRound() ) {
-            if ( bar.getId() == selectedBar.getId() && bar.getOrientation().equals(selectedBar.getOrientation())) {
+            if ( bar.getId() == selectedBar.getId() && bar.getOrientation().equals(selectedBar.getOrientation()) ) {
                 return false;
             }
         }
@@ -106,7 +94,7 @@ public class GameValidator {
      *         <tt>false</tt> if not.
      */
     private boolean isSelectedBarMoveValidTwoPlayers(Bar selectedBar){
-        //This validation means there at least two rounds played for the 2 players left in the game (4 movements in total)
+        //This validation means there are at least two rounds played for the 2 players left in the game (4 movements in total)
         if (!CommonUtil.isEmpty(board.getMovedBarsInTwoPreviousRound()) && board.getMovedBarsInTwoPreviousRound().size() >= 4){
             Bar bar = board.findBar(selectedBar.getId(),selectedBar.getOrientation());
             //size-2 represents to the first previous turn for the current player
@@ -120,4 +108,9 @@ public class GameValidator {
 
         return true;
     }
+
+    public GameValidator(Board board){
+        this.board = board;
+    }
+
 }

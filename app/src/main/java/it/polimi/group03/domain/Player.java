@@ -6,6 +6,7 @@ import java.util.List;
 import it.polimi.group03.util.CommonUtil;
 
 /**
+ * @author tatibloom
  * Created by tatibloom on 08/11/2015.
  */
 public class Player {
@@ -26,10 +27,6 @@ public class Player {
         return beads;
     }
 
-    public void setBeads(List<Bead> beads) {
-        this.beads = beads;
-    }
-
     public boolean isActive() {
         return active;
     }
@@ -40,14 +37,14 @@ public class Player {
 
     public void addBead(Bead bead) {
         if ( CommonUtil.isEmpty(beads) ) {
-            beads = new ArrayList<Bead>();
+            beads = new ArrayList<>();
         }
 
         beads.add(bead);
     }
 
     public List<Bead> activeBeads() {
-        List<Bead> beads = new ArrayList<Bead>();
+        List<Bead> beads = new ArrayList<>();
 
         for ( Bead bead : this.beads ) {
             if ( bead.isActive() ) {

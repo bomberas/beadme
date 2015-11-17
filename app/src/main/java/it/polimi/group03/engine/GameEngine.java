@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Board;
@@ -13,30 +15,32 @@ import it.polimi.group03.util.BarPosition;
 
 /**
  * @author cecibloom
- * @author megireci
  * @author tatibloom
  * Created on 11/11/2015.
  */
 public class GameEngine {
+
+    public static Logger logger = Logger.getLogger(GameEngine.class.getName());
 
     private Board board;
     private GameValidator validator;
     private Properties properties;
 
     /**
-
-     * This method should be called when the game start, in order to initialize board,
-     * players, beads and other initial configurations for the class Bar
+     * This method should be called when the game start, in order to initialize the <i>board,
+     * players, beads and other initial configurations</i>.
      **/
     public void startGame(List<Player> players) {
         this.board = new Board(players);
         this.validator = new GameValidator(this.board);
         this.board.init();
         properties = new Properties();
+
         try {
-            properties.loadFromXML(new FileInputStream("strings.xml"));
+           properties.loadFromXML(new FileInputStream("src/main/res/values/strings.xml"));
         } catch (IOException e) {
             e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -48,20 +52,20 @@ public class GameEngine {
     public boolean makeMove(int id, BarOrientation orientation, BarPosition targetPosition, Player currentPlayer) {
         Bar bar = this.board.findBar(id,orientation);
         if ( !this.validator.isMoveValid(bar,targetPosition,currentPlayer) ) {
-            System.out.println("Move Invalid");
+            logger.info("Invalid move!");
             return false;
         }
-        System.out.println("Player " + currentPlayer.getNickname() + " authorized to move " + bar.getOrientation().toString() + " bar number " + bar.getId() +
+        logger.info("Player " + currentPlayer.getNickname() + " authorized to move " + bar.getOrientation().toString() + " bar number " + bar.getId() +
                 "to " + targetPosition.toString());
 
         this.board.setLastPlayer(currentPlayer);
         this.board.setLastBarMoved(bar);
 
         //If the current turn equals the number of player remaining in the game it means a round is complete, the turn must be reset
-        if(this.board.getTurn() == this.board.activePlayers().size()){
+        if ( this.board.getTurn() == this.board.activePlayers().size() ) {
             this.board.setTurn(1);
             this.board.setRound(this.board.getRound() + 1);
-        }else {
+        } else {
             this.board.setTurn(this.board.getTurn() + 1);
         }
 
@@ -71,7 +75,7 @@ public class GameEngine {
     }
 
     /**
-     * This method should will be called when is only a player left, in order to save some
+     * This method should will be called when there is only a player left, in order to save some
      * statistics and destroy (not necessary) all the remain objects.
      **/
     public void finishGame() {
@@ -81,4 +85,13 @@ public class GameEngine {
     private boolean isGameEndConditionReached() {
         return true;
     }
+
+    /**
+     * Only for testing purposes.
+     * @return current <tt>board</tt>.
+     */
+    public Board getBoard() {
+        return this.board;
+    }
+
 }
