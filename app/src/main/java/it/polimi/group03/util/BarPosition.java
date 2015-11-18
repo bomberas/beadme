@@ -10,16 +10,22 @@ import java.util.Random;
  * Created by tatibloom on 11/11/2015.
  */
 public enum BarPosition {
-    INNER(0), CENTRAL(1), OUTER(2);
+    INNER(0, 'i'), CENTRAL(1,'c'), OUTER(2,'o');
 
     private int initialSlot;
+    private char shortcut;
 
-    BarPosition(int initialSlot) {
+    BarPosition(int initialSlot, char shortcut) {
         this.initialSlot = initialSlot;
+        this.shortcut = shortcut;
     }
 
     public int getInitialSlot() {
         return this.initialSlot;
+    }
+
+    public char getShortcut() {
+        return this.shortcut;
     }
 
     public static BarPosition randomPosition()  {

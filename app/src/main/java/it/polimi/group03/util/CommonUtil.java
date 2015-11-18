@@ -12,6 +12,10 @@ public class CommonUtil {
         return collection == null || collection.size() == 0;
     }
 
+    public static boolean isEmpty(String string) {
+        return string == null || string == "";
+    }
+
     /**
      * @param s1 string to compare
      * @param s2 string to compare
@@ -29,8 +33,12 @@ public class CommonUtil {
         return false;
     }
 
-    public static String rPad(String s, int chars) {
-        int count = chars-s.length();
+    public static String rPad(String s, int size) {
+        if ( CommonUtil.isEmpty(s) ) {
+            return s;
+        }
+
+        int count = size - s.length();
         int i = 0;
 
         while (  i < count ) {
@@ -40,4 +48,5 @@ public class CommonUtil {
 
         return s;
     }
+
 }
