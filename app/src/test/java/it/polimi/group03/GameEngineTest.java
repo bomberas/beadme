@@ -38,7 +38,7 @@ public class GameEngineTest {
 
     @Test
     public void moveTest() throws Exception {
-        configureGame("21012012021011020000100002000000000012000000000000000010000000000h3iv2o");
+        configureGame("21012012021011020000100002000000000012000000000000000010000000000h3cv2o");
         makeMoves();
     }
 
@@ -155,10 +155,10 @@ public class GameEngineTest {
     }
 
     private void printStatus() {
-        System.out.println(engine.getBoard().activePlayers().size()); //"Number of players: "
-        System.out.println(engine.getBoard());//"Moving player: " + //todo nextplayer
-        System.out.println(getBarPositions(BarOrientation.HORIZONTAL));//"Positions of the horizontal bars: " +
-        System.out.println(getBarPositions(BarOrientation.VERTICAL));//"Positions of the vertical bars: " +
+        System.out.println(engine.getBoard().activePlayers().size()); //"Number of players"
+        System.out.println(engine.getBoard().getNextPlayer());//"Moving player"
+        System.out.println(getBarPositions(BarOrientation.HORIZONTAL));//"Positions of the horizontal bars"
+        System.out.println(getBarPositions(BarOrientation.VERTICAL));//"Positions of the vertical bars"
         printBeads();//beads
     }
 

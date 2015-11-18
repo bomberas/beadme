@@ -2,14 +2,8 @@ package it.polimi.group03.engine;
 
 import android.util.Log;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Board;
@@ -26,7 +20,7 @@ public class GameEngine {
 
     private Board board;
     private GameValidator validator;
-    private Properties properties;
+    //private Properties properties;
 
     /**
      * This method should be called when the game start, in order to initialize the <i>board,
@@ -36,14 +30,13 @@ public class GameEngine {
         this.board = new Board(players);
         this.validator = new GameValidator(this.board);
         this.board.init();
-        properties = new Properties();
+        this.board.resetMovedBarsInCurrentRound();
+        this.board.resetLoserAfterTurn();
+        //properties = new Properties();
 
-        if ( this.validator.isMaxNumberOfPlayersValid() ) {
-            return true;
-        }
+        return this.validator.isMaxNumberOfPlayersValid();
 
-        return false;
-/*
+        /*
         try {
            properties.loadFromXML(new FileInputStream("src/main/res/values/strings.xml"));
         } catch (IOException e) {
@@ -169,10 +162,7 @@ public class GameEngine {
      *         <tt>false</tt> if there is more than one player in the game.
      */
     public boolean isGameEndConditionReached() {
-        if ( this.board.activePlayers().size() <= 1){
-            return true;
-        }
-        return false;
+        return this.board.activePlayers().size() <= 1;
     }
 
     /**
@@ -196,10 +186,6 @@ public class GameEngine {
         }
     }
 
-    /**
-     * Only for testing purposes.
-     * @return current <tt>board</tt>.
-     */
     public Board getBoard() {
         return this.board;
     }

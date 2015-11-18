@@ -51,19 +51,47 @@ public class Board {
     public void refreshGrid(Bar bar){
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
             if ( BarOrientation.HORIZONTAL.equals(bar.getOrientation()) ) {
-                //bar.getId()-1 'cause bar ids starts on 1
-                grid[bar.getId()-1][i] = !SlotInfo.BLUE.equals(grid[bar.getId()-1][i]) ?
-                                          bar.getKeys()[bar.getPosition().getInitialSlot() + i] : grid[bar.getId()-1][i];
+                grid[bar.getId()][i] = !SlotInfo.BLUE.equals(grid[bar.getId()][i]) ?
+                        bar.getKeys()[bar.getPosition().getInitialSlot() + i] : grid[bar.getId()][i];
             } else {
-                grid[i][bar.getId()-1] = !SlotInfo.RED.equals(grid[i][bar.getId()-1]) ? bar.getKeys()[bar.getPosition().getInitialSlot() + i] :
-                                          SlotInfo.BLACK.equals(bar.getKeys()[bar.getPosition().getInitialSlot() + i]) ?
-                                          grid[i][bar.getId()-1] : bar.getKeys()[bar.getPosition().getInitialSlot() + i];
+                grid[i][bar.getId()] = !SlotInfo.RED.equals(grid[i][bar.getId()]) ? bar.getKeys()[bar.getPosition().getInitialSlot() + i] :
+                        SlotInfo.BLACK.equals(bar.getKeys()[bar.getPosition().getInitialSlot() + i]) ?
+                                grid[i][bar.getId()] : bar.getKeys()[bar.getPosition().getInitialSlot() + i];
             }
         }
     }
 
-    public void refreshBeads(Bar bar){
+    /**
+     * This method will <u>update the status</u> of all the affected beads once a bar has been moved,
+     * based on its coordinates. If the bar moved is <i>vertical</i>, we should only
+     * check all beads for which the <b>Y</b> coordinate is the same as the id of the bar, and the
+     * <b>X</b> coordinate if it's a horizontal bar. The <u>updated status</u> will be <i>INACTIVE</i> for
+     * all the beads allocated on a slot in the grid which the current value is <i>BLACK</i> or <i>EMPTY</i>.
+     * After updating the status of all the beads of a user, the status of the user <i>will be updated</i> too in such way
+     * that, if the user doesn't have any active bead, the user will be <i>INACTIVE</i> too and it will be added
+     * to the list of the looser players.
+     * @param bar in which the last move has been done.
+     */
+    public void refreshBeads(Bar bar) {
+        for ( Player player : activePlayers() ) {
+            for ( Bead bead : player.activeBeads() ) {
+                if ( BarOrientation.VERTICAL.equals(bar.getOrientation()) ) {//checking only Y coordinate
+                    if ( bar.getId() == bead.getPosition().getY() ) {
+                        //if the corresponding slot on the grid is BLACK or EMPTY we should de-activate the bead
+                        bead.setIsActive(!SlotInfo.BLACK.equals(grid[bead.getPosition().getX()][bead.getPosition().getX()]));
+                    }
+                } else {//checking only X coordinate
+                    if ( bar.getId() == bead.getPosition().getX() ) {
+                        //if the corresponding slot on the grid is BLACK or EMPTY we should de-activate the bead
+                        bead.setIsActive(!SlotInfo.BLACK.equals(grid[bead.getPosition().getX()][bead.getPosition().getX()]));
+                    }
+                }
 
+            }
+            //if there aren't active beads for the player, the player won't be active too
+            player.setActive(!CommonUtil.isEmpty(player.activeBeads()));
+            addPlayerToListOfLosersAfterTurn(player);
+        }
     }
 
     /**
@@ -98,37 +126,8 @@ public class Board {
     }
 
     /**
-     * This method will return all the affected beads once a bar has been moved,
-     * based on its coordinates. If the bar moved is <i>vertical</i>, we should only
-     * check all beads for which the <b>Y</b> coordinate is the same as the id of the bar, and the
-     * <b>X</b> coordinate if it's a horizontal bar.
-     * @param bar in which the last move has been done.
-     * @return <tt>beads</tt> present in the <i>bar</i> or an
-     *         <tt>empty collection</tt> if there weren't any active beads on the <i>bar</i>.
-     */
-    public List<Bead> findBeadsOnBar(Bar bar) {
-        List<Bead> beadsInBar = new ArrayList<>();
-
-        for ( Player player : activePlayers() ) {
-            for ( Bead bead : player.activeBeads() ) {
-                if ( BarOrientation.VERTICAL.equals(bar.getOrientation()) ) {//checking only Y coordinate
-                    if ( bar.getId() == bead.getPosition().getY() ) {
-                        beadsInBar.add(bead);
-                    }
-                } else {//checking only X coordinate
-                    if ( bar.getId() == bead.getPosition().getX() ) {
-                        beadsInBar.add(bead);
-                    }
-                }
-            }
-        }
-
-        return beadsInBar;
-    }
-
-    /**
      * This method will find a Bar inside the <b>Board</b> in base of the id and the orientation.
-     * @param id From <i>1</i> to <i>7</i>
+     * @param id From <i>0</i> to <i>6</i>
      * @param orientation <i>vertical</i> or <i>horizontal</i>
      * @return <tt>bar</tt> corresponding to the given parameters or
      *         <tt>null</tt> if such bar doesn't exist.
@@ -153,7 +152,7 @@ public class Board {
     private void configureBar(BarOrientation orientation) {
         this.bars = CommonUtil.isEmpty(this.bars) ?  new ArrayList<Bar>() : this.bars;
 
-        for ( int i = 1; i <= Constant.BOARD_INDEX; i++ ) {
+        for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
             Bar bar = new Bar(i, orientation, getKeys(i, orientation));
             //initializing each slot in the grid (RED, BLUE, EMPTY)
             Log.d("Setup", MessageFormat.format("Bar[{0}-{1},{2}]", bar.getOrientation(),bar.getId(),bar.getPosition()));
@@ -165,7 +164,7 @@ public class Board {
     /**
      * This method is in charge of setting the values of each slot in a bar,
      * this configuration <b>won't change</b>, it will be the same always.
-     * @param id From <i>1</i> to <i>7</i>
+     * @param id From <i>0</i> to <i>6</i>
      * @param orientation <i>horizontal</i> or <i>vertical</i>
      * @return <tt>keys</tt> for the given bar
      */
@@ -173,31 +172,31 @@ public class Board {
         SlotInfo[] keys;
 
         switch ( id ) {
-            case 1:
+            case 0:
                 keys = BarOrientation.HORIZONTAL.equals(orientation) ?
                         new SlotInfo[] {SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED} : new SlotInfo[] {SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLUE};
                 break;
-            case 2:
+            case 1:
                 keys = BarOrientation.HORIZONTAL.equals(orientation) ?
                         new SlotInfo[] {SlotInfo.RED,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED} : new SlotInfo[] {SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE};
                 break;
-            case 3:
+            case 2:
                 keys = BarOrientation.HORIZONTAL.equals(orientation) ?
                         new SlotInfo[] {SlotInfo.RED,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.RED} : new SlotInfo[] {SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLUE};
                 break;
-            case 4:
+            case 3:
                 keys = BarOrientation.HORIZONTAL.equals(orientation) ?
                         new SlotInfo[] {SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED} : new SlotInfo[] {SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE};
                 break;
-            case 5:
+            case 4:
                 keys = BarOrientation.HORIZONTAL.equals(orientation) ?
                         new SlotInfo[] {SlotInfo.RED,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.RED} : new SlotInfo[] {SlotInfo.BLUE,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLUE};
                 break;
-            case 6:
+            case 5:
                 keys = BarOrientation.HORIZONTAL.equals(orientation) ?
                         new SlotInfo[] {SlotInfo.RED,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.RED} : new SlotInfo[] {SlotInfo.BLUE,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLUE};
                 break;
-            case 7:
+            case 6:
                 keys = BarOrientation.HORIZONTAL.equals(orientation) ?
                         new SlotInfo[] {SlotInfo.RED,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.BLACK,SlotInfo.RED,SlotInfo.RED} : new SlotInfo[] {SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLACK,SlotInfo.BLUE,SlotInfo.BLACK,SlotInfo.BLUE};
                 break;
@@ -208,11 +207,11 @@ public class Board {
     }
 
     public void resetMovedBarsInCurrentRound() {
-        this.movedBarsInCurrentRound = null;
+        this.movedBarsInCurrentRound = new ArrayList<>();
     }
 
     public void resetLoserAfterTurn(){
-        this.losersAfterTurn = null;
+        this.losersAfterTurn = new ArrayList<>();
     }
 
     public void addBarToListOfMovedBarsInRound(Bar bar){
@@ -302,4 +301,13 @@ public class Board {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public int getRound() {
+        return round;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
 }
