@@ -23,8 +23,10 @@ public class Board {
     private SlotInfo[][] grid = new SlotInfo[Constant.BOARD_INDEX][Constant.BOARD_INDEX];
     private Bar lastBarMoved; //maybe this can be obtained from a method
     private Player lastPlayer; //maybe this can be obtained from a method
+    private Player nextPlayer; //this way the UI can call next player
     private int round; //Useful also for statistics
     private int turn; //Useful also for statistics
+    private List<Player> losersAfterTurn; //this way the UI can show the loser after a turn, this property must be updated in the refreshBeads method
     private List<Bar> movedBarsInCurrentRound;
     private List<Bar> movedBarsInTwoPreviousRound;
 
@@ -60,6 +62,10 @@ public class Board {
         }
     }
 
+    public void refreshBeads(Bar bar){
+
+    }
+
     /**
      * This method will return all the bars present in the board for a given
      * <b>orientation</b>.
@@ -77,7 +83,7 @@ public class Board {
     }
 
     /**
-     * List of the current active players in the game.
+     * List of the current active players in the game. A player is consider active if and only if still has beads on the board.
      * @return List of <tt>active players</tt> (at least 1).
      */
     public List<Player> activePlayers() {
@@ -201,16 +207,24 @@ public class Board {
         return keys;
     }
 
+    public void resetMovedBarsInCurrentRound() {
+        this.movedBarsInCurrentRound = null;
+    }
+
+    public void resetLoserAfterTurn(){
+        this.losersAfterTurn = null;
+    }
+
     public void addBarToListOfMovedBarsInRound(Bar bar){
         if ( CommonUtil.isEmpty(this.movedBarsInCurrentRound) ) {
-            this.movedBarsInCurrentRound = new ArrayList<>();
+             this.movedBarsInCurrentRound = new ArrayList<>();
         }
-        if ( movedBarsInCurrentRound.size() <= 3 ){//a round can only hold a maximum of 4 moved bars
-            movedBarsInCurrentRound.add(bar);
+        if ( this.movedBarsInCurrentRound.size() <= 3 ){//a round can only hold a maximum of 4 moved bars
+             this.movedBarsInCurrentRound.add(bar);
         } else {//in any other case a new round is started
-            this.round += 1;
-            this.movedBarsInCurrentRound = new ArrayList<>();
-            movedBarsInCurrentRound.add(bar);
+             this.round += 1;
+             this.movedBarsInCurrentRound = new ArrayList<>();
+             this.movedBarsInCurrentRound.add(bar);
         }
 
     }
@@ -219,82 +233,73 @@ public class Board {
         if ( CommonUtil.isEmpty(this.movedBarsInTwoPreviousRound) ) {
             this.movedBarsInTwoPreviousRound = new ArrayList<>();
         }
-        movedBarsInTwoPreviousRound.add(bar);
+        this.movedBarsInTwoPreviousRound.add(bar);
+    }
+
+    private void addPlayerToListOfLosersAfterTurn(Player player) {
+        if ( CommonUtil.isEmpty(this.losersAfterTurn) ) {
+            this.losersAfterTurn = new ArrayList<>();
+        }
+        this.losersAfterTurn.add(player);
+    }
+
+    public void moveRound(){
+        this.round += 1;
+    }
+
+    public void moveTurn() {
+        this.turn = this.movedBarsInCurrentRound.size();
     }
 
     //From here, just getters and setters
 
     public Board(List<Player> players) {
         this.players = players;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
+        this.round = 1;
+        this.turn = 1;
     }
 
     public SlotInfo[][] getGrid() {
         return grid;
     }
 
-    public void setGrid(SlotInfo[][] grid) {
-        this.grid = grid;
-    }
-
     public void setLastBarMoved(Bar lastBarMoved) {
         this.lastBarMoved = lastBarMoved;
-    }
-
-    public void setLastPlayer(Player lastPlayer) {
-        this.lastPlayer = lastPlayer;
-    }
-
-    public int getRound(){
-        return round;
-    }
-
-    public void setRound(int round){
-        this.round = round;
-    }
-
-    public int getTurn() {
-        return turn;
-    }
-
-    public void setTurn(int turn) {
-        this.turn = turn;
     }
 
     public List<Bar> getMovedBarsInCurrentRound() {
         return movedBarsInCurrentRound;
     }
 
-    public void setMovedBarsInCurrentRound(List<Bar> movedBarsInCurrentRound) {
-        this.movedBarsInCurrentRound = movedBarsInCurrentRound;
+    public List<Player> getLosersAfterTurn() {
+        return losersAfterTurn;
     }
 
     public List<Bar> getMovedBarsInTwoPreviousRound() {
         return movedBarsInTwoPreviousRound;
     }
 
-    public void setMovedBarsInTwoPreviousRound(List<Bar> movedBarsInTwoPreviousRound) {
-        this.movedBarsInTwoPreviousRound = movedBarsInTwoPreviousRound;
+    public void setLastPlayer(Player lastPlayer) {
+        this.lastPlayer = lastPlayer;
     }
 
     public Player getLastPlayer(){
         return this.lastPlayer;
     }
 
-    public Player getCurrentPlayer(){
-        //TODO update with proper code
-        return new Player();
+    public Player getNextPlayer() {
+        return nextPlayer;
+    }
+
+    public void setNextPlayer(Player nextPlayer) {
+        this.nextPlayer = nextPlayer;
     }
 
     public Bar getLastBarMoved(){
         return this.lastBarMoved;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
 }

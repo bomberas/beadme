@@ -11,9 +11,18 @@ import it.polimi.group03.util.CommonUtil;
  */
 public class Player {
 
+    private int id;
     private String nickname;
     private List<Bead> beads;
     private boolean active;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNickname() {
         return nickname;
