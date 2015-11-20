@@ -6,7 +6,6 @@ import java.text.MessageFormat;
 import java.util.List;
 
 import it.polimi.group03.domain.Bar;
-import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Board;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.util.BarOrientation;
@@ -25,36 +24,19 @@ public class GameEngine {
 
     /**
      * This method should be called when the game start, in order to initialize the <i>board,
-     * beads and other initial configurations</i>.
+     * players, beads and other initial configurations</i>.
      **/
-    public void init() {
-        this.board = new Board();
+    public boolean startGame(List<Player> players) {
+        this.board = new Board(players);
         this.validator = new GameValidator(this.board);
         this.board.init();
         this.board.resetMovedBarsInCurrentRound();
         this.board.resetLoserAfterTurn();
-    }
         //properties = new Properties();
 
-    public boolean addPlayer(Player player) {
-        if ( this.validator.isMaxNumberOfPlayersValid() ) {
-            this.board.addPlayer(player);
-            return true;
-        }
+        return this.validator.isMaxNumberOfPlayersValid();
 
-        return false;
-    }
-
-    public boolean addBead(Player player, Bead bead) {
-        if ( this.validator.isBeadValid(player, bead) ) {
-            player.addBead(bead);
-            return true;
-        }
-
-        return false;
-    }
-
-/*
+        /*
         try {
            properties.loadFromXML(new FileInputStream("src/main/res/values/strings.xml"));
         } catch (IOException e) {
@@ -62,6 +44,7 @@ public class GameEngine {
             logger.log(Level.SEVERE, e.getMessage());
         }
 */
+    }
 
     /**
      * This method should be called when a player tries to make a move, before refreshing the state of the board,

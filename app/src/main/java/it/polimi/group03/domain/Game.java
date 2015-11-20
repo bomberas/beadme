@@ -78,12 +78,12 @@ public class Board {
                 if ( BarOrientation.VERTICAL.equals(bar.getOrientation()) ) {//checking only Y coordinate
                     if ( bar.getId() == bead.getPosition().getY() ) {
                         //if the corresponding slot on the grid is BLACK or EMPTY we should de-activate the bead
-                        bead.setActive(!SlotInfo.BLACK.equals(grid[bead.getPosition().getX()][bead.getPosition().getX()]));
+                        bead.setIsActive(!SlotInfo.BLACK.equals(grid[bead.getPosition().getX()][bead.getPosition().getX()]));
                     }
                 } else {//checking only X coordinate
                     if ( bar.getId() == bead.getPosition().getX() ) {
                         //if the corresponding slot on the grid is BLACK or EMPTY we should de-activate the bead
-                        bead.setActive(!SlotInfo.BLACK.equals(grid[bead.getPosition().getX()][bead.getPosition().getX()]));
+                        bead.setIsActive(!SlotInfo.BLACK.equals(grid[bead.getPosition().getX()][bead.getPosition().getX()]));
                     }
                 }
 
@@ -155,7 +155,7 @@ public class Board {
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
             Bar bar = new Bar(i, orientation, getKeys(i, orientation));
             //initializing each slot in the grid (RED, BLUE, EMPTY)
-//            Log.d("Setup", MessageFormat.format("Bar[{0}-{1},{2}]", bar.getOrientation(),bar.getId(),bar.getPosition()));
+            Log.d("Setup", MessageFormat.format("Bar[{0}-{1},{2}]", bar.getOrientation(),bar.getId(),bar.getPosition()));
             refreshGrid(bar);
             this.bars.add(bar);
         }
@@ -262,22 +262,6 @@ public class Board {
         return grid;
     }
 
-    public void addPlayer(Player player) {
-        if ( CommonUtil.isEmpty(players) ) {
-            players = new ArrayList<>();
-        }
-        players.add(player);
-    }
-
-//    public Player findPlayer() {
-//        for ( Player player : players ) {
-//            if (  ) {
-//
-//            }
-//        }
-//        return null;
-//    }
-
     public void setLastBarMoved(Bar lastBarMoved) {
         this.lastBarMoved = lastBarMoved;
     }
@@ -324,14 +308,6 @@ public class Board {
 
     public int getTurn() {
         return turn;
-    }
-
-    public Board() {
-
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
     }
 
 }

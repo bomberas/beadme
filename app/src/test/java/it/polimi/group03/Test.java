@@ -1,5 +1,6 @@
 package it.polimi.group03;
 
+import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -7,7 +8,6 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -23,15 +23,10 @@ import it.polimi.group03.util.CommonUtil;
 import it.polimi.group03.util.Constant;
 
 /**
- * This class is prepared to receive a string and parse the input as follow:
-   [1]  number of players
- + [1]  moving player
- + [7]  positions of the horizontal bars
- + [7]  positions of the vertical bars
- + [49]  beads in the grid
- + [3*n] moves
+ * @author tatibloom
+ * Created on 16/11/2015.
  */
-public class Test {
+public class GameEngineTest {
 
     private GameEngine engine;
     List<Player> players;
@@ -41,26 +36,25 @@ public class Test {
     private int movingPlayer;
     private List<Bar> moves;
 
-    public static void main(String args[]) {
-        System.out.print("Please enter the string configuration: ");
-        Scanner s = new Scanner(System.in);
-        Test test = new Test();
-        test. configureGame(s.next());
-        for ( Bar move : test.moves ) {
-            if ( !test.engine.makeMove(move.getId(), move.getOrientation(), move.getPosition(), test.players.get(test.movingPlayer)) ) {
-                test.printMoveError(move.getId(), move.getOrientation(), move.getPosition());
-                break;
-            }
-        }
-        test.printStatus();
+    @Test
+    public void moveTest() throws Exception {
+        configureGame("21012012021011020000100002000000000012000000000000000010000000000h3cv2o");
+        makeMoves();
     }
 
-    /**
-     * This method will parse the input, create the Game, players, beads,
-     * bars
-     * @param test
-     */
+    @Test
+    public void move() throws Exception {
+        configureGame(0);//from XML
+        //TODO more scenarios
+    }
+
+    private void configureGame(int nTest) throws Exception {
+        configureGame(getScenario(nTest).getAttribute("input"));
+    }
+
     private void configureGame(String test) {
+        System.out.println("Given scenario: " + test);
+
         numberOfPlayers = Integer.parseInt(test.substring(0, 1));
         beadsInTheGrid = test.substring(16, 65);
 
@@ -74,8 +68,20 @@ public class Test {
         reConfigureBars(engine.getBoard(), BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
 
         movingPlayer = Integer.parseInt(test.substring(1, 2));
+        System.out.println("Moving player: " + String.valueOf(movingPlayer));
 
         moves = setMoves(test.substring(65, test.length()));
+    }
+
+    private void makeMoves() {
+        for ( Bar move : moves ) {
+            System.out.println(MessageFormat.format("Move: {1}{0}{2}", move.getId(), move.getOrientation().getShortcut(), move.getPosition().getShortcut()));
+            if ( !engine.makeMove(move.getId(), move.getOrientation(), move.getPosition(), players.get(movingPlayer)) ) {
+                printMoveError(move.getId(), move.getOrientation(), move.getPosition());
+                break;
+            }
+            printStatus();
+        }
     }
 
     private List<Player> getPlayersConfig() {
@@ -125,6 +131,7 @@ public class Test {
             }
             orientations += bar.getPosition() + ",";
         }
+        System.out.println(MessageFormat.format("{0}[{1}]", orientation, orientations));
     }
 
     private List<Bar> setMoves(String moves) {
@@ -163,6 +170,18 @@ public class Test {
         System.out.println("There are only 2 players, you can not slide consecutively the same Bar<" + id + "> more than twice.");
     }
 
+    /*
+    private void printGrid() {
+        System.out.println("Printing current board ...");
+        for ( int i = 0; i < Constant.BOARD_INDEX; i++) {
+            String row = "";
+            for ( int j = 0; j < Constant.BOARD_INDEX; j++) {
+                row += CommonUtil.rPad(engine.getBoard().getGrid()[i][j].name(), 8);
+            }
+            System.out.println(row);
+        }
+    }*/
+
     private void printBeads() {
         String beads[][] = new String[7][7];
         for ( Player p : players ) {
@@ -178,7 +197,16 @@ public class Test {
                 }
                 row += beads[i][j];
             }
+            System.out.println(row);
         }
+    }
+
+    private Element getScenario(int index) throws Exception {
+        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().
+                parse(new File("src/test/java/it/polimi/group03/TestScenarios.xml"));
+        doc.normalize();
+
+        return (Element) doc.getElementsByTagName("scenario").item(index);
     }
 
 }

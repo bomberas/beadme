@@ -7,17 +7,8 @@ package it.polimi.group03.domain;
 
 public class Bead {
 
-    private String color;
     private Position position;
     private boolean active;
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 
     public Position getPosition() {
         return position;
