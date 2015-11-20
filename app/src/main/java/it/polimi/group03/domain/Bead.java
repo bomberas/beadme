@@ -9,7 +9,7 @@ public class Bead {
 
     private String color;
     private Position position;
-    private boolean isActive;
+    private boolean active;
 
     public String getColor() {
         return color;
@@ -28,10 +28,10 @@ public class Bead {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

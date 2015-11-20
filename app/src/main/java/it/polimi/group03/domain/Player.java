@@ -16,6 +16,10 @@ public class Player {
     private List<Bead> beads;
     private boolean active;
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }

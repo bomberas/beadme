@@ -1,10 +1,13 @@
 package it.polimi.group03.engine;
 
 import it.polimi.group03.domain.Bar;
+import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Board;
 import it.polimi.group03.domain.Player;
+import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.CommonUtil;
+import it.polimi.group03.util.SlotInfo;
 
 /**
  * @author cecibloom
@@ -62,6 +65,38 @@ public class GameValidator {
         return false;
     }
 
+    /**
+     * This method will check if the player can place a bead on the the board; in order to do so
+     * first it will check the number of beads for the player, then
+     * if the position of the new bead is valid.
+     * @param currentPlayer player who is trying to place a bead
+     * @param newBead current bead
+     * @return <tt>true</tt> <u>if the number of beads for the player is lower than 5</u> and
+     *                       <u>if the position in which the bead was placed is BLUE or RED</u> and
+     *                       <u>if there isn't already a bead in the position selected</u>.<br/>
+     *         <tt>false</tt> in any other case.
+     */
+    public boolean isBeadValid(Player currentPlayer, Bead newBead) {
+        //You can not add more than 5 bead per player
+        if ( CommonUtil.isEmpty(currentPlayer.getBeads()) || currentPlayer.getBeads().size() < 5 ) {
+            //You can not place a bead above an empty slot
+            if ( !SlotInfo.BLACK.equals(board.getGrid()[newBead.getPosition().getX()][newBead.getPosition().getY()]) ) {
+                boolean hasTaken = false;
+                for ( Player player : board.getPlayers() ) {
+                    for ( Bead bead : player.getBeads() ) {
+                        //You can not add a bead on a slot already taken
+                        if ( bead.getPosition().getX() == newBead.getPosition().getX() &&
+                             bead.getPosition().getY() == newBead.getPosition().getY() ) {
+                            hasTaken = true;
+                        }
+                    }
+                }
+                return !hasTaken;
+            }
+        }
+
+        return false;
+    }
     /**
      * This method checks the intended movement of the bar with respect of the final position. A player can’t slide a bar
      * directly from the inner to the outer position or vice versa. In order to check this rule, the method needs the
