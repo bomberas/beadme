@@ -14,13 +14,14 @@ import it.polimi.group03.util.SlotInfo;
 /**
  * @author cecibloom
  * @author tatibloom
- * Created on 11/11/2015.
+ * @version 1.0
+ * @since 11/11/2015.
  */
-public class Board {
+public class Game {
 
+    private SlotInfo[][] board;
     private List<Bar> bars;
     private List<Player> players;
-    private SlotInfo[][] grid = new SlotInfo[Constant.BOARD_INDEX][Constant.BOARD_INDEX];
     private Bar lastBarMoved; //maybe this can be obtained from a method
     private Player lastPlayer; //maybe this can be obtained from a method
     private Player nextPlayer; //this way the UI can call next player
@@ -32,31 +33,35 @@ public class Board {
 
     /**
      * This method will setup the initial state (<b>screenshot</b>) of the board: <i>bars,
-     * players, beads and the grid itself</i> and some additional attributes that help us to have the most
+     * players, beads and the game itself</i> and some additional attributes that help us to have the most
      * accurate info in order to manage the game and some statistics.
      */
     public void init(){
-        configureBar(BarOrientation.HORIZONTAL);//setting-up the fixed positions for the horizontal Bars
-        configureBar(BarOrientation.VERTICAL);//setting-up the fixed positions for the vertical Bars
+        //Initializing the board itself
+        this.board = new SlotInfo[Constant.BOARD_INDEX][Constant.BOARD_INDEX];
+        //setting-up the fixed composition for the horizontal Bars
+        configureBar(BarOrientation.HORIZONTAL);
+        //setting-up the fixed composition for the vertical Bars
+        configureBar(BarOrientation.VERTICAL);
     }
 
     /**
-     * This method will set new values for each slot in the grid (column or row),
+     * This method will set new values for each slot in the board (column or row),
      * if it's a horizontal move (<b>RED</b> bars), we'll only update the value in the slot (to <b>RED</b> or <b>BLACK</b>), if the previous one
      * it's not blue (<b>BLUE</b> covers all the possible colors behind it). If it's a vertical move (<b>BLUE</b> bars)
      * we'll update the value of the slot, if the previous one it's not <b>RED</b> but if it is <b>RED</b>, we won't update it if the current move
      * generates a <b>BLACK</b> slot but yes if generates a <b>BLUE</b> one.
-     * @param bar Only the grid corresponding to this bar will be updated.
+     * @param bar Only the board corresponding to this bar will be updated.
      */
     public void refreshGrid(Bar bar){
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
             if ( BarOrientation.HORIZONTAL.equals(bar.getOrientation()) ) {
-                grid[bar.getId()][i] = !SlotInfo.BLUE.equals(grid[bar.getId()][i]) ?
-                        bar.getKeys()[bar.getPosition().getInitialSlot() + i] : grid[bar.getId()][i];
+                board[bar.getId()][i] = !SlotInfo.BLUE.equals(board[bar.getId()][i]) ?
+                        bar.getKeys()[bar.getPosition().getInitialSlot() + i] : board[bar.getId()][i];
             } else {
-                grid[i][bar.getId()] = !SlotInfo.RED.equals(grid[i][bar.getId()]) ? bar.getKeys()[bar.getPosition().getInitialSlot() + i] :
+                board[i][bar.getId()] = !SlotInfo.RED.equals(board[i][bar.getId()]) ? bar.getKeys()[bar.getPosition().getInitialSlot() + i] :
                         SlotInfo.BLACK.equals(bar.getKeys()[bar.getPosition().getInitialSlot() + i]) ?
-                                grid[i][bar.getId()] : bar.getKeys()[bar.getPosition().getInitialSlot() + i];
+                                board[i][bar.getId()] : bar.getKeys()[bar.getPosition().getInitialSlot() + i];
             }
         }
     }
@@ -66,7 +71,7 @@ public class Board {
      * based on its coordinates. If the bar moved is <i>vertical</i>, we should only
      * check all beads for which the <b>Y</b> coordinate is the same as the id of the bar, and the
      * <b>X</b> coordinate if it's a horizontal bar. The <u>updated status</u> will be <i>INACTIVE</i> for
-     * all the beads allocated on a slot in the grid which the current value is <i>BLACK</i> or <i>EMPTY</i>.
+     * all the beads allocated on a slot in the board which the current value is <i>BLACK</i> or <i>EMPTY</i>.
      * After updating the status of all the beads of a user, the status of the user <i>will be updated</i> too in such way
      * that, if the user doesn't have any active bead, the user will be <i>INACTIVE</i> too and it will be added
      * to the list of the looser players.
@@ -77,13 +82,13 @@ public class Board {
             for ( Bead bead : player.activeBeads() ) {
                 if ( BarOrientation.VERTICAL.equals(bar.getOrientation()) ) {//checking only Y coordinate
                     if ( bar.getId() == bead.getPosition().getY() ) {
-                        //if the corresponding slot on the grid is BLACK or EMPTY we should de-activate the bead
-                        bead.setIsActive(!SlotInfo.BLACK.equals(grid[bead.getPosition().getX()][bead.getPosition().getX()]));
+                        //if the corresponding slot on the board is BLACK or EMPTY we should de-activate the bead
+                        bead.setIsActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getX()]));
                     }
                 } else {//checking only X coordinate
                     if ( bar.getId() == bead.getPosition().getX() ) {
-                        //if the corresponding slot on the grid is BLACK or EMPTY we should de-activate the bead
-                        bead.setIsActive(!SlotInfo.BLACK.equals(grid[bead.getPosition().getX()][bead.getPosition().getX()]));
+                        //if the corresponding slot on the board is BLACK or EMPTY we should de-activate the bead
+                        bead.setIsActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getX()]));
                     }
                 }
 
@@ -126,7 +131,7 @@ public class Board {
     }
 
     /**
-     * This method will find a Bar inside the <b>Board</b> in base of the id and the orientation.
+     * This method will find a Bar inside the <b>Board Game</b> in base of the id and the orientation.
      * @param id From <i>0</i> to <i>6</i>
      * @param orientation <i>vertical</i> or <i>horizontal</i>
      * @return <tt>bar</tt> corresponding to the given parameters or
@@ -154,7 +159,7 @@ public class Board {
 
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
             Bar bar = new Bar(i, orientation, getKeys(i, orientation));
-            //initializing each slot in the grid (RED, BLUE, EMPTY)
+            //initializing each slot in the board (RED, BLUE, EMPTY)
             Log.d("Setup", MessageFormat.format("Bar[{0}-{1},{2}]", bar.getOrientation(),bar.getId(),bar.getPosition()));
             refreshGrid(bar);
             this.bars.add(bar);
@@ -252,14 +257,14 @@ public class Board {
 
     //From here, just getters and setters
 
-    public Board(List<Player> players) {
+    public Game(List<Player> players) {
         this.players = players;
         this.round = 1;
         this.turn = 1;
     }
 
-    public SlotInfo[][] getGrid() {
-        return grid;
+    public SlotInfo[][] getBoard() {
+        return board;
     }
 
     public void setLastBarMoved(Bar lastBarMoved) {

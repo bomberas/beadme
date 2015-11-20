@@ -13,6 +13,7 @@ public class Player {
 
     private int id;
     private String nickname;
+    private String color;
     private List<Bead> beads;
     private boolean active;
 
@@ -50,6 +51,14 @@ public class Player {
         }
 
         beads.add(bead);
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public List<Bead> activeBeads() {

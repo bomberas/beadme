@@ -13,7 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
-import it.polimi.group03.domain.Board;
+import it.polimi.group03.domain.Game;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.domain.Position;
 import it.polimi.group03.engine.GameEngine;
@@ -62,10 +62,10 @@ public class GameEngineTest {
         engine.startGame(getPlayersConfig());
 
         String initialHorizontalBar = test.substring(2, 9);
-        reConfigureBars(engine.getBoard(), BarOrientation.HORIZONTAL, initialHorizontalBar.toCharArray());
+        reConfigureBars(engine.getGame(), BarOrientation.HORIZONTAL, initialHorizontalBar.toCharArray());
 
         String initialVerticalBar = test.substring(9, 16);
-        reConfigureBars(engine.getBoard(), BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
+        reConfigureBars(engine.getGame(), BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
 
         movingPlayer = Integer.parseInt(test.substring(1, 2));
         System.out.println("Moving player: " + String.valueOf(movingPlayer));
@@ -117,8 +117,8 @@ public class GameEngineTest {
         }
     }
 
-    private void reConfigureBars(Board board, BarOrientation orientation, char[] initialBars) {
-        List<Bar> bars = board.getBars(orientation);
+    private void reConfigureBars(Game game, BarOrientation orientation, char[] initialBars) {
+        List<Bar> bars = game.getBars(orientation);
         String orientations = "";
         for ( int i = 0; i < 7; i++ ) {
             Bar bar = bars.get(i);
@@ -148,22 +148,22 @@ public class GameEngineTest {
 
     private String getBarPositions(BarOrientation orientation) {
         String position = "";
-        for ( Bar bar : engine.getBoard().getBars(orientation) ) {
+        for ( Bar bar : engine.getGame().getBars(orientation) ) {
             position += bar.getPosition().getInitialSlot();
         }
         return position;
     }
 
     private void printStatus() {
-        System.out.println(engine.getBoard().activePlayers().size()); //"Number of players"
-        System.out.println(engine.getBoard().getNextPlayer());//"Moving player"
+        System.out.println(engine.getGame().activePlayers().size()); //"Number of players"
+        System.out.println(engine.getGame().getNextPlayer());//"Moving player"
         System.out.println(getBarPositions(BarOrientation.HORIZONTAL));//"Positions of the horizontal bars"
         System.out.println(getBarPositions(BarOrientation.VERTICAL));//"Positions of the vertical bars"
         printBeads();//beads
     }
 
     private void printMoveError(int id, BarOrientation orientation, BarPosition position) {
-        Bar currentBar = engine.getBoard().findBar(id, orientation);
+        Bar currentBar = engine.getGame().findBar(id, orientation);
         System.out.println("ERROR: One of these conditions has occurred:");
         System.out.println("Move from <" + currentBar.getPosition() + "> to <" + position + "> it's forbidden.");
         System.out.println("Bar<" + id + "> has already been slid in the previous round.");
@@ -176,7 +176,7 @@ public class GameEngineTest {
         for ( int i = 0; i < Constant.BOARD_INDEX; i++) {
             String row = "";
             for ( int j = 0; j < Constant.BOARD_INDEX; j++) {
-                row += CommonUtil.rPad(engine.getBoard().getGrid()[i][j].name(), 8);
+                row += CommonUtil.rPad(engine.getGame().getBoard()[i][j].name(), 8);
             }
             System.out.println(row);
         }
