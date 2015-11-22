@@ -93,7 +93,7 @@ public class GameEngine {
 
         // If after the move made by the player the round is complete and the game is finished is necessary to move the round and reset the list of moved bars in the round
         // In any case is necessary to update the list of moved bars in the current round putting the selected bar in the list of moved bars.
-
+        //the round is finished with the player in turn
         if ( isRoundFinished(currentPlayer) ) {
             this.game.resetMovedBarsInCurrentRound();
             if ( !isGameEndConditionReached() ) this.game.moveRound();
