@@ -17,6 +17,14 @@ public class Player {
     private List<Bead> beads;
     private boolean active;
 
+    public Player(int id, String nickname, String color) {
+        this.id = id;
+        this.nickname = nickname;
+        this.color = color;
+        this.beads = new ArrayList<>();
+        this.active = true;
+    }
+
     public int getId() {
         return id;
     }

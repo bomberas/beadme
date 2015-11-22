@@ -1,21 +1,13 @@
 package it.polimi.group03;
 
-import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.util.Scanner;
 
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Game;
 import it.polimi.group03.domain.Player;
-import it.polimi.group03.domain.Position;
 import it.polimi.group03.engine.GameEngine;
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
@@ -23,10 +15,15 @@ import it.polimi.group03.util.CommonUtil;
 import it.polimi.group03.util.Constant;
 
 /**
- * @author tatibloom
- * Created on 16/11/2015.
+ * This class is prepared to receive a string and parse the input as follow:
+ [1]  number of players
+ + [1]  moving player
+ + [7]  positions of the horizontal bars
+ + [7]  positions of the vertical bars
+ + [49]  beads in the grid
+ + [3*n] moves
  */
-public class GameEngineTest {
+public class Test {
 
     private GameEngine engine;
     List<Player> players;
@@ -36,90 +33,81 @@ public class GameEngineTest {
     private int movingPlayer;
     private List<Bar> moves;
 
-    @Test
-    public void moveTest() throws Exception {
-        configureGame("21012012021011020000100002000000000012000000000000000010000000000h3cv2o");
-        makeMoves();
+    public static void main(String args[]) {
+        System.out.print("Please enter the string configuration: ");
+        Scanner s = new Scanner(System.in);
+        Test test = new Test();
+        if ( test.configureGame(s.next()) ) {
+            for ( Bar move : test.moves ) {
+                if ( !test.engine.makeMove(move.getId(), move.getOrientation(), move.getPosition(), test.players.get(test.movingPlayer)) ) {
+                    test.printMoveError(move.getId(), move.getOrientation(), move.getPosition());
+                    break;
+                }
+            }
+            test.printStatus();
+        } else {
+            System.out.println("Error in configuration");
+        }
     }
 
-    @Test
-    public void move() throws Exception {
-        configureGame(0);//from XML
-        //TODO more scenarios
-    }
-
-    private void configureGame(int nTest) throws Exception {
-        configureGame(getScenario(nTest).getAttribute("input"));
-    }
-
-    private void configureGame(String test) {
-        System.out.println("Given scenario: " + test);
-
+    private boolean configureGame(String test) {
         numberOfPlayers = Integer.parseInt(test.substring(0, 1));
         beadsInTheGrid = test.substring(16, 65);
 
         engine = new GameEngine();
-        engine.startGame(getPlayersConfig());
-
+        engine.init();
         String initialHorizontalBar = test.substring(2, 9);
         reConfigureBars(engine.getGame(), BarOrientation.HORIZONTAL, initialHorizontalBar.toCharArray());
 
         String initialVerticalBar = test.substring(9, 16);
         reConfigureBars(engine.getGame(), BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
 
-        movingPlayer = Integer.parseInt(test.substring(1, 2));
-        System.out.println("Moving player: " + String.valueOf(movingPlayer));
+        boolean hasFullyConfigured = configurePlayers();
 
-        moves = setMoves(test.substring(65, test.length()));
-    }
-
-    private void makeMoves() {
-        for ( Bar move : moves ) {
-            System.out.println(MessageFormat.format("Move: {1}{0}{2}", move.getId(), move.getOrientation().getShortcut(), move.getPosition().getShortcut()));
-            if ( !engine.makeMove(move.getId(), move.getOrientation(), move.getPosition(), players.get(movingPlayer)) ) {
-                printMoveError(move.getId(), move.getOrientation(), move.getPosition());
-                break;
-            }
-            printStatus();
+        if ( hasFullyConfigured ) {
+            movingPlayer = Integer.parseInt(test.substring(1, 2));
+            moves = setMoves(test.substring(65, test.length()));
+            return true;
         }
+
+        return false;
     }
 
-    private List<Player> getPlayersConfig() {
+    private boolean configurePlayers() {
         players = new ArrayList<>();
         char beads[] = beadsInTheGrid.toCharArray();
 
         for ( int i = 0; i < numberOfPlayers; i++ ) {
-            Player player = new Player();
-            player.setNickname(String.valueOf(i+1));
-            player.setActive(true);
-            for ( int x = 1; x <= beads.length; x++ ) {
-                if ( String.valueOf(i+1).equals(String.valueOf(beads[x-1])) ) {
-                    Bead bead = new Bead();
-                    bead.setIsActive(true);
-                    bead.setPosition(new Position((x % 7 == 0 ? x / 7 : (x / 7) + 1) - 1, (x % 7 == 0 ? 7 : x % 7) - 1));
-                    player.addBead(bead);
+            Player player = new Player(i,String.valueOf(i), "black");
+            if ( engine.addPlayer(player) ) {
+                System.out.println("Error configuring player...");
+                for (int x = 1; x <= beads.length; x++) {
+                    if ( String.valueOf(i + 1).equals(String.valueOf(beads[x - 1])) ) {
+                        Bead bead = new Bead((x % 7 == 0 ? x / 7 : (x / 7) + 1) - 1, (x % 7 == 0 ? 7 : x % 7) - 1);
+                        if ( !engine.addBead(player, bead) ) {
+                            System.out.println("Error configuring bead...");
+                            return false;
+                        }
+                    }
                 }
+                setDefaultBeads(player);
+            } else {
+                return false;
             }
-            setDefaultBeads(player);
-            players.add(player);
         }
 
-        return players;
+        return true;
     }
 
     private void setDefaultBeads(Player player) {
         int remainingBeads = CommonUtil.isEmpty(player.getBeads()) ? 5 : 5 - player.getBeads().size();
         for ( int x = 0; x < remainingBeads; x++) {
-            Bead bead = new Bead();
-            bead.setIsActive(false);
-            bead.setPosition(new Position(0, 0));
-            player.addBead(bead);
+            player.addBead(new Bead(0, 0));
         }
     }
 
     private void reConfigureBars(Game game, BarOrientation orientation, char[] initialBars) {
         List<Bar> bars = game.getBars(orientation);
-        String orientations = "";
         for ( int i = 0; i < 7; i++ ) {
             Bar bar = bars.get(i);
             if ( ((Character)'0').equals(initialBars[i]) ) {
@@ -129,9 +117,7 @@ public class GameEngineTest {
             } else {
                 bar.setPosition(BarPosition.OUTER);
             }
-            orientations += bar.getPosition() + ",";
         }
-        System.out.println(MessageFormat.format("{0}[{1}]", orientation, orientations));
     }
 
     private List<Bar> setMoves(String moves) {
@@ -170,18 +156,6 @@ public class GameEngineTest {
         System.out.println("There are only 2 players, you can not slide consecutively the same Bar<" + id + "> more than twice.");
     }
 
-    /*
-    private void printGrid() {
-        System.out.println("Printing current board ...");
-        for ( int i = 0; i < Constant.BOARD_INDEX; i++) {
-            String row = "";
-            for ( int j = 0; j < Constant.BOARD_INDEX; j++) {
-                row += CommonUtil.rPad(engine.getGame().getBoard()[i][j].name(), 8);
-            }
-            System.out.println(row);
-        }
-    }*/
-
     private void printBeads() {
         String beads[][] = new String[7][7];
         for ( Player p : players ) {
@@ -190,23 +164,12 @@ public class GameEngineTest {
             }
         }
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
-            String row = "";
             for ( int j = 0; j < Constant.BOARD_INDEX; j++ ) {
                 if ( beads[i][j] == null ) {
                     beads[i][j] = "0";
                 }
-                row += beads[i][j];
             }
-            System.out.println(row);
         }
-    }
-
-    private Element getScenario(int index) throws Exception {
-        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().
-                parse(new File("src/test/java/it/polimi/group03/TestScenarios.xml"));
-        doc.normalize();
-
-        return (Element) doc.getElementsByTagName("scenario").item(index);
     }
 
 }

@@ -1,11 +1,13 @@
 package it.polimi.group03.engine;
 
 import it.polimi.group03.domain.Bar;
+import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Game;
 import it.polimi.group03.domain.MessageError;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.CommonUtil;
+import it.polimi.group03.util.SlotInfo;
 
 /**
  * @author cecibloom
@@ -29,10 +31,9 @@ public class GameValidator {
      *         {@code false} if not.
      */
     public boolean isNumberOfPlayersValid(){
-        if ( game.getPlayers() != null && game.getPlayers().size() > 1 &&
-                game.getPlayers().size() <= 4 ){
+        if ( game.getPlayers() == null || game.getPlayers().size() <= 4 ){
             return true;
-           // this.messageError.setCode("01");
+            // this.messageError.setCode("01");
             //this.messageError.setMessage("");
             //return messageError;
         }
@@ -67,7 +68,7 @@ public class GameValidator {
                     //if there are only two players left is necessary another validation
                     if (game.activePlayers().size() == 2) {
                         if (isSelectedBarMoveValidTwoPlayers(selectedBar)) {
-                          //  return messageError;
+                            //  return messageError;
                         }
                     } else {
                         //return messageError;
@@ -94,8 +95,8 @@ public class GameValidator {
         Bar sourceBar = game.findBar(selectedBar.getId(),selectedBar.getOrientation());
 
         if ( targetPosition.equals(BarPosition.CENTRAL) && (sourceBar.getPosition().equals(BarPosition.INNER)
-            || sourceBar.getPosition().equals(BarPosition.OUTER)) ) {
-                return true;
+                || sourceBar.getPosition().equals(BarPosition.OUTER)) ) {
+            return true;
         } else if ( targetPosition.equals(BarPosition.INNER) && sourceBar.getPosition().equals(BarPosition.CENTRAL) ) {
             return true;
         } else if ( targetPosition.equals(BarPosition.OUTER) && sourceBar.getPosition().equals(BarPosition.CENTRAL) ) {
@@ -143,7 +144,7 @@ public class GameValidator {
             //size-4 represents to the second previous turn for the current player
             //in the occurrence of the equivalence of moved bars with intended bar, the condition is not met
             if( bar.equals(game.getMovedBarsInTwoPreviousRound().get(game.getMovedBarsInTwoPreviousRound().size() -2 ) ) &&
-                bar.equals(game.getMovedBarsInTwoPreviousRound().get(game.getMovedBarsInTwoPreviousRound().size() -4 )) ){
+                    bar.equals(game.getMovedBarsInTwoPreviousRound().get(game.getMovedBarsInTwoPreviousRound().size() -4 )) ){
                 return false;
             }
         }
@@ -159,8 +160,37 @@ public class GameValidator {
      *         {@code false} if not.
      */
     private boolean isPreviousPlayerDifferentFromCurrentPlayer(Player currentPlayer){
-        if (game.getLastPlayer() == null || ( game.getLastPlayer() != null && game.getLastPlayer().getId() != currentPlayer.getId()) ) {
-            return true;
+        return game.getLastPlayer() == null || ( game.getLastPlayer().getId() != currentPlayer.getId());
+    }
+
+    /**
+     * This method will check if the player can place a bead on the the board; in order to do so
+     * first it will check the number of beads for the player, then
+     * if the position of the new bead is valid.
+     * @param currentPlayer player who is trying to place a bead
+     * @param newBead current bead
+     * @return <tt>true</tt> <u>if the number of beads for the player is lower than 5</u> and
+     *                       <u>if the position in which the bead was placed is BLUE or RED</u> and
+     *                       <u>if there isn't already a bead in the position selected</u>.<br/>
+     *         <tt>false</tt> in any other case.
+     */
+    public boolean isBeadValid(Player currentPlayer, Bead newBead) {
+        //You can not add more than 5 bead per player
+        if ( CommonUtil.isEmpty(currentPlayer.getBeads()) || currentPlayer.getBeads().size() < 5 ) {
+            //You can not place a bead above an empty slot
+            if ( !SlotInfo.BLACK.equals(game.getBoard()[newBead.getPosition().getX()][newBead.getPosition().getY()]) ) {
+                boolean hasTaken = false;
+                for ( Player player : game.getPlayers() ) {
+                    for ( Bead bead : player.getBeads() ) {
+                        //You can not add a bead on a slot already taken
+                        if ( bead.getPosition().getX() == newBead.getPosition().getX() &&
+                                bead.getPosition().getY() == newBead.getPosition().getY() ) {
+                            hasTaken = true;
+                        }
+                    }
+                }
+                return !hasTaken;
+            }
         }
 
         return false;

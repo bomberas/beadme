@@ -14,14 +14,13 @@ import it.polimi.group03.util.SlotInfo;
 /**
  * @author cecibloom
  * @author tatibloom
- * @version 1.0
- * @since 11/11/2015.
+ * Created on 11/11/2015.
  */
 public class Game {
 
-    private SlotInfo[][] board;
     private List<Bar> bars;
     private List<Player> players;
+    private SlotInfo[][] board = new SlotInfo[Constant.BOARD_INDEX][Constant.BOARD_INDEX];
     private Bar lastBarMoved; //maybe this can be obtained from a method
     private Player lastPlayer; //maybe this can be obtained from a method
     private Player nextPlayer; //this way the UI can call next player
@@ -33,16 +32,12 @@ public class Game {
 
     /**
      * This method will setup the initial state (<b>screenshot</b>) of the board: <i>bars,
-     * players, beads and the game itself</i> and some additional attributes that help us to have the most
+     * players, beads and the board itself</i> and some additional attributes that help us to have the most
      * accurate info in order to manage the game and some statistics.
      */
     public void init(){
-        //Initializing the board itself
-        this.board = new SlotInfo[Constant.BOARD_INDEX][Constant.BOARD_INDEX];
-        //setting-up the fixed composition for the horizontal Bars
-        configureBar(BarOrientation.HORIZONTAL);
-        //setting-up the fixed composition for the vertical Bars
-        configureBar(BarOrientation.VERTICAL);
+        configureBar(BarOrientation.HORIZONTAL);//setting-up the fixed positions for the horizontal Bars
+        configureBar(BarOrientation.VERTICAL);//setting-up the fixed positions for the vertical Bars
     }
 
     /**
@@ -53,7 +48,7 @@ public class Game {
      * generates a <b>BLACK</b> slot but yes if generates a <b>BLUE</b> one.
      * @param bar Only the board corresponding to this bar will be updated.
      */
-    public void refreshGrid(Bar bar){
+    public void refreshBoard(Bar bar){
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
             if ( BarOrientation.HORIZONTAL.equals(bar.getOrientation()) ) {
                 board[bar.getId()][i] = !SlotInfo.BLUE.equals(board[bar.getId()][i]) ?
@@ -83,12 +78,12 @@ public class Game {
                 if ( BarOrientation.VERTICAL.equals(bar.getOrientation()) ) {//checking only Y coordinate
                     if ( bar.getId() == bead.getPosition().getY() ) {
                         //if the corresponding slot on the board is BLACK or EMPTY we should de-activate the bead
-                        bead.setIsActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getX()]));
+                        bead.setActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getX()]));
                     }
                 } else {//checking only X coordinate
                     if ( bar.getId() == bead.getPosition().getX() ) {
                         //if the corresponding slot on the board is BLACK or EMPTY we should de-activate the bead
-                        bead.setIsActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getX()]));
+                        bead.setActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getX()]));
                     }
                 }
 
@@ -100,7 +95,7 @@ public class Game {
     }
 
     /**
-     * This method will return all the bars present in the board for a given
+     * This method will return all the bars present in the game for a given
      * <b>orientation</b>.
      * @param orientation <i>horizontal</i> or <i>vertical</i>
      * @return <tt>bar</tt>
@@ -131,7 +126,7 @@ public class Game {
     }
 
     /**
-     * This method will find a Bar inside the <b>Board Game</b> in base of the id and the orientation.
+     * This method will find a Bar inside the <b>Board</b> in base of the id and the orientation.
      * @param id From <i>0</i> to <i>6</i>
      * @param orientation <i>vertical</i> or <i>horizontal</i>
      * @return <tt>bar</tt> corresponding to the given parameters or
@@ -160,8 +155,8 @@ public class Game {
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
             Bar bar = new Bar(i, orientation, getKeys(i, orientation));
             //initializing each slot in the board (RED, BLUE, EMPTY)
-            Log.d("Setup", MessageFormat.format("Bar[{0}-{1},{2}]", bar.getOrientation(),bar.getId(),bar.getPosition()));
-            refreshGrid(bar);
+            //Log.d("Setup", MessageFormat.format("Bar[{0}-{1},{2}]", bar.getOrientation(),bar.getId(),bar.getPosition()));
+            refreshBoard(bar);
             this.bars.add(bar);
         }
     }
@@ -255,10 +250,16 @@ public class Game {
         this.turn = this.movedBarsInCurrentRound.size();
     }
 
-    //From here, just getters and setters
+    public void addPlayer(Player player) {
+        if ( CommonUtil.isEmpty(players) ) {
+            players = new ArrayList<>();
+        }
+        players.add(player);
+    }
 
-    public Game(List<Player> players) {
-        this.players = players;
+    //From here, just constructor, getters and setters
+
+    public Game() {
         this.round = 1;
         this.turn = 1;
     }
@@ -305,6 +306,10 @@ public class Game {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
     public int getRound() {

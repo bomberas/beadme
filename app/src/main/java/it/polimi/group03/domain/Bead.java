@@ -8,7 +8,12 @@ package it.polimi.group03.domain;
 public class Bead {
 
     private Position position;
-    private boolean isActive;
+    private boolean active;
+
+    public Bead(int x, int y) {
+        this.active = true;
+        this.position = new Position(x,y);
+    }
 
     public Position getPosition() {
         return position;
@@ -19,10 +24,10 @@ public class Bead {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
