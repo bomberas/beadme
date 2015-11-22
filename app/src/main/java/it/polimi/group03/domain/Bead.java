@@ -10,6 +10,11 @@ public class Bead {
     private Position position;
     private boolean active;
 
+    public Bead(int x, int y) {
+        this.active = true;
+        this.position = new Position(x,y);
+    }
+
     public Position getPosition() {
         return position;
     }

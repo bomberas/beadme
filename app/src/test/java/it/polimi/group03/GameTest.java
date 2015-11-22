@@ -14,7 +14,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
-import it.polimi.group03.domain.Board;
+import it.polimi.group03.domain.Game;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.domain.Position;
 import it.polimi.group03.engine.GameEngine;
