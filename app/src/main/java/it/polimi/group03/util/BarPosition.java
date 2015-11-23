@@ -18,22 +18,16 @@ import java.util.Random;
 // TODO: 22/11/2015 Tati escribe la doc de la clase
 
 public enum BarPosition {
-    INNER(0, 'i'), CENTRAL(1,'c'), OUTER(2,'o');
+    INNER(0), CENTRAL(1), OUTER(2);
 
     private int initialSlot;
-    private char shortcut;
 
-    BarPosition(int initialSlot, char shortcut) {
+    BarPosition(int initialSlot) {
         this.initialSlot = initialSlot;
-        this.shortcut = shortcut;
     }
 
     public int getInitialSlot() {
         return this.initialSlot;
-    }
-
-    public char getShortcut() {
-        return this.shortcut;
     }
 
     public static BarPosition randomPosition()  {
