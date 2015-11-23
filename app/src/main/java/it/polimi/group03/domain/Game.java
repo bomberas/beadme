@@ -8,10 +8,16 @@ import it.polimi.group03.util.CommonUtil;
 import it.polimi.group03.util.Constant;
 import it.polimi.group03.util.SlotInfo;
 
+import it.polimi.group03.engine.GameEngine;
+import it.polimi.group03.engine.GameValidator;
+
 /**
+ * This class represents the game including players,
+ * bars, beads and the board itself. It represents the current status too,
+ * such way that some additional info will be stored like <i>lastBarMoved, lastPlayer,
+ * nextPlayer, round, turn</i> and so on.
  *
- *
- *
+ * <p>It will be used by {@link GameEngine} and {@link GameValidator}.</p>
  *
  * @see Bar
  * @see Player
@@ -330,7 +336,7 @@ public class Game {
     /**
      * This method adds a bar to the list of bars moved by the opponents in the previous round.
      *
-     * @param bar
+     * @param bar current bar
      */
     public void addBarToListOfMovedBarsInRound(Bar bar){
         if ( CommonUtil.isEmpty(this.movedBarsInCurrentRound) ) {
@@ -342,7 +348,7 @@ public class Game {
     /**
      * This method adds a bar to the list of bars moved in two previous rounds.
      *
-     * @param bar
+     * @param bar current bar
      */
     public void addBarToListOfMovedBarsInTwoPreviousRounds(Bar bar){
         if ( CommonUtil.isEmpty(this.movedBarsInTwoPreviousRounds) ) {
@@ -354,7 +360,7 @@ public class Game {
     /**
      * This method adds a player to the list of loser after a turn.
      *
-     * @param player
+     * @param player player to be removed from the game
      */
     private void addPlayerToListOfLosersAfterTurn(Player player) {
         if ( CommonUtil.isEmpty(this.losersAfterTurn) ) {
@@ -420,6 +426,10 @@ public class Game {
         return board;
     }
 
+    public void setBoard(SlotInfo[][] board) {
+        this.board = board;
+    }
+
     public void setLastBarMoved(Bar lastBarMoved) {
         this.lastBarMoved = lastBarMoved;
     }
@@ -458,10 +468,6 @@ public class Game {
 
     public List<Player> getPlayers() {
         return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
     }
 
     public int getRound() {

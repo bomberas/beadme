@@ -5,9 +5,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import it.polimi.group03.domain.Game;
+import it.polimi.group03.domain.Bar;
+
 /**
- * This class
+ * This class contains exclusively the allowed values for the position of a bar,
+ * each of one has an initial index from where to start obtaining the keys of
+ * the slots to be present on the board.
  *
+ * <p>Is used when the bars are configured at the beginning of the game and after a move.
+ *
+ *
+ * @see Game
+ * @see Bar
  *
  * @author cecibloom
  * @author megireci
@@ -15,7 +25,6 @@ import java.util.Random;
  * @version 1.0
  * @since 11/11/2015.
  */
-// TODO: 22/11/2015 Tati escribe la doc de la clase
 
 public enum BarPosition {
     INNER(0), CENTRAL(1), OUTER(2);

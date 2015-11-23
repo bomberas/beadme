@@ -6,9 +6,19 @@ import java.util.List;
 import it.polimi.group03.util.CommonUtil;
 
 /**
+ *
+ *
+ *
+ *
+ * @see Bead
+ *
+ * @author cecibloom
+ * @author megireci
  * @author tatibloom
- * Created by tatibloom on 08/11/2015.
+ * @version 1.0
+ * @since 08/11/2015.
  */
+
 public class Player {
 
     private int id;
@@ -29,16 +39,8 @@ public class Player {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNickname() {
         return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public List<Bead> getBeads() {
@@ -63,10 +65,6 @@ public class Player {
 
     public String getColor() {
         return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public List<Bead> activeBeads() {

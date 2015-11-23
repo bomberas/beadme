@@ -56,7 +56,7 @@ public class GameValidator {
 
         StatusMessage statusMessage = new StatusMessage();
 
-        if ( game.getPlayers() != null && game.getPlayers().size() > 1 && game.getPlayers().size() <= Constant.GAME_MAX_NUMBER_PLAYERS ){
+        if ( game.getPlayers() == null || game.getPlayers().size() <= Constant.GAME_MAX_NUMBER_PLAYERS ){
             statusMessage.setCode(Constant.STATUS_OK);
             statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
         } else {

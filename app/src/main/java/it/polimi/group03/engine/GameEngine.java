@@ -99,7 +99,8 @@ public class GameEngine {
      * @see Player
      * @see StatusMessage
      *
-     * @param player new player to be added to the game
+     * @param player the current player who is making the move
+     * @param bead bead to be placed on the board
      * @return {@code statusMessage} indicating the result of the operation. This object contains a
      *         {@code code} which specifies the code of the error <i>if any</i> and a
      *         {@code message} with a brief description.
@@ -201,7 +202,7 @@ public class GameEngine {
     }
 
     /**
-     * This method checks whether is a winner or not, there is a winner only when the game has finished,
+     * This method checks whether there is a winner or not, there is a winner only when the game has finished,
      * in this case the method retrieves the winning player.
      *
      * @see Game
@@ -222,10 +223,6 @@ public class GameEngine {
         } else {
             return null;
         }
-    }
-
-    public Game getGame() {
-        return this.game;
     }
 
     /**
@@ -284,6 +281,10 @@ public class GameEngine {
         }
 
         return null;
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 
 }

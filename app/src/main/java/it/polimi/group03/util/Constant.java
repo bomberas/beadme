@@ -26,13 +26,13 @@ public class Constant {
     /**
      * This constant holds the value of the number of beads per player.
      */
-    public static final int GAME_MAX_NUMBER_BEADS = 4;
+    public static final int GAME_MAX_NUMBER_BEADS = 5;
     /**
      * This constant holds the the status code for success.
      */
     public static final String STATUS_OK = "s0x0";
     /**
-     * This constant holds the error code when the number of player is out of bound.
+     * This constant holds the error code when the number of players is out of bound.
      */
     public static final String STATUS_ERR_NUMBER_PLAYERS = "e0x1";
     /**

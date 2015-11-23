@@ -1,97 +1,161 @@
 package it.polimi.group03;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
-import it.polimi.group03.domain.Game;
 import it.polimi.group03.domain.Player;
+import it.polimi.group03.domain.StatusMessage;
 import it.polimi.group03.engine.GameEngine;
+import it.polimi.group03.engine.GameValidator;
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.CommonUtil;
 import it.polimi.group03.util.Constant;
+import it.polimi.group03.util.SlotInfo;
 
 /**
- * This class is prepared to receive a string and parse the input as follow:
- [1]  number of players
- + [1]  moving player
- + [7]  positions of the horizontal bars
- + [7]  positions of the vertical bars
- + [49]  beads in the grid
- + [3*n] moves
+ * This class was implemented for specific testing purposes established in
+ * the requirements (for unit testing please see {@link GameTest}) and it
+ * should be used <u>only</u> for tests based on strings, some
+ * minor validations were done.
+ * <p>This class is prepared to receive an input as follow:</p>
+ * <ul style="list-style-type:circle">
+ * <li>[01] number of players +</li>
+ * <li>[01] moving player +</li>
+ * <li>[07] positions of the horizontal bars +</li>
+ * <li>[07] positions of the vertical bars +</li>
+ * <li>[49] beads in the grid +</li>
+ * <li>[3*n] moves.</li>
+ * </u>
+ *
+ * @author cecibloom
+ * @author megireci
+ * @author tatibloom
+ * @version 1.0
+ * @since 11/11/2015.
  */
 public class Test {
 
     private GameEngine engine;
-    List<Player> players;
-
     private int numberOfPlayers;
     private String beadsInTheGrid;
     private int movingPlayer;
-    private List<Bar> moves;
+    private List<Bar> moves = new ArrayList<>();
+    private StatusMessage message;
 
     public static void main(String args[]) {
-        System.out.print("Please enter the string configuration: ");
-        Scanner s = new Scanner(System.in);
         Test test = new Test();
-        if ( test.configureGame(s.next()) ) {
-            for ( Bar move : test.moves ) {
-                if ( !test.engine.makeMove(move.getId(), move.getOrientation(), move.getPosition(), test.players.get(test.movingPlayer)) ) {
-                    test.printMoveError(move.getId(), move.getOrientation(), move.getPosition());
+        test.moveTest("2" +
+                "1" +
+                "0100120" +
+                "2101102" +
+                "0000100" +
+                "0020000" +
+                "0000000" +
+                "2000000" +
+                "0000000" +
+                "0001000" +
+                "0000000" +
+                "h2i");
+    }
+
+    private void moveTest(String inputString) {
+        boolean isValid = false;
+        engine = new GameEngine();
+        if ( isConfigurable(inputString) ) {
+            for ( Bar move : moves ) {
+                Bar bar = engine.getGame().findBar(move.getId(), move.getOrientation());
+                if ( (BarPosition.INNER.equals(bar.getPosition()) && BarPosition.OUTER.equals(move.getPosition())) ||
+                     (BarPosition.OUTER.equals(bar.getPosition()) && BarPosition.INNER.equals(move.getPosition())) ) {
+                    move.setPosition(BarPosition.CENTRAL);
+                }
+
+                Player playerInTurn = getPlayer(movingPlayer);
+                if ( playerInTurn != null ) {
+                    message = engine.makeMove(move.getId(), move.getOrientation(), move.getPosition(), playerInTurn);
+                    if ( !Constant.STATUS_OK.equals(message.getCode()) ) {
+                        System.out.println(message.getMessage());
+                        isValid = false;
+                        break;
+                    }
+                    isValid = true;
+                } else {
+                    System.out.println(MessageFormat.format("error: Player {0} does not exist in the game.", movingPlayer));
+                    isValid = false;
                     break;
                 }
+                movingPlayer = engine.getGame().getNextPlayer().getId() + 1;
             }
-            test.printStatus();
-        } else {
-            System.out.println("Error in configuration");
+        }
+
+        if ( isValid ) {
+            printStatus();
+            printBoard(); // final status of the board
         }
     }
 
-    private boolean configureGame(String test) {
+    private boolean isConfigurable(String test) {
         numberOfPlayers = Integer.parseInt(test.substring(0, 1));
         beadsInTheGrid = test.substring(16, 65);
 
-        engine = new GameEngine();
-        engine.init();
+        engine.startGame();
+        engine.getGame().setBoard(new SlotInfo[7][7]);
+
         String initialHorizontalBar = test.substring(2, 9);
-        reConfigureBars(engine.getGame(), BarOrientation.HORIZONTAL, initialHorizontalBar.toCharArray());
+        reConfigureBars(BarOrientation.HORIZONTAL, initialHorizontalBar.toCharArray());
 
         String initialVerticalBar = test.substring(9, 16);
-        reConfigureBars(engine.getGame(), BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
+        reConfigureBars(BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
 
-        boolean hasFullyConfigured = configurePlayers();
-
-        if ( hasFullyConfigured ) {
+        if ( isPossibleInitialConfiguration() ) {
             movingPlayer = Integer.parseInt(test.substring(1, 2));
-            moves = setMoves(test.substring(65, test.length()));
-            return true;
+            if ( isPossibleMovesConfiguration(test.substring(65, test.length())) ) {
+                return true;
+            }
         }
 
         return false;
     }
 
-    private boolean configurePlayers() {
-        players = new ArrayList<>();
+    private boolean isPossibleInitialConfiguration() {
         char beads[] = beadsInTheGrid.toCharArray();
+        Set<Integer> playersOnBoard = new TreeSet<>();
 
-        for ( int i = 0; i < numberOfPlayers; i++ ) {
-            Player player = new Player(i,String.valueOf(i), "black");
-            if ( engine.addPlayer(player) ) {
-                System.out.println("Error configuring player...");
-                for (int x = 1; x <= beads.length; x++) {
-                    if ( String.valueOf(i + 1).equals(String.valueOf(beads[x - 1])) ) {
+        for ( char playersBead : beads ) {
+            if ( playersBead == '1' || playersBead == '2' || playersBead == '3' || playersBead == '4' || playersBead == '5' ) {
+                playersOnBoard.add(Character.getNumericValue(playersBead));
+            } else if ( playersBead != '0' ) {
+                System.out.println(MessageFormat.format("error: Impossible to add player [{0}].", playersBead));
+                return false;
+            }
+        }
+
+        if ( numberOfPlayers != playersOnBoard.size() ) {
+            System.out.println("error: The number of players doesn't match with the beads on the board.");
+            return false;
+        }
+
+        for ( int id : playersOnBoard ) {
+            Player player = new Player(id - 1, String.valueOf(id), "black");
+            message = engine.addPlayer(player);
+            if ( Constant.STATUS_OK.equals(message.getCode()) ) {
+                for ( int x = 1; x <= beads.length; x++ ) {
+                    if ( String.valueOf(id).equals(String.valueOf(beads[x - 1])) ) {
                         Bead bead = new Bead((x % 7 == 0 ? x / 7 : (x / 7) + 1) - 1, (x % 7 == 0 ? 7 : x % 7) - 1);
-                        if ( !engine.addBead(player, bead) ) {
-                            System.out.println("Error configuring bead...");
+                        message = engine.addBeadToBoard(player, bead);
+                        if ( !Constant.STATUS_OK.equals(message.getCode()) ) {
+                            System.out.println(message.getMessage());
                             return false;
                         }
                     }
                 }
-                setDefaultBeads(player);
             } else {
+                System.out.println(message.getMessage());
                 return false;
             }
         }
@@ -99,37 +163,28 @@ public class Test {
         return true;
     }
 
-    private void setDefaultBeads(Player player) {
-        int remainingBeads = CommonUtil.isEmpty(player.getBeads()) ? 5 : 5 - player.getBeads().size();
-        for ( int x = 0; x < remainingBeads; x++) {
-            player.addBead(new Bead(0, 0));
+    private boolean isPossibleMovesConfiguration(String givenMoves) {
+        if ( CommonUtil.isEmpty(givenMoves) || givenMoves.length()%3 != 0 ) {
+            System.out.println(MessageFormat.format("error: Error configuring moves {0} ...", moves));
+            return false;
         }
-    }
 
-    private void reConfigureBars(Game game, BarOrientation orientation, char[] initialBars) {
-        List<Bar> bars = game.getBars(orientation);
-        for ( int i = 0; i < 7; i++ ) {
-            Bar bar = bars.get(i);
-            if ( ((Character)'0').equals(initialBars[i]) ) {
-                bar.setPosition(BarPosition.INNER);
-            } else if (  ((Character)'1').equals(initialBars[i]) ) {
-                bar.setPosition(BarPosition.CENTRAL);
+        for ( int i = 0; i < givenMoves.length(); i += 3 ) {
+            String move = givenMoves.substring(i, i + 3);
+            if ( (CommonUtil.equalsIgnoreCase(move.substring(0, 1), "h") || CommonUtil.equalsIgnoreCase(move.substring(0, 1), "v")) &&
+                 (CommonUtil.equalsIgnoreCase(move.substring(1, 2), "1") || CommonUtil.equalsIgnoreCase(move.substring(1, 2), "2")) || CommonUtil.equalsIgnoreCase(move.substring(1, 2), "3") || CommonUtil.equalsIgnoreCase(move.substring(1, 2), "4") || CommonUtil.equalsIgnoreCase(move.substring(1, 2), "5") || CommonUtil.equalsIgnoreCase(move.substring(1, 2), "6") || CommonUtil.equalsIgnoreCase(move.substring(1, 2), "7") &&
+                 (CommonUtil.equalsIgnoreCase(move.substring(2, 3), "i") || CommonUtil.equalsIgnoreCase(move.substring(2, 3), "o"))) {
+                Bar bar = new Bar(Integer.valueOf(move.substring(1, 2)) - 1, CommonUtil.equalsIgnoreCase(move.substring(0, 1), "H") ?
+                        BarOrientation.HORIZONTAL : BarOrientation.VERTICAL, CommonUtil.equalsIgnoreCase(move.substring(2,3), "I") ?
+                        BarPosition.INNER : BarPosition.OUTER); // for inwards and outwards
+                moves.add(bar);
             } else {
-                bar.setPosition(BarPosition.OUTER);
+                System.out.println(MessageFormat.format("error: String configuration {0} is invalid ...", move));
+                return false;
             }
         }
-    }
 
-    private List<Bar> setMoves(String moves) {
-        List<Bar> givenMoves = new ArrayList<>();
-        for( int i = 0; i < moves.length(); i += 3 ) {
-            String move = moves.substring(i, i + 3);
-            Bar bar = new Bar(Integer.valueOf(move.substring(1, 2)), CommonUtil.equalsIgnoreCase(move.substring(0, 1), "H") ?
-                    BarOrientation.HORIZONTAL : BarOrientation.VERTICAL, CommonUtil.equalsIgnoreCase(move.substring(2,3), "I") ?
-                    BarPosition.INNER : CommonUtil.equalsIgnoreCase(move.substring(2, 3), "C") ? BarPosition.CENTRAL : BarPosition.OUTER);
-            givenMoves.add(bar);
-        }
-        return givenMoves;
+        return true;
     }
 
     private String getBarPositions(BarOrientation orientation) {
@@ -140,36 +195,68 @@ public class Test {
         return position;
     }
 
-    private void printStatus() {
-        System.out.println(engine.getGame().activePlayers().size()); //"Number of players"
-        System.out.println(engine.getGame().getNextPlayer());//"Moving player"
-        System.out.println(getBarPositions(BarOrientation.HORIZONTAL));//"Positions of the horizontal bars"
-        System.out.println(getBarPositions(BarOrientation.VERTICAL));//"Positions of the vertical bars"
-        printBeads();//beads
+    private Player getPlayer(int id) {
+        for ( Player player : engine.getGame().activePlayers() ) {
+            if ( player.getId() + 1 == id ) {
+                return player;
+            }
+        }
+        return null;
     }
 
-    private void printMoveError(int id, BarOrientation orientation, BarPosition position) {
-        Bar currentBar = engine.getGame().findBar(id, orientation);
-        System.out.println("ERROR: One of these conditions has occurred:");
-        System.out.println("Move from <" + currentBar.getPosition() + "> to <" + position + "> it's forbidden.");
-        System.out.println("Bar<" + id + "> has already been slid in the previous round.");
-        System.out.println("There are only 2 players, you can not slide consecutively the same Bar<" + id + "> more than twice.");
+    private void reConfigureBars(BarOrientation orientation, char[] initialBars) {
+        for ( int i = 0; i < 7; i++ ) {
+            if ( ((Character)'0').equals(initialBars[i]) ) {
+                engine.getGame().getBars(orientation).get(i).setPosition(BarPosition.INNER);
+            } else if ( ((Character)'1').equals(initialBars[i]) ) {
+                engine.getGame().getBars(orientation).get(i).setPosition(BarPosition.CENTRAL);
+            } else {
+                engine.getGame().getBars(orientation).get(i).setPosition(BarPosition.OUTER);
+            }
+            engine.getGame().refreshBoard(engine.getGame().getBars(orientation).get(i));
+        }
+    }
+
+    private void printStatus() {
+        System.out.println(engine.getGame().activePlayers().size()); //"Number of players"
+        System.out.println(engine.getGame().getNextPlayer() != null ? engine.getGame().getNextPlayer().getNickname() : "N"); //"Moving player"
+        System.out.println(getBarPositions(BarOrientation.HORIZONTAL)); //"Positions of the horizontal bars"
+        System.out.println(getBarPositions(BarOrientation.VERTICAL)); //"Positions of the vertical bars"
+        printBeads();//beads
     }
 
     private void printBeads() {
         String beads[][] = new String[7][7];
-        for ( Player p : players ) {
+        for ( Player p : engine.getGame().activePlayers() ) {
             for ( Bead bead : p.activeBeads() ) {
                 beads[bead.getPosition().getX()][bead.getPosition().getY()] = p.getNickname();
             }
         }
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
+            String row = "";
             for ( int j = 0; j < Constant.BOARD_INDEX; j++ ) {
                 if ( beads[i][j] == null ) {
                     beads[i][j] = "0";
                 }
+                row += beads[i][j];
             }
+            System.out.println(row);
         }
     }
 
+    private void printBoard() {
+        System.out.format("%n%n%n");
+        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","-------","-------","-------","-------","-------","-------","-------");
+        System.out.format("| %-1s |   %-1d   |   %-1d   |   %-1d   |   %-1d   |   %-1d   |   %-1d   |   %-1d   |%n","/",1,2,3,4,5,6,7);
+        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","-------","-------","-------","-------","-------","-------","-------");
+        for ( int i = 0; i < 7; i++ ) {
+            System.out.format("| %-1d | %-5s | %-5s | %-5s | %-5s | %-5s | %-5s | %-5s |%n",
+                    i+1, engine.getGame().getBoard()[i][0].name(),
+                    engine.getGame().getBoard()[i][1].name(), engine.getGame().getBoard()[i][2].name(),
+                    engine.getGame().getBoard()[i][3].name(), engine.getGame().getBoard()[i][4].name(),
+                    engine.getGame().getBoard()[i][5].name(), engine.getGame().getBoard()[i][6].name());
+            System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","-------","-------","-------","-------","-------","-------","-------");
+        }
+
+    }
 }
