@@ -52,7 +52,7 @@ public class GameValidator {
      *         The {@code code} is <b>s0x0</b> if the number of players is allowed.<br/><br/>
      *                      And is <b>e0x1</b> in any other case.
      */
-    public StatusMessage isNumberOfPlayersValid(){
+    public StatusMessage validateNumberOfPlayers(){
 
         StatusMessage statusMessage = new StatusMessage();
 
@@ -67,7 +67,8 @@ public class GameValidator {
     }
 
     /**
-     * This method checks whether the movement a player is trying to do complies with the rules established for the game. Further information in the <i>Reference</i> section.<br/><br/>
+     * This method checks whether the movement a player is trying to do complies with the rules established for the game.
+     * Further information in the <i>Reference</i> section.<br/><br/>
      * <b>Reference</b><br/>
      *
      * {@link #validateCurrentPlayerDifferentFromPreviousPlayer(Player)}<br/>
@@ -90,10 +91,8 @@ public class GameValidator {
      */
     public StatusMessage validateMove(Bar selectedBar, BarPosition targetPosition, Player currentPlayer){
 
-        StatusMessage statusMessage = new StatusMessage();
-
         //checks if the movement of the bar is allowed
-        statusMessage = validateCurrentPlayerDifferentFromPreviousPlayer(currentPlayer);
+        StatusMessage statusMessage = validateCurrentPlayerDifferentFromPreviousPlayer(currentPlayer);
 
         if ( statusMessage.getCode().equals(Constant.STATUS_OK) ) {
             //checks is the final position is valid

@@ -8,6 +8,7 @@ import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Game;
 import it.polimi.group03.domain.Player;
+import it.polimi.group03.domain.StatusMessage;
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.Constant;
@@ -65,40 +66,52 @@ public class GameEngine {
      * This method adds a new player to the game <u>if and only if</u>
      * it complies with the rules established by the Game.
      *
+     * <p>Refer to the {@link GameValidator#validateNumberOfPlayers()} method for
+     * further information about the validation and object returned.
+     *
      * @see GameValidator
      * @see Player
+     * @see StatusMessage
      *
      * @param player new player to be added to the game
-     * @return {@code true} if the new player is accepted.<br/>
-     *         {@code false} if not.
+     * @return {@code statusMessage} indicating the result of the operation. This object contains a
+     *         {@code code} which specifies the code of the error <i>if any</i> and a
+     *         {@code message} with a brief description.
      */
-    public boolean addPlayer(Player player) {
-        if ( this.validator.isNumberOfPlayersValid().getCode().equals(Constant.STATUS_OK) ) {
+    public StatusMessage addPlayer(Player player) {
+        StatusMessage statusMessage = this.validator.validateNumberOfPlayers();
+
+        if ( statusMessage.getCode().equals(Constant.STATUS_OK) ) {
             this.game.addPlayer(player);
-            return true;
         }
 
-        return false;
+        return statusMessage;
     }
 
     /**
      * This method adds a new bead for the selected player <u>if and only if</u>
      * it complies with the rules established by the Game.
      *
+     * <p>Refer to the {@link GameValidator#validatePlacedBead(Player, Bead)} method for
+     * further information about the validation and object returned.
+     *
      * @see GameValidator
      * @see Player
+     * @see StatusMessage
      *
      * @param player new player to be added to the game
-     * @return {@code true} if the new bead is accepted.<br/>
-     *         {@code false} if not.
+     * @return {@code statusMessage} indicating the result of the operation. This object contains a
+     *         {@code code} which specifies the code of the error <i>if any</i> and a
+     *         {@code message} with a brief description.
      */
-    public boolean addBeadToBoard(Player player, Bead bead) {
-        if ( this.validator.validatePlacedBead(player, bead).getCode().equals(Constant.STATUS_OK) ) {
+    public StatusMessage addBeadToBoard(Player player, Bead bead) {
+        StatusMessage statusMessage = this.validator.validatePlacedBead(player, bead);
+
+        if ( statusMessage.getCode().equals(Constant.STATUS_OK) ) {
             player.addBead(bead);
-            return true;
         }
 
-        return false;
+        return statusMessage;
     }
 
     /**
@@ -111,24 +124,31 @@ public class GameEngine {
      * <p>Whenever the move is made without any problem the method returns a valid response so the controller can ask for
      * the result of the movement i.e check for any loser.
      *
+     * <p>Refer to the {@link GameValidator#validateMove(Bar, BarPosition, Player)} method for
+     * further information about the validation and object returned.
+     *
      * @see Game
      * @see GameValidator
+     * @see StatusMessage
      *
      * @param id Moved bar <b>id</b>
      * @param orientation Moved bar <b>orientation</b>
      * @param targetPosition Moved bar <b>position</b> (target position)
      * @param currentPlayer Player making move
-     * @return {@code true} if the move is valid and made
-     *         {@code false} if not
+     * @return {@code statusMessage} indicating the result of the operation. This object contains a
+     *         {@code code} which specifies the code of the error <i>if any</i> and a
+     *         {@code message} with a brief description.
      */
-    public boolean makeMove(int id, BarOrientation orientation, BarPosition targetPosition, Player currentPlayer) {
+    public StatusMessage makeMove(int id, BarOrientation orientation, BarPosition targetPosition, Player currentPlayer) {
         Bar bar = this.game.findBar(id,orientation);
-        if ( !this.validator.validateMove(bar, targetPosition, currentPlayer).getCode().equals(Constant.STATUS_OK) ) {
+        StatusMessage statusMessage = this.validator.validateMove(bar, targetPosition, currentPlayer);
+
+        if ( !statusMessage.getCode().equals(Constant.STATUS_OK) ) {
              //Log.i("GameEngine.makeMove","Invalid move!");
-             return false;
+             return statusMessage;
         }
-        Log.i("GameEngine.makeMove", MessageFormat.format("Player {0} authorized to move {1} bar number {2} to {3}", currentPlayer.getNickname(), bar.getOrientation().toString(), bar.getId(),
-                targetPosition.toString()));
+        //Log.i("GameEngine.makeMove", MessageFormat.format("Player {0} authorized to move {1} bar number {2} to {3}", currentPlayer.getNickname(), bar.getOrientation().toString(), bar.getId(),
+        //        targetPosition.toString()));
 
         // Giving that the move is permitted is necessary to update the position of the selected bar
         bar.setPosition(targetPosition);
@@ -163,7 +183,7 @@ public class GameEngine {
                 this.game.moveRound(); //this is for the statistics
             }
         }
-        return true;
+        return statusMessage;
     }
 
     /**
@@ -230,12 +250,7 @@ public class GameEngine {
             }
         }
 
-        if ( position == this.game.activePlayers().size() ) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return position == this.game.activePlayers().size();
     }
 
     /**
