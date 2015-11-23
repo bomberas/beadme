@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="s0x0">Action performed successfully</entry>
+    <entry key="e0x1">Number of players out of bound</entry>
+    <entry key="e0x2">Cannot move the bar to the new position. Invalid movement</entry>
+    <entry key="e0x3">Cannot move selected bar because it was moved in the previous round by one of your opponents</entry>
+    <entry key="e0x4">Cannot move selected bar because it was moved in one of the two previous rounds</entry>
+    <entry key="e0x5">You cannot move twice in a row</entry>
+    <entry key="e0x6">Cannot placed the bead in this position. Invalid movement</entry>
+</properties>

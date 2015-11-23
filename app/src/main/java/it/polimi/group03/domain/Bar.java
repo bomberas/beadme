@@ -7,14 +7,42 @@ import it.polimi.group03.util.SlotInfo;
 import static it.polimi.group03.util.Constant.*;
 
 /**
+ * This class will hold the configuration for all bars on the board, based on
+ * the IDs and Orientations (unique key).
+ *
+ * <p>It's used when a game has started, (the initial configuration for the positions is
+ * random) and when a move is made.</p>
+ *
+ * @see BarPosition
+ * @see BarOrientation
+ * @see BarPosition
+ * @see SlotInfo
+ *
+ * @author cecibloom
+ * @author megireci
  * @author tatibloom
- * Created by tatibloom on 08/11/2015.
+ * @version 1.0
+ * @since 08/11/2015.
  */
+
 public class Bar {
 
+    /**
+     * ID of the bar: from 0 to 6.
+     */
     private int id;
+    /**
+     * Position of the bar: HORIZONTAL or VERTICAL.
+     */
     private BarPosition position;
+    /**
+     * Orientation of the bar: INNER, OUTER or CENTRAL.
+     */
     private BarOrientation orientation;
+    /**
+     * Slots configuration: RED or BLACK for HORIZONTAL bars.
+     * BLUE or BLACK for VERTICAL bars.
+     */
     private SlotInfo[] keys = new SlotInfo[BAR_SLOTS];
 
     public Bar(int id, BarOrientation orientation, SlotInfo[] keys) {
@@ -24,9 +52,6 @@ public class Bar {
         this.keys = keys;
     }
 
-    /**
-     * For testing purposes
-     */
     public Bar(int id, BarOrientation orientation, BarPosition position) {
         this.id = id;
         this.position = position;
@@ -41,9 +66,6 @@ public class Bar {
         this.id = id;
     }
 
-    /**
-     * Position: Inner, Outer, Central
-     **/
     public BarPosition getPosition() {
         return position;
     }
@@ -52,16 +74,14 @@ public class Bar {
         this.position = position;
     }
 
-    /**
-     * Orientation: Horizontal or Vertical
-     **/
     public BarOrientation getOrientation() {
         return orientation;
     }
 
-    /**
-     * Keys: Red or Blue when it's covered nad Black when it's not.
-     */
+    public void setOrientation(BarOrientation orientation) {
+        this.orientation = orientation;
+    }
+
     public SlotInfo[] getKeys() {
         return keys;
     }

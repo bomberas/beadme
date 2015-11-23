@@ -1,14 +1,24 @@
 package it.polimi.group03.domain;
 
-import java.util.List;
-
 /**
+ * This class will store and update all the statistics of the game,
+ * such as, but not limited to:
+ * <u style="list-style-type:circle">
+ * <li>Number of games played.</li>
+ * <li>Top 10 players.</li>
+ * <li>Number of victories.</li>
+ * <li>Number of defeats.</li>
+ * </u>
+ *
+ *
+ *
+ * @author cecibloom
+ * @author megireci
  * @author tatibloom
- * Created by tatibloom on 11/11/2015.
+ * @version 1.0
+ * @since 11/11/2015.
  */
-public class Statistics {
 
-    private List<String> users;
-    private int games;
+public class Statistics {
 
 }

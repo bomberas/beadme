@@ -1,12 +1,26 @@
 package it.polimi.group03.domain;
 
 /**
+ * This class supports the position of a bead in the matrix (board),
+ * using coordinates X (from 0 to 6) and Y (from 0 to 6).
+ *
+ *
+ * @author cecibloom
+ * @author megireci
  * @author tatibloom
- * Created by tatibloom on 11/11/2015.
+ * @version 1.0
+ * @since 11/11/2015.
  */
+
 public class Position {
 
+    /**
+     * Coordinate X.
+     */
     private int x;
+    /**
+     * Coordinate Y.
+     */
     private int y;
 
     public Position(int x, int y) {

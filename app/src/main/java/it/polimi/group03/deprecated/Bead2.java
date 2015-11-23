@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by megi on 11/11/2015.
  */
+@Deprecated
 public class Bead2 {
 
     String color=" "; //here the bead will take its color according to the color in the arraylist

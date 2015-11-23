@@ -6,6 +6,7 @@ import java.util.Scanner;
 /**
  * Created by megi on 11/11/2015.
  */
+@Deprecated
 public class Player2 {
 
     String name;
