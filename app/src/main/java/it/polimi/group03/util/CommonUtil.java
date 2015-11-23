@@ -89,13 +89,13 @@ public class CommonUtil {
     }
 
     /**
-     * Loads the <tt>strings.xml</tt> file located in <tt>src/main/res/values/</tt> to access the
+     * Loads the <tt>properties.xml</tt> file located in <tt>app/src/main/java/it/polimi/group03/</tt> to access the
      * properties that has been configured.
-     *
      */
-    private static void loadProperties(){
+    private static void loadProperties() {
         try {
-                properties.loadFromXML(new FileInputStream(new File("src/main/res/values/strings.xml")));
+            properties = new Properties();
+            properties.loadFromXML(new FileInputStream(new File("app/src/main/java/it/polimi/group03/properties.xml")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -108,7 +108,7 @@ public class CommonUtil {
      * @return {@code message} value of the property.
      */
     public static String getMessageDescription(String code){
-        if (properties.isEmpty()){
+        if ( properties == null || properties.isEmpty() ){
             loadProperties();
         }
 
@@ -120,5 +120,4 @@ public class CommonUtil {
             return message;
         }
     }
-
 }
