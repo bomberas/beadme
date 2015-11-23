@@ -1,9 +1,16 @@
 package it.polimi.group03.util;
 
 /**
+ * This class
+ *
+ * @author cecibloom
+ * @author megireci
  * @author tatibloom
- * Created by tatibloom on 11/11/2015.
+ * @version 1.0
+ * @since 11/11/2015.
  */
+// TODO: 22/11/2015 Tati escribe la doc de la clase
+
 public enum BarOrientation {
     VERTICAL('v'), HORIZONTAL('h');
 

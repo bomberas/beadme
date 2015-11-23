@@ -1,8 +1,5 @@
 package it.polimi.group03.domain;
 
-import android.util.Log;
-
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,41 +9,103 @@ import it.polimi.group03.util.Constant;
 import it.polimi.group03.util.SlotInfo;
 
 /**
+ *
+ *
+ *
+ *
+ * @see Bar
+ * @see Player
+ * @see SlotInfo
+ *
  * @author cecibloom
+ * @author megireci
  * @author tatibloom
- * Created on 11/11/2015.
+ * @version 1.0
+ * @since 11/11/2015.
  */
 public class Game {
 
+    /**
+     * List of bar in the board. 7 horizontal and 7 vertical.
+     */
     private List<Bar> bars;
+    /**
+     * List of player playing the current game.
+     */
     private List<Player> players;
-    private SlotInfo[][] board = new SlotInfo[Constant.BOARD_INDEX][Constant.BOARD_INDEX];
-    private Bar lastBarMoved; //maybe this can be obtained from a method
-    private Player lastPlayer; //maybe this can be obtained from a method
-    private Player nextPlayer; //this way the UI can call next player
-    private int round; //Useful also for statistics
-    private int turn; //Useful also for statistics
-    private List<Player> losersAfterTurn; //this way the UI can show the loser after a turn, this property must be updated in the refreshBeads method
+    /**
+     * Grid representing the board.
+     */
+    private SlotInfo[][] board;
+    /**
+     * Used to retrieve the last bar moved in the game.
+     */
+    private Bar lastBarMoved;
+    /**
+     * Used to retrieve the player who performed the last move. Possibly read from the UI.
+     */
+    private Player lastPlayer;
+    /**
+     * Used to retrieve the next player in turn. Possibly read from the UI.
+     */
+    private Player nextPlayer;
+    /**
+     * Used for statistics.
+     * This attribute is updated in the makeMove(...) method
+     */
+    private int round;
+    /**
+     * Used for statistics.
+     * This attribute is updated in the makeMove(...) method
+     */
+    private int turn;
+    /**
+     * Used to retrieve the loser or losers after a move. Possibly read from the UI.
+     * This attribute is updated in the refreshBeads(Bar bar) method.
+     */
+    private List<Player> losersAfterTurn;
+    /**
+     * List of the bars move in the round.
+     * Used when validating the rule of the bars moved by the opponents in the previous round.
+     */
     private List<Bar> movedBarsInCurrentRound;
-    private List<Bar> movedBarsInTwoPreviousRound;
+    /**
+     * List of the bars move in the two previous rounds.
+     * Used when validating the rule of the bars moved in the two consecutive turns by a player
+     * when there are only two remaining players in the game.
+     */
+    private List<Bar> movedBarsInTwoPreviousRounds;
 
     /**
-     * This method will setup the initial state (<b>screenshot</b>) of the board: <i>bars,
-     * players, beads and the board itself</i> and some additional attributes that help us to have the most
-     * accurate info in order to manage the game and some statistics.
+     * This method will setup the initial state (<b>screenshot</b>) of the game: <i>bars,
+     * players, beads and the board itself</i> and some additional attributes that help to have the most
+     * accurate info of the board in order to manage the game and some statistics.
+     *
+     * <p>The method uses {@link #configureBar(BarOrientation)} to set up the composition of the
+     * horizontal and vertical bars.
+     *
+     * @see SlotInfo
      */
     public void init(){
-        configureBar(BarOrientation.HORIZONTAL);//setting-up the fixed positions for the horizontal Bars
-        configureBar(BarOrientation.VERTICAL);//setting-up the fixed positions for the vertical Bars
+        //Initializing the board itself
+        this.board = new SlotInfo[Constant.BOARD_INDEX][Constant.BOARD_INDEX];
+        //setting-up the fixed composition for the horizontal Bars
+        configureBar(BarOrientation.HORIZONTAL);
+        //setting-up the fixed composition for the vertical Bars
+        configureBar(BarOrientation.VERTICAL);
     }
 
     /**
-     * This method will set new values for each slot in the board (column or row),
-     * if it's a horizontal move (<b>RED</b> bars), we'll only update the value in the slot (to <b>RED</b> or <b>BLACK</b>), if the previous one
+     * This method sets new values for each slot in the board (column or row),
+     * if it's a horizontal move (<b>RED</b> bars), updates only the value in the slot (to <b>RED</b> or <b>BLACK</b>), if the previous one
      * it's not blue (<b>BLUE</b> covers all the possible colors behind it). If it's a vertical move (<b>BLUE</b> bars)
-     * we'll update the value of the slot, if the previous one it's not <b>RED</b> but if it is <b>RED</b>, we won't update it if the current move
+     * updates the value of the slot, if the previous one it's not <b>RED</b> but if it is <b>RED</b>, does not update it if the current move
      * generates a <b>BLACK</b> slot but yes if generates a <b>BLUE</b> one.
-     * @param bar Only the board corresponding to this bar will be updated.
+     *
+     * @see Bar
+     * @see SlotInfo
+     *
+     * @param bar Only the slots corresponding to this bar will be updated.
      */
     public void refreshBoard(Bar bar){
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
@@ -62,15 +121,27 @@ public class Game {
     }
 
     /**
-     * This method will <u>update the status</u> of all the affected beads once a bar has been moved,
-     * based on its coordinates. If the bar moved is <i>vertical</i>, we should only
-     * check all beads for which the <b>Y</b> coordinate is the same as the id of the bar, and the
+     * This method <u>updates the status</u> of all the affected beads once a bar has been moved,
+     * based on its coordinates. If the bar moved is <i>vertical</i>, checks
+     * only all beads for which the <b>Y</b> coordinate is the same as the id of the bar, and the
      * <b>X</b> coordinate if it's a horizontal bar. The <u>updated status</u> will be <i>INACTIVE</i> for
      * all the beads allocated on a slot in the board which the current value is <i>BLACK</i> or <i>EMPTY</i>.
-     * After updating the status of all the beads of a user, the status of the user <i>will be updated</i> too in such way
-     * that, if the user doesn't have any active bead, the user will be <i>INACTIVE</i> too and it will be added
+     *
+     * <p>After updating the status of all the beads of a player, the status of the player <i>will be updated</i> too in such way
+     * that, if the player doesn't have any active bead, the user will be <i>INACTIVE</i> too and it will be added
      * to the list of the looser players.
-     * @param bar in which the last move has been done.
+     *
+     * <p>The method uses the {@link #activePlayers()} method to retrieve the current list of active players.
+     * The {@link #addPlayerToListOfLosersAfterTurn(Player)} method to add a player to the list of losers if after
+     * the current move the player has lost. Finally uses {@link #updateListOfMovedBarsInRound()} to remove the
+     * first bar in the list of moved bars in the game.
+     *
+     * @see Bar
+     * @see Player
+     * @see Bead
+     * @see SlotInfo
+     *
+     * @param bar in which the last move has been made.
      */
     public void refreshBeads(Bar bar) {
         for ( Player player : activePlayers() ) {
@@ -78,27 +149,34 @@ public class Game {
                 if ( BarOrientation.VERTICAL.equals(bar.getOrientation()) ) {//checking only Y coordinate
                     if ( bar.getId() == bead.getPosition().getY() ) {
                         //if the corresponding slot on the board is BLACK or EMPTY we should de-activate the bead
-                        bead.setActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getX()]));
+                        bead.setActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getY()]));
                     }
                 } else {//checking only X coordinate
                     if ( bar.getId() == bead.getPosition().getX() ) {
                         //if the corresponding slot on the board is BLACK or EMPTY we should de-activate the bead
-                        bead.setActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getX()]));
+                        bead.setActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getY()]));
                     }
                 }
 
             }
             //if there aren't active beads for the player, the player won't be active too
-            player.setActive(!CommonUtil.isEmpty(player.activeBeads()));
-            addPlayerToListOfLosersAfterTurn(player);
+            if ( CommonUtil.isEmpty(player.activeBeads()) ){
+                player.setActive(false);
+                addPlayerToListOfLosersAfterTurn(player);
+            }
+
+            updateListOfMovedBarsInRound();
         }
     }
 
     /**
-     * This method will return all the bars present in the game for a given
+     * This method returns all the bars present in the game for a given
      * <b>orientation</b>.
+     *
+     * @see Bar
+     *
      * @param orientation <i>horizontal</i> or <i>vertical</i>
-     * @return <tt>bar</tt>
+     * @return {@code bar}
      */
     public List<Bar> getBars(BarOrientation orientation) {
         List<Bar> bars = new ArrayList<>();
@@ -111,8 +189,12 @@ public class Game {
     }
 
     /**
-     * List of the current active players in the game. A player is consider active if and only if still has beads on the board.
-     * @return List of <tt>active players</tt> (at least 1).
+     * This method returns the list of the current active players in the game. A player is consider active
+     * if and only if still has beads on the board.
+     *
+     * @see Player
+     *
+     * @return List of {@code active players} (at least 1).
      */
     public List<Player> activePlayers() {
         List<Player> players = new ArrayList<>();
@@ -126,11 +208,18 @@ public class Game {
     }
 
     /**
-     * This method will find a Bar inside the <b>Board</b> in base of the id and the orientation.
+     * This method finds a bar inside the <b>Board Game</b> in base of the id and the orientation.
+     * Is used to retrieve an specific bar for reviewing the current state of the bar and perform
+     * validations and other kind of operations.
+     *
+     * <p>The method uses the {@link Game#getBars(BarOrientation)} to retrieve all the bars in the board.
+     *
+     * @see Bar
+     *
      * @param id From <i>0</i> to <i>6</i>
      * @param orientation <i>vertical</i> or <i>horizontal</i>
-     * @return <tt>bar</tt> corresponding to the given parameters or
-     *         <tt>null</tt> if such bar doesn't exist.
+     * @return {@code bar} corresponding to the given parameters or
+     *         {@code null} if such bar doesn't exist.
      */
     public Bar findBar(int id, BarOrientation orientation){
         List<Bar> targetBars = getBars(orientation);
@@ -145,8 +234,16 @@ public class Game {
     }
 
     /**
-     * Method called just once per game, will setup all the
-     * slots (<b>RED/BLUE</b> when it's cover or <b>BLACK</b> when it's not) for the given <b>orientation</b>.
+     * This method sets up the initial composition of every bar in the board.
+     * Should be called just once per game. After calling this method a bar will be composed
+     * of slots (<b>RED/BLUE</b> when it's cover or <b>BLACK</b> when it's not).
+     * The method will configure all bars for the given <b>orientation</b>.
+     *
+     * <p>The method uses the {@link #getKeys(int, BarOrientation)} method for retrieving the fixed composition
+     * of the bars, and the {@link #refreshBoard(Bar)} method for resetting the values of all slots in the game.
+     *
+     * @see Bar
+     *
      * @param orientation <i>horizontal</i> or <i>vertical</i>
      */
     private void configureBar(BarOrientation orientation) {
@@ -162,11 +259,14 @@ public class Game {
     }
 
     /**
-     * This method is in charge of setting the values of each slot in a bar,
-     * this configuration <b>won't change</b>, it will be the same always.
+     * This method is in charge of setting the composition of each slot in a bar,
+     * this configuration <b>won't change</b> during the game, it will always be the same.
+     *
+     * @see SlotInfo
+     *
      * @param id From <i>0</i> to <i>6</i>
      * @param orientation <i>horizontal</i> or <i>vertical</i>
-     * @return <tt>keys</tt> for the given bar
+     * @return {@code keys} for the given bar
      */
     private SlotInfo[] getKeys(int id, BarOrientation orientation) {
         SlotInfo[] keys;
@@ -206,35 +306,56 @@ public class Game {
         return keys;
     }
 
+    /**
+     * This method initializes the list of bars moved by the opponents in the previous round.
+     */
     public void resetMovedBarsInCurrentRound() {
         this.movedBarsInCurrentRound = new ArrayList<>();
     }
 
-    public void resetLoserAfterTurn(){
+    /**
+     * This method initializes the list of bars moved in two previous rounds.
+     */
+    public void resetMovedBarsInTwoPreviousRounds() {
+        this.movedBarsInTwoPreviousRounds = new ArrayList<>();
+    }
+
+    /**
+     * This method initializes the list of losers after a turn.
+     */
+    public void resetLosersAfterTurn(){
         this.losersAfterTurn = new ArrayList<>();
     }
 
+    /**
+     * This method adds a bar to the list of bars moved by the opponents in the previous round.
+     *
+     * @param bar
+     */
     public void addBarToListOfMovedBarsInRound(Bar bar){
         if ( CommonUtil.isEmpty(this.movedBarsInCurrentRound) ) {
              this.movedBarsInCurrentRound = new ArrayList<>();
         }
-        if ( this.movedBarsInCurrentRound.size() <= 3 ){//a round can only hold a maximum of 4 moved bars
-             this.movedBarsInCurrentRound.add(bar);
-        } else {//in any other case a new round is started
-             this.round += 1;
-             this.movedBarsInCurrentRound = new ArrayList<>();
-             this.movedBarsInCurrentRound.add(bar);
-        }
-
+        this.movedBarsInCurrentRound.add(bar);
     }
 
-    public void addBarToListOfMovedBarsInTwoPreviousRound(Bar bar){
-        if ( CommonUtil.isEmpty(this.movedBarsInTwoPreviousRound) ) {
-            this.movedBarsInTwoPreviousRound = new ArrayList<>();
+    /**
+     * This method adds a bar to the list of bars moved in two previous rounds.
+     *
+     * @param bar
+     */
+    public void addBarToListOfMovedBarsInTwoPreviousRounds(Bar bar){
+        if ( CommonUtil.isEmpty(this.movedBarsInTwoPreviousRounds) ) {
+            this.movedBarsInTwoPreviousRounds = new ArrayList<>();
         }
-        this.movedBarsInTwoPreviousRound.add(bar);
+        this.movedBarsInTwoPreviousRounds.add(bar);
     }
 
+    /**
+     * This method adds a player to the list of loser after a turn.
+     *
+     * @param player
+     */
     private void addPlayerToListOfLosersAfterTurn(Player player) {
         if ( CommonUtil.isEmpty(this.losersAfterTurn) ) {
             this.losersAfterTurn = new ArrayList<>();
@@ -242,14 +363,45 @@ public class Game {
         this.losersAfterTurn.add(player);
     }
 
+    /**
+     * This method removes the first element of the list of moved bars. Should be called
+     * whenever a move is made.
+     */
+    private void updateListOfMovedBarsInRound() {
+        if ( ! CommonUtil.isEmpty(this.movedBarsInCurrentRound) ) {
+            this.movedBarsInCurrentRound.remove(0);
+        }
+    }
+
+    /**
+     * This method moves the current round of the game to the next i.e adds one to
+     * the current value of <tt>round</tt>.
+     */
     public void moveRound(){
         this.round += 1;
     }
 
-    public void moveTurn() {
-        this.turn = this.movedBarsInCurrentRound.size();
+    /**
+     * This method sets the value of the <tt>turn</tt> to "1" again. Should be called only when the round has finished.
+     */
+    public void restartTurn() {
+        this.turn = 1;
     }
 
+    /**
+     * This method moves the turn from one user to the next. Does not retrieve the next user in turn, just
+     * adds one to the current value of <tt>turn</tt>.
+     */
+    public void moveTurn() {
+        this.turn += 1;
+    }
+
+    /**
+     *
+     * This method adds a player to the current list of players in the game.
+     *
+     * @param player to be added to the list.
+     */
     public void addPlayer(Player player) {
         if ( CommonUtil.isEmpty(players) ) {
             players = new ArrayList<>();
@@ -257,7 +409,7 @@ public class Game {
         players.add(player);
     }
 
-    //From here, just constructor, getters and setters
+    //From here, just constructors, getters and setters
 
     public Game() {
         this.round = 1;
@@ -280,8 +432,8 @@ public class Game {
         return losersAfterTurn;
     }
 
-    public List<Bar> getMovedBarsInTwoPreviousRound() {
-        return movedBarsInTwoPreviousRound;
+    public List<Bar> getMovedBarsInTwoPreviousRounds() {
+        return movedBarsInTwoPreviousRounds;
     }
 
     public void setLastPlayer(Player lastPlayer) {

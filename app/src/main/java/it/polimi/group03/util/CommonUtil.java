@@ -1,28 +1,59 @@
 package it.polimi.group03.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Collection;
+import java.util.Properties;
 
 /**
+ * This is an utility class.
+ *
+ * <p>All methods of this class are helpers of the project.
+ * <p>Each method is responsible to perform some minor action non related to the mechanics of the game
+ * but helpful and used in various instances.
+ *
+ * @author cecibloom
+ * @author megireci
  * @author tatibloom
- * Created by tatibloom on 11/11/2015.
+ * @version 1.0
+ * @since 11/11/2015.
  */
 public class CommonUtil {
 
+    private static Properties properties;
+
+    /**
+     * Checks whether a collection is empty or not.
+     *
+     * @param collection
+     * @return  {@code true} if the collection is empty.
+     *          {@code true} if not.
+     */
     public static boolean isEmpty(Collection<?> collection) {
         return collection == null || collection.size() == 0;
     }
 
+    /**
+     * Checks whether a string is empty or not.
+     *
+     * @param string
+     * @return  {@code true} if the given string is empty.
+     *          {@code true} if not.
+     */
     public static boolean isEmpty(String string) {
         return string == null || string == "";
     }
 
     /**
-     * @param s1 string to compare
-     * @param s2 string to compare
-     * @return [null,null] <tt>true</tt> <br/>
-     *         ["  123  ","123"] <tt>true</tt> <br/>
-     *         ["ABC","abc"] <tt>true</tt> <br/>
-     *         <tt>false</tt> in any other case.
+     * Checks whether two strings are equal without regarding the case.
+     *
+     * @param s1 string to compare.
+     * @param s2 string to compare.
+     * @return [null,null] {@code true} <br/>
+     *         ["  123  ","123"] {@code true} <br/>
+     *         ["ABC","abc"] {@code true} <br/>
+     *         {@code false} in any other case.
      */
     public static boolean equalsIgnoreCase(String s1, String s2) {
         if ( s1 == null ) return s2 == null;
@@ -33,20 +64,61 @@ public class CommonUtil {
         return false;
     }
 
-    public static String rPad(String s, int size) {
-        if ( CommonUtil.isEmpty(s) ) {
-            return s;
+    /**
+     * Formats a string adding blank spaces to the right until reach the given size. For example:
+     * rpad("abc", 5) will return <i>"abc  "</i> (two blank spaces to the right).
+     *
+     * @param string text to format.
+     * @param size number of characters to fit.
+     * @return the new formatted string.
+     */
+    public static String rPad(String string, int size) {
+        if ( CommonUtil.isEmpty(string) ) {
+            return string;
         }
 
-        int count = size - s.length();
+        int count = size - string.length();
         int i = 0;
 
         while (  i < count ) {
-            s += " ";
+            string += " ";
             i++;
         }
 
-        return s;
+        return string;
+    }
+
+    /**
+     * Loads the <tt>strings.xml</tt> file located in <tt>src/main/res/values/</tt> to access the
+     * properties that has been configured.
+     *
+     */
+    private static void loadProperties(){
+        try {
+                properties.loadFromXML(new FileInputStream(new File("src/main/res/values/strings.xml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+
+    /**
+     * Returns the value of a specific key.
+     *
+     * @param code property key.
+     * @return {@code message} value of the property.
+     */
+    public static String getMessageDescription(String code){
+        if (properties.isEmpty()){
+            loadProperties();
+        }
+
+        String message = properties.getProperty(code);
+
+        if ( message == null || message.equals("")) {
+            return "Undefined message";
+        } else {
+            return message;
+        }
     }
 
 }
