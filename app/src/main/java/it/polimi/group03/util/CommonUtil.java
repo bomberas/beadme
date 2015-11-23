@@ -26,7 +26,7 @@ public class CommonUtil {
     /**
      * Checks whether a collection is empty or not.
      *
-     * @param collection
+     * @param collection collection that wants to be validated.
      * @return  {@code true} if the collection is empty.
      *          {@code true} if not.
      */
@@ -37,12 +37,12 @@ public class CommonUtil {
     /**
      * Checks whether a string is empty or not.
      *
-     * @param string
+     * @param string string that wants to be validated.
      * @return  {@code true} if the given string is empty.
      *          {@code true} if not.
      */
     public static boolean isEmpty(String string) {
-        return string == null || string == "";
+        return string == null || string.equals("");
     }
 
     /**
@@ -58,34 +58,9 @@ public class CommonUtil {
     public static boolean equalsIgnoreCase(String s1, String s2) {
         if ( s1 == null ) return s2 == null;
         if ( s2 == null ) return false;
-        if ( s1.trim() == "" ) return s2.trim() == "";
-        if ( s2.trim() == "" ) return false;
-        if ( s1.toLowerCase().trim().equals(s2.toLowerCase().trim()) ) return true;
-        return false;
-    }
-
-    /**
-     * Formats a string adding blank spaces to the right until reach the given size. For example:
-     * rpad("abc", 5) will return <i>"abc  "</i> (two blank spaces to the right).
-     *
-     * @param string text to format.
-     * @param size number of characters to fit.
-     * @return the new formatted string.
-     */
-    public static String rPad(String string, int size) {
-        if ( CommonUtil.isEmpty(string) ) {
-            return string;
-        }
-
-        int count = size - string.length();
-        int i = 0;
-
-        while (  i < count ) {
-            string += " ";
-            i++;
-        }
-
-        return string;
+        if ( s1.trim().equals("") ) return s2.trim().equals("");
+        if ( s2.trim().equals("") ) return false;
+        return s1.toLowerCase().trim().equals(s2.toLowerCase().trim());
     }
 
     /**
