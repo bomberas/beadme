@@ -59,8 +59,7 @@ public class CommonUtil {
         if ( s1 == null ) return s2 == null;
         if ( s2 == null ) return false;
         if ( s1.trim().equals("") ) return s2.trim().equals("");
-        if ( s2.trim().equals("") ) return false;
-        return s1.toLowerCase().trim().equals(s2.toLowerCase().trim());
+        return !s2.trim().equals("") && s1.toLowerCase().trim().equals(s2.toLowerCase().trim());
     }
 
     /**

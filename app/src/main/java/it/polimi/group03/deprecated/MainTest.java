@@ -2,8 +2,9 @@ package it.polimi.group03.deprecated;
 import java.util.Scanner;
 
 /**
- * Created by tatibloom on 11/11/2015.
+ * Created by megi on 11/11/2015.
  */
+@Deprecated
 public class MainTest {
 //
 //    public static void main(String[] args) {

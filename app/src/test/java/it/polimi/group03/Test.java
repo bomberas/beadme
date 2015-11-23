@@ -11,7 +11,6 @@ import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.domain.StatusMessage;
 import it.polimi.group03.engine.GameEngine;
-import it.polimi.group03.engine.GameValidator;
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.CommonUtil;

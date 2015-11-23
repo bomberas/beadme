@@ -1,6 +1,6 @@
 package it.polimi.group03.engine;
 
-import android.util.Log;
+//import android.util.Log;
 
 import java.text.MessageFormat;
 

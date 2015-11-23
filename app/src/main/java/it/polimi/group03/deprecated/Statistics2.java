@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Megi on 11/11/2015.
  */
+@Deprecated
 public class Statistics2 {
 
     ArrayList<Integer> points=new ArrayList<Integer>();
