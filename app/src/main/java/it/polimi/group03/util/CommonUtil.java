@@ -69,7 +69,11 @@ public class CommonUtil {
     private static void loadProperties() {
         try {
             properties = new Properties();
-            properties.loadFromXML(new FileInputStream(new File("app/src/main/java/it/polimi/group03/properties.xml")));
+            File strings = new File("app/src/main/res/values/strings.xml");
+            if ( !strings.exists() ) {
+                strings = new File("src/main/res/values/strings.xml");//for testing purposes
+            }
+            properties.load(new FileInputStream(strings));
             } catch (IOException e) {
                 e.printStackTrace();
             }
