@@ -7,11 +7,11 @@ import it.polimi.group03.util.SlotInfo;
 import static it.polimi.group03.util.Constant.*;
 
 /**
- * This class will hold the configuration for all bars on the board, based on
+ * This class holds the configuration for all the bars present on the board, based on
  * the IDs and Orientations (unique key).
  *
- * <p>It's used when a game has started, (the initial configuration for the positions is
- * random) and when a move is made.</p>
+ * <p>It's used when a game has started and when a move is made. The initial position of
+ * each bar is set randomly.
  *
  * @see BarPosition
  * @see BarOrientation

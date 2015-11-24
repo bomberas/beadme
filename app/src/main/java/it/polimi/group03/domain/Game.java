@@ -12,12 +12,16 @@ import it.polimi.group03.engine.GameEngine;
 import it.polimi.group03.engine.GameValidator;
 
 /**
- * This class represents the game including players,
- * bars, beads and the board itself. It represents the current status too,
- * such way that some additional info will be stored like <i>lastBarMoved, lastPlayer,
- * nextPlayer, round, turn</i> and so on.
+ * This class represents the whole concept of the game which includes players,
+ * bars, beads and the board itself. Is seen as a snapshot of the game that shows the current status,
+ * i.e the latest and most updated values for all the information hold in the game.
  *
- * <p>It will be used by {@link GameEngine} and {@link GameValidator}.</p>
+ * <p>This class is capable to retrieve the current situation of a particular game in any time, because
+ * stores useful information obtained during the development of the game e.g. <i>lastBarMoved, lastPlayer,
+ * nextPlayer, round, turn</i> and so on.
+ * To achieve this key behaviour the class performs methods such as <i>refreshBoard(), refreshBead() </i> etc.
+ *
+ * <p>It is used by {@link GameEngine} class and {@link GameValidator} class.
  *
  * @see Bar
  * @see Player
