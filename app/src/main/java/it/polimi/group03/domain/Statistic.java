@@ -46,7 +46,7 @@ public class Statistic {
      */
     private String winnerName;
     /**
-     * Color picked by the winner. Could be used for "Which is you lucky color?"
+     * Color picked by the winner. Could be used for "Which is your lucky color?"
      */
     private String winnerColor;
     /**

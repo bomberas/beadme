@@ -31,7 +31,7 @@ import it.polimi.group03.util.SlotInfo;
  * <li>[07] positions of the vertical bars +</li>
  * <li>[49] beads in the grid +</li>
  * <li>[3*n] moves.</li>
- * </u>
+ * </ul>
  *
  * For unit testing please see {@link GameTest}
  *

@@ -10,7 +10,7 @@ import it.polimi.group03.engine.GameValidator;
 /**
  * This class defines and holds the basic information of a player in the game.
  * Being that a player has up to 5 beads, the class references the {@link Bead} class
- * and uses the {@link Player#addBead(Bead)} method to set the beads to the player and the
+ * and uses the {@link Player#addBead(Bead)} method to set the beads to the player and then
  * add them to the game.
  *
  * The player remains in the game til the end unless all his/her beads have fallen,
@@ -98,7 +98,7 @@ public class Player {
     /**
      * This method will retrieve a list with all the active beads for the player.
      *
-     * @return {@code List} off all active beads for the current player.<br/>
+     * @return {@code List} of all active beads for the current player.<br/>
      *         {@code empty} In there is no active beads for the player.
      */
     public List<Bead> activeBeads() {

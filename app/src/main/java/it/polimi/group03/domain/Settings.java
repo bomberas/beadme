@@ -17,6 +17,7 @@ package it.polimi.group03.domain;
  * <li>Language.</li>
  * <li>Theme.</li>
  * <li>Light.</li>
+ * </ul>
  *
  * @author cecibloom
  * @author megireci
