@@ -14,10 +14,9 @@ import it.polimi.group03.util.Constant;
 import it.polimi.group03.util.SlotInfo;
 
 /**
+ *
  * This class contains all the unit tests performed
- * on the code, in any case should be pass without
- * errors. Additionally could provide some coverage
- * statistics.
+ * on the code. All have passed without any error.
  *
  *
  * @author cecibloom

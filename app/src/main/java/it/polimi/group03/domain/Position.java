@@ -1,7 +1,7 @@
 package it.polimi.group03.domain;
 
 /**
- * This class supports the position of a bead in the matrix (board),
+ * This class holds the position of a bead in the matrix (board),
  * using coordinates X (from 0 to 6) and Y (from 0 to 6).
  *
  *

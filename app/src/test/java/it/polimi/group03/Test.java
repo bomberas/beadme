@@ -18,11 +18,12 @@ import it.polimi.group03.util.Constant;
 import it.polimi.group03.util.SlotInfo;
 
 /**
- * This class was implemented for specific testing purposes established in
- * the requirements (for unit testing please see {@link GameTest}) and it
- * should be used <u>only</u> for tests based on strings, some
- * minor validations were done.
- * <p>This class is prepared to receive an input as follow:</p>
+ *
+ * This class was implemented for specific testing purposes established in the requirements of
+ * the delivery of the project. It should be used <u>only</u> for tests based on strings. Some
+ * minor validations has been made to avoid problems with the format of the strings entered.
+ *
+ * <p>This class is prepared to receive an input as follow:
  * <ul style="list-style-type:circle">
  * <li>[01] number of players +</li>
  * <li>[01] moving player +</li>
@@ -31,6 +32,8 @@ import it.polimi.group03.util.SlotInfo;
  * <li>[49] beads in the grid +</li>
  * <li>[3*n] moves.</li>
  * </u>
+ *
+ * For unit testing please see {@link GameTest}
  *
  * @author cecibloom
  * @author megireci
