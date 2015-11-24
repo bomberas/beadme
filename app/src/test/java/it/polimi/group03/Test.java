@@ -43,7 +43,7 @@ import it.polimi.group03.util.SlotInfo;
  */
 public class Test {
 
-    private GameEngine engine;
+    private GameEngine engine = new GameEngine();
     private int numberOfPlayers;
     private String beadsInTheGrid;
     private int movingPlayer;
@@ -52,7 +52,7 @@ public class Test {
 
     public static void main(String args[]) {
         Test test = new Test();
-        test.moveTest("2" +
+        String output = test.moveTest("2" +
                 "1" +
                 "0100120" +
                 "2101102" +
@@ -64,11 +64,13 @@ public class Test {
                 "0001000" +
                 "0000000" +
                 "h2i");
+
+        System.out.println(output);
+        test.printBoard(); // final status of the board
     }
 
-    private void moveTest(String inputString) {
+    private String moveTest(String inputString) {
         boolean isValid = false;
-        engine = new GameEngine();
         if ( isConfigurable(inputString) ) {
             for ( Bar move : moves ) {
                 Bar bar = engine.getGame().findBar(move.getId(), move.getOrientation());
@@ -96,9 +98,10 @@ public class Test {
         }
 
         if ( isValid ) {
-            printStatus();
-            printBoard(); // final status of the board
+            return getFinalStatus();
         }
+
+        return "";
     }
 
     private boolean isConfigurable(String test) {
@@ -219,31 +222,36 @@ public class Test {
         }
     }
 
-    private void printStatus() {
-        System.out.println(engine.getGame().activePlayers().size()); //"Number of players"
-        System.out.println(engine.getGame().getNextPlayer() != null ? engine.getGame().getNextPlayer().getNickname() : "N"); //"Moving player"
-        System.out.println(getBarPositions(BarOrientation.HORIZONTAL)); //"Positions of the horizontal bars"
-        System.out.println(getBarPositions(BarOrientation.VERTICAL)); //"Positions of the vertical bars"
-        printBeads();//beads
+    private String getFinalStatus() {
+        String output = String.valueOf(engine.getGame().activePlayers().size());
+        output += engine.getGame().getNextPlayer() != null ? engine.getGame().getNextPlayer().getNickname() : "N";
+        output += getBarPositions(BarOrientation.HORIZONTAL);
+        output += getBarPositions(BarOrientation.VERTICAL);
+        output += getBeads();
+
+        return  output;
     }
 
-    private void printBeads() {
+    private String getBeads() {
         String beads[][] = new String[7][7];
+        String output = "";
+
         for ( Player p : engine.getGame().activePlayers() ) {
             for ( Bead bead : p.activeBeads() ) {
                 beads[bead.getPosition().getX()][bead.getPosition().getY()] = p.getNickname();
             }
         }
+
         for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
-            String row = "";
             for ( int j = 0; j < Constant.BOARD_INDEX; j++ ) {
-                if ( beads[i][j] == null ) {
+                if ( CommonUtil.isEmpty(beads[i][j]) ) {
                     beads[i][j] = "0";
                 }
-                row += beads[i][j];
+                output += beads[i][j];
             }
-            System.out.println(row);
         }
+
+        return output;
     }
 
     private void printBoard() {
