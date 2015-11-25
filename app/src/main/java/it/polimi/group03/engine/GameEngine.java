@@ -45,6 +45,36 @@ public class GameEngine {
     private Game game;
     private GameValidator validator;
 
+    public static void main(String args[]) {
+        GameEngine engine = new GameEngine();
+        engine.startGame();
+        Player p1 = new Player(1, "ceci", "pink");
+        engine.addPlayer(p1);
+        Player p2 = new Player(2,"tati","pink");
+        engine.addPlayer(p2);
+        Player p3 = new Player(3,"megi","pink");
+        engine.addPlayer(p3);
+        Player p4 = new Player(4,"prof","pink");
+        engine.addPlayer(p4);
+
+        for ( int i = 0; i < 7; i++ ) {
+            engine.getGame().getBars(BarOrientation.HORIZONTAL).get(i).setPosition(BarPosition.INNER);
+            engine.getGame().getBars(BarOrientation.VERTICAL).get(i).setPosition(BarPosition.OUTER);
+        }
+
+        StatusMessage status = engine.makeMove(1, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, p1);
+        System.out.println("Result: " + status.getCode());
+
+        status = engine.makeMove(2, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, p2);
+        System.out.println("Result: " + status.getCode());
+
+        status = engine.makeMove(3, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, p3);
+        System.out.println("Result: " + status.getCode());
+
+        status = engine.makeMove(3, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, p4);
+        System.out.println("Result: " + status.getCode());
+    }
+
     /**
      * This method initializes some attributes in order the prepare the game for the start. This method initializes the board,
      * configure the bars, also initializes the lists that will contain the bars move during the game.
