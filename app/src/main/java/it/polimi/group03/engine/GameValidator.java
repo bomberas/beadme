@@ -227,12 +227,12 @@ public class GameValidator {
         statusMessage.setMessage(R.string.s0x0);
 
         if ( targetPosition.equals(BarPosition.CENTRAL) && (sourceBar.getPosition().equals(BarPosition.INNER)
-             || sourceBar.getPosition().equals(BarPosition.OUTER)) ) {
-             return statusMessage;
+                || sourceBar.getPosition().equals(BarPosition.OUTER)) ) {
+            return statusMessage;
         } else if ( targetPosition.equals(BarPosition.INNER) && sourceBar.getPosition().equals(BarPosition.CENTRAL) ) {
-             return statusMessage;
+            return statusMessage;
         } else if ( targetPosition.equals(BarPosition.OUTER) && sourceBar.getPosition().equals(BarPosition.CENTRAL) ) {
-             return statusMessage;
+            return statusMessage;
         }
 
         statusMessage.setCode(Constant.STATUS_ERR_BAR_POSITION);
@@ -261,9 +261,9 @@ public class GameValidator {
 
         for ( Bar bar : game.getMovedBarsInCurrentRound() ) {
             if ( bar.getId() == selectedBar.getId() && bar.getOrientation().equals(selectedBar.getOrientation()) ) {
-                 statusMessage.setCode(Constant.STATUS_ERR_BAR_SELECTED);
-                 statusMessage.setMessage(R.string.e0x3);
-                 return statusMessage;
+                statusMessage.setCode(Constant.STATUS_ERR_BAR_SELECTED);
+                statusMessage.setMessage(R.string.e0x3);
+                return statusMessage;
             }
         }
 
@@ -300,7 +300,7 @@ public class GameValidator {
             //size-4 represents the second previous turn for the current player
             //in the occurrence of the equivalence of moved bars with intended bar, the condition is not met
             if( bar.equals(game.getMovedBarsInTwoPreviousRounds().get(game.getMovedBarsInTwoPreviousRounds().size() - 2 ) ) &&
-                bar.equals(game.getMovedBarsInTwoPreviousRounds().get(game.getMovedBarsInTwoPreviousRounds().size() - 4 )) ){
+                    bar.equals(game.getMovedBarsInTwoPreviousRounds().get(game.getMovedBarsInTwoPreviousRounds().size() - 4 )) ){
                 statusMessage.setCode(Constant.STATUS_ERR_BAR_CONSECUTIVE);
                 statusMessage.setMessage(R.string.e0x4);
                 return statusMessage;
