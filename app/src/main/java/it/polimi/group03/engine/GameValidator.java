@@ -1,5 +1,6 @@
 package it.polimi.group03.engine;
 
+import it.polimi.group03.R;
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Game;
@@ -58,10 +59,10 @@ public class GameValidator {
 
         if ( game.getPlayers() == null || game.getPlayers().size() < Constant.GAME_MAX_NUMBER_PLAYERS ){
             statusMessage.setCode(Constant.STATUS_OK);
-            statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+            statusMessage.setMessage(R.string.s0x0);
         } else {
             statusMessage.setCode(Constant.STATUS_ERR_NUMBER_PLAYERS);
-            statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+            statusMessage.setMessage(R.string.e0x1);
         }
         return statusMessage;
     }
@@ -141,11 +142,11 @@ public class GameValidator {
 
         if ( game.getLastPlayer() == null || ( game.getLastPlayer().getId() != currentPlayer.getId()) ) {
             statusMessage.setCode(Constant.STATUS_OK);
-            statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+            statusMessage.setMessage(R.string.s0x0);
             return statusMessage;
         } else {
             statusMessage.setCode(Constant.STATUS_ERR_SAME_PREVIOUS_PLAYER);
-            statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+            statusMessage.setMessage(R.string.e0x5);
             return statusMessage;
         }
     }
@@ -185,18 +186,18 @@ public class GameValidator {
                         if ( bead.getPosition().getX() == newBead.getPosition().getX() &&
                                 bead.getPosition().getY() == newBead.getPosition().getY() ) {
                             statusMessage.setCode(Constant.STATUS_ERR_PLACED_BEAD);
-                            statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+                            statusMessage.setMessage(R.string.e0x6);
                             return statusMessage;
                         }
                     }
                 }
                 statusMessage.setCode(Constant.STATUS_OK);
-                statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+                statusMessage.setMessage(R.string.s0x0);
                 return statusMessage;
             }
         }
         statusMessage.setCode(Constant.STATUS_ERR_PLACED_BEAD);
-        statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+        statusMessage.setMessage(R.string.e0x6);
         return statusMessage;
     }
 
@@ -223,7 +224,7 @@ public class GameValidator {
         Bar sourceBar = game.findBar(selectedBar.getId(),selectedBar.getOrientation());
         StatusMessage statusMessage = new StatusMessage();
         statusMessage.setCode(Constant.STATUS_OK);
-        statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+        statusMessage.setMessage(R.string.s0x0);
 
         if ( targetPosition.equals(BarPosition.CENTRAL) && (sourceBar.getPosition().equals(BarPosition.INNER)
              || sourceBar.getPosition().equals(BarPosition.OUTER)) ) {
@@ -235,7 +236,7 @@ public class GameValidator {
         }
 
         statusMessage.setCode(Constant.STATUS_ERR_BAR_POSITION);
-        statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+        statusMessage.setMessage(R.string.e0x2);
         return statusMessage;
     }
 
@@ -261,13 +262,13 @@ public class GameValidator {
         for ( Bar bar : game.getMovedBarsInCurrentRound() ) {
             if ( bar.getId() == selectedBar.getId() && bar.getOrientation().equals(selectedBar.getOrientation()) ) {
                  statusMessage.setCode(Constant.STATUS_ERR_BAR_SELECTED);
-                 statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+                 statusMessage.setMessage(R.string.e0x3);
                  return statusMessage;
             }
         }
 
         statusMessage.setCode(Constant.STATUS_OK);
-        statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+        statusMessage.setMessage(R.string.s0x0);
         return statusMessage;
     }
 
@@ -301,13 +302,13 @@ public class GameValidator {
             if( bar.equals(game.getMovedBarsInTwoPreviousRounds().get(game.getMovedBarsInTwoPreviousRounds().size() - 2 ) ) &&
                 bar.equals(game.getMovedBarsInTwoPreviousRounds().get(game.getMovedBarsInTwoPreviousRounds().size() - 4 )) ){
                 statusMessage.setCode(Constant.STATUS_ERR_BAR_CONSECUTIVE);
-                statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+                statusMessage.setMessage(R.string.e0x4);
                 return statusMessage;
             }
         }
 
         statusMessage.setCode(Constant.STATUS_OK);
-        statusMessage.setMessage(CommonUtil.getMessageDescription(statusMessage.getCode()));
+        statusMessage.setMessage(R.string.s0x0);
         return statusMessage;
     }
 }

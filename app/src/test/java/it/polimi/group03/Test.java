@@ -52,27 +52,32 @@ public class Test {
 
     public static void main(String args[]) {
         Test test = new Test();
-        String output = test.moveTest("2" // number of players
-                        + "1" // moving player
-                        + "0120120" // positions of the horizontal bars
-                        + "2101102" // positions of the vertical bars
-                        + "0000100" // beads in the grid
-                        + "0020000"
-                        + "0000001"
-                        + "2000000"
-                        + "0000000"
-                        + "0001000"
-                        + "0000000"
-                        + "h3i" // a move: type of bar, bar number, direction
-                        + "v2o"); // a move: type of bar, bar number, direction);
 
-        System.out.println(output);
+        String input = "2"
+                + "2"
+                + "0110120"
+                + "2200102"
+                + "0000100"
+                + "0000000"
+                + "0000000"
+                + "2000000"
+                + "0000000"
+                + "0001000"
+                + "0000000"
+                + "v2o";
+
+        String output = test.moveTest(input); // a move: type of bar, bar number, direction);
+
+        System.out.println("input: " + input);
+        System.out.println("output: " + output);
+
         test.printBoard(); // final status of the board
     }
 
     private String moveTest(String inputString) {
         boolean isValid = false;
-        if ( isConfigurable(inputString) ) {
+        String errorMessage = isConfigurable(inputString);
+        if ( CommonUtil.isEmpty(errorMessage) ) {
             for ( Bar move : moves ) {
                 Bar bar = engine.getGame().findBar(move.getId(), move.getOrientation());
                 if ( (BarPosition.INNER.equals(bar.getPosition()) && BarPosition.OUTER.equals(move.getPosition())) ||
@@ -84,17 +89,18 @@ public class Test {
                 if ( playerInTurn != null ) {
                     message = engine.makeMove(move.getId(), move.getOrientation(), move.getPosition(), playerInTurn);
                     if ( !Constant.STATUS_OK.equals(message.getCode()) ) {
-                        System.out.println(message.getMessage());
+                        errorMessage = getErrorMessage(message.getCode());
                         isValid = false;
                         break;
                     }
                     isValid = true;
                 } else {
-                    System.out.println(MessageFormat.format("error: Player {0} does not exist in the game.", movingPlayer));
+                    errorMessage = MessageFormat.format("error: Player {0} does not exist in the game.", movingPlayer);
                     isValid = false;
                     break;
                 }
-                movingPlayer = engine.getGame().getNextPlayer().getId() + 1;
+
+                movingPlayer = engine.getGame().getNextPlayer() != null ?  engine.getGame().getNextPlayer().getId() + 1 :  engine.getGame().getLastPlayer().getId() + 1;
             }
         }
 
@@ -102,10 +108,10 @@ public class Test {
             return getFinalStatus();
         }
 
-        return "";
+        return errorMessage;
     }
 
-    private boolean isConfigurable(String test) {
+    private String isConfigurable(String test) {
         numberOfPlayers = Integer.parseInt(test.substring(0, 1));
         beadsInTheGrid = test.substring(16, 65);
 
@@ -117,18 +123,20 @@ public class Test {
 
         String initialVerticalBar = test.substring(9, 16);
         reConfigureBars(BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
+        String errorMessage = isPossibleInitialConfiguration();
 
-        if ( isPossibleInitialConfiguration() ) {
+        if ( CommonUtil.isEmpty(errorMessage) ) {
             movingPlayer = Integer.parseInt(test.substring(1, 2));
-            if ( isPossibleMovesConfiguration(test.substring(65, test.length())) ) {
-                return true;
+            errorMessage = isPossibleMovesConfiguration(test.substring(65, test.length()));
+            if ( CommonUtil.isEmpty(errorMessage) ) {
+                return "";
             }
         }
 
-        return false;
+        return errorMessage;
     }
 
-    private boolean isPossibleInitialConfiguration() {
+    private String isPossibleInitialConfiguration() {
         char beads[] = beadsInTheGrid.toCharArray();
         Set<Integer> playersOnBoard = new TreeSet<>();
 
@@ -136,14 +144,12 @@ public class Test {
             if ( playersBead == '1' || playersBead == '2' || playersBead == '3' || playersBead == '4' || playersBead == '5' ) {
                 playersOnBoard.add(Character.getNumericValue(playersBead));
             } else if ( playersBead != '0' ) {
-                System.out.println(MessageFormat.format("error: Impossible to add player [{0}].", playersBead));
-                return false;
+                return MessageFormat.format("error: Impossible to add player [{0}].", playersBead);
             }
         }
 
-        if ( numberOfPlayers != playersOnBoard.size() ) {
-            System.out.println("error: The number of players doesn't match with the beads on the board.");
-            return false;
+        if ( numberOfPlayers < playersOnBoard.size() ) {
+            return "error: The number of players doesn't match with the beads on the board.";
         }
 
         for ( int id : playersOnBoard ) {
@@ -155,24 +161,21 @@ public class Test {
                         Bead bead = new Bead((x % 7 == 0 ? x / 7 : (x / 7) + 1) - 1, (x % 7 == 0 ? 7 : x % 7) - 1);
                         message = engine.addBeadToBoard(player, bead);
                         if ( !Constant.STATUS_OK.equals(message.getCode()) ) {
-                            System.out.println(message.getMessage());
-                            return false;
+                            return getErrorMessage(message.getCode());
                         }
                     }
                 }
             } else {
-                System.out.println(message.getMessage());
-                return false;
+                return getErrorMessage(message.getCode());
             }
         }
 
-        return true;
+        return "";
     }
 
-    private boolean isPossibleMovesConfiguration(String givenMoves) {
+    private String isPossibleMovesConfiguration(String givenMoves) {
         if ( CommonUtil.isEmpty(givenMoves) || givenMoves.length()%3 != 0 ) {
-            System.out.println(MessageFormat.format("error: Error configuring moves {0} ...", moves));
-            return false;
+            return MessageFormat.format("error: Error configuring moves {0} ...", moves);
         }
 
         for ( int i = 0; i < givenMoves.length(); i += 3 ) {
@@ -185,12 +188,11 @@ public class Test {
                         BarPosition.INNER : BarPosition.OUTER); // for inwards and outwards
                 moves.add(bar);
             } else {
-                System.out.println(MessageFormat.format("error: String configuration {0} is invalid ...", move));
-                return false;
+                return MessageFormat.format("error: String configuration {0} is invalid ...", move);
             }
         }
 
-        return true;
+        return "";
     }
 
     private String getBarPositions(BarOrientation orientation) {
@@ -224,8 +226,8 @@ public class Test {
     }
 
     private String getFinalStatus() {
-        String output = String.valueOf(engine.getGame().activePlayers().size());
-        output += engine.getGame().getNextPlayer() != null ? engine.getGame().getNextPlayer().getNickname() : "N";
+        String output = String.valueOf(numberOfPlayers);
+        output += engine.getGame().getNextPlayer() != null ? engine.getGame().getNextPlayer().getNickname() : engine.getGame().getLastPlayer().getNickname();
         output += getBarPositions(BarOrientation.HORIZONTAL);
         output += getBarPositions(BarOrientation.VERTICAL);
         output += getBeads();
@@ -286,4 +288,27 @@ public class Test {
     private String format(String s) {
         return s == null ? "[ ]" : "[" + s + "]";
     }
+
+    private String getErrorMessage(String code) {
+        if ( Constant.STATUS_ERR_NUMBER_PLAYERS.equals(code) ) {
+            return "error: Number of players out of bound";
+        }
+        if ( Constant.STATUS_ERR_BAR_POSITION.equals(code) ) {
+            return "error: Cannot move the bar to the new position. Invalid movement";
+        }
+        if ( Constant.STATUS_ERR_BAR_SELECTED.equals(code) ) {
+            return "error: Cannot move selected bar because it was moved in the previous round by one of your opponents";
+        }
+        if ( Constant.STATUS_ERR_BAR_CONSECUTIVE.equals(code) ) {
+            return "error: Cannot move selected bar because it was moved in one of the two previous rounds";
+        }
+        if ( Constant.STATUS_ERR_SAME_PREVIOUS_PLAYER.equals(code) ) {
+            return "error: You cannot move twice in a row";
+        }
+        if ( Constant.STATUS_ERR_PLACED_BEAD.equals(code) ) {
+            return "error: Cannot placed the bead in this position. Invalid movement";
+        }
+        return "error: Something went wrong";
+    }
+
 }

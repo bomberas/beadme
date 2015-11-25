@@ -12,6 +12,7 @@ import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.Constant;
 import it.polimi.group03.util.SlotInfo;
+import it.polimi.group03.domain.StatusMessage;
 
 /**
  *

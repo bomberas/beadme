@@ -38,7 +38,7 @@ import java.util.Date;
  * @since 11/11/2015.
  */
 
-public class Statistics {
+public class Statistic {
 
 
     SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm:ss");

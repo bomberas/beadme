@@ -45,6 +45,13 @@ public class Bar {
      */
     private SlotInfo[] keys = new SlotInfo[BAR_SLOTS];
 
+    /**
+     * This is the default constructor, meant for the regular game (setting the initial position randomly).
+     *
+     * @param id from 0 to 6
+     * @param orientation Vertical Horizontal
+     * @param keys Array containing the values for the slots.
+     */
     public Bar(int id, BarOrientation orientation, SlotInfo[] keys) {
         this.id = id;
         this.position = BarPosition.randomPosition();
@@ -52,6 +59,13 @@ public class Bar {
         this.keys = keys;
     }
 
+    /**
+     * This constructor will set a fixed position. Used for performing the moves (on tests).
+     *
+     * @param id from 0 to 6
+     * @param orientation Vertical - Horizontal
+     * @param position INNER - OUTER - CENTRAL
+     */
     public Bar(int id, BarOrientation orientation, BarPosition position) {
         this.id = id;
         this.position = position;
