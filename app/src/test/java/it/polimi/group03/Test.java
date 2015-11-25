@@ -52,18 +52,19 @@ public class Test {
 
     public static void main(String args[]) {
         Test test = new Test();
-        String output = test.moveTest("2" +
-                "1" +
-                "0100120" +
-                "2101102" +
-                "0000100" +
-                "0020000" +
-                "0000000" +
-                "2000000" +
-                "0000000" +
-                "0001000" +
-                "0000000" +
-                "h2i");
+        String output = test.moveTest("2" // number of players
+                        + "1" // moving player
+                        + "0120120" // positions of the horizontal bars
+                        + "2101102" // positions of the vertical bars
+                        + "0000100" // beads in the grid
+                        + "0020000"
+                        + "0000001"
+                        + "2000000"
+                        + "0000000"
+                        + "0001000"
+                        + "0000000"
+                        + "h3i" // a move: type of bar, bar number, direction
+                        + "v2o"); // a move: type of bar, bar number, direction);
 
         System.out.println(output);
         test.printBoard(); // final status of the board
@@ -256,17 +257,33 @@ public class Test {
 
     private void printBoard() {
         System.out.format("%n%n%n");
-        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","-------","-------","-------","-------","-------","-------","-------");
-        System.out.format("| %-1s |   %-1d   |   %-1d   |   %-1d   |   %-1d   |   %-1d   |   %-1d   |   %-1d   |%n","/",1,2,3,4,5,6,7);
-        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","-------","-------","-------","-------","-------","-------","-------");
+        System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n","---","----------","----------","----------","----------","----------","----------","----------");
+        System.out.format("| %-1s |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |%n","/",1,2,3,4,5,6,7);
+        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","----------","----------","----------","----------","----------","----------","----------");
+        String[][] beadsOnBoard = getBeadsOnBoard();
         for ( int i = 0; i < 7; i++ ) {
-            System.out.format("| %-1d | %-5s | %-5s | %-5s | %-5s | %-5s | %-5s | %-5s |%n",
-                    i+1, engine.getGame().getBoard()[i][0].name(),
-                    engine.getGame().getBoard()[i][1].name(), engine.getGame().getBoard()[i][2].name(),
-                    engine.getGame().getBoard()[i][3].name(), engine.getGame().getBoard()[i][4].name(),
-                    engine.getGame().getBoard()[i][5].name(), engine.getGame().getBoard()[i][6].name());
-            System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","-------","-------","-------","-------","-------","-------","-------");
+            System.out.format("| %-1d | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s |%n",
+                    i+1, engine.getGame().getBoard()[i][0].name() + format(beadsOnBoard[i][0]),
+                    engine.getGame().getBoard()[i][1].name() + format(beadsOnBoard[i][1]), engine.getGame().getBoard()[i][2].name()+ format(beadsOnBoard[i][2]),
+                    engine.getGame().getBoard()[i][3].name()+ format(beadsOnBoard[i][3]), engine.getGame().getBoard()[i][4].name()+ format(beadsOnBoard[i][4]),
+                    engine.getGame().getBoard()[i][5].name()+ format(beadsOnBoard[i][5]), engine.getGame().getBoard()[i][6].name()+ format(beadsOnBoard[i][6]));
+            System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n","---","----------","----------","----------","----------","----------","----------","----------");
         }
 
+    }
+
+    private String[][] getBeadsOnBoard() {
+        String[][] beadsOnBoard = new String[7][7];
+
+        for (Player player : engine.getGame().activePlayers()) {
+            for (Bead bead : player.activeBeads()) {
+                beadsOnBoard[bead.getPosition().getX()][bead.getPosition().getY()] = player.getNickname();
+            }
+        }
+        return beadsOnBoard;
+    }
+
+    private String format(String s) {
+        return s == null ? "[ ]" : "[" + s + "]";
     }
 }
