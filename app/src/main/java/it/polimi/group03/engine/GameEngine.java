@@ -145,8 +145,8 @@ public class GameEngine {
         StatusMessage statusMessage = this.validator.validateMove(bar, targetPosition, currentPlayer);
 
         if ( !statusMessage.getCode().equals(Constant.STATUS_OK) ) {
-             //Log.i("GameEngine.makeMove","Invalid move!");
-             return statusMessage;
+            //Log.i("GameEngine.makeMove","Invalid move!");
+            return statusMessage;
         }
         //Log.i("GameEngine.makeMove", MessageFormat.format("Player {0} authorized to move {1} bar number {2} to {3}", currentPlayer.getNickname(), bar.getOrientation().toString(), bar.getId(),
         //        targetPosition.toString()));
@@ -243,7 +243,7 @@ public class GameEngine {
         for ( Player p : this.game.activePlayers() ) {
             position++;
             if ( p.getId() == player.getId() ) {
-                 break;
+                break;
             }
         }
 

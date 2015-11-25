@@ -1,11 +1,14 @@
 package it.polimi.group03.domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 /**
  * This class contains all the information related
  * to the statistics collected during the game.
- * It will be used also to hold the stats sent and
+ * It will be used also to hold the status sent and
  * retrieved from the database.
  * <p>The game will show in the Statistic section all kind of
  * history such as, but not limited to:
@@ -22,6 +25,11 @@ import java.util.Date;
  * <li>Average turns in a game.</li>
  * <li>Number of unconcluded games.</li>
  * <li>Average time of a game.</li>
+ * <li>Duration of the last game played. </li>
+ * <li>The longest game.</li>
+ * <li>The shortest game. </li>
+ * <li>The fastest elimination of the players. </li>
+ * <li>The player who survived the longest time. </li>
  *
  * @author cecibloom
  * @author megireci
@@ -30,7 +38,10 @@ import java.util.Date;
  * @since 11/11/2015.
  */
 
-public class Statistic {
+public class Statistics {
+
+
+    SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
 
     /**
      * Date in which the game was played.
@@ -70,26 +81,39 @@ public class Statistic {
      */
     private String loser3Name;
     /**
+     * Name of one of the losers. It may happen that there are no winners.
+     */
+    private String loser4Name;
+    /**
      * Time in which the game started. Possibly used for retrieving the average time of the game.
      */
-    private Date startTime;
+    private String startTime;
     /**
      * Time in which the game finished. Possibly used for retrieving the average time of the game.
      */
-    private Date endTime;
+    private String endTime;
 
+    /**
+     * Get-Set for the date.
+     */
     public String getDate() {
         return date;
     }
+
 
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     *  Returns the possible winner.
+     */
     public boolean isWinner() {
         return winner;
     }
-
+    /**
+     * Get-Set for the winner.
+     */
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
@@ -101,31 +125,51 @@ public class Statistic {
     public void setWinnerName(String winnerName) {
         this.winnerName = winnerName;
     }
-
+    /**
+     * Gets the winner's chosen bead's color.
+     */
     public String getWinnerColor() {
         return winnerColor;
     }
 
+    /**
+     * Sets the winner's chosen bead's color.
+     */
     public void setWinnerColor(String winnerColor) {
         this.winnerColor = winnerColor;
     }
 
+    /**
+     * Gets the round, player 1 makes his move again.
+     */
     public int getRounds() {
         return rounds;
     }
 
+    /**
+     * Sets the round, player 1 makes his move again.
+     */
     public void setRounds(int rounds) {
         this.rounds = rounds;
     }
 
+    /**
+     * Gets the turn for the next player.
+     */
     public int getTurns() {
         return turns;
     }
 
+    /**
+     * Sets the turn for the next player.
+     */
     public void setTurns(int turns) {
         this.turns = turns;
     }
 
+    /**
+     * Get-Sets for the losers.
+     */
     public String getLoser1Name() {
         return loser1Name;
     }
@@ -150,19 +194,52 @@ public class Statistic {
         this.loser3Name = loser3Name;
     }
 
-    public Date getStartTime() {
+    public String getLoser4Name() {
+        return loser4Name;
+    }
+
+    public void setLoser4Name(String loser4Name) {
+        this.loser4Name = loser4Name;
+    }
+
+    /**
+     *  The time when the game starts.
+     */
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    /**
+     * The time when the game ends.
+     */
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    public double getDuration()
+    {
+        Date d1 = null,d2 = null;
+        try {
+            d1 = format.parse(startTime);
+            d2 = format.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long diff = d2.getTime() - d1.getTime();
+        long diffSeconds = diff / 1000 % 60;
+        long diffMinutes = diff / (60 * 1000) % 60;
+
+        return diff;
+    }
+
 }
