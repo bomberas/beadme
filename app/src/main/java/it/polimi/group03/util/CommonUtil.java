@@ -1,7 +1,6 @@
 package it.polimi.group03.util;
 
 import java.util.Collection;
-import java.util.Properties;
 
 /**
  * This is an utility class.
