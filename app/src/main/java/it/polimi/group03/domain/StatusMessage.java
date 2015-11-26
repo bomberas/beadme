@@ -3,8 +3,8 @@ package it.polimi.group03.domain;
 /**
  *
  * This class is used to hold more specific information about an action perform in the game. It contains
- * a <tt>code</tt> that identifies the result of the action e.g. <i>0x0</i> indicates success, and a <tt>message</tt>
- * that describes the result e.g <i>"Action performed successfully"</i>.
+ * a <tt>code</tt> that identifies the result of the action e.g. <i>0x0</i> indicates success, and a <tt>rCode</tt>
+ * that identifies the message in the resource strings.xml.
  *
  * <p>This class is used for retrieving information after a validation of one or more rules in the game.
  *
@@ -18,7 +18,7 @@ package it.polimi.group03.domain;
 public class StatusMessage {
 
     private String code;
-    private int message;
+    private int rCode;
 
     public String getCode() {
         return code;
@@ -28,16 +28,16 @@ public class StatusMessage {
         this.code = code;
     }
 
-    public int getMessage() {
-        return message;
+    public int getRCode() {
+        return rCode;
     }
 
-    public void setMessage(int message) {
-        this.message = message;
+    public void setRCode(int rCode) {
+        this.rCode = rCode;
     }
 
     @Override
     public String toString() {
-        return "\n[" + code + ": " + message + "]";
+        return "\n[" + code + ": " + rCode + "]";
     }
 }

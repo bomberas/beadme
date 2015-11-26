@@ -40,13 +40,6 @@ import java.util.Date;
 
 public class Statistic {
 
-
-    SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
-
-    /**
-     * Date in which the game was played.
-     */
-    private String date;
     /**
      * <code>true</code> if there was a winner.
      * <code>false</code> if not.
@@ -87,23 +80,11 @@ public class Statistic {
     /**
      * Time in which the game started. Possibly used for retrieving the average time of the game.
      */
-    private String startTime;
+    private Date startTime;
     /**
      * Time in which the game finished. Possibly used for retrieving the average time of the game.
      */
-    private String endTime;
-
-    /**
-     * Get-Set for the date.
-     */
-    public String getDate() {
-        return date;
-    }
-
-
-    public void setDate(String date) {
-        this.date = date;
-    }
+    private Date endTime;
 
     /**
      *  Returns the possible winner.
@@ -205,41 +186,29 @@ public class Statistic {
     /**
      *  The time when the game starts.
      */
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
     /**
      * The time when the game ends.
      */
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
-    public double getDuration()
+    public Date getDuration()
     {
-        Date d1 = null,d2 = null;
-        try {
-            d1 = format.parse(startTime);
-            d2 = format.parse(endTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        long diff = d2.getTime() - d1.getTime();
-        long diffSeconds = diff / 1000 % 60;
-        long diffMinutes = diff / (60 * 1000) % 60;
-
-        return diff;
+        //
+        return new Date();
     }
 
 }

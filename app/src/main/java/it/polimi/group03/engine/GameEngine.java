@@ -7,6 +7,7 @@ import java.text.MessageFormat;
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Game;
+import it.polimi.group03.domain.Move;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.domain.StatusMessage;
 import it.polimi.group03.util.BarOrientation;
@@ -45,36 +46,6 @@ public class GameEngine {
     private Game game;
     private GameValidator validator;
 
-    public static void main(String args[]) {
-        GameEngine engine = new GameEngine();
-        engine.startGame();
-        Player p1 = new Player(1, "ceci", "pink");
-        engine.addPlayer(p1);
-        Player p2 = new Player(2,"tati","pink");
-        engine.addPlayer(p2);
-        Player p3 = new Player(3,"megi","pink");
-        engine.addPlayer(p3);
-        Player p4 = new Player(4,"prof","pink");
-        engine.addPlayer(p4);
-
-        for ( int i = 0; i < 7; i++ ) {
-            engine.getGame().getBars(BarOrientation.HORIZONTAL).get(i).setPosition(BarPosition.INNER);
-            engine.getGame().getBars(BarOrientation.VERTICAL).get(i).setPosition(BarPosition.OUTER);
-        }
-
-        StatusMessage status = engine.makeMove(1, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, p1);
-        System.out.println("Result: " + status.getCode());
-
-        status = engine.makeMove(2, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, p2);
-        System.out.println("Result: " + status.getCode());
-
-        status = engine.makeMove(3, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, p3);
-        System.out.println("Result: " + status.getCode());
-
-        status = engine.makeMove(3, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, p4);
-        System.out.println("Result: " + status.getCode());
-    }
-
     /**
      * This method initializes some attributes in order the prepare the game for the start. This method initializes the board,
      * configure the bars, also initializes the lists that will contain the bars move during the game.
@@ -89,6 +60,7 @@ public class GameEngine {
         this.game.init();
         this.game.resetMovedBarsInCurrentRound();
         this.game.resetMovedBarsInTwoPreviousRounds();
+        this.game.resetMovedBarsByOpponents();
         this.game.resetLosersAfterTurn();
     }
 
@@ -184,15 +156,7 @@ public class GameEngine {
         // Giving that the move is permitted is necessary to update the position of the selected bar
         bar.setPosition(targetPosition);
 
-        // If and only if there are only 2 players remaining in the game, is necessary to put the selected bar in the
-        // list ListOfMovedBarsInTwoPreviousRound.
-
-        if ( this.game.activePlayers().size() == 2 ) {
-            this.game.addBarToListOfMovedBarsInTwoPreviousRounds(bar);
-        }
-
         // Is necessary reset the list of losers of the previous turn, so when the UI call "getLosersAfterTurn()" gets the updated list of loser of current turn
-
         this.game.resetLosersAfterTurn();
 
         this.game.setLastPlayer(currentPlayer);
@@ -206,12 +170,13 @@ public class GameEngine {
             this.game.setNextPlayer(getNextPlayer(currentPlayer));
             // In any case is necessary to update the list of moved bars in the current round putting the selected bar in the list
             // of moved bars so in the next turn the list will be updated for further validations
-            this.game.addBarToListOfMovedBarsInRound(bar);
+            refreshMovedBarsInRound(currentPlayer, bar);
 
             // If after the move made by the player the round is complete and the game is not finished is necessary to move the round
+            // and restart the turn, these two attributes will be possibly use in the statistics
             if ( isRoundFinished(currentPlayer) ) {
-                this.game.restartTurn();
-                this.game.moveRound(); //this is for the statistics
+                this.game.restartTurn(); //this is for statistics
+                this.game.moveRound(); //this is for statistics
             }
         }
         return statusMessage;
@@ -311,6 +276,54 @@ public class GameEngine {
         }
 
         return null;
+    }
+
+    /**
+     * This method adds the bar moved by the player to the list of bars that have been moved in the round {@link Game#movedBarsByOpponents}
+     * <p>It also deletes the second previous move of the user in order to store just what it requires
+     * to fulfill the game rules.
+     *
+     * @see it.polimi.group03.domain.Move
+     *
+     * @param player the current player who is making the move
+     * @param bar the bar that has been moved by the player
+     */
+    private void refreshMovedBarsInRound(Player player, Bar bar){
+        int myself = 0;
+        int index = 0;
+
+        for ( int i = this.game.getMovedBarsByOpponents().size() - 1; i == 0; i--){
+            System.out.println("player jugando: " + player.getId());
+            System.out.println("player list: " + this.game.getMovedBarsByOpponents().get(i).getPlayer().getId());
+
+            if ( this.game.getMovedBarsByOpponents().get(i).getPlayer().getId() ==
+                    player.getId() ) {
+                System.out.println("entre1");
+                // If it's the same user it means it has reached the previous round
+                myself++;
+                if ( myself == 2 ) {
+                    System.out.println("entre2");
+                    index = i; //Is the index of the second previous turn/move
+                    break;
+                }
+            }
+        }
+
+        // If the player has two consecutive turns delete the oldest
+        if ( myself == 2 ) {
+            System.out.println("entre2.2");
+            this.game.getMovedBarsByOpponents().remove(index);
+            System.out.println("entre3: tamaño: " + this.game.getMovedBarsByOpponents().size());
+        }
+
+        // Whether the player has consecutive turns or not, add the new move.
+        this.game.addBarToListOfMovedBarsByOpponents(player, bar);
+
+        String print = "";
+        for (Move move : this.game.getMovedBarsByOpponents()){
+            print+="["+ move.getPlayer().getId() + " moved " + move.getBar().getOrientation().toString().substring(0,1) + move.getBar().getId() + "] - ";
+        }
+        System.out.println("After making a move: " + print);
     }
 
     public Game getGame() {

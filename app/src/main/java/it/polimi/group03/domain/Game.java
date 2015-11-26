@@ -1,7 +1,9 @@
 package it.polimi.group03.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.CommonUtil;
@@ -87,6 +89,12 @@ public class Game {
     private List<Bar> movedBarsInTwoPreviousRounds;
 
     /**
+     * List of the bars move in the round.
+     * Used when validating the rule of the bars moved by the opponents in the previous round.
+     */
+    private List<Move> movedBarsByOpponents;
+
+    /**
      * This method will setup the initial state (<b>screenshot</b>) of the game: <i>bars,
      * players, beads and the board itself</i> and some additional attributes that help to have the most
      * accurate info of the board in order to manage the game and some statistics.
@@ -143,8 +151,7 @@ public class Game {
      *
      * <p>The method uses the {@link #activePlayers()} method to retrieve the current list of active players.
      * The {@link #addPlayerToListOfLosersAfterTurn(Player)} method to add a player to the list of losers if after
-     * the current move the player has lost. Finally uses {@link #updateListOfMovedBarsInRound()} to remove the
-     * first bar in the list of moved bars in the game.
+     * the current move the player has lost.
      *
      * @see Bar
      * @see Player
@@ -174,8 +181,6 @@ public class Game {
                 player.setActive(false);
                 addPlayerToListOfLosersAfterTurn(player);
             }
-
-            updateListOfMovedBarsInRound();
         }
     }
 
@@ -331,6 +336,13 @@ public class Game {
     }
 
     /**
+     * This method initializes the list of bars moved by all opponents.
+     */
+    public void resetMovedBarsByOpponents() {
+        this.movedBarsByOpponents = new ArrayList<>();
+    }
+
+    /**
      * This method initializes the list of losers after a turn.
      */
     public void resetLosersAfterTurn(){
@@ -374,13 +386,13 @@ public class Game {
     }
 
     /**
-     * This method removes the first element of the list of moved bars. Should be called
-     * whenever a move is made.
+     * This method adds a player to the list of moved bars.
      */
-    private void updateListOfMovedBarsInRound() {
-        if ( ! CommonUtil.isEmpty(this.movedBarsInCurrentRound) ) {
-            this.movedBarsInCurrentRound.remove(0);
+    public void addBarToListOfMovedBarsByOpponents(Player player, Bar bar) {
+        if ( CommonUtil.isEmpty(this.movedBarsByOpponents) ) {
+            this.movedBarsByOpponents = new ArrayList<>();
         }
+        this.movedBarsByOpponents.add(new Move(player, bar));
     }
 
     /**
@@ -448,6 +460,10 @@ public class Game {
 
     public List<Bar> getMovedBarsInTwoPreviousRounds() {
         return movedBarsInTwoPreviousRounds;
+    }
+
+    public List<Move> getMovedBarsByOpponents() {
+        return movedBarsByOpponents;
     }
 
     public void setLastPlayer(Player lastPlayer) {
