@@ -259,7 +259,7 @@ public class GameValidator {
 
         StatusMessage statusMessage = new StatusMessage();
 
-        for ( int i = this.game.getMovedBarsByOpponents().size() - 1; i == 0; i-- ){
+        for ( int i = this.game.getMovedBarsByOpponents().size() - 1; i >= 0; i-- ){
             if ( this.game.getMovedBarsByOpponents().get(i).getPlayer().getId() == player.getId() ) {
                  // Validating until the same player is reached.
                  break;
@@ -305,7 +305,7 @@ public class GameValidator {
             int index1 = 0;
             int index2 = 0;
 
-            for ( int i = this.game.getMovedBarsByOpponents().size() - 1; i == 0; i--){
+            for ( int i = this.game.getMovedBarsByOpponents().size() - 1; i >= 0; i--){
                 if ( this.game.getMovedBarsByOpponents().get(i).getPlayer().getId() == player.getId() ) {
                     // If it's the same user it means it has reached the previous round
                     myself++;

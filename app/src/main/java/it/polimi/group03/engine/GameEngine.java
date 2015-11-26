@@ -292,17 +292,12 @@ public class GameEngine {
         int myself = 0;
         int index = 0;
 
-        for ( int i = this.game.getMovedBarsByOpponents().size() - 1; i == 0; i--){
-            System.out.println("player jugando: " + player.getId());
-            System.out.println("player list: " + this.game.getMovedBarsByOpponents().get(i).getPlayer().getId());
-
+        for ( int i = this.game.getMovedBarsByOpponents().size() - 1; i >= 0; i--){
             if ( this.game.getMovedBarsByOpponents().get(i).getPlayer().getId() ==
                     player.getId() ) {
-                System.out.println("entre1");
                 // If it's the same user it means it has reached the previous round
                 myself++;
                 if ( myself == 2 ) {
-                    System.out.println("entre2");
                     index = i; //Is the index of the second previous turn/move
                     break;
                 }
@@ -311,9 +306,7 @@ public class GameEngine {
 
         // If the player has two consecutive turns delete the oldest
         if ( myself == 2 ) {
-            System.out.println("entre2.2");
             this.game.getMovedBarsByOpponents().remove(index);
-            System.out.println("entre3: tamaño: " + this.game.getMovedBarsByOpponents().size());
         }
 
         // Whether the player has consecutive turns or not, add the new move.
