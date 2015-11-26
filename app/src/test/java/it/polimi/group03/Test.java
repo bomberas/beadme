@@ -52,9 +52,8 @@ public class Test {
 
     public static void main(String args[]) {
         Test test = new Test();
-
         // The player puts a bead in a key. It will show an error.
-      /* String output = test.moveTest("2"
+        String input = "2"
                 + "1"
                 + "0120120"
                 + "2101102"
@@ -66,10 +65,10 @@ public class Test {
                 + "0001000"
                 + "0000000"
                 + "h3i"
-                + "v2o"); */
+                + "v2o";
 
- // Player 1 moves  the third bar horizontally inward. Player 2 moves the second vertical bar outward.
-       /* String output1 = test.moveTest("2"
+        // Player 1 moves  the third bar horizontally inward. Player 2 moves the second vertical bar outward.
+        input = "2"
                 + "1"
                 + "0120120"
                 + "2101102"
@@ -81,11 +80,10 @@ public class Test {
                 + "0001000"
                 + "0000000"
                 + "h3i"
-                + "v2o"
-                );
+                + "v2o";
 
         // It is again player's 1 turn.
-          String output2 = test.moveTest("2"
+        input = "2"
                         + "1"
                         + "0110120"
                         + "2201102"
@@ -96,12 +94,10 @@ public class Test {
                         + "0000000"
                         + "0001000"
                         + "0000000"
-                        + "h2o"
-
-        );
+                        + "h2o";
 
         //Player 2 tries to move the same bar that player 1 moved. It gives an error.
-         String output3 = test.moveTest("2"
+        input = "2"
                         + "2"
                         + "0210120"
                         + "2201102"
@@ -112,14 +108,12 @@ public class Test {
                         + "0000000"
                         + "0001000"
                         + "0000000"
-                        + "h2o"
-
-        );
+                        + "h2o";
 
         /* Since it gave an error, now player 2 has a second chance to drop a bead from player 1. The second horizontal bar now has outer position.
            No bead will be dropped but the position of the bar will change and it will be player's one turn.
          */
-       /* String output4 = test.moveTest("2"
+        input = "2"
                         + "2"
                         + "0210120"
                         + "2201102"
@@ -130,12 +124,12 @@ public class Test {
                         + "0000000"
                         + "0001000"
                         + "0000000"
-                        + "v4i"); */
+                        + "v4i";
 
         /*
            Player 1 will tend to move a bar (the sixth vertical) inward which has already the position inner.
         */
-      /*  String output5 = test.moveTest("2"
+        input = "2"
                 + "1"
                 + "0210120"
                 + "2200102"
@@ -146,11 +140,10 @@ public class Test {
                 + "0000000"
                 + "0001000"
                 + "0000000"
-                + "v6i"); */
+                + "v6i";
 
         /* Player 1 will move a bar which was moved once by him. */
-
-        /* String output6 = test.moveTest("2"
+        input = "2"
                 + "1"
                 + "0210120"
                 + "2200102"
@@ -161,11 +154,9 @@ public class Test {
                 + "0000000"
                 + "0001000"
                 + "0000000"
-                + "h2i"
-                );
-        */
-//Player 2 moves v2o.
-       /* String output7 = test.moveTest("2"
+                + "h2i";
+        //Player 2 moves v2o.
+        input = "2"
                         + "2"
                         + "0110120"
                         + "2200102"
@@ -176,14 +167,11 @@ public class Test {
                         + "0000000"
                         + "0001000"
                         + "0000000"
-                        + "v2i"
-        ); */
+                        + "v2i";
 
-        /* Player 1 will move  the same bar for the third consecuitive time. */
-        /*
-        This will be a a test for the new rule.
-         */
-        /* String output8 = test.moveTest("2"
+        /* Player 1 will move  the same bar for the third consecuitive time.
+        This will be a a test for the new rule.*/
+        input = "2"
                         + "1"
                         + "0110120"
                         + "2100102"
@@ -194,14 +182,10 @@ public class Test {
                         + "0000000"
                         + "0001000"
                         + "0000000"
-                        + "h2i"
-        );
-       */
+                        + "h2i";
 
-        /* Player 1 does the last move which makes the player's 2 bead fall down.
-           */
-
-       /* String output9 = test.moveTest("2"
+        /* Player 1 does the last move which makes the player's 2 bead fall down. */
+        input = "2"
                 + "1"
                 + "0210120"
                 + "2200102"
@@ -212,15 +196,13 @@ public class Test {
                 + "0000000"
                 + "0001000"
                 + "0000000"
-                + "v1i");
-
-*/
+                + "v1i";
         /*
         NEW CASE: The input will have 3 moves. In the second move the game will finish.
         We have 3 beads left. One from player two, and two from player one. The second move of player one will cause the winning onf the game.
          */
 
-        /* String output10 = test.moveTest("2"
+        input = "2"
                         + "1"
                         + "0210120"
                         + "2200102"
@@ -233,13 +215,11 @@ public class Test {
                         + "0000000"
                         + "h50" //player 1 non-winning move
                         + "v1i" // player two gets self-sacrificed.
-                        + "h3i" //player one keeps moving
-        );
-        */
-/*
-Same case, with the difference that player 1 kills player 2. Here it gives an undefined message.
- */
-       /* String output11 = test.moveTest("2"
+                        + "h3i"; //player one keeps moving
+        /*
+        Same case, with the difference that player 1 kills player 2. Here it gives an undefined message.
+         */
+        input = "2"
                 + "2"
                 + "0210120"
                 + "2200102"
@@ -252,10 +232,9 @@ Same case, with the difference that player 1 kills player 2. Here it gives an un
                 + "0000000"
                 + "h50" //player 2 non-winning move
                 + "v1i" // player 1 kills player 2
-                + "h3i" //player 2 keeps moving
-        );
-        */
-        String input = "2"
+                + "h3i"; //player 2 keeps moving
+
+        input = "2"
                 + "2"
                 + "0210120"
                 + "2200102"
@@ -281,7 +260,9 @@ Same case, with the difference that player 1 kills player 2. Here it gives an un
         boolean isValid = false;
         String errorMessage = isConfigurable(inputString);
         if ( CommonUtil.isEmpty(errorMessage) ) {
+            int count = 0;
             for ( Bar move : moves ) {
+                count++;
                 Bar bar = engine.getGame().findBar(move.getId(), move.getOrientation());
                 if ( (BarPosition.INNER.equals(bar.getPosition()) && BarPosition.OUTER.equals(move.getPosition())) ||
                         (BarPosition.OUTER.equals(bar.getPosition()) && BarPosition.INNER.equals(move.getPosition())) ) {
@@ -297,12 +278,17 @@ Same case, with the difference that player 1 kills player 2. Here it gives an un
                         break;
                     }
                     isValid = true;
+
+                    if ( engine.isGameEndConditionReached() && count != moves.size() ) {
+                        movingPlayer = engine.getGame().getNextPlayer() != null ?  engine.getGame().getNextPlayer().getId() + 1 :  engine.getGame().getLastPlayer().getId() + 1;
+                        System.out.println("The game has finished, next (" + (moves.size() - count) + ") moves will be skipped.");
+                        break;
+                    }
                 } else {
                     errorMessage = MessageFormat.format("error: Player {0} does not exist in the game.", movingPlayer);
                     isValid = false;
                     break;
                 }
-
                 movingPlayer = engine.getGame().getNextPlayer() != null ?  engine.getGame().getNextPlayer().getId() + 1 :  engine.getGame().getLastPlayer().getId() + 1;
             }
         }

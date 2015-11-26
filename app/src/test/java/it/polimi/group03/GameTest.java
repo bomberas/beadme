@@ -78,7 +78,7 @@ public class GameTest {
         reConfigureBars(engine, BarOrientation.HORIZONTAL, new int[]{0, 1, 2, 0, 1, 2, 0});
         reConfigureBars(engine, BarOrientation.VERTICAL, new int[]{2, 1, 0, 2, 1, 0, 2});
 
-        printBoard();
+        //printBoard();
 
         //Adding the players.
         Player one = new Player(0, "tatibloom", "PINK");
@@ -112,6 +112,8 @@ public class GameTest {
         Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(one, new Bead(6, 4)).getCode());
         Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(one, new Bead(6, 6)).getCode());
         Assert.assertEquals(Constant.STATUS_ERR_PLACED_BEAD, engine.addBeadToBoard(one, new Bead(6, 0)).getCode());
+
+        Assert.assertNull(engine.getWinner());
     }
 
     @Test
@@ -140,6 +142,9 @@ public class GameTest {
 
         //Same previous bar for player one
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(0, BarOrientation.HORIZONTAL, BarPosition.OUTER, one).getCode());
+        //You can not keep the turn
+        Assert.assertEquals(Constant.STATUS_ERR_SAME_PREVIOUS_PLAYER, engine.makeMove(6, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, one).getCode());
+
         //Same previous bar for player two
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(1, BarOrientation.VERTICAL, BarPosition.CENTRAL, two).getCode());
 
