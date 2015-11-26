@@ -1,10 +1,6 @@
 package it.polimi.group03.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Collection;
-import java.util.Properties;
 
 /**
  * This is an utility class.
@@ -20,8 +16,6 @@ import java.util.Properties;
  * @since 11/11/2015.
  */
 public class CommonUtil {
-
-    private static Properties properties;
 
     /**
      * Checks whether a collection is empty or not.
@@ -62,40 +56,4 @@ public class CommonUtil {
         return !s2.trim().equals("") && s1.toLowerCase().trim().equals(s2.toLowerCase().trim());
     }
 
-    /**
-     * Loads the <tt>properties.xml</tt> file located in <tt>app/src/main/java/it/polimi/group03/</tt> to access the
-     * properties that has been configured.
-     */
-    private static void loadProperties() {
-        try {
-            properties = new Properties();
-            File strings = new File("app/src/main/res/values/strings.xml");
-            if ( !strings.exists() ) {
-                strings = new File("src/main/res/values/strings.xml");//for testing purposes
-            }
-            properties.load(new FileInputStream(strings));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    }
-
-    /**
-     * Returns the value of a specific key.
-     *
-     * @param code property key.
-     * @return {@code message} value of the property.
-     */
-    public static String getMessageDescription(String code){
-        if ( properties == null || properties.isEmpty() ){
-            loadProperties();
-        }
-
-        String message = properties.getProperty(code);
-
-        if ( message == null || message.equals("")) {
-            return "Undefined message";
-        } else {
-            return message;
-        }
-    }
 }

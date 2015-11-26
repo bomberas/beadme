@@ -18,7 +18,7 @@ package it.polimi.group03.domain;
 public class StatusMessage {
 
     private String code;
-    private String message;
+    private int message;
 
     public String getCode() {
         return code;
@@ -28,11 +28,11 @@ public class StatusMessage {
         this.code = code;
     }
 
-    public String getMessage() {
+    public int getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(int message) {
         this.message = message;
     }
 
