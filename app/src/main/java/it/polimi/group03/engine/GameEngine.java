@@ -311,12 +311,13 @@ public class GameEngine {
 
         // Whether the player has consecutive turns or not, add the new move.
         this.game.addBarToListOfMovedBarsByOpponents(player, bar);
-
+/*
         String print = "";
         for (Move move : this.game.getMovedBarsByOpponents()){
             print+="["+ move.getPlayer().getId() + " moved " + move.getBar().getOrientation().toString().substring(0,1) + move.getBar().getId() + "] - ";
         }
         System.out.println("After making a move: " + print);
+        */
     }
 
     public Game getGame() {
