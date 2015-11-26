@@ -17,7 +17,7 @@ import it.polimi.group03.domain.StatusMessage;
 /**
  *
  * This class contains all the unit tests performed
- * on the code. All have passed without any error.
+ * on the code. All shall pass without any error.
  *
  *
  * @see GameEngine
@@ -35,22 +35,16 @@ import it.polimi.group03.domain.StatusMessage;
  * @version 1.0
  * @since 16/11/2015.
  */
-
-
 public class GameTest {
 
     private GameEngine engine;
 
-
     // Initializes the game.
-
     @Before
     public void setup() {
         engine = new GameEngine();
         Assert.assertNull(engine.getGame());
     }
-
-
 
     @Test
     public void testStartGame() {
@@ -75,8 +69,6 @@ public class GameTest {
     /*
      * This tests the adding of players (id, nickname,color of the beads) and beads (active or not, position).
      */
-
-
     @Test
     public void testAddPlayerAndBeads() throws Exception {
         engine.startGame();
@@ -122,11 +114,46 @@ public class GameTest {
         Assert.assertEquals(Constant.STATUS_ERR_PLACED_BEAD, engine.addBeadToBoard(one, new Bead(6, 0)).getCode());
     }
 
+    @Test
+    public void testMoves() {
+        engine.startGame();
+        engine.getGame().setBoard(new SlotInfo[7][7]);//we have to reset the board, cause we'll reset the bars.
+        reConfigureBars(engine, BarOrientation.HORIZONTAL, new int[]{0, 1, 2, 0, 1, 2, 0});
+        reConfigureBars(engine, BarOrientation.VERTICAL, new int[]{2, 1, 0, 2, 1, 0, 2});
+        //printBoard();
+
+        Player one = new Player(0, "tatibloom", "PINK");
+        Assert.assertEquals(Constant.STATUS_OK, engine.addPlayer(one).getCode());
+        Player two = new Player(1, "cecibloom", "PURPLE");
+        Assert.assertEquals(Constant.STATUS_OK, engine.addPlayer(two).getCode());
+
+        Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(one, new Bead(0, 0)).getCode());Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(two, new Bead(0, 2)).getCode());
+        Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(one, new Bead(3, 1)).getCode());Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(two, new Bead(4, 1)).getCode());
+        Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(one, new Bead(2, 6)).getCode());Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(two, new Bead(3, 4)).getCode());
+        Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(one, new Bead(3, 2)).getCode());Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(two, new Bead(6, 4)).getCode());
+        Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(one, new Bead(6, 6)).getCode());Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(two, new Bead(6, 0)).getCode());
+
+        Assert.assertEquals(Constant.STATUS_ERR_BAR_POSITION, engine.makeMove(1, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, one).getCode());
+        Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(0, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, one).getCode());
+        Assert.assertEquals(Constant.STATUS_ERR_BAR_SELECTED, engine.makeMove(0, BarOrientation.HORIZONTAL, BarPosition.INNER, two).getCode());
+        Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(1, BarOrientation.VERTICAL, BarPosition.INNER, two).getCode());
+
+        //Same previous bar for player one
+        Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(0, BarOrientation.HORIZONTAL, BarPosition.OUTER, one).getCode());
+        //Same previous bar for player two
+        Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(1, BarOrientation.VERTICAL, BarPosition.CENTRAL, two).getCode());
+
+        //You can not move the same bar more than 2 consecutive times
+        Assert.assertEquals(Constant.STATUS_ERR_BAR_CONSECUTIVE, engine.makeMove(0, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, one).getCode());
+
+        Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(5, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, one).getCode());
+        Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(0, BarOrientation.HORIZONTAL, BarPosition.CENTRAL, two).getCode());
+
+    }
+
     /*
      *  This method resets the position of bars with fixed positions
      */
-
-
     private void reConfigureBars(GameEngine engine, BarOrientation orientation, int[] initialBars) {
         for ( int i = 0; i < 7; i++ ) {
             if ( 0 == initialBars[i] ) {
@@ -141,19 +168,35 @@ public class GameTest {
     }
 
     private void printBoard() {
-        System.out.format("%n %n %n");
-        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","-------","-------","-------","-------","-------","-------","-------");
-        System.out.format("| %-1s |   %-1d   |   %-1d   |   %-1d   |   %-1d   |   %-1d   |   %-1d   |   %-1d   |%n","/",1,2,3,4,5,6,7);
-        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","-------","-------","-------","-------","-------","-------","-------");
+        System.out.format("%n%n%n");
+        System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n","---","----------","----------","----------","----------","----------","----------","----------");
+        System.out.format("| %-1s |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |%n","/",1,2,3,4,5,6,7);
+        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","----------","----------","----------","----------","----------","----------","----------");
+        String[][] beadsOnBoard = getBeadsOnBoard();
         for ( int i = 0; i < 7; i++ ) {
-            System.out.format("| %-1d | %-5s | %-5s | %-5s | %-5s | %-5s | %-5s | %-5s |%n",
-                    i+1, engine.getGame().getBoard()[i][0].name(),
-                    engine.getGame().getBoard()[i][1].name(), engine.getGame().getBoard()[i][2].name(),
-                    engine.getGame().getBoard()[i][3].name(), engine.getGame().getBoard()[i][4].name(),
-                    engine.getGame().getBoard()[i][5].name(), engine.getGame().getBoard()[i][6].name());
-            System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n", "---", "-------", "-------", "-------", "-------", "-------", "-------", "-------");
+            System.out.format("| %-1d | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s |%n",
+                    i+1, engine.getGame().getBoard()[i][0].name() + format(beadsOnBoard[i][0]),
+                    engine.getGame().getBoard()[i][1].name() + format(beadsOnBoard[i][1]), engine.getGame().getBoard()[i][2].name()+ format(beadsOnBoard[i][2]),
+                    engine.getGame().getBoard()[i][3].name()+ format(beadsOnBoard[i][3]), engine.getGame().getBoard()[i][4].name()+ format(beadsOnBoard[i][4]),
+                    engine.getGame().getBoard()[i][5].name()+ format(beadsOnBoard[i][5]), engine.getGame().getBoard()[i][6].name()+ format(beadsOnBoard[i][6]));
+            System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n","---","----------","----------","----------","----------","----------","----------","----------");
         }
 
+    }
+
+    private String[][] getBeadsOnBoard() {
+        String[][] beadsOnBoard = new String[7][7];
+
+        for (Player player : engine.getGame().activePlayers()) {
+            for (Bead bead : player.activeBeads()) {
+                beadsOnBoard[bead.getPosition().getX()][bead.getPosition().getY()] = player.getNickname();
+            }
+        }
+        return beadsOnBoard;
+    }
+
+    private String format(String s) {
+        return s == null ? "[ ]" : "[" + s + "]";
     }
 
 }
