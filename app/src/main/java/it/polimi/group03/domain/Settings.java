@@ -5,7 +5,7 @@ package it.polimi.group03.domain;
  * by the player.
  * It will be used also to hold the preferences sent and
  * retrieved from the database.
- * <p>The game will show in the Settings section options
+ * <p>In the Settings section there will be options
  * to configure:
  *
  * <ul style="list-style-type:circle">

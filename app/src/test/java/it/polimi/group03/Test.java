@@ -68,6 +68,7 @@ public class Test {
                 + "v2o";
 
         // Player 1 moves  the third bar horizontally inward. Player 2 moves the second vertical bar outward.
+
         input = "2"
                 + "1"
                 + "0120120"
@@ -82,6 +83,8 @@ public class Test {
                 + "h3i"
                 + "v2o";
 
+
+/*
         // It is again player's 1 turn.
         input = "2"
                         + "1"
@@ -110,9 +113,9 @@ public class Test {
                         + "0000000"
                         + "h2o";
 
-        /* Since it gave an error, now player 2 has a second chance to drop a bead from player 1. The second horizontal bar now has outer position.
-           No bead will be dropped but the position of the bar will change and it will be player's one turn.
-         */
+        // Since it gave an error, now player 2 has a second chance to drop a bead from player 1. The second horizontal bar now has outer position.
+         //  No bead will be dropped but the position of the bar will change and it will be player's one turn.
+
         input = "2"
                         + "2"
                         + "0210120"
@@ -126,9 +129,7 @@ public class Test {
                         + "0000000"
                         + "v4i";
 
-        /*
-           Player 1 will tend to move a bar (the sixth vertical) inward which has already the position inner.
-        */
+        // Player 1 will tend to move a bar (the sixth vertical) inward which has already the position inner.
         input = "2"
                 + "1"
                 + "0210120"
@@ -142,7 +143,7 @@ public class Test {
                 + "0000000"
                 + "v6i";
 
-        /* Player 1 will move a bar which was moved once by him. */
+        // Player 1 will move a bar which was moved once by him.
         input = "2"
                 + "1"
                 + "0210120"
@@ -169,8 +170,8 @@ public class Test {
                         + "0000000"
                         + "v2i";
 
-        /* Player 1 will move  the same bar for the third consecuitive time.
-        This will be a a test for the new rule.*/
+        // Player 1 will move  the same bar for the third consecutive time.
+        //This will be a a test for the new rule.
         input = "2"
                         + "1"
                         + "0110120"
@@ -184,7 +185,7 @@ public class Test {
                         + "0000000"
                         + "h2i";
 
-        /* Player 1 does the last move which makes the player's 2 bead fall down. */
+        //Player 1 does the last move which makes the player's 2 bead fall down.
         input = "2"
                 + "1"
                 + "0210120"
@@ -197,10 +198,9 @@ public class Test {
                 + "0001000"
                 + "0000000"
                 + "v1i";
-        /*
-        NEW CASE: The input will have 3 moves. In the second move the game will finish.
-        We have 3 beads left. One from player two, and two from player one. The second move of player one will cause the winning onf the game.
-         */
+
+        //NEW CASE: The input will have 3 moves. In the second move the game will finish.
+        //We have 3 beads left. One from player two, and two from player one. The second move of player one will cause the winning onf the game.
 
         input = "2"
                         + "1"
@@ -216,9 +216,9 @@ public class Test {
                         + "h50" //player 1 non-winning move
                         + "v1i" // player two gets self-sacrificed.
                         + "h3i"; //player one keeps moving
-        /*
-        Same case, with the difference that player 1 kills player 2. Here it gives an undefined message.
-         */
+
+        //Same case, with the difference that player 1 kills player 2. Here it gives an undefined message.
+
         input = "2"
                 + "2"
                 + "0210120"
@@ -248,6 +248,75 @@ public class Test {
                 + "h50" //player 2 non-winning move
                 + "v1i" // player 1 kills player 2
                 + "h3i"; //player 2 keeps moving
+
+                */
+
+        input = "4"
+                + "1"
+                + "0120120"
+                + "2101102"
+
+                + "3010120"
+                + "0020010"
+                + "0032001"
+                + "2030301"
+                + "0300004"
+                + "0004004"
+                + "4004020"
+                + "v3o"
+                + "v6o"
+                + "h6i"
+                + "h4o"
+                + "v4o"
+                + "h3i"
+                + "h4i";//error movimiento repetido en ronda
+
+        input = "4"
+                + "1"
+                + "0120120"
+                + "2101102"
+
+                + "3010120"
+                + "0020010"
+                + "0032001"
+                + "2030301"
+                + "0300004"
+                + "0004004"
+                + "4004020"
+                + "v3o"//1
+                + "v6o"//2
+                + "h6i"//3
+                + "h4o"//4
+                + "v4o"//1
+                + "h3i"//2
+                + "h6i"//3
+                + "h1o"//4
+                + "v6o"//1
+                + "h2i"//2
+                + "v2o"//3 the so called papu play
+                + "h1i"//4
+                + "v5o"//1
+                + "v7i"//2
+                + "h1o"//4
+                + "v7i"//2
+                + "v3i"//4
+                + "v1i"//2
+        ;
+
+        input = "4" +
+                "4" +
+                "1011100" +
+                "1202220" +
+
+                "0000000" +
+                "0000000" +
+                "0000000" +
+                "0000004" +
+                "0000000" +
+                "0000000" +
+                "0000002" +
+                "v7o";
+
         String output = test.moveTest(input); // a move: type of bar, bar number, direction);
 
         System.out.println("input: " + input);
@@ -256,7 +325,7 @@ public class Test {
         test.printBoard(); // final status of the board
     }
 
-    private String moveTest(String inputString) {
+    public String moveTest(String inputString) {
         boolean isValid = false;
         String errorMessage = isConfigurable(inputString);
         if ( CommonUtil.isEmpty(errorMessage) ) {
@@ -277,19 +346,24 @@ public class Test {
                         isValid = false;
                         break;
                     }
+
                     isValid = true;
 
-                    if ( engine.isGameEndConditionReached() && count != moves.size() ) {
-                        movingPlayer = engine.getGame().getNextPlayer() != null ?  engine.getGame().getNextPlayer().getId() + 1 :  engine.getGame().getLastPlayer().getId() + 1;
-                        System.out.println("The game has finished, next (" + (moves.size() - count) + ") moves will be skipped.");
-                        break;
+                    if ( engine.isGameEndConditionReached() ) {
+                        System.out.println("♒♒♒♒♒♒♒♒♒♒♒♒♒   W I N N E R   ♒♒♒♒♒♒♒♒♒♒♒♒♒");
+                        System.out.println("♪♒♪☨♪❆★✿☆ ☛ ☛♔♔ " + engine.getWinner().getNickname() + " ♔♔ ☚☚☆✿★❆♪☨♪♒♪");
+                        if ( count != moves.size() ) {
+                            movingPlayer = engine.getGame().getNextPlayer() != null ? engine.getGame().getNextPlayer().getId() + 1 : engine.getGame().getLastPlayer().getId() + 1;
+                            System.out.println("The game has finished, next (" + (moves.size() - count) + ") moves will be skipped.");
+                            break;
+                        }
                     }
                 } else {
                     errorMessage = MessageFormat.format("error: Player {0} does not exist in the game.", movingPlayer);
                     isValid = false;
                     break;
                 }
-                movingPlayer = engine.getGame().getNextPlayer() != null ?  engine.getGame().getNextPlayer().getId() + 1 :  engine.getGame().getLastPlayer().getId() + 1;
+                movingPlayer = engine.getGame().getNextPlayer() != null ?  engine.getGame().getNextPlayer().getId() + 1 : engine.getGame().getLastPlayer().getId() + 1;
             }
         }
 
@@ -312,6 +386,7 @@ public class Test {
 
         String initialVerticalBar = test.substring(9, 16);
         reConfigureBars(BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
+
         String errorMessage = isPossibleInitialConfiguration();
 
         if ( CommonUtil.isEmpty(errorMessage) ) {
@@ -410,8 +485,8 @@ public class Test {
             } else {
                 engine.getGame().getBars(orientation).get(i).setPosition(BarPosition.OUTER);
             }
-            engine.getGame().refreshBoard(engine.getGame().getBars(orientation).get(i));
         }
+        engine.getGame().refreshBoard();
     }
 
     private String getFinalStatus() {
@@ -447,11 +522,15 @@ public class Test {
     }
 
     private void printBoard() {
+
         System.out.format("%n%n%n");
-        System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n","---","----------","----------","----------","----------","----------","----------","----------");
+        System.out.println("Player 1[♥]   Player 2[♦]   Player 3[♣]   Player 4[♠]");
+
+        System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n", "---", "----------", "----------", "----------", "----------", "----------", "----------","----------");
         System.out.format("| %-1s |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |%n","/",1,2,3,4,5,6,7);
         System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","----------","----------","----------","----------","----------","----------","----------");
-        String[][] beadsOnBoard = getBeadsOnBoard();
+        String[][] beadsOnBoard = engine.getGame().getPlayers() == null ?  new String[7][7] : getBeadsOnBoard() ;
+
         for ( int i = 0; i < 7; i++ ) {
             System.out.format("| %-1d | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s |%n",
                     i+1, engine.getGame().getBoard()[i][0].name() + format(beadsOnBoard[i][0]),
@@ -475,6 +554,10 @@ public class Test {
     }
 
     private String format(String s) {
+        if ( CommonUtil.equalsIgnoreCase(s,"1") ) s = "♥";
+        if ( CommonUtil.equalsIgnoreCase(s,"2") ) s = "♦";
+        if ( CommonUtil.equalsIgnoreCase(s,"3") ) s = "♣";
+        if ( CommonUtil.equalsIgnoreCase(s,"4") ) s = "♠";
         return s == null ? "[ ]" : "[" + s + "]";
     }
 

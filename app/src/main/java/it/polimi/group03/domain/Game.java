@@ -1,9 +1,7 @@
 package it.polimi.group03.domain;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.CommonUtil;
@@ -80,18 +78,6 @@ public class Game {
      * List of the bars move in the round.
      * Used when validating the rule of the bars moved by the opponents in the previous round.
      */
-    private List<Bar> movedBarsInCurrentRound;
-    /**
-     * List of the bars move in the two previous rounds.
-     * Used when validating the rule of the bars moved in the two consecutive turns by a player
-     * when there are only two remaining players in the game.
-     */
-    private List<Bar> movedBarsInTwoPreviousRounds;
-
-    /**
-     * List of the bars move in the round.
-     * Used when validating the rule of the bars moved by the opponents in the previous round.
-     */
     private List<Move> movedBarsByOpponents;
 
     /**
@@ -111,29 +97,30 @@ public class Game {
         configureBar(BarOrientation.HORIZONTAL);
         //setting-up the fixed composition for the vertical Bars
         configureBar(BarOrientation.VERTICAL);
+        //refreshing board with final colors
+        refreshBoard();
     }
 
     /**
-     * This method sets new values for each slot in the board (column or row),
-     * if it's a horizontal move (<b>RED</b> bars), updates only the value in the slot (to <b>RED</b> or <b>BLACK</b>), if the previous one
-     * it's not blue (<b>BLUE</b> covers all the possible colors behind it). If it's a vertical move (<b>BLUE</b> bars)
-     * updates the value of the slot, if the previous one it's not <b>RED</b> but if it is <b>RED</b>, does not update it if the current move
-     * generates a <b>BLACK</b> slot but yes if generates a <b>BLUE</b> one.
+     * This method sets new values for each slot in the board (column and row),
+     * it will check the intersection of the vertical bars with the horizontal ones, considering
+     * the final position (INNER-CENTRAL-OUTER) of the bars, at this point the moves has been performed.
+     * After calling this method the board will be filled with the proper colors of the slots.
      *
-     * @see Bar
+     *
      * @see SlotInfo
-     *
-     * @param bar Only the slots corresponding to this bar will be updated.
      */
-    public void refreshBoard(Bar bar){
-        for ( int i = 0; i < Constant.BOARD_INDEX; i++ ) {
-            if ( BarOrientation.HORIZONTAL.equals(bar.getOrientation()) ) {
-                board[bar.getId()][i] = !SlotInfo.BLUE.equals(board[bar.getId()][i]) ?
-                        bar.getKeys()[bar.getPosition().getInitialSlot() + i] : board[bar.getId()][i];
-            } else {
-                board[i][bar.getId()] = !SlotInfo.RED.equals(board[i][bar.getId()]) ? bar.getKeys()[bar.getPosition().getInitialSlot() + i] :
-                        SlotInfo.BLACK.equals(bar.getKeys()[bar.getPosition().getInitialSlot() + i]) ?
-                                board[i][bar.getId()] : bar.getKeys()[bar.getPosition().getInitialSlot() + i];
+    public void refreshBoard(){
+        List<Bar> blues = getBars(BarOrientation.VERTICAL);
+        List<Bar> reds = getBars(BarOrientation.HORIZONTAL);
+
+        for ( int i = 0; i < 7; i++ ) {
+            for ( int j = 0; j < 7; j++ ) {
+                if ( !blues.get(j).getKeys()[i + blues.get(j).getPosition().getInitialSlot()].equals(SlotInfo.BLUE) ) {
+                    board[i][j] = reds.get(i).getKeys()[j+ reds.get(i).getPosition().getInitialSlot()].equals(SlotInfo.RED) ? SlotInfo.RED : SlotInfo.BLACK;
+                } else {
+                    board[i][j] = SlotInfo.BLUE;
+                }
             }
         }
     }
@@ -255,7 +242,7 @@ public class Game {
      * The method will configure all bars for the given <b>orientation</b>.
      *
      * <p>The method uses the {@link #getKeys(int, BarOrientation)} method for retrieving the fixed composition
-     * of the bars, and the {@link #refreshBoard(Bar)} method for resetting the values of all slots in the game.
+     * of the bars, and the {@link #refreshBoard()} method for resetting the values of all slots in the game.
      *
      * @see Bar
      *
@@ -268,7 +255,6 @@ public class Game {
             Bar bar = new Bar(i, orientation, getKeys(i, orientation));
             //initializing each slot in the board (RED, BLUE, EMPTY)
             //Log.d("Setup", MessageFormat.format("Bar[{0}-{1},{2}]", bar.getOrientation(),bar.getId(),bar.getPosition()));
-            refreshBoard(bar);
             this.bars.add(bar);
         }
     }
@@ -322,20 +308,6 @@ public class Game {
     }
 
     /**
-     * This method initializes the list of bars moved by the opponents in the previous round.
-     */
-    public void resetMovedBarsInCurrentRound() {
-        this.movedBarsInCurrentRound = new ArrayList<>();
-    }
-
-    /**
-     * This method initializes the list of bars moved in two previous rounds.
-     */
-    public void resetMovedBarsInTwoPreviousRounds() {
-        this.movedBarsInTwoPreviousRounds = new ArrayList<>();
-    }
-
-    /**
      * This method initializes the list of bars moved by all opponents.
      */
     public void resetMovedBarsByOpponents() {
@@ -347,30 +319,6 @@ public class Game {
      */
     public void resetLosersAfterTurn(){
         this.losersAfterTurn = new ArrayList<>();
-    }
-
-    /**
-     * This method adds a bar to the list of bars moved by the opponents in the previous round.
-     *
-     * @param bar current bar
-     */
-    public void addBarToListOfMovedBarsInRound(Bar bar){
-        if ( CommonUtil.isEmpty(this.movedBarsInCurrentRound) ) {
-             this.movedBarsInCurrentRound = new ArrayList<>();
-        }
-        this.movedBarsInCurrentRound.add(bar);
-    }
-
-    /**
-     * This method adds a bar to the list of bars moved in two previous rounds.
-     *
-     * @param bar current bar
-     */
-    public void addBarToListOfMovedBarsInTwoPreviousRounds(Bar bar){
-        if ( CommonUtil.isEmpty(this.movedBarsInTwoPreviousRounds) ) {
-            this.movedBarsInTwoPreviousRounds = new ArrayList<>();
-        }
-        this.movedBarsInTwoPreviousRounds.add(bar);
     }
 
     /**
@@ -450,16 +398,8 @@ public class Game {
         this.lastBarMoved = lastBarMoved;
     }
 
-    public List<Bar> getMovedBarsInCurrentRound() {
-        return movedBarsInCurrentRound;
-    }
-
     public List<Player> getLosersAfterTurn() {
         return losersAfterTurn;
-    }
-
-    public List<Bar> getMovedBarsInTwoPreviousRounds() {
-        return movedBarsInTwoPreviousRounds;
     }
 
     public List<Move> getMovedBarsByOpponents() {

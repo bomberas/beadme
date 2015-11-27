@@ -168,8 +168,8 @@ public class GameTest {
             } else {
                 engine.getGame().getBars(orientation).get(i).setPosition(BarPosition.OUTER);
             }
-            engine.getGame().refreshBoard(engine.getGame().getBars(orientation).get(i));
         }
+        engine.getGame().refreshBoard();
     }
 
     private void printBoard() {

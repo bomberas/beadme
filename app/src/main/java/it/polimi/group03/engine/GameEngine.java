@@ -2,12 +2,9 @@ package it.polimi.group03.engine;
 
 //import android.util.Log;
 
-import java.text.MessageFormat;
-
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Game;
-import it.polimi.group03.domain.Move;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.domain.StatusMessage;
 import it.polimi.group03.util.BarOrientation;
@@ -58,8 +55,6 @@ public class GameEngine {
         this.game = new Game();
         this.validator = new GameValidator(this.game);
         this.game.init();
-        this.game.resetMovedBarsInCurrentRound();
-        this.game.resetMovedBarsInTwoPreviousRounds();
         this.game.resetMovedBarsByOpponents();
         this.game.resetLosersAfterTurn();
     }
@@ -161,7 +156,7 @@ public class GameEngine {
 
         this.game.setLastPlayer(currentPlayer);
         this.game.setLastBarMoved(bar);
-        this.game.refreshBoard(bar);
+        this.game.refreshBoard();
         this.game.refreshBeads(bar);
 
         // Only if the game is not finished with this move we'll perform some actions
@@ -260,18 +255,28 @@ public class GameEngine {
 
         if ( this.game.activePlayers().size() > 1 ) {
             int position = 0;
+            boolean found = false;
 
             for ( Player p : this.game.activePlayers() ) {
                 position++;
                 if ( p.getId() == player.getId() ) {
+                    found = true;
                     break;
                 }
             }
 
-            if ( this.game.activePlayers().size() == position ) {
-                return this.game.activePlayers().get(0);
+            if ( found ) {
+                if ( this.game.activePlayers().size() == position ) {
+                    return this.game.activePlayers().get(0);
+                } else {
+                    return this.game.activePlayers().get(position);
+                }
             } else {
-                return this.game.activePlayers().get(position);
+                if ( this.game.activePlayers().size() == player.getId() ) {
+                    return this.game.activePlayers().get(0);
+                } else {
+                    return this.game.activePlayers().get(player.getId());
+                }
             }
         }
 
