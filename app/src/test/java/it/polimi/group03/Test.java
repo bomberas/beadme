@@ -21,7 +21,11 @@ import it.polimi.group03.util.SlotInfo;
  *
  * This class was implemented for specific testing purposes established in the requirements of
  * the delivery of the project. It should be used <u>only</u> for tests based on strings. Some
- * minor validations has been made to avoid problems with the format of the strings entered.
+ * minor validations has been made to avoid problems with the format of the entered strings.
+ *
+ * <p>Please consider the following: When a Game has finished (without errors) the "moving player" should be the last player
+ * who made a move regardless if has lost or not, also the game performs a validation when a user wants to placed a bead
+ * on the board, so if a bead is placed over a empty slot, it will return an error message.</p>
  *
  * <p>This class is prepared to receive an input as follow:
  * <ul style="list-style-type:circle">
@@ -52,280 +56,116 @@ public class Test {
 
     public static void main(String args[]) {
         Test test = new Test();
-        // The player puts a bead in a key. It will show an error.
-        String input = "2"
-                + "1"
-                + "0120120"
-                + "2101102"
-                + "0100100"
-                + "0020000"
-                + "0000001"
-                + "2000000"
-                + "0000000"
-                + "0001000"
-                + "0000000"
-                + "h3i"
-                + "v2o";
+        System.out.println("\n\n*************************General************************************\n");
+        String input = "2" + "1" + "0120120" + "2101102" + "0100100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o";
+        String output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("error: Cannot placed the bead in this position. Invalid movement"));
 
-        // Player 1 moves  the third bar horizontally inward. Player 2 moves the second vertical bar outward.
+        input = "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("21011012022011020000100002000000000002000000000000000010000000000"));
 
-        input = "2"
-                + "1"
-                + "0120120"
-                + "2101102"
-                + "0000100"
-                + "0020000"
-                + "0000001"
-                + "2000000"
-                + "0000000"
-                + "0001000"
-                + "0000000"
-                + "h3i"
-                + "v2o";
+        System.out.println("\n\n*************************Megi***************************************\n");
 
+        input = "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i"  + "v2o";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("21011012022011020000100002000000000002000000000000000010000000000"));
 
-/*
-        // It is again player's 1 turn.
-        input = "2"
-                        + "1"
-                        + "0110120"
-                        + "2201102"
-                        + "0000100"
-                        + "0020000"
-                        + "0000000"
-                        + "2000000"
-                        + "0000000"
-                        + "0001000"
-                        + "0000000"
-                        + "h2o";
+        input = "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o" + "h2o";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("22021012022011020000100000000000000002000000000000000010000000000"));
 
         //Player 2 tries to move the same bar that player 1 moved. It gives an error.
-        input = "2"
-                        + "2"
-                        + "0210120"
-                        + "2201102"
-                        + "0000100"
-                        + "0000000"
-                        + "0000000"
-                        + "2000000"
-                        + "0000000"
-                        + "0001000"
-                        + "0000000"
-                        + "h2o";
+        input = "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o" + "h2o" + "h2o";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("error: Cannot move selected bar because it was moved in the previous round by one of your opponents"));
 
-        // Since it gave an error, now player 2 has a second chance to drop a bead from player 1. The second horizontal bar now has outer position.
-         //  No bead will be dropped but the position of the bar will change and it will be player's one turn.
+        input =   "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o" + "h2o" + "v4i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("21021012022001020000100000000000000002000000000000000010000000000"));
 
-        input = "2"
-                        + "2"
-                        + "0210120"
-                        + "2201102"
-                        + "0000100"
-                        + "0000000"
-                        + "0000000"
-                        + "2000000"
-                        + "0000000"
-                        + "0001000"
-                        + "0000000"
-                        + "v4i";
-
-        // Player 1 will tend to move a bar (the sixth vertical) inward which has already the position inner.
-        input = "2"
-                + "1"
-                + "0210120"
-                + "2200102"
-                + "0000100"
-                + "0000000"
-                + "0000000"
-                + "2000000"
-                + "0000000"
-                + "0001000"
-                + "0000000"
-                + "v6i";
-
-        // Player 1 will move a bar which was moved once by him.
-        input = "2"
-                + "1"
-                + "0210120"
-                + "2200102"
-                + "0000100"
-                + "0000000"
-                + "0000000"
-                + "2000000"
-                + "0000000"
-                + "0001000"
-                + "0000000"
-                + "h2i";
-        //Player 2 moves v2o.
-        input = "2"
-                        + "2"
-                        + "0110120"
-                        + "2200102"
-                        + "0000100"
-                        + "0000000"
-                        + "0000000"
-                        + "2000000"
-                        + "0000000"
-                        + "0001000"
-                        + "0000000"
-                        + "v2i";
-
-        // Player 1 will move  the same bar for the third consecutive time.
-        //This will be a a test for the new rule.
-        input = "2"
-                        + "1"
-                        + "0110120"
-                        + "2100102"
-                        + "0000100"
-                        + "0000000"
-                        + "0000000"
-                        + "2000000"
-                        + "0000000"
-                        + "0001000"
-                        + "0000000"
-                        + "h2i";
+        input =   "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o" + "h3o" + "v4i" + "h3i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("error: Cannot move selected bar because it was moved in one of the two previous rounds"));
 
         //Player 1 does the last move which makes the player's 2 bead fall down.
-        input = "2"
-                + "1"
-                + "0210120"
-                + "2200102"
-                + "0000100"
-                + "0000000"
-                + "0000000"
-                + "2000000"
-                + "0000000"
-                + "0001000"
-                + "0000000"
-                + "v1i";
+        input = "2" + "1" + "0211120" + "2200102" + "0000100" + "0000000" + "0000000" + "2000000" + "0000000" + "0001000" + "0000000" + "v1i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("21021112012001020000100000000000000000000000000000000010000000000"));
 
-        //NEW CASE: The input will have 3 moves. In the second move the game will finish.
-        //We have 3 beads left. One from player two, and two from player one. The second move of player one will cause the winning onf the game.
+        input = "2" + "1" + "0210120" + "2200102" + "0000100" + "0000000" + "0000000" + "2000000" + "0000000" + "0001000" + "0000000" + "h50" + "v1i" + "h3i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("22020022012001020000100000000000000002000000000000000010000000000"));
 
-        input = "2"
-                        + "1"
-                        + "0210120"
-                        + "2200102"
-                        + "0000100"
-                        + "0000000"
-                        + "0000000"
-                        + "2000000"
-                        + "0000000"
-                        + "0001000"
-                        + "0000000"
-                        + "h50" //player 1 non-winning move
-                        + "v1i" // player two gets self-sacrificed.
-                        + "h3i"; //player one keeps moving
+        input = "2" + "2" + "0210120" + "2200102" + "0000100" + "0000000" + "0000000" + "2000000" + "0000000" + "0001000" + "0000000" + "h50" + "v1i" + "h3i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("21020022012001020000100000000000000002000000000000000010000000000"));
 
-        //Same case, with the difference that player 1 kills player 2. Here it gives an undefined message.
+        input = "2" + "2" + "0210120" + "2200102" + "0000100" + "0000000" + "0000000" + "2000000" + "0000000" + "0001000" + "0000000" + "h50" + "v1i" + "h3i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("21020022012001020000100000000000000002000000000000000010000000000"));
 
-        input = "2"
-                + "2"
-                + "0210120"
-                + "2200102"
-                + "0000100"
-                + "0000000"
-                + "0000000"
-                + "2000000"
-                + "0000000"
-                + "0001000"
-                + "0000000"
-                + "h50" //player 2 non-winning move
-                + "v1i" // player 1 kills player 2
-                + "h3i"; //player 2 keeps moving
+        System.out.println("\n\n*************************Ceci***************************************\n");
 
-        input = "2"
-                + "2"
-                + "0210120"
-                + "2200102"
-                + "0000100"
-                + "0000000"
-                + "0000000"
-                + "2000000"
-                + "0000000"
-                + "0001000"
-                + "0000000"
-                + "h50" //player 2 non-winning move
-                + "v1i" // player 1 kills player 2
-                + "h3i"; //player 2 keeps moving
+        input = "4" + "1" + "0120120" + "2101102" + "3010120" + "0020010" + "0032001" + "2030301" + "0300004" + "0004004" + "4004020" + "v3o" + "v6o" + "h6i" + "h4o" + "v4o" + "h3i" + "h4i";//error movimiento repetido en ronda
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("error: Cannot move selected bar because it was moved in the previous round by one of your opponents"));
 
-                */
+        input = "4" + "1" + "0120120" + "2101102" + "3010120"+ "0020010" + "0032001" + "2030301" + "0300004" + "0004004" + "4004020" + "v3o" + "v6o"+ "h6i"+ "h4o"+ "v4o"+ "h3i"+ "h6i" + "h1o" + "v6o" + "h2i" + "v2o" + "h1i" + "v5o" + "v7i" + "h1o" + "v7i" + "v3i" + "v1i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("44101110012022200000000000000000020000000000000000000000004004020"));
 
-        input = "4"
-                + "1"
-                + "0120120"
-                + "2101102"
+        input = "4" + "4" + "1011100" + "1202220" + "0000000" + "0000000" + "0000000" + "0000004" + "0000000" + "0000000" + "0000002" + "v7o";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("44101110012022210000000000000000000000000000000000000000000000000"));//game finished: winner player 4
 
-                + "3010120"
-                + "0020010"
-                + "0032001"
-                + "2030301"
-                + "0300004"
-                + "0004004"
-                + "4004020"
-                + "v3o"
-                + "v6o"
-                + "h6i"
-                + "h4o"
-                + "v4o"
-                + "h3i"
-                + "h4i";//error movimiento repetido en ronda
+        System.out.println("\n\n**********************POLIMI****************************************\n");
 
-        input = "4"
-                + "1"
-                + "0120120"
-                + "2101102"
+        input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" + "h4i" + "h3i" + "h2i" + "h1i" + "h2o" + "h1o" + "h5o";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("4" + "4" + "1100211" + "1111111" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034"));
 
-                + "3010120"
-                + "0020010"
-                + "0032001"
-                + "2030301"
-                + "0300004"
-                + "0004004"
-                + "4004020"
-                + "v3o"//1
-                + "v6o"//2
-                + "h6i"//3
-                + "h4o"//4
-                + "v4o"//1
-                + "h3i"//2
-                + "h6i"//3
-                + "h1o"//4
-                + "v6o"//1
-                + "h2i"//2
-                + "v2o"//3 the so called papu play
-                + "h1i"//4
-                + "v5o"//1
-                + "v7i"//2
-                + "h1o"//4
-                + "v7i"//2
-                + "v3i"//4
-                + "v1i"//2
-        ;
+        input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" + "h4i" + "h3i" + "h2i" + "h1i" + "h2o" + "h1o" + "h2i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("error: Cannot move selected bar because it was moved in one of the two previous rounds"));
 
-        input = "4" +
-                "4" +
-                "1011100" +
-                "1202220" +
+        input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" + "h4i" + "h3i" + "h2i" + "h1i" + "h4o" + "h3o" + "h5o";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("4" + "2" + "0011211" + "1111111" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012"));
 
-                "0000000" +
-                "0000000" +
-                "0000000" +
-                "0000004" +
-                "0000000" +
-                "0000000" +
-                "0000002" +
-                "v7o";
+        input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" + "h4i" + "h3i" + "h2i" + "h1i" + "h4o" + "h3o" + "h4i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("error: Cannot move selected bar because it was moved in one of the two previous rounds"));
 
-        String output = test.moveTest(input); // a move: type of bar, bar number, direction);
-
-        System.out.println("input: " + input);
-        System.out.println("output: " + output);
-
-        test.printBoard(); // final status of the board
     }
 
     public String moveTest(String inputString) {
+        engine = new GameEngine();
+        numberOfPlayers = 0;
+        beadsInTheGrid = "";
+        movingPlayer = 0;
+        moves = new ArrayList<>();
+        message = null;
+
+
         boolean isValid = false;
         String errorMessage = isConfigurable(inputString);
         if ( CommonUtil.isEmpty(errorMessage) ) {
