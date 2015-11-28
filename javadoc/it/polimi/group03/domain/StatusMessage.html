@@ -98,7 +98,7 @@
 <pre>public class <span class="strong">StatusMessage</span>
 extends java.lang.Object</pre>
 <div class="block">This class is used to hold more specific information about an action perform in the game. It contains
- a <tt>code</tt> that identifies the result of the action e.g. <i>0x0</i> indicates success, and a <tt>message</tt>
+ a <tt>code</tt> that identifies the result of the action e.g. <i>0x0</i> indicates success, and a <tt>rCode</tt>
  that describes the result e.g <i>"Action performed successfully"</i>.
 
  <p>This class is used for retrieving information after a validation of one or more rules in the game.</div>
@@ -132,7 +132,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
-<td class="colLast"><code><strong><a href="../../../../it/polimi/group03/domain/StatusMessage.html#message">message</a></strong></code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../it/polimi/group03/domain/StatusMessage.html#rCode">rCode</a></strong></code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -180,7 +180,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../it/polimi/group03/domain/StatusMessage.html#setMessage(java.lang.String)">setMessage</a></strong>(java.lang.String&nbsp;message)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../it/polimi/group03/domain/StatusMessage.html#setMessage(java.lang.String)">setMessage</a></strong>(java.lang.String&nbsp;rCode)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
@@ -217,13 +217,13 @@ extends java.lang.Object</pre>
 <pre>private&nbsp;java.lang.String code</pre>
 </li>
 </ul>
-<a name="message">
+<a name="rCode">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>message</h4>
-<pre>private&nbsp;java.lang.String message</pre>
+<h4>rCode</h4>
+<pre>private&nbsp;java.lang.String rCode</pre>
 </li>
 </ul>
 </li>
@@ -284,7 +284,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setMessage</h4>
-<pre>public&nbsp;void&nbsp;setMessage(java.lang.String&nbsp;message)</pre>
+<pre>public&nbsp;void&nbsp;setMessage(java.lang.String&nbsp;rCode)</pre>
 </li>
 </ul>
 <a name="toString()">
