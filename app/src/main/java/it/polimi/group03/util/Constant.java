@@ -40,7 +40,7 @@ public class Constant {
      */
     public static final String STATUS_ERR_BAR_POSITION = "e0x2";
     /**
-     * This constant holds the error code when the selected bar was already moved.
+     * This constant holds the error code when the selected bar was already moved by one of the opponents.
      */
     public static final String STATUS_ERR_BAR_SELECTED = "e0x3";
     /**
@@ -48,7 +48,7 @@ public class Constant {
      */
     public static final String STATUS_ERR_BAR_CONSECUTIVE = "e0x4";
     /**
-     * This constant holds the error code when the player played in the previous turn.
+     * This constant holds the error code when the player is trying to move two times in a row.
      */
     public static final String STATUS_ERR_SAME_PREVIOUS_PLAYER = "e0x5";
     /**

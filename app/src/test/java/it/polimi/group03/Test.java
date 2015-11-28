@@ -303,26 +303,62 @@ public class Test {
                 + "v1i"//2
         ;
 
-        input = "4" +
-                "4" +
-                "1011100" +
-                "1202220" +
-
-                "0000000" +
-                "0000000" +
-                "0000000" +
-                "0000004" +
-                "0000000" +
-                "0000000" +
-                "0000002" +
+        input = "4" + "4" + "1011100" + "1202220" + "0000000" + "0000000" + "0000000" + "0000004" + "0000000" + "0000000" + "0000002" +
                 "v7o";
+
+        input = "4" + "1" + "0120120" + "2101102" + "1020403" + "0040020" + "0013002" + "3402001" + "0100304" + "0001030" + "2000040" +
+                "v6o" + "h2i" + "v1i" + "h4o" + "v7i" + "h1o" + "h7o" + "v3o" + "v5o" + "h6i" + "h3i" + "v2o" + /* Player 4 kills 1 */
+                "v4o" + "h4i" + "h3i" + "v6i" + "v1i" + "v2i" + "v4i" + "v7o"  /* Player 3 kills 2 */ + "v2o" + "v7i" + "v4i" /* Player 4 kills 3 */; // OK, out = 44100011102102010000000000000000000000400000000000000000000000000
+
+
+        input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" +
+                "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 1 & 2*/  + "h2o" + "h2o"; // Error moved by one opponent
+
+        input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" +
+                "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 1 & 2*/  + "h2o" + "h1o" + "h2i"; // Error moved previous 2 consecutive rounds
+
+        input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" +
+                "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 1 & 2*/  + "h2o" + "h1o" + "h5o"; // Ok, out = 44110021111111110000000000000000000000000000000000000000000000034
+
+        input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" +
+                "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 3 & 4 */  + "h1o"; // Error moved by one opponent
+
+        input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" +
+                "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 3 & 4 */  + "h4o" + "h2o"; // Error moved by one opponent
+
+        input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" +
+                "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 3 & 4 */  + "h4o" + "h3o" + "h4i"; // Error moved in previous 2 consecutive rounds
+
+        input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" +
+                "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 3 & 4 */  + "h4o" + "h3o" + "h5o"; // Ok, out = 42001121111111110000000000000000000000000000000000000000000000012
+
+        input = "4" + "1" + "0000000" + "0000001" + "0000000" + "0000000" + "0000000" + "1020102" + "0000000" + "0000000" + "0000000" +
+                "h4o" /* Player 1 kills both himself and 2 */ ; // Ok, out = 41000100000000010000000000000000000000000000000000000000000000000
+
+        input = "4" + "1" + "0000000" + "0000001" + "0000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
+                "h4o" /* Player 1 commits suicide */ ; // Ok, out = 41000100000000010000000000000000002020000000000000000000000000000
+
+        input = "2" + "1" + "0000000" + "0000001" + "5000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
+                "h4o"; // Error: The number of players doesn't match with the beads on the board
+
+        input = "4" + "1" + "0000000" + "6000001" + "6000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
+                "h4o"; // Error: Impossible to add player [6]. ?But I put a position 6, and what's the diff with previous?
+
+        input = "4" + "1" + "0000000" + "6000001" + "0000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
+                "h4o"; // No error output = 42000100020000010000000000000000002021000000000000000000000000000 ? But I put a position 6
+
+        input = "4" + "1" + "0000000" + "0000001" + "0000000" + "0300304" + "0000200" + "1000200" + "0000000" + "0000000" + "0000000" +
+                "v6o"; // [error: Cannot placed the bead in this position.] But didnt print the beads 3 and 4 that were correct
+
 
         String output = test.moveTest(input); // a move: type of bar, bar number, direction);
 
-        System.out.println("input: " + input);
-        System.out.println("output: " + output);
+        System.out.println("Input string  [" + input + "]");
+        System.out.println("Output string [" + output + "]");
 
         test.printBoard(); // final status of the board
+
+        test.printBars();
     }
 
     public String moveTest(String inputString) {
@@ -350,8 +386,10 @@ public class Test {
                     isValid = true;
 
                     if ( engine.isGameEndConditionReached() ) {
-                        System.out.println("♒♒♒♒♒♒♒♒♒♒♒♒♒   W I N N E R   ♒♒♒♒♒♒♒♒♒♒♒♒♒");
-                        System.out.println("♪♒♪☨♪❆★✿☆ ☛ ☛♔♔ " + engine.getWinner().getNickname() + " ♔♔ ☚☚☆✿★❆♪☨♪♒♪");
+                        System.out.println("⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱   W I N N E R   ⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱");
+                        System.out.println("♪ ♒ ♪ ☨ ♪ ❆ ★ ✿ ☆ ☛ ⌇⌘ ☇ ☃ ☃ ♨ ♔ ♛ ☄ ☄ ☄ ☄    Player " + engine.getWinner().getNickname() + "    ☄ ☄ ☄ ♛ ♔ ♨ ☃ ☃ ☃ ☇ ⌘ ⌇☚ ☆ ✿ ★ ❆ ♪ ☨ ♪ ♒ ♪");
+                        System.out.println("⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱⋰⋆⋱\n\n");
+
                         if ( count != moves.size() ) {
                             movingPlayer = engine.getGame().getNextPlayer() != null ? engine.getGame().getNextPlayer().getId() + 1 : engine.getGame().getLastPlayer().getId() + 1;
                             System.out.println("The game has finished, next (" + (moves.size() - count) + ") moves will be skipped.");
@@ -524,9 +562,9 @@ public class Test {
     private void printBoard() {
 
         System.out.format("%n%n%n");
-        System.out.println("Player 1[♥]   Player 2[♦]   Player 3[♣]   Player 4[♠]");
+        System.out.println("⋯⋯⋯⋯⋯Player 1[♥]⋯⋯⋯⋯⋯Player 2[♦]⋯⋯⋯⋯⋯Player 3[♣]⋯⋯⋯⋯⋯Player 4[♠]⋯⋯⋯⋯⋯\n");
 
-        System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n", "---", "----------", "----------", "----------", "----------", "----------", "----------","----------");
+        System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n", "---", "----------", "----------", "----------", "----------", "----------", "----------", "----------");
         System.out.format("| %-1s |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |%n","/",1,2,3,4,5,6,7);
         System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","----------","----------","----------","----------","----------","----------","----------");
         String[][] beadsOnBoard = engine.getGame().getPlayers() == null ?  new String[7][7] : getBeadsOnBoard() ;
@@ -563,24 +601,37 @@ public class Test {
 
     private String getErrorMessage(String code) {
         if ( Constant.STATUS_ERR_NUMBER_PLAYERS.equals(code) ) {
-            return "error: Number of players out of bound";
+            return "error: Number of players out of bound.";
         }
         if ( Constant.STATUS_ERR_BAR_POSITION.equals(code) ) {
-            return "error: Cannot move the bar to the new position. Invalid movement";
+            return "error: Cannot move this bar to the new position.";
         }
         if ( Constant.STATUS_ERR_BAR_SELECTED.equals(code) ) {
-            return "error: Cannot move selected bar because it was moved in the previous round by one of your opponents";
+            return "error: Cannot move this bar because it was moved in the previous round by one of your opponents.";
         }
         if ( Constant.STATUS_ERR_BAR_CONSECUTIVE.equals(code) ) {
-            return "error: Cannot move selected bar because it was moved in one of the two previous rounds";
+            return "error: Cannot move this bar because it was moved in one of your two previous consecutive turns.";
         }
         if ( Constant.STATUS_ERR_SAME_PREVIOUS_PLAYER.equals(code) ) {
-            return "error: You cannot move twice in a row";
+            return "error: Cannot move twice in a row.";
         }
         if ( Constant.STATUS_ERR_PLACED_BEAD.equals(code) ) {
-            return "error: Cannot placed the bead in this position. Invalid movement";
+            return "error: Cannot placed the bead in this position.";
         }
         return "error: Something went wrong";
+    }
+
+
+    private void printBars() {
+        String reds = "";
+        String blues = "";
+
+        for ( int i = 0; i < 7; i++){
+            reds += engine.getGame().getBars(BarOrientation.HORIZONTAL).get(i).getPosition().getInitialSlot();
+            blues += engine.getGame().getBars(BarOrientation.VERTICAL).get(i).getPosition().getInitialSlot();
+        }
+        System.out.println(reds);
+        System.out.println(blues);
     }
 
 }

@@ -252,34 +252,28 @@ public class GameEngine {
      *         {@code null} if there is no player next in turn.
      */
     private Player getNextPlayer(Player player){
-
-        if ( this.game.activePlayers().size() > 1 ) {
-            int position = 0;
-            boolean found = false;
-
-            for ( Player p : this.game.activePlayers() ) {
-                position++;
-                if ( p.getId() == player.getId() ) {
-                    found = true;
-                    break;
+        // First of all it's necessary to check if the player is the last player in the list of players
+        if ( this.game.getPlayers().size() == player.getId() + 1 ){
+            return this.game.activePlayers().get(0); // If so then return the first player in the list of <active> players
+        } else {
+            // Since the player is not the last player in the list of players it means there are players located
+            // after the current player that could still be active in the game.
+            // It is necessary to look up the active player among those located after the current player
+            for ( int i = player.getId() + 1; i < this.game.getPlayers().size(); i++ ){
+                if ( this.game.getPlayers().get(i).isActive() )  {
+                    return this.game.getPlayers().get(i); // If an active player is found : the next player is located after current player.
                 }
             }
 
-            if ( found ) {
-                if ( this.game.activePlayers().size() == position ) {
-                    return this.game.activePlayers().get(0);
-                } else {
-                    return this.game.activePlayers().get(position);
-                }
-            } else {
-                if ( this.game.activePlayers().size() == player.getId() ) {
-                    return this.game.activePlayers().get(0);
-                } else {
-                    return this.game.activePlayers().get(player.getId());
+            // If it continues to here it means none active player has been found in the previous iteration
+            // It is necessary to look up the active player among those located before the current player
+            for ( int i = 0; i < player.getId(); i++ ){
+                if (this.game.getPlayers().get(i).isActive())  {
+                    return this.game.getPlayers().get(i); // If an active player is found : the next player is located before current player.
                 }
             }
         }
-
+        // If there is none active player remaining in the game
         return null;
     }
 
