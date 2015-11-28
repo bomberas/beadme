@@ -122,7 +122,6 @@ public class Test {
         input =  "4" + "1" + "2120100" + "2012122" + "3100400" + "0020000" + "0013003" + "3010201" + "0240000" + "4400000" +
                 "2020431" + "v5o" + "v2o" + "h3i" + "v1i" + "v3i" + "v6i" + "h2i" + "h7o" + "h1i" + "h4o" + "v5i" + "h7o" + " v7i" + " h5o" + " v2i";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("error: String configuration [ v7] is invalid for a move."));
 
         System.out.println("\n********************************************************************");
@@ -226,6 +225,11 @@ public class Test {
         output = test.moveTest(input);
         System.out.println(output.equals("error: Cannot placed the bead in this position."));
 
+        input = "4" + "1" + "2120100" + "2012122" + "3100400" + "0020000" + "0013003" + "3010201" + "0240000" + "4400000" + "2020431"
+                + "v5o" + "v2o" + "h3i" + "v1i" + "v3i" + "v6i" + "h2i" + "h7o" + "h1i" + "h4o" + "v5i" + "h7o" + "v7i" + "h5o" + "v2i" + "h7i";
+        output = test.moveTest(input);
+        System.out.println(output.equals("41101120110021110000000000000000030000000000020000044000002000431"));
+
         test.printBoard();
     }
 
@@ -249,7 +253,7 @@ public class Test {
      * @param inputString A <i>68+ character string</i> that contains the configurations and movements to be tested
      * @return {@code string}  A <i>65-character string</i> with the resulting state of the moves, in the same format as the first
      *                          65 characters of the input if it was possible to perform all the moves and configurations
-     *                          established in the input, or an <i>error message</i> indicating what went wrong e.g “error: <explanation>”
+     *                          established in the input, or an <i>error message</i> indicating what went wrong e.g "error: <explanation>"
      *
      */
     public String moveTest(String inputString) {
