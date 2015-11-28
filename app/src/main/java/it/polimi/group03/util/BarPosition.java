@@ -9,9 +9,9 @@ import it.polimi.group03.domain.Game;
 import it.polimi.group03.domain.Bar;
 
 /**
- * This class contains exclusively the allowed values for the position of a bar,
- * each of one has an initial index from where to start obtaining the keys of
- * the slots to be present on the board.
+ * This class contains the allowed values for the position of a particular bar: INNER, CENTRAL or OUTER,
+ * each position has an initial index that will be use to obtain the keys of the bar, and it is the initial point
+ * from where to start obtaining the keys of the slots to be present on the board.
  *
  * <p>Is used when the bars are configured at the beginning of the game and after a move.
  *

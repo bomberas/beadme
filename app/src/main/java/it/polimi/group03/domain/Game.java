@@ -4,24 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.group03.util.BarOrientation;
+import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.CommonUtil;
 import it.polimi.group03.util.Constant;
 import it.polimi.group03.util.SlotInfo;
 
-import it.polimi.group03.engine.GameEngine;
-import it.polimi.group03.engine.GameValidator;
-
 /**
  * This class represents the whole concept of the game which includes players,
- * bars, beads and the board itself. Is seen as a snapshot of the game that shows the current status,
+ * bars, beads and the board itself. It is seen as a snapshot of the game that shows the current status,
  * i.e the latest and most updated values for all the information hold in the game.
  *
  * <p>This class is capable to retrieve the current situation of a particular game in any time, because
- * stores useful information obtained during the development of the game e.g. <i>lastBarMoved, lastPlayer,
- * nextPlayer, round, turn</i> and so on.
- * To achieve this key behaviour the class performs methods such as <i>refreshBoard(), refreshBead() </i> etc.
+ * stores useful information obtained during the development of the game e.g. {@link #lastBarMoved}, {@link #nextPlayer},
+ * {@link #lastPlayer}, {@link #round}, {@link #turn} and so on.
  *
- * <p>It is used by {@link GameEngine} class and {@link GameValidator} class.
+ * <p>To achieve this key behaviour the class performs methods such as {@link #refreshBoard()}, {@link #refreshBeads(Bar)} etc.
+ *
+ * <p>It is used by {@link it.polimi.group03.engine.GameEngine} class and {@link it.polimi.group03.engine.GameEngine} class.
  *
  * @see Bar
  * @see Player
@@ -36,11 +35,11 @@ import it.polimi.group03.engine.GameValidator;
 public class Game {
 
     /**
-     * List of bar in the board. 7 horizontal and 7 vertical.
+     * List of bars on the board. 7 horizontal and 7 vertical.
      */
     private List<Bar> bars;
     /**
-     * List of player playing the current game.
+     * List of players playing the current game.
      */
     private List<Player> players;
     /**
@@ -61,17 +60,17 @@ public class Game {
     private Player nextPlayer;
     /**
      * Used for statistics.
-     * This attribute is updated in the makeMove(...) method
+     * This attribute is updated in the {@link it.polimi.group03.engine.GameEngine#makeMove(int, BarOrientation, BarPosition, Player)} method
      */
     private int round;
     /**
      * Used for statistics.
-     * This attribute is updated in the makeMove(...) method
+     * This attribute is updated in the {@link it.polimi.group03.engine.GameEngine#makeMove(int, BarOrientation, BarPosition, Player)} method
      */
     private int turn;
     /**
      * Used to retrieve the loser or losers after a move. Possibly read from the UI.
-     * This attribute is updated in the refreshBeads(Bar bar) method.
+     * This attribute is updated in the {@link Game#refreshBeads(Bar)} method.
      */
     private List<Player> losersAfterTurn;
     /**

@@ -255,6 +255,13 @@ public class Test {
         System.out.println(output);
         test.printBoard();
 
+        input = "4" + "1" + "2120100" + "2012122" + "3100400" + "0020000" + "0013003" + "3010201" + "0240000" + "4400000" + "2020431"
+                + "v5o" + "v2o" + "h3i" + "v1i" + "v3i" + "v6i" + "h2i" + "h7o" + "h1i" + "h4o" + "v5i" + "h7o" + "v7i" + "h5o" + "v2i" + "h7i";
+
+        output = test.moveTest(input);
+        System.out.println(output);
+        test.printBoard();
+
     }
 
     /**

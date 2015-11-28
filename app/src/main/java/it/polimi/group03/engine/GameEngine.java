@@ -13,7 +13,7 @@ import it.polimi.group03.util.Constant;
 
 /**
  *
- * This class is the one in charge of performing all related things to the mechanics of the game. Should
+ * This class is the one in charge of performing all related things to fulfill with the mechanics of the game. Should
  * be used when one of the following actions is required:
  *
  * <ul style="list-style-type:circle">
@@ -25,7 +25,7 @@ import it.polimi.group03.util.Constant;
  * </ul>
  *
  * <p>This class fully depends on the {@link Game} class to store some values of the game such as: the players,
- * the movements, the beads, and the general state of the game. Makes use of the {@link GameValidator} for
+ * the movements, the beads, and the general state of the game and it makes use of the {@link GameValidator} for
  * checking the rules.
  *
  * @see Game

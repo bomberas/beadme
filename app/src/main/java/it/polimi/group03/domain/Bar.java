@@ -7,8 +7,11 @@ import it.polimi.group03.util.SlotInfo;
 import static it.polimi.group03.util.Constant.*;
 
 /**
- * This class holds the configuration for all the bars present on the board, based on
- * the IDs and Orientations (unique key).
+ * This class holds the configuration of a bar present on the board, each bar is represented by an unique id
+ * and an orientation, e.g "0 Horizontal" refers to the first horizontal bar on the board. This two fields form the unique key
+ * that will identify the bar in every moment of the game. A bar is set up with a predefined composition that indicates
+ * whether a slot in the bar is covered or holed, this composition is known as the keys of the bar. During the game is possible to change the position of the bar, this
+ * position can be INNER, CENTRAL or OUTER.
  *
  * <p>It's used when a game has started and when a move is made. The initial position of
  * each bar is set randomly.

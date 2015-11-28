@@ -6,7 +6,6 @@ package it.polimi.group03.domain;
  * by default. A bead cannot be moved from one position to another, in the eventual
  * case a player loses his beads these will be set as <b>inactive</b>.
  *
- *
  * @see Position
  *
  * @author cecibloom

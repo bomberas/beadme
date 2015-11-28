@@ -154,7 +154,7 @@ public class GameValidator {
     /**
      * This method checks that a player places a bead in an allowable position; in order to do so
      * first checks the number of beads the player has already placed, then checks if the position of the new bead
-     * is valid  i.e if the new bead is not placed in a holed slot or if there is already a bead in the selected slot.
+     * is valid  i.e if the new bead is been placed in a holed slot or if there is already a bead in the selected slot.
      *
      * @see Game
      * @see Player
