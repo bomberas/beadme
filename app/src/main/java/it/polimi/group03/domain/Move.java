@@ -3,7 +3,7 @@ package it.polimi.group03.domain;
 /**
  * This class holds the movement performed by a player. This "movement" basically consists of a
  * player - bar pair. This class should be used when checking the validations
- * and rules established for the game e.g a bar already moved in a previous round. *
+ * and rules established for the game e.g a bar already moved in a previous round.
  *
  * @see Player
  * @see Bar
@@ -12,7 +12,7 @@ package it.polimi.group03.domain;
  * @author megireci
  * @author tatibloom
  * @version 1.0
- * @since 11/11/2015.
+ * @since 16/11/2015.
  */
 public class Move {
 
