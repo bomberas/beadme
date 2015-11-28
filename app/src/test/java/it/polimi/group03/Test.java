@@ -59,202 +59,162 @@ public class Test {
      */
     public static void main(String args[]) {
         Test test = new Test();
+
         System.out.println("\n\n*************************General************************************\n");
+
         String input = "2" + "1" + "0120120" + "2101102" + "0100100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o";
         String output = test.moveTest(input);
-        System.out.println(output);
-        System.out.println(output.equals("error: Cannot placed the bead in this position. Invalid movement"));
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot placed the bead in this position."));
 
         input = "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("21011012022011020000100002000000000002000000000000000010000000000"));
-        test.printBoard();
+
+        System.out.println("\n********************************************************************");
+
 
         System.out.println("\n\n*************************Megi***************************************\n");
 
         input = "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i"  + "v2o";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("21011012022011020000100002000000000002000000000000000010000000000"));
-        test.printBoard();
 
         input = "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o" + "h2o";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("22021012022011020000100000000000000002000000000000000010000000000"));
-        test.printBoard();
 
         //Player 2 tries to move the same bar that player 1 moved. It gives an error.
         input = "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o" + "h2o" + "h2o";
         output = test.moveTest(input);
-        System.out.println(output);
-        System.out.println(output.equals("error: Cannot move selected bar because it was moved in the previous round by one of your opponents"));
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in the previous round by one of your opponents."));
 
         input =   "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o" + "h2o" + "v4i";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("21021012022001020000100000000000000002000000000000000010000000000"));
-        test.printBoard();
 
         input =   "2" + "1" + "0120120" + "2101102" + "0000100" + "0020000" + "0000001" + "2000000" + "0000000" + "0001000" + "0000000" + "h3i" + "v2o" + "h3o" + "v4i" + "h3i";
         output = test.moveTest(input);
-        System.out.println(output);
-        System.out.println(output.equals("error: Cannot move selected bar because it was moved in one of the two previous rounds"));
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in one of your two previous consecutive turns."));
 
         //Player 1 does the last move which makes the player's 2 bead fall down.
         input = "2" + "1" + "0211120" + "2200102" + "0000100" + "0000000" + "0000000" + "2000000" + "0000000" + "0001000" + "0000000" + "v1i";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("21021112012001020000100000000000000000000000000000000010000000000"));
-        test.printBoard();
 
         input = "2" + "1" + "0210120" + "2200102" + "0000100" + "0000000" + "0000000" + "2000000" + "0000000" + "0001000" + "0000000" + "h50" + "v1i" + "h3i";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("22020022012001020000100000000000000002000000000000000010000000000"));
-        test.printBoard();
 
         input = "2" + "2" + "0210120" + "2200102" + "0000100" + "0000000" + "0000000" + "2000000" + "0000000" + "0001000" + "0000000" + "h50" + "v1i" + "h3i";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("21020022012001020000100000000000000002000000000000000010000000000"));
-        test.printBoard();
 
         input = "2" + "2" + "0210120" + "2200102" + "0000100" + "0000000" + "0000000" + "2000000" + "0000000" + "0001000" + "0000000" + "h50" + "v1i" + "h3i";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("21020022012001020000100000000000000002000000000000000010000000000"));
-        test.printBoard();
 
-        System.out.println("\n\n*************************Ceci***************************************\n");
-
-        input = "4" + "1" + "0120120" + "2101102" + "3010120" + "0020010" + "0032001" + "2030301" + "0300004" + "0004004" + "4004020" + "v3o" + "v6o" + "h6i" + "h4o" + "v4o" + "h3i" + "h4i";//error movimiento repetido en ronda
-        output = test.moveTest(input);
-        System.out.println(output);
-        System.out.println(output.equals("error: Cannot move selected bar because it was moved in the previous round by one of your opponents"));
-        test.printBoard();
-
-        input = "4" + "1" + "0120120" + "2101102" + "3010120"+ "0020010" + "0032001" + "2030301" + "0300004" + "0004004" + "4004020" + "v3o" + "v6o"+ "h6i"+ "h4o"+ "v4o"+ "h3i"+ "h6i" + "h1o" + "v6o" + "h2i" + "v2o" + "h1i" + "v5o" + "v7i" + "h1o" + "v7i" + "v3i" + "v1i";
-        output = test.moveTest(input);
-        System.out.println(output);
-        System.out.println(output.equals("44101110012022200000000000000000020000000000000000000000004004020"));
-        test.printBoard();
-
-        input = "4" + "4" + "1011100" + "1202220" + "0000000" + "0000000" + "0000000" + "0000004" + "0000000" + "0000000" + "0000002" + "v7o";
-        output = test.moveTest(input);
-        System.out.println(output);
-        System.out.println(output.equals("44101110012022210000000000000000000000000000000000000000000000000"));//game finished: winner player 4
-        test.printBoard();
+        System.out.println("\n********************************************************************");
 
         System.out.println("\n\n**********************POLIMI****************************************\n");
 
         input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" + "h4i" + "h3i" + "h2i" + "h1i" + "h2o" + "h1o" + "h5o";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("4" + "4" + "1100211" + "1111111" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034"));
-        test.printBoard();
 
         input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" + "h4i" + "h3i" + "h2i" + "h1i" + "h2o" + "h1o" + "h2i";
         output = test.moveTest(input);
-        System.out.println(output);
-        System.out.println(output.equals("error: Cannot move selected bar because it was moved in one of the two previous rounds"));
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in one of your two previous consecutive turns."));
 
         input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" + "h4i" + "h3i" + "h2i" + "h1i" + "h4o" + "h3o" + "h5o";
         output = test.moveTest(input);
-        System.out.println(output);
         System.out.println(output.equals("4" + "2" + "0011211" + "1111111" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012"));
-        test.printBoard();
 
         input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" + "h4i" + "h3i" + "h2i" + "h1i" + "h4o" + "h3o" + "h4i";
         output = test.moveTest(input);
-        System.out.println(output);
-        System.out.println(output.equals("error: Cannot move selected bar because it was moved in one of the two previous rounds"));
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in one of your two previous consecutive turns."));
 
-        // Ceci Mars
+        System.out.println("\n********************************************************************");
+
+        System.out.println("\n\n*************************Ceci Mars**********************************\n");
+
+        input = "4" + "1" + "0120120" + "2101102" + "3010120" + "0020010" + "0032001" + "2030301" + "0300004" + "0004004" + "4004020" + "v3o" + "v6o" + "h6i" + "h4o" + "v4o" + "h3i" + "h4i";//error movimiento repetido en ronda
+        output = test.moveTest(input);
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in the previous round by one of your opponents."));
+
+        input = "4" + "1" + "0120120" + "2101102" + "3010120"+ "0020010" + "0032001" + "2030301" + "0300004" + "0004004" + "4004020" + "v3o" + "v6o"+ "h6i"+ "h4o"+ "v4o"+ "h3i"+ "h6i" + "h1o" + "v6o" + "h2i" + "v2o" + "h1i" + "v5o" + "v7i" + "h1o" + "v7i" + "v3i" + "v1i";
+        output = test.moveTest(input);
+        System.out.println(output.equals("44101110012022200000000000000000020000000000000000000000004004020"));
+
+        input = "4" + "4" + "1011100" + "1202220" + "0000000" + "0000000" + "0000000" + "0000004" + "0000000" + "0000000" + "0000002" + "v7o";
+        output = test.moveTest(input);
+        System.out.println(output.equals("44101110012022210000000000000000000000000000000000000000000000000"));//game finished: winner player 4
+
         input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" +
                 "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 1 & 2*/  + "h2o" + "h2o"; // Error moved by one opponent
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in the previous round by one of your opponents."));
 
         input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" +
                 "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 1 & 2*/  + "h2o" + "h1o" + "h2i"; // Error moved previous 2 consecutive rounds
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in one of your two previous consecutive turns."));
 
         input = "4" + "1" + "1111111" + "1111111" + "0102000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000034" +
                 "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 1 & 2*/  + "h2o" + "h1o" + "h5o"; // Ok, out = 44110021111111110000000000000000000000000000000000000000000000034
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("44110021111111110000000000000000000000000000000000000000000000034"));
 
         input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" +
                 "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 3 & 4 */  + "h1o"; // Error moved by one opponent
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in the previous round by one of your opponents."));
 
         input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" +
                 "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 3 & 4 */  + "h4o" + "h2o"; // Error moved by one opponent
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in the previous round by one of your opponents."));
 
         input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" +
                 "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 3 & 4 */  + "h4o" + "h3o" + "h4i"; // Error moved in previous 2 consecutive rounds
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot move this bar because it was moved in one of your two previous consecutive turns."));
 
         input = "4" + "1" + "1111111" + "1111111" + "0304000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000000" + "0000012" +
                 "h4i" + "h3i" + "h2i" + "h1i" /* Player 4 kills 3 & 4 */  + "h4o" + "h3o" + "h5o"; // Ok, out = 42001121111111110000000000000000000000000000000000000000000000012
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("42001121111111110000000000000000000000000000000000000000000000012"));
 
         input = "4" + "1" + "0000000" + "0000001" + "0000000" + "0000000" + "0000000" + "1020102" + "0000000" + "0000000" + "0000000" +
                 "h4o" /* Player 1 kills both himself and 2 */ ; // Ok, out = 41000100000000010000000000000000000000000000000000000000000000000
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("41000100000000010000000000000000000000000000000000000000000000000"));
 
         input = "4" + "1" + "0000000" + "0000001" + "0000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
                 "h4o" /* Player 1 commits suicide */ ; // Ok, out = 41000100000000010000000000000000002020000000000000000000000000000
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("41000100000000010000000000000000002020000000000000000000000000000"));
 
-        input = "2" + "1" + "0000000" + "0000001" + "5000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
+        input = "2" + "1" + "0000000" + "0000001" + "4000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
                 "h4o"; // Error: The number of players doesn't match with the beads on the board
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("error: The number of players doesn't match with the beads on the board."));
 
-        input = "4" + "1" + "0000000" + "6000001" + "6000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
+        input = "4" + "1" + "0000000" + "0000001" + "6000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
                 "h4o"; // Error: Impossible to add player [6]. ?But I put a position 6, and what's the diff with previous?
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("error: Impossible to add player [6]."));
 
         input = "4" + "1" + "0000000" + "6000001" + "0000000" + "0000000" + "0000202" + "1000100" + "0000000" + "0000000" + "0000000" +
                 "h4o"; // No error output = 42000100020000010000000000000000002021000000000000000000000000000 ? But I put a position 6
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("error: String configuration 6 is invalid for a bars position, please use 0,1 or 2"));
 
         input = "4" + "1" + "0000000" + "0000001" + "0000000" + "0300304" + "0000200" + "1000200" + "0000000" + "0000000" + "0000000" +
                 "v6o"; // [error: Cannot placed the bead in this position.] But didnt print the beads 3 and 4 that were correct
         output = test.moveTest(input);
-        System.out.println(output);
-        test.printBoard();
+        System.out.println(output.equals("error: Cannot placed the bead in this position."));
 
+        test.printBoard();
     }
 
     /**
@@ -340,6 +300,15 @@ public class Test {
     }
 
     private String isConfigurable(String test) {
+        if ( CommonUtil.isEmpty(test) || test.length() < 68 ) {
+            return "error: The input is not complete, you need to consider at least 68 characters.";
+        }
+
+        String errorMessage = !Character.isDigit(test.substring(0,1).charAt(0)) ? MessageFormat.format("error: {0} is not a valid string for number Of players.",test.substring(0, 1)) : "";
+        if ( !CommonUtil.isEmpty(errorMessage) ) {
+            return errorMessage;
+        }
+
         numberOfPlayers = Integer.parseInt(test.substring(0, 1));
         beadsInTheGrid = test.substring(16, 65);
 
@@ -347,19 +316,31 @@ public class Test {
         engine.getGame().setBoard(new SlotInfo[7][7]);
 
         String initialHorizontalBar = test.substring(2, 9);
-        reConfigureBars(BarOrientation.HORIZONTAL, initialHorizontalBar.toCharArray());
+        errorMessage = reConfigureBars(BarOrientation.HORIZONTAL, initialHorizontalBar.toCharArray());
+        if ( !CommonUtil.isEmpty(errorMessage) ) {
+            return errorMessage;
+        }
 
         String initialVerticalBar = test.substring(9, 16);
-        reConfigureBars(BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
+        errorMessage = reConfigureBars(BarOrientation.VERTICAL, initialVerticalBar.toCharArray());
+        if ( !CommonUtil.isEmpty(errorMessage) ) {
+            return errorMessage;
+        }
 
-        String errorMessage = isPossibleInitialConfiguration();
+        errorMessage = isPossibleInitialConfiguration();
+        if ( !CommonUtil.isEmpty(errorMessage) ) {
+            return errorMessage;
+        }
 
-        if ( CommonUtil.isEmpty(errorMessage) ) {
-            movingPlayer = Integer.parseInt(test.substring(1, 2));
-            errorMessage = isPossibleMovesConfiguration(test.substring(65, test.length()));
-            if ( CommonUtil.isEmpty(errorMessage) ) {
-                return "";
-            }
+        errorMessage = !Character.isDigit(test.substring(1, 2).charAt(0)) ? MessageFormat.format("error: {0} is not a valid string for moving player.",test.substring(1, 2)) : "";
+        if ( !CommonUtil.isEmpty(errorMessage) ) {
+            return errorMessage;
+        }
+
+        movingPlayer = Integer.parseInt(test.substring(1, 2));
+        errorMessage = isPossibleMovesConfiguration(test.substring(65, test.length()));
+        if ( !CommonUtil.isEmpty(errorMessage) ) {
+            return errorMessage;
         }
 
         return errorMessage;
@@ -370,7 +351,7 @@ public class Test {
         Set<Integer> playersOnBoard = new TreeSet<>();
 
         for ( char playersBead : beads ) {
-            if ( playersBead == '1' || playersBead == '2' || playersBead == '3' || playersBead == '4' || playersBead == '5' ) {
+            if ( playersBead == '1' || playersBead == '2' || playersBead == '3' || playersBead == '4' ) {
                 playersOnBoard.add(Character.getNumericValue(playersBead));
             } else if ( playersBead != '0' ) {
                 return MessageFormat.format("error: Impossible to add player [{0}].", playersBead);
@@ -403,7 +384,7 @@ public class Test {
     }
 
     private String isPossibleMovesConfiguration(String givenMoves) {
-        if ( CommonUtil.isEmpty(givenMoves) || givenMoves.length()%3 != 0 ) {
+        if ( givenMoves.length()%3 != 0 ) {
             return MessageFormat.format("error: Error configuring moves {0} ...", moves);
         }
 
@@ -417,7 +398,7 @@ public class Test {
                         BarPosition.INNER : BarPosition.OUTER); // for inwards and outwards
                 moves.add(bar);
             } else {
-                return MessageFormat.format("error: String configuration {0} is invalid ...", move);
+                return MessageFormat.format("error: String configuration {0} is invalid for a move ...", move);
             }
         }
 
@@ -441,17 +422,22 @@ public class Test {
         return null;
     }
 
-    private void reConfigureBars(BarOrientation orientation, char[] initialBars) {
+    private String reConfigureBars(BarOrientation orientation, char[] initialBars) {
+
         for ( int i = 0; i < 7; i++ ) {
             if ( ((Character)'0').equals(initialBars[i]) ) {
                 engine.getGame().getBars(orientation).get(i).setPosition(BarPosition.INNER);
             } else if ( ((Character)'1').equals(initialBars[i]) ) {
                 engine.getGame().getBars(orientation).get(i).setPosition(BarPosition.CENTRAL);
-            } else {
+            } else if ( ((Character)'2').equals(initialBars[i]) ) {
                 engine.getGame().getBars(orientation).get(i).setPosition(BarPosition.OUTER);
+            } else {
+                return MessageFormat.format("error: String configuration {0} is invalid for a bars position, please use 0,1 or 2", initialBars[i]);
             }
         }
+
         engine.getGame().refreshBoard();
+        return "";
     }
 
     private String getFinalStatus() {
@@ -484,27 +470,6 @@ public class Test {
         }
 
         return output;
-    }
-
-    private void printBoard() {
-
-        System.out.format("%n%n%n");
-        System.out.println("⋯⋯⋯⋯⋯Player 1[♥]⋯⋯⋯⋯⋯Player 2[♦]⋯⋯⋯⋯⋯Player 3[♣]⋯⋯⋯⋯⋯Player 4[♠]⋯⋯⋯⋯⋯\n");
-
-        System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n", "---", "----------", "----------", "----------", "----------", "----------", "----------","----------");
-        System.out.format("| %-1s |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |%n","/",1,2,3,4,5,6,7);
-        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","----------","----------","----------","----------","----------","----------","----------");
-        String[][] beadsOnBoard = engine.getGame().getPlayers() == null ?  new String[7][7] : getBeadsOnBoard() ;
-
-        for ( int i = 0; i < 7; i++ ) {
-            System.out.format("| %-1d | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s |%n",
-                    i+1, engine.getGame().getBoard()[i][0].name() + format(beadsOnBoard[i][0]),
-                    engine.getGame().getBoard()[i][1].name() + format(beadsOnBoard[i][1]), engine.getGame().getBoard()[i][2].name()+ format(beadsOnBoard[i][2]),
-                    engine.getGame().getBoard()[i][3].name()+ format(beadsOnBoard[i][3]), engine.getGame().getBoard()[i][4].name()+ format(beadsOnBoard[i][4]),
-                    engine.getGame().getBoard()[i][5].name()+ format(beadsOnBoard[i][5]), engine.getGame().getBoard()[i][6].name()+ format(beadsOnBoard[i][6]));
-            System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n","---","----------","----------","----------","----------","----------","----------","----------");
-        }
-
     }
 
     private String[][] getBeadsOnBoard() {
@@ -546,6 +511,27 @@ public class Test {
             return "error: Cannot placed the bead in this position.";
         }
         return "error: Something went wrong";
+    }
+
+    private void printBoard() {
+
+        System.out.format("%n%n%n");
+        System.out.println("⋯⋯⋯⋯⋯Player 1[♥]⋯⋯⋯⋯⋯Player 2[♦]⋯⋯⋯⋯⋯Player 3[♣]⋯⋯⋯⋯⋯Player 4[♠]⋯⋯⋯⋯⋯\n");
+
+        System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n", "---", "----------", "----------", "----------", "----------", "----------", "----------","----------");
+        System.out.format("| %-1s |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |    %-1d     |%n","/",1,2,3,4,5,6,7);
+        System.out.format("+%-3s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%-7s+%n","---","----------","----------","----------","----------","----------","----------","----------");
+        String[][] beadsOnBoard = engine.getGame().getPlayers() == null ?  new String[7][7] : getBeadsOnBoard() ;
+
+        for ( int i = 0; i < 7; i++ ) {
+            System.out.format("| %-1d | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s |%n",
+                    i+1, engine.getGame().getBoard()[i][0].name() + format(beadsOnBoard[i][0]),
+                    engine.getGame().getBoard()[i][1].name() + format(beadsOnBoard[i][1]), engine.getGame().getBoard()[i][2].name()+ format(beadsOnBoard[i][2]),
+                    engine.getGame().getBoard()[i][3].name()+ format(beadsOnBoard[i][3]), engine.getGame().getBoard()[i][4].name()+ format(beadsOnBoard[i][4]),
+                    engine.getGame().getBoard()[i][5].name()+ format(beadsOnBoard[i][5]), engine.getGame().getBoard()[i][6].name()+ format(beadsOnBoard[i][6]));
+            System.out.format("+%-3s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%-10s+%n","---","----------","----------","----------","----------","----------","----------","----------");
+        }
+
     }
 
 }
