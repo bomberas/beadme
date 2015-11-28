@@ -39,7 +39,16 @@ public enum BarPosition {
         return this.initialSlot;
     }
 
-    public static BarPosition randomPosition()  {
+    /**
+     * This method will return a random position like i.e
+     * <i>inner, outer</i> or <i>central</i>.
+     *
+     * <p>This method is used on {@link Game#configureBar(BarOrientation)} to
+     * configure random positions for bars when a game is started.</p>
+
+     * @return {@code barPosition}
+     */
+    public static BarPosition randomPosition() {
         List<BarPosition> values = Collections.unmodifiableList(Arrays.asList(values()));
 
         return values.get(new Random().nextInt(values.size()));
