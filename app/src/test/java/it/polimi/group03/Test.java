@@ -51,8 +51,9 @@ public class Test {
     private StatusMessage message;
 
     /**
-     * Method created not for delivery but for internal testing on this class and game functionality
-     *
+     * Method created not for delivery but for internal testing on this class and game functionality,
+     * along with the JUnits cover all possible scenarios for the game.
+
      * <p>For unit tests please refer to {@link GameTest}
      *
      * @param args args
@@ -112,6 +113,17 @@ public class Test {
         input = "2" + "2" + "0210120" + "2200102" + "0000100" + "0000000" + "0000000" + "2000000" + "0000000" + "0001000" + "0000000" + "h50" + "v1i" + "h3i";
         output = test.moveTest(input);
         System.out.println(output.equals("21020022012001020000100000000000000002000000000000000010000000000"));
+
+        input =  "4" + "1" + "2120100" + "2012122" + "3100400" + "0020000" + "0013003" + "3010201" + "0240000" + "4400000" +
+                "2020431" + "v5o" + "v2o" + "h3i" + "v1i" + "v3i" + "v6i" + "h2i" + "h7o" + "h1i" + "h4o" + "v5i" + "h7o" + " v7i";
+        output = test.moveTest(input);
+        System.out.println(output.equals("error: Error configuring moves [v5ov2oh3iv1iv3iv6ih2ih7oh1ih4ov5ih7o v7i]."));
+
+        input =  "4" + "1" + "2120100" + "2012122" + "3100400" + "0020000" + "0013003" + "3010201" + "0240000" + "4400000" +
+                "2020431" + "v5o" + "v2o" + "h3i" + "v1i" + "v3i" + "v6i" + "h2i" + "h7o" + "h1i" + "h4o" + "v5i" + "h7o" + " v7i" + " h5o" + " v2i";
+        output = test.moveTest(input);
+        System.out.println(output);
+        System.out.println(output.equals("error: String configuration [ v7] is invalid for a move."));
 
         System.out.println("\n********************************************************************");
 
@@ -385,7 +397,7 @@ public class Test {
 
     private String isPossibleMovesConfiguration(String givenMoves) {
         if ( givenMoves.length()%3 != 0 ) {
-            return MessageFormat.format("error: Error configuring moves {0} ...", moves);
+            return MessageFormat.format("error: Error configuring moves [{0}].", givenMoves);
         }
 
         for ( int i = 0; i < givenMoves.length(); i += 3 ) {
@@ -398,7 +410,7 @@ public class Test {
                         BarPosition.INNER : BarPosition.OUTER); // for inwards and outwards
                 moves.add(bar);
             } else {
-                return MessageFormat.format("error: String configuration {0} is invalid for a move ...", move);
+                return MessageFormat.format("error: String configuration [{0}] is invalid for a move.", move);
             }
         }
 
