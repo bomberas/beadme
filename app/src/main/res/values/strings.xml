@@ -5,18 +5,18 @@
 
     <!-- Icon Descriptions -->
     <string name="app_icon">App Icon</string>
-    <string name="ic_home">Home Icon</string>
-    <string name="ic_speaker">Speaker Icon</string>
-    <string name="ic_vibration">Vibration Icon</string>
-    <string name="ic_notification">Notification Icon</string>
-    <string name="ic_orientation">Orientation Icon</string>
-    <string name="ic_light">Light Icon</string>
-    <string name="ic_player">Player Icon</string>
-    <string name="ic_theme">Theme Icon</string>
-    <string name="ic_language">Language Icon</string>
-    <string name="img_play_desc">Play icon</string>
-    <string name="img_setting_desc">Settings icon</string>
-    <string name="img_statistic_desc">Statistics icon</string>
+    <!--<string name="ic_home">Home Icon</string>-->
+    <!--<string name="ic_speaker">Speaker Icon</string>-->
+    <!--<string name="ic_vibration">Vibration Icon</string>-->
+    <!--<string name="ic_notification">Notification Icon</string>-->
+    <!--<string name="ic_orientation">Orientation Icon</string>-->
+    <!--<string name="ic_light">Light Icon</string>-->
+    <!--<string name="ic_player">Player Icon</string>-->
+    <!--<string name="ic_theme">Theme Icon</string>-->
+    <!--<string name="ic_language">Language Icon</string>-->
+    <!--<string name="img_play_desc">Play icon</string>-->
+    <!--<string name="img_setting_desc">Settings icon</string>-->
+    <!--<string name="img_statistic_desc">Statistics icon</string>-->
 
     <!-- Error Descriptions -->
     <string name="s0x0">Action performed successfully.</string>
@@ -27,22 +27,22 @@
     <string name="e0x5">Cannot move twice in a row.</string>
     <string name="e0x6">Cannot placed the bead in this position.</string>
 
-    <string name="iv_sound_desc">Speaker icon</string>
-    <string name="iv_vibration_desc">Vibration icon</string>
-    <string name="iv_notification_desc">Notification icon</string>
-    <string name="iv_orientation_desc">Orientation icon</string>
-    <string name="iv_light_desc">Light icon</string>
-    <string name="iv_players_desc">Players icon</string>
-    <string name="iv_themes_desc">Themes icon</string>
-    <string name="iv_languages_desc">Languages icon</string>
+    <!--<string name="iv_sound_desc">Speaker icon</string>-->
+    <!--<string name="iv_vibration_desc">Vibration icon</string>-->
+    <!--<string name="iv_notification_desc">Notification icon</string>-->
+    <!--<string name="iv_orientation_desc">Orientation icon</string>-->
+    <!--<string name="iv_light_desc">Light icon</string>-->
+    <!--<string name="iv_players_desc">Players icon</string>-->
+    <!--<string name="iv_themes_desc">Themes icon</string>-->
+    <!--<string name="iv_languages_desc">Languages icon</string>-->
 
-    <string name="ic_icon">App Icon</string>
+    <!--<string name="ic_icon">App Icon</string>-->
     <string name="txt_home_text">be cool, but also be warm</string>
     <string name="ic_home_desc">Home icon</string>
     <string name="btn_play_text">PLAY</string>
     <string name="btn_settings_text">SETTINGS</string>
     <string name="btn_statistics_text">STATISTICS</string>
-    <string name="img_sound_desc">Sound icon</string>
+    <!--<string name="img_sound_desc">Sound icon</string>-->
 
     <string-array name="players">
         <item>2 players</item>

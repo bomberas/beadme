@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="it.polimi.group03.activity.SettingsActivity"
-    android:background="#db626c">
+    android:background="@color/background">
 
     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
         android:fitsSystemWindows="true">

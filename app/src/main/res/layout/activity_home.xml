@@ -27,7 +27,7 @@
                     android:id="@+id/img_app"
                     android:layout_row="0"
                     android:layout_column="0"
-                    android:src="@drawable/ic_app"
+                    android:src="@drawable/img_app"
                     android:contentDescription="@string/app_icon"
                     android:layout_gravity="center|bottom" />
             </GridLayout>
