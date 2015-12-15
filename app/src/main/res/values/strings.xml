@@ -35,14 +35,7 @@
     <string name="iv_players_desc">Players icon</string>
     <string name="iv_themes_desc">Themes icon</string>
     <string name="iv_languages_desc">Languages icon</string>
-    <string name="tv_sound_text">Sound</string>
-    <string name="tv_vibration_text">Vibration</string>
-    <string name="tv_notification_text">Notifications</string>
-    <string name="tv_orientation_text">Lock Orientation</string>
-    <string name="tv_light_text">Light</string>
-    <string name="tv_players_text">Players</string>
-    <string name="tv_themes_text">Theme</string>
-    <string name="tv_languages_text">Language</string>
+
     <string name="ic_icon">App Icon</string>
     <string name="txt_home_text">be cool, but also be warm</string>
     <string name="ic_home_desc">Home icon</string>
@@ -52,6 +45,11 @@
     <string name="img_sound_desc">Sound icon</string>
 
     <string-array name="players">
+        <item>2 players</item>
+        <item>3 players</item>
+        <item>4 players</item>
+    </string-array>
+    <string-array name="players_keys">
         <item>2</item>
         <item>3</item>
         <item>4</item>
@@ -62,12 +60,48 @@
         <item>Spanish</item>
         <item>Albanian</item>
     </string-array>
+    <string-array name="languages_keys">
+        <item>EN</item>
+        <item>IT</item>
+        <item>SP</item>
+        <item>AL</item>
+    </string-array>
     <string-array name="themes">
         <item>On Wednesday we wear PINK</item>
         <item>Star Wars</item>
         <item>Harry Potter</item>
     </string-array>
+    <string-array name="themes_keys">
+        <item>PINK</item>
+        <item>CHEWBACCA</item>
+        <item>EXPELLIARMUS</item>
+    </string-array>
 
     <string name="title_activity_help">Help</string>
     <string name="title_activity_about">About</string>
+    <string name="ic_help">Help icon</string>
+    <string name="ic_about">About icon</string>
+
+
+    <string name="pref_sound_text">Sound</string>
+    <string name="pref_vibration_text">Vibration</string>
+    <string name="pref_notification_text">Notifications</string>
+    <string name="pref_orientation_text">Lock Orientation</string>
+    <string name="pref_light_text">Light</string>
+    <string name="pref_players_text">Players</string>
+    <string name="pref_themes_text">Theme</string>
+    <string name="pref_languages_text">Language</string>
+    <string name="pref_players_dialog_text">Please select the number of players</string>
+    <string name="pref_themes_dialog_text">Please select a theme</string>
+    <string name="pref_languages_dialog_text">Please select your language</string>
+
+    <string name="pref_vibration_default">true</string>
+    <string name="pref_speaker_default">true</string>
+    <string name="pref_notification_default">false</string>
+    <string name="pref_orientation_default">false</string>
+    <string name="pref_light_default">true</string>
+    <string name="pref_players_default">2</string>
+    <string name="pref_themes_default">On Wednesday we wear PINK</string>
+    <string name="pref_languages_default">English</string>
+
 </resources>

@@ -1,6 +1,5 @@
 package it.polimi.group03.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
