@@ -54,7 +54,7 @@
                 android:drawableLeft="@drawable/ic_play"
                 android:drawablePadding="-35dp"
                 android:textAlignment="center"
-                android:background="@drawable/button"
+
                 android:paddingStart="35dp" />
 
             <Button
@@ -69,7 +69,7 @@
                 android:textAlignment="center"
                 android:contextClickable="false"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/button"
+
                 android:layout_alignStart="@+id/btn_play"
                 android:paddingStart="10dp" />
 
@@ -84,7 +84,7 @@
                 android:drawableLeft="@drawable/ic_statistic"
                 android:drawablePadding="-8dp"
                 android:textAlignment="center"
-                android:background="@drawable/button"
+
                 android:elegantTextHeight="false"
                 android:layout_alignParentStart="false"
                 android:layout_below="@+id/btn_settings"
