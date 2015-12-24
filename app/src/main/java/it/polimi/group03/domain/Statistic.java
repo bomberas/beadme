@@ -44,12 +44,18 @@ public class Statistic {
      * <code>true</code> if there was a winner.
      * <code>false</code> if not.
      */
-    private boolean defeats;
+    public static boolean defeats;
+    public static int victories;
+    public static boolean winner;
+    public int getVictory()
+    {
+        while (winner=true){
+            victories++;
+            break;
+        }
+        return victories;
+    }
 
-    private boolean winner;
-    /**
-     * Name of the winner.
-     */
     private String winnerName;
     /**
      * Color picked by the winner. Could be used for "Which is your lucky color?"
@@ -94,9 +100,7 @@ public class Statistic {
     public boolean isWinner() {
         return winner;
     }
-    /**
-     * Get-Set for the winner.
-     */
+
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
