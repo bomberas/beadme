@@ -21,4 +21,13 @@ public class GameContract {
 
 
     }
+
+    public static abstract class GameInfo
+    {
+        public static final String GAME_ID="GameId";
+        public static final String START_TIME="startTime";
+        public static final String END_TIME="endTime";
+        public static final String TABLENAMEGAME="GameInfo";
+
+    }
 }

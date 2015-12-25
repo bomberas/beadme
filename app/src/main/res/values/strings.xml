@@ -35,6 +35,8 @@
     <!--<string name="iv_players_desc">Players icon</string>-->
     <!--<string name="iv_themes_desc">Themes icon</string>-->
     <!--<string name="iv_languages_desc">Languages icon</string>-->
+    <string name="nickname">Choose your nickname:</string>
+    <string name="bead_color">Choose bead color:</string>
 
     <!--<string name="ic_icon">App Icon</string>-->
     <string name="txt_home_text">be cool, but also be warm</string>
@@ -53,6 +55,12 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
+    </string-array>
+    <string-array name="bead_colors">
+        <item> Pink </item>
+        <item> Green </item>
+        <item> Orange </item>
+        <item> Yellow </item>
     </string-array>
     <string-array name="languages">
         <item>English</item>

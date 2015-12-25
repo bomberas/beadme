@@ -22,6 +22,9 @@ public class SQLiteStatisticRepository extends SQLiteOpenHelper  {
             GameContract.playerInfo.TABLENAME + "(" +GameContract.playerInfo.PLAYER_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"+GameContract.playerInfo.PLAYER_NICKNAME
             +"TEXT,"+GameContract.playerInfo.PLAYER_BEAD_COLOR+"TEXT,"+GameContract.playerInfo.PLAYER_VICTORY+"INTEGER,"+GameContract.playerInfo.PLAYER_DEFEAT
             +"INTEGER);";
+    public static final String CREATE_TABLE_GAME_QUERY="CREATE TABLE"+
+            GameContract.GameInfo.TABLENAMEGAME + "(" +GameContract.GameInfo.GAME_ID+"INTEGER PRIMARY KEY AUTOINCREMENT,"+GameContract.GameInfo.START_TIME+"DATE,"
+            +GameContract.GameInfo.END_TIME+"DATE);";
 
     public SQLiteStatisticRepository(Context context)
     {
@@ -47,7 +50,9 @@ public class SQLiteStatisticRepository extends SQLiteOpenHelper  {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_PLAYER_QUERY);
-        Log.e("DATABASE OPERATIONS", "Table created...");
+        Log.e("DATABASE OPERATIONS", "Table playerInfo created...");
+        db.execSQL(CREATE_TABLE_GAME_QUERY);
+        Log.e("DATABASE OPERATIONS", "Table GameInfo created...");
     }
 
     @Override

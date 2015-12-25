@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.btn_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("megi",getBaseContext().toString());
+                Log.i("megi",getBaseContext().toString());
                 startActivity(new Intent(getBaseContext(),AddPlayerActivity.class));
             }
         });
