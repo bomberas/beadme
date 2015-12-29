@@ -1,10 +1,10 @@
-package it.polimi.group03.activity;
+package it.polimi.group03;
 
 import android.app.Application;
 
 import com.facebook.FacebookSdk;
 
-public class BeadMe extends Application {
+public class BeadMeApp extends Application {
 
     @Override
     public void onCreate() {

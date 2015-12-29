@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import it.polimi.group03.R;
 import it.polimi.group03.manager.ThemeManager;
 import it.polimi.group03.manager.VibrationManager;
+import it.polimi.group03.util.Constant;
 
 /**
  * This class holds the logic to support the Home page of the application, the look and feel
@@ -38,7 +40,11 @@ public class HomeActivity extends GenericActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting Play Activity");
-                startActivity(new Intent(getApplicationContext(), PlayBeadMeActivity.class));
+                Intent intent = new Intent(getApplicationContext(), PlayBeadMeActivity.class);
+                FrameLayout frame = findViewById(R.id.home_frame);
+                intent.putExtra(Constant.HEIGHT, frame.getLayoutParams().height);
+                intent.putExtra(Constant.WIDTH, frame.getLayoutParams().width);
+                startActivity(intent);
             }
         });
         findViewById(R.id.btn_settings).setOnClickListener(new View.OnClickListener() {
