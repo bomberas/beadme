@@ -49,7 +49,7 @@ public class ListPreference extends android.preference.ListPreference {
         TextView summaryView = (TextView) view.findViewById(android.R.id.summary);
         ImageView icon = (ImageView) view.findViewById(android.R.id.icon);
         //Set the style for the text views and icon manually
-        ThemeManager.setPreferenceStyle(getContext(), titleView, summaryView, icon, this.getOrder());
+        ThemeManager.getInstance().setPreferenceStyle(getContext(), titleView, summaryView, icon, this.getOrder());
     }
 
 }

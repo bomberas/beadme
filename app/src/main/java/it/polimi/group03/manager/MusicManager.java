@@ -23,7 +23,6 @@ public class MusicManager {
     private static final String TAG = "MusicManager";
 
     private static MusicManager ourInstance = new MusicManager();
-    private ThemeManager themeManager;
     private MediaPlayer media;
     private String theme;
 
@@ -32,7 +31,6 @@ public class MusicManager {
     }
 
     private MusicManager() {
-        themeManager = ThemeManager.getInstance();
     }
 
     /**
@@ -72,13 +70,13 @@ public class MusicManager {
         if ( media == null ) {
             Log.i(TAG, "There is no media detected on the application.");
             media = MediaPlayer.create(context, getSoundTrack(context));
-        } else if ( !themeManager.theme(context).equals(theme) ) { //in case the theme has been changed
+        } else if ( !ThemeManager.getInstance().theme(context).equals(theme) ) { //in case the theme has been changed
             Log.i(TAG, "Changing media...");
             media.reset();
             media = MediaPlayer.create(context, getSoundTrack(context));
         }
         //Just to check if the theme was changed
-        theme = themeManager.theme(context);
+        theme = ThemeManager.getInstance().theme(context);
 
         if ( !media.isPlaying() ) {
             media.start();
@@ -126,7 +124,7 @@ public class MusicManager {
     private int getSoundTrack(Context context) {
         int soundtrack;
 
-        switch ( themeManager.theme(context) ) {
+        switch ( ThemeManager.getInstance().theme(context) ) {
             default:
             case Constant.PREF_THEME_DEFAULT:
                 soundtrack = R.raw.pink;

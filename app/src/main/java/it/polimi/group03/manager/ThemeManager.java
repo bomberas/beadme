@@ -31,14 +31,12 @@ public class ThemeManager {
     private static final String TAG = "ThemeManager";
 
     private static ThemeManager ourInstance = new ThemeManager();
-    private MusicManager musicManager;
 
     public static ThemeManager getInstance() {
         return ourInstance;
     }
 
     private ThemeManager() {
-        musicManager = MusicManager.getInstance();
     }
 
     /**
@@ -101,19 +99,19 @@ public class ThemeManager {
                 activity.setTheme(R.style.PINK);
                 mainFrame.setBackgroundColor(ContextCompat.getColor(activity, R.color.pinkbackground));
                 home.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.pinkcolorAccent)));
-                musicManager.updateSoundPrefs(activity);
+                MusicManager.getInstance().updateSoundPrefs(activity);
                 break;
             case Constant.PREF_THEME_STAR_WARS:
                 activity.setTheme(R.style.CHEWBACCA);
                 mainFrame.setBackground(ContextCompat.getDrawable(activity, R.drawable.starwars));
                 home.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.starcolorAccent)));
-                musicManager.updateSoundPrefs(activity);
+                MusicManager.getInstance().updateSoundPrefs(activity);
                 break;
             case Constant.PREF_THEME_HARRY_POTTER:
                 activity.setTheme(R.style.EXPELLIARMUS);
                 mainFrame.setBackground(ContextCompat.getDrawable(activity, R.drawable.harrypotter));
                 home.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.hpotbackground)));
-                musicManager.updateSoundPrefs(activity);
+                MusicManager.getInstance().updateSoundPrefs(activity);
                 break;
         }
 

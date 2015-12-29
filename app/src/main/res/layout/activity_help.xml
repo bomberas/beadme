@@ -78,16 +78,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:id="@+id/help_first">
+                android:id="@+id/help_third">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txt_help_first_title"
+                    android:id="@+id/txt_help_extra_title"
                     android:layout_marginTop="25dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:text="@string/help_first_title"
+                    android:text="@string/help_third_title"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     style="?aboutStyle"/>
@@ -95,11 +95,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/help_first_desc"
-                    android:id="@+id/txt_help_first_desc"
+                    android:id="@+id/txt_help_third_desc"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
+                    android:text="@string/help_third_desc"
                     android:textSize="16sp"
                     style="?aboutStyle"/>
 
@@ -140,16 +140,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:id="@+id/help_third">
+                android:id="@+id/help_first">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txt_help_extra_title"
+                    android:id="@+id/txt_help_first_title"
                     android:layout_marginTop="25dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:text="@string/help_third_title"
+                    android:text="@string/help_first_title"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     style="?aboutStyle"/>
@@ -157,11 +157,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txt_help_third_desc"
+                    android:text="@string/help_first_desc"
+                    android:id="@+id/txt_help_first_desc"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/help_third_desc"
                     android:textSize="16sp"
                     style="?aboutStyle"/>
 

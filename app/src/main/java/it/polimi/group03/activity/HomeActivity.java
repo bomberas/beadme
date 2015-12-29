@@ -39,9 +39,9 @@ public class HomeActivity extends GenericActivity {
             public void onClick(View v) {
                 Log.i(TAG, "Starting Play Activity");
                 Intent intent = new Intent(getApplicationContext(), PlayBeadMeActivity.class);
-                FrameLayout frame = findViewById(R.id.home_frame);
-                intent.putExtra(Constant.HEIGHT, frame.getLayoutParams().height);
-                intent.putExtra(Constant.WIDTH, frame.getLayoutParams().width);
+                FrameLayout frame = (FrameLayout)findViewById(R.id.home_frame);
+                intent.putExtra(Constant.HEIGHT, frame.getHeight());
+                intent.putExtra(Constant.WIDTH, frame.getWidth());
                 startActivity(intent);
             }
         });

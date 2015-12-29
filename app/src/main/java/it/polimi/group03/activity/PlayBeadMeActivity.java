@@ -1,6 +1,7 @@
 package it.polimi.group03.activity;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,14 +43,15 @@ public class PlayBeadMeActivity extends GenericActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getThemeManager().setTheme(this);
         setContentView(R.layout.activity_play);
         box = (RelativeLayout) findViewById(R.id.box);
         engine = new GameEngine();
         engine.startGame();
-        setScreenDimensions(getIntent().getIntExtra(Constant.HEIGHT,0), getIntent().getIntExtra(Constant.WIDTH, 0));
+        setScreenDimensions(getIntent().getIntExtra(Constant.HEIGHT, 0), getIntent().getIntExtra(Constant.WIDTH, 0));
     }
 
-    public void setScreenDimensions(int height, int width) {
+    private void setScreenDimensions(int height, int width) {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) box.getLayoutParams();
 
         double maxAllowedSize;
@@ -150,9 +152,7 @@ public class PlayBeadMeActivity extends GenericActivity {
     }
 
     private void createAndAddPlayersAndBeadsToUI(){
-
-        //todo Suppose you obtain the value number of player from the preferences singleton
-        int numberOfPlayers = 2;
+        int numberOfPlayers = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString(Constant.KEY_PREF_PLAYERS, Constant.PREF_PLAYER_DEFAULT));
 
         RelativeLayout relPlayers = (RelativeLayout) findViewById(R.id.relPlayers);
         relPlayers.setGravity(RelativeLayout.CENTER_HORIZONTAL);
@@ -220,7 +220,6 @@ public class PlayBeadMeActivity extends GenericActivity {
         text.setText(getResources().getString(R.string.current_player) + engine.getGame().getNextPlayer().getNickname());
         engine.getGame().setNextPlayer(engine.getGame().getPlayers().get(0));
         enableImages(engine.getGame().getPlayers().get(0).getId());
-
     }
 
     private int getBarId(BarOrientation pos, int id){
@@ -288,4 +287,5 @@ public class PlayBeadMeActivity extends GenericActivity {
             }
         }
     }
+
 }

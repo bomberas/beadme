@@ -1,6 +1,5 @@
 package it.polimi.group03.activity;
 
-import android.app.Activity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,7 +11,6 @@ import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.domain.StatusMessage;
 import it.polimi.group03.engine.GameEngine;
-import it.polimi.group03.manager.VibrationManager;
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.CommonUtil;
@@ -40,7 +38,7 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
     private int leftMargin;
     private int cellWidth;
 
-    public VerticalBarOnTouchListener(Activity activity, GameEngine engine, int cellWidth) {
+    public VerticalBarOnTouchListener(GenericActivity activity, GameEngine engine, int cellWidth) {
         super(activity, engine);
         this.cellWidth = cellWidth;
     }
@@ -101,13 +99,13 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
                             } else {
                                 par.topMargin = 0;
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
-                                VibrationManager.vibrate(v.getContext());
+                                getParentActivity().getVibrationManager().vibrate(v.getContext());
                                 CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else {
                             Log.i("TEST", "NOT ALLOWED Moving from OUTER to other position than CENTRAL");
                             par.topMargin = 0;
-                            VibrationManager.vibrate(v.getContext());
+                            getParentActivity().getVibrationManager().vibrate(v.getContext());
                             CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x2), Toast.LENGTH_LONG);
                         }
 
@@ -130,7 +128,7 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
                             } else {
                                 par.topMargin = cellWidth;
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
-                                VibrationManager.vibrate(v.getContext());
+                                getParentActivity().getVibrationManager().vibrate(v.getContext());
                                 CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else if ((int) event.getRawY() < prevFixedY) {   // Not with CELL_WIDTH because is enough moving to the left, having in mind that
@@ -148,7 +146,7 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
                             } else {
                                 par.topMargin = cellWidth;
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
-                                VibrationManager.vibrate(v.getContext());
+                                getParentActivity().getVibrationManager().vibrate(v.getContext());
                                 CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else {
@@ -177,12 +175,12 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
                             } else {
                                 par.topMargin = 2 * cellWidth;
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
-                                VibrationManager.vibrate(v.getContext());
+                                getParentActivity().getVibrationManager().vibrate(v.getContext());
                                 CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else {
                             Log.i("TEST", "NOT ALLOWED Moving from INNER to other position than CENTRAL");
-                            VibrationManager.vibrate(v.getContext());
+                            getParentActivity().getVibrationManager().vibrate(v.getContext());
                             CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x2), Toast.LENGTH_LONG);
                             par.topMargin = 2 * cellWidth;
                         }

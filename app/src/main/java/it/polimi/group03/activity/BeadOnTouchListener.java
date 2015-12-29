@@ -1,6 +1,5 @@
 package it.polimi.group03.activity;
 
-import android.app.Activity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,7 +37,7 @@ import it.polimi.group03.util.Constant;
  */
 public class BeadOnTouchListener implements View.OnTouchListener {
 
-    private Activity activity;
+    private GenericActivity activity;
     private GameEngine engine;
     private Player player;
     private int prevMovX;
@@ -50,7 +49,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
     private int topMargin;
 
 
-    public BeadOnTouchListener(Activity activity, GameEngine engine, Player player, int cellWidth, int leftMargin, int topMargin, int leftImg, int topImg) {
+    public BeadOnTouchListener(GenericActivity activity, GameEngine engine, Player player, int cellWidth, int leftMargin, int topMargin, int leftImg, int topImg) {
         this.activity = activity;
         this.engine = engine;
         this.player = player;
@@ -117,6 +116,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
                             } else {
                                 Log.i("TEST", "Invalid position. " + v.getResources().getString(status.getRCode()));
                                 CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
+                                this.activity.getVibrationManager().vibrate(v.getContext());
                                 par.topMargin = startTopMargin;
                                 par.leftMargin = startLeftMargin;
                                 bead.setPosition(-1, -1);
@@ -125,6 +125,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
                         }else{
                             Log.i("TEST", "Invalid " + bead.getPosition().toString());
                             CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x8), Toast.LENGTH_SHORT);
+                            this.activity.getVibrationManager().vibrate(v.getContext());
                             par.topMargin  = startTopMargin;
                             par.leftMargin = startLeftMargin;
                         }
@@ -132,6 +133,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
                     } else {
                         Log.i("TEST", "New position outside board, not possible to place bead");
                         CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x8), Toast.LENGTH_SHORT);
+                        this.activity.getVibrationManager().vibrate(v.getContext());
                         par.topMargin  = startTopMargin;
                         par.leftMargin = startLeftMargin;
                     }
@@ -205,7 +207,10 @@ public class BeadOnTouchListener implements View.OnTouchListener {
                 if ( player.getId() == id ) {
                     imgBead.setVisibility(ImageView.VISIBLE);
                 } else {
-                    if( !((Bead)imgBead.getTag()).isPlaced() )imgBead.setVisibility(ImageView.INVISIBLE);
+                    if ( !((Bead)imgBead.getTag()).isPlaced() ) {
+                        this.activity.getAnimationManager().rotate(imgBead.getContext(), imgBead);
+                        imgBead.setVisibility(ImageView.INVISIBLE);
+                    }
                 }
                 indexBead --;
             }

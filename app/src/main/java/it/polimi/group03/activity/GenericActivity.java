@@ -26,20 +26,9 @@ public class GenericActivity extends AppCompatActivity {
 
     private boolean keepMusicOn;
 
-    private ThemeManager themeManager;
-    private MusicManager musicManager;
-    private NotificationManager notificationManager;
-    private VibrationManager vibrationManager;
-    private AnimationManager animationManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        themeManager = ThemeManager.getInstance();
-        musicManager = MusicManager.getInstance();
-        notificationManager = NotificationManager.getInstance();
-        vibrationManager = VibrationManager.getInstance();
-        animationManager = AnimationManager.getInstance();
         keepMusicOn = true;
         hideBars();
     }
@@ -59,7 +48,7 @@ public class GenericActivity extends AppCompatActivity {
     protected void  onPause() {
         super.onPause();
         if ( !keepMusicOn ) {
-            musicManager.pause();
+            getMusicManager().pause();
         }
     }
 
@@ -67,27 +56,27 @@ public class GenericActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         keepMusicOn = false;
-        musicManager.start(this);
+        getMusicManager().start(this);
     }
 
     public ThemeManager getThemeManager() {
-        return themeManager;
+        return ThemeManager.getInstance();
     }
 
     public MusicManager getMusicManager() {
-        return musicManager;
+        return MusicManager.getInstance();
     }
 
     public NotificationManager getNotificationManager() {
-        return notificationManager;
+        return NotificationManager.getInstance();
     }
 
     public VibrationManager getVibrationManager() {
-        return vibrationManager;
+        return VibrationManager.getInstance();
     }
 
     public AnimationManager getAnimationManager() {
-        return animationManager;
+        return AnimationManager.getInstance();
     }
 
 }

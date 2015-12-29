@@ -1,7 +1,6 @@
 
 package it.polimi.group03.activity;
 
-import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,13 +18,13 @@ import it.polimi.group03.util.Constant;
 public class GenericOnTouchListener {
 
     private GameEngine engine;
-    private Activity parentActivity;
+    private GenericActivity parentActivity;
 
     public GenericOnTouchListener(){
 
     }
 
-    public GenericOnTouchListener(Activity activity, GameEngine engine){
+    public GenericOnTouchListener(GenericActivity activity, GameEngine engine){
         this.engine = engine;
         this.parentActivity = activity;
     }
@@ -76,4 +75,7 @@ public class GenericOnTouchListener {
         }
     }
 
+    public GenericActivity getParentActivity() {
+        return this.parentActivity;
+    }
 }
