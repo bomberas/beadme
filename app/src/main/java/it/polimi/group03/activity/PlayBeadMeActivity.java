@@ -1,13 +1,11 @@
 package it.polimi.group03.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import it.polimi.group03.R;
 import it.polimi.group03.domain.Bar;
@@ -34,7 +32,7 @@ import it.polimi.group03.util.Constant;
  * @since 15/12/2015.
  *
  */
-public class PlayBeadMeActivity extends Activity {
+public class PlayBeadMeActivity extends GenericActivity {
 
     private GameEngine engine;
     private RelativeLayout box;
@@ -48,27 +46,26 @@ public class PlayBeadMeActivity extends Activity {
         box = (RelativeLayout) findViewById(R.id.box);
         engine = new GameEngine();
         engine.startGame();
-        CommonUtil.showToastMessage(getApplicationContext(), "Welcome back. We've missed you", Toast.LENGTH_LONG);
+        setScreenDimensions(getIntent().getIntExtra(Constant.HEIGHT,0), getIntent().getIntExtra(Constant.WIDTH, 0));
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
+    public void setScreenDimensions(int height, int width) {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) box.getLayoutParams();
 
         double maxAllowedSize;
 
         //I will set the size to be always equal to the smallest side of the device
-        if (box.getHeight() >= box.getWidth()) {
+        if (height >= width) {
             // In this case the smallest is the width, so let's make it equal to that
-            maxAllowedSize = box.getWidth();
+            maxAllowedSize = width;
         } else {
             // In this case the smallest is the height, so we make it equal to the device's height
-            maxAllowedSize = box.getHeight();
+            maxAllowedSize = height;
         }
 
         // I'm saving the original values
-        int offsetX = box.getWidth();
-        int offsetY = box.getHeight();
+        int offsetX = width;
+        int offsetY = height;
 
         Log.i("TEST", "The maximum size allowed is " + maxAllowedSize);
 

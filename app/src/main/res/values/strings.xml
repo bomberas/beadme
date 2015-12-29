@@ -93,6 +93,9 @@
 
     <string name="notification_text">I found your lack of interest disturbing. Are you a zombie??? I think you\'re not, so come back and play!!!.</string>
 
+    <!-- Home Activity -->
+    <string name="welcome">Welcome back. We\'ve missed you.</string>
+
     <!-- About Page -->
     <string name="about_authors_title">About the\n@uthors</string>
     <string name="author1">\@cecibloom</string>

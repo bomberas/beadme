@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import it.polimi.group03.R;
 import it.polimi.group03.manager.ThemeManager;
 import it.polimi.group03.manager.VibrationManager;
+import it.polimi.group03.util.CommonUtil;
 import it.polimi.group03.util.Constant;
 
 /**
@@ -30,6 +32,7 @@ public class HomeActivity extends GenericActivity {
         setContentView(R.layout.activity_home);
         setButtonStyles();
         createGenericListeners();
+        CommonUtil.showToastMessage(getApplicationContext(), getResources().getString(R.string.welcome), Toast.LENGTH_LONG);
     }
 
     /**
@@ -41,9 +44,9 @@ public class HomeActivity extends GenericActivity {
             public void onClick(View v) {
                 Log.i(TAG, "Starting Play Activity");
                 Intent intent = new Intent(getApplicationContext(), PlayBeadMeActivity.class);
-                FrameLayout frame = findViewById(R.id.home_frame);
-                intent.putExtra(Constant.HEIGHT, frame.getLayoutParams().height);
-                intent.putExtra(Constant.WIDTH, frame.getLayoutParams().width);
+                FrameLayout frame = (FrameLayout)findViewById(R.id.home_frame);
+                intent.putExtra(Constant.HEIGHT, frame.getHeight());
+                intent.putExtra(Constant.WIDTH, frame.getWidth());
                 startActivity(intent);
             }
         });
