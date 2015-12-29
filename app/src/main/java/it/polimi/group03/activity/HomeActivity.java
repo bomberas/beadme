@@ -1,84 +1,85 @@
 package it.polimi.group03.activity;
 
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.util.Log;
 import android.view.View;
 
 import it.polimi.group03.R;
+import it.polimi.group03.manager.ThemeManager;
+import it.polimi.group03.manager.VibrationManager;
 
-public class HomeActivity extends AppCompatActivity {
+/**
+ * This class holds the logic to support the Home page of the application, the look and feel
+ * will depend on the selected <i>theme</i>.<br /><br />
+ *
+ * @author tatibloom
+ * @version 1.0
+ * @since 11/12/2015.
+ */
+public class HomeActivity extends GenericActivity {
+
+    private static final String TAG = "HomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeManager.setTheme(this);
         setContentView(R.layout.activity_home);
-        hide();
+        setButtonStyles();
         createGenericListeners();
-        setupWindowAnimations();
-    }
-
-    private void setupWindowAnimations() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Fade fade = new Fade();
-            fade.setDuration(1000);
-            getWindow().setEnterTransition(fade);
-
-            Slide slide = new Slide();
-            slide.setDuration(1000);
-            getWindow().setReturnTransition(slide);
-        }
     }
 
     /**
-     * This methods hides the action bar set it by default for the OS; in order to obtain
-     * a full screen view.
+     * Set the listeners for all the buttons present in this activity.
      */
-    private void hide() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-    }
-
     private void createGenericListeners() {
         findViewById(R.id.btn_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.i(TAG, "Starting Play Activity");
+                VibrationManager.vibrate(getApplicationContext());
             }
         });
         findViewById(R.id.btn_settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("tati", getBaseContext().toString());
-                startActivity(new Intent(getBaseContext(), SettingsActivity.class));
+                Log.i(TAG, "Starting Settings Activity");
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             }
         });
         findViewById(R.id.btn_statistics).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.i(TAG, "Starting Statistics Activity");
+                VibrationManager.vibrate(getApplicationContext());
             }
         });
         findViewById(R.id.btn_help).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), HelpActivity.class));
+                Log.i(TAG, "Starting Help Activity");
+                startActivity(new Intent(getApplicationContext(), HelpActivity.class));
             }
         });
         findViewById(R.id.btn_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), AboutActivity.class));
+                Log.i(TAG, "Starting About Activity");
+                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
         });
+    }
 
+    /**
+     * Set the styles for the button: <tt>Play</tt>, <tt>Settings</tt> and <tt>Statistics</tt> and
+     * the customizable welcoming text, according to the selected theme.
+     */
+    private void setButtonStyles(){
+        ThemeManager.setDrawableButton(this, findViewById(R.id.btn_play));
+        ThemeManager.setDrawableButton(this, findViewById(R.id.btn_statistics));
+        ThemeManager.setDrawableButton(this, findViewById(R.id.btn_settings));
+        ThemeManager.setTextHome(this, findViewById(R.id.txt_home));
     }
 
 }

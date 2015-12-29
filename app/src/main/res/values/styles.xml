@@ -1,38 +1,116 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
-        <item name="buttonStyle">@style/RobotoButtonStyle</item>
-        <item name="android:colorForeground">@color/foreground_material_light</item>
-    </style>
-    <style name="AppTheme.NoActionBar">
+    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="FullscreenTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
         <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="buttonStyle">@style/RobotoButtonStyle</item>
     </style>
 
-    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="FullscreenTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="FullscreenTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="PINK" parent="FullscreenTheme">
+        <item name="colorPrimary">@color/pinkprimarycolor</item>
+        <item name="colorPrimaryDark">@color/pinkprimarydarkcolor</item>
+        <item name="colorAccent">@color/pinkcolorAccent</item>
+        <item name="backgroundStyle">@style/bgpink</item>
+        <item name="textStyle">@style/tvpink</item>
+        <item name="helpIconStyle">@style/ichelppink</item>
+        <item name="aboutIconStyle">@style/icaboutpink</item>
+        <item name="floatingButtonStyle">@style/floatingpink</item>
+        <item name="aboutStyle">@style/tvpink</item>
+    </style>
+
+    <style name="bgpink">
+        <item name="android:background">@color/pinkbackground</item>
+    </style>
+    <style name="tvpink">
+        <item name="android:textColor">@color/foreground_material_light</item>
+    </style>
+    <style name="ichelppink">
+        <item name="android:src">@drawable/ic_help</item>
+    </style>
+    <style name="icaboutpink">
+        <item name="android:src">@drawable/ic_about</item>
+    </style>
+    <style name="floatingpink">
+        <item name="android:tint">@color/pinkdarkcolor</item>
+    </style>
+
+    <style name="CHEWBACCA" parent="FullscreenTheme">
+        <item name="colorPrimary">@color/starprimarycolor</item>
+        <item name="colorPrimaryDark">@color/starprimarydarkcolor</item>
+        <item name="colorAccent">@color/starcolorAccent</item>
+        <item name="backgroundStyle">@style/bgstarwars</item>
+        <item name="textStyle">@style/tvstarwars</item>
+        <item name="helpIconStyle">@style/ichelpstarwars</item>
+        <item name="aboutIconStyle">@style/icaboutstarwars</item>
+        <item name="floatingButtonStyle">@style/floatingstarwars</item>
+        <item name="aboutStyle">@style/tvstarwars</item>
+    </style>
+
+    <style name="bgstarwars">
+        <item name="android:background">@drawable/starwars</item>
+    </style>
+    <style name="tvstarwars">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="ichelpstarwars">
+        <item name="android:src">@drawable/ic_help_white</item>
+    </style>
+    <style name="icaboutstarwars">
+        <item name="android:src">@drawable/ic_about_white</item>
+    </style>
+    <style name="floatingstarwars">
+        <item name="android:tint">@color/starbuttonPrimary</item>
+    </style>
+
+    <style name="EXPELLIARMUS" parent="FullscreenTheme">
+        <item name="colorPrimary">@color/hpotprimarycolor</item>
+        <item name="colorPrimaryDark">@color/hpotprimarydarkcolor</item>
+        <item name="colorAccent">@color/hpotbackground</item>
+        <item name="backgroundStyle">@style/bgharrypotter</item>
+        <item name="textStyle">@style/tvharrypotter</item>
+        <item name="helpIconStyle">@style/ichelppotter</item>
+        <item name="aboutIconStyle">@style/icaboutpotter</item>
+        <item name="floatingButtonStyle">@style/floatingpotter</item>
+        <item name="aboutStyle">@style/aboutPageharrypotter</item>
+    </style>
+
+    <style name="bgharrypotter">
+        <item name="android:background">@drawable/harrypotter</item>
+    </style>
+    <style name="tvharrypotter">
+        <item name="android:textColor">@color/foreground_material_light</item>
+    </style>
+    <style name="ichelppotter">
+        <item name="android:src">@drawable/ic_help</item>
+    </style>
+    <style name="icaboutpotter">
+        <item name="android:src">@drawable/ic_about</item>
+    </style>
+    <style name="floatingpotter">
+        <item name="android:tint">@color/hpotprimarycolor</item>
+    </style>
+    <style name="aboutPageharrypotter">
+        <item name="android:textColor">@color/hpotbuttonPrimary</item>
+        <!--<item name="android:textStyle">bold</item>-->
+        <item name="android:fontFamily">sans-serif-regular</item>
+    </style>
+    <!-- Generic Text Style -->
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
-
     <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
         <item name="android:fontFamily">sans-serif-black</item>
     </style>

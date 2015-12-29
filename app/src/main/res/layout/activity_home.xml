@@ -1,6 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#db626c"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/home_frame"
+    style="?backgroundStyle"
     tools:context="it.polimi.group03.activity.HomeActivity">
 
     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
@@ -35,14 +38,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_home_text"
                 android:id="@+id/txt_home"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textAlignment="center"
                 android:layout_gravity="center_horizontal"
                 android:layout_above="@+id/btn_play"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="56dp" />
+                android:layout_marginBottom="56dp"
+                style="?aboutStyle" />
 
             <Button
                 android:layout_width="150dp"
@@ -54,8 +57,8 @@
                 android:drawableLeft="@drawable/ic_play"
                 android:drawablePadding="-35dp"
                 android:textAlignment="center"
-                android:background="@drawable/button"
-                android:paddingStart="35dp" />
+                android:paddingStart="35dp"
+                android:textColor="@color/white"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -69,9 +72,9 @@
                 android:textAlignment="center"
                 android:contextClickable="false"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/button"
                 android:layout_alignStart="@+id/btn_play"
-                android:paddingStart="10dp" />
+                android:paddingStart="10dp"
+                android:textColor="@color/white"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -84,17 +87,17 @@
                 android:drawableLeft="@drawable/ic_statistic"
                 android:drawablePadding="-8dp"
                 android:textAlignment="center"
-                android:background="@drawable/button"
                 android:elegantTextHeight="false"
                 android:layout_alignParentStart="false"
                 android:layout_below="@+id/btn_settings"
-                android:paddingStart="8dp" />
+                android:paddingStart="8dp"
+                android:textColor="@color/white"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_help"
-                android:src="@drawable/ic_help"
+                style="?helpIconStyle"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="5dp"
@@ -107,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_about"
-                android:src="@drawable/ic_about"
+                style="?aboutIconStyle"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="5dp"

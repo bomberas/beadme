@@ -1,35 +1,45 @@
 package it.polimi.group03.activity;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
+import com.facebook.share.widget.LikeView;
 
 import it.polimi.group03.R;
+import it.polimi.group03.manager.ThemeManager;
 
-public class AboutActivity extends AppCompatActivity {
+/**
+ * This class holds the logic to support the About page of the application, the look and feel
+ * will depend on the selected <i>theme</i>.<br /><br />
+ *
+ * @author tatibloom
+ * @version 1.0
+ * @since 22/12/2015.
+ */
+public class AboutActivity extends GenericActivity {
+
+    private static final String TAG = "AboutActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeManager.setTheme(this);
         setContentView(R.layout.activity_about);
-        hide();
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean onVibration = sharedPref.getBoolean(SettingsActivity.KEY_PREF_VIBRATION, true);
-        Log.i("tati 123", String.valueOf(onVibration));
-    }
+        Log.i(TAG, "Accessing to About");
 
-    /**
-     * This methods hides the action bar set it by default for the OS; in order to obtain
-     * a full screen view.
-     */
-    private void hide() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+        findViewById(R.id.btn_about_home).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBackPressed();
+                    }
+                });
+
+        LikeView likeView = (LikeView) findViewById(R.id.likeView);
+        likeView.setLikeViewStyle(LikeView.Style.BUTTON);
+        likeView.setAuxiliaryViewPosition(LikeView.AuxiliaryViewPosition.INLINE);
+        likeView.setObjectIdAndType("https://www.facebook.com/polimi",LikeView.ObjectType.PAGE);
     }
 
 }
