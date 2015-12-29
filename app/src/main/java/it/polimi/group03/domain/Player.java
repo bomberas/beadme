@@ -1,8 +1,13 @@
 package it.polimi.group03.domain;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.view.View;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polimi.group03.dao.SQLiteStatisticRepository;
 import it.polimi.group03.util.CommonUtil;
 
 import it.polimi.group03.engine.GameValidator;
@@ -27,6 +32,7 @@ import it.polimi.group03.engine.GameValidator;
 
 public class Player {
 
+
     /**
      * ID of the player, from 0 up to 3.
      */
@@ -34,11 +40,11 @@ public class Player {
     /**
      * Nickname of the player, used for statistics.
      */
-    private String nickname;
+    private static String nickname;
     /**
      * Color of the players' beads.
      */
-    private String color;
+    private static String color;
     /**
      * Beads that the player has placed on the board (always 5 beads).
      */

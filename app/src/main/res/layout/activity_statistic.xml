@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="it.polimi.group03.activity.SettingsActivity">
 
     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:layout_gravity="center_horizontal|top">
 
         <LinearLayout
             android:orientation="vertical"
@@ -22,6 +24,7 @@
                 android:id="@+id/btn_home"
                 android:layout_gravity="center|bottom"
                 android:contentDescription="@string/ic_home_desc"
+
                 app:backgroundTint="#840031" />
 
         </LinearLayout>
@@ -53,6 +56,7 @@
                 android:id="@+id/total_rounds"
                 android:layout_row="1"
                 android:layout_column="1"
+
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp" />
 
@@ -64,6 +68,7 @@
                 android:id="@+id/longest_game"
                 android:layout_row="2"
                 android:layout_column="1"
+
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"/>
 
@@ -84,6 +89,7 @@
                 android:id="@+id/shortest_game"
                 android:layout_row="3"
                 android:layout_column="1"
+
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp" />
 
@@ -104,6 +110,7 @@
                 android:id="@+id/textView"
                 android:layout_row="4"
                 android:layout_column="1"
+
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:clickable="true" />
@@ -116,6 +123,7 @@
                 android:id="@+id/longest_time_surviver"
                 android:layout_row="5"
                 android:layout_column="1"
+
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp" />
 
