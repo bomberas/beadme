@@ -82,6 +82,8 @@ public class GameEngine {
             this.game.addPlayer(player);
         }
 
+        this.game.setNextPlayer(this.game.getPlayers().get(0));
+
         return statusMessage;
     }
 
@@ -106,6 +108,7 @@ public class GameEngine {
         StatusMessage statusMessage = this.validator.validatePlacedBead(player, bead);
 
         if ( statusMessage.getCode().equals(Constant.STATUS_OK) ) {
+            bead.setPlaced(true);
             player.addBead(bead);
         }
 
@@ -184,11 +187,32 @@ public class GameEngine {
      *
      * @see Game
      *
-     * @return {@code true} if the are only 1 or 0 players remaining in the game
+     * @return {@code true} if the are only 1 or 0 players remaining in the game. <br/>
      *         {@code false} if there is more than one player in the game.
      */
     public boolean isGameEndConditionReached() {
         return this.game.activePlayers().size() <= 1;
+    }
+
+    /**
+     *
+     * This method checks if all players have placed the {@link Constant#GAME_MAX_NUMBER_BEADS} on the board which indicates that the game
+     * has met the basic condition to start. This method should be called from the UI to update the mobility of the bars.
+     *
+     * @see Game
+     *
+     * @return {@code true} if all beads have been placed on the board.<br/>
+     *         {@code false} if there is still beads that haven´t been placed.
+     */
+    public boolean isGameStartConditionReached() {
+        int count = 0;
+        for (Player player: this.game.getPlayers()) {
+            for (Bead bead: player.getBeads()) {
+                if (bead.isPlaced()) count++;
+            }
+
+        }
+        return this.game.getPlayers().size() * Constant.GAME_MAX_NUMBER_BEADS == count;
     }
 
     /**
@@ -251,7 +275,8 @@ public class GameEngine {
      * @return {@code player} if there is any player left in the game besides the player making the move.
      *         {@code null} if there is no player next in turn.
      */
-    private Player getNextPlayer(Player player){
+    public Player getNextPlayer(Player player){
+
         // First of all it's necessary to check if the player is the last player in the list of players
         if ( this.game.getPlayers().size() == player.getId() + 1 ){
             return this.game.activePlayers().get(0); // If so then return the first player in the list of <active> players

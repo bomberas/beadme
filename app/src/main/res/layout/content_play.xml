@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" android:background="@color/grid_background">
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/current_player"
+            android:id="@+id/txtCurrentPlayer"
+            android:foreground="#f5ffffff"
+            android:textColor="#851672"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingBottom="25dp"/>
+
+        <LinearLayout
+            android:id="@+id/summary"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/box"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" android:background="@drawable/border">
+
+        <LinearLayout android:id="@+id/linLayoutVertical" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewH1"
+                    android:src="@drawable/red1"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewH2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/red2" />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewH3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/red3"/>
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewH4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/red4"/>
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewH5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/red5"
+                     />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/red6"
+                    />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewH7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/red7"
+
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/linLayoutHorizontal" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewV1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/blue1"
+                     />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewV2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/blue2"
+                     />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewV3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/blue3"
+                     />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewV4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/blue4"
+                     />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewV5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/blue5"
+                     />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewV6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/blue6"
+                     />
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent" android:background="@drawable/border">
+                <ImageView
+                    android:id="@+id/imgViewV7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/blue7"
+                     />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relPlayers"
+        android:background="@drawable/border"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+    </RelativeLayout>
+
+</RelativeLayout>

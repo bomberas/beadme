@@ -177,8 +177,8 @@ public class GameValidator {
         StatusMessage statusMessage = new StatusMessage();
 
         //A player cannot add more than 5 bead per player
-        if ( CommonUtil.isEmpty(currentPlayer.getBeads()) || currentPlayer.getBeads().size() < Constant.GAME_MAX_NUMBER_BEADS ) {
-            //A player cannot place a bead above an empty slot
+        if ( CommonUtil.isEmpty(currentPlayer.getBeads()) || currentPlayer.getBeads().size() <= Constant.GAME_MAX_NUMBER_BEADS ) {
+            //A player cannot place a bead on top an empty slot
             if ( !SlotInfo.BLACK.equals(game.getBoard()[newBead.getPosition().getX()][newBead.getPosition().getY()]) ) {
                 for ( Player player : game.getPlayers() ) {
                     for ( Bead bead : player.getBeads() ) {

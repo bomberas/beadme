@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Group03</string>
+    <string name="app_name">Bead Me</string>
     <string name="action_settings">Settings</string>
     <string name="s0x0">Action performed successfully.</string>
     <string name="e0x1">Number of players out of bound.</string>
-    <string name="e0x2">Cannot move this bar to the new position.</string>
-    <string name="e0x3">Cannot move this bar because it was moved in the previous round by one of your opponents.</string>
-    <string name="e0x4">Cannot move this bar because it was moved in one of your two previous consecutive turns.</string>
-    <string name="e0x5">Cannot move twice in a row.</string>
-    <string name="e0x6">Cannot placed the bead in this position.</string>
+    <string name="e0x2">You cannot move this bar to the new position.</string>
+    <string name="e0x3">You cannot move this bar because it was moved in the previous round by one of your opponents.</string>
+    <string name="e0x4">You cannot move this bar because it was moved in one of your two previous consecutive turns.</string>
+    <string name="e0x5">You cannot move twice in a row.</string>
+    <string name="e0x6">You cannot placed the bead in this position.</string>
+    <string name="e0x7">You cannot moved this bead because is already placed.</string>
+    <string name="e0x8">The bead must be placed inside the board.</string>
+    <string name="current_player">Playing: &#160;</string>
+    <string name="next_player">Next Player: &#160;</string>
+    <string name="winner_1">God save &#160;</string>
+    <string name="winner_2">&#160; almighty king of &#160;</string>
+    <string name="debbuggable">true</string>
+
+    <string name="title_activity_fullscreen"></string>
+    <string name="dummy_button">Fade In/Out Effect</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

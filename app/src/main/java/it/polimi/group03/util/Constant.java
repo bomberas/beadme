@@ -55,4 +55,14 @@ public class Constant {
      * This constant holds the error code when the bead is placed in an invalid place.
      */
     public static final String STATUS_ERR_PLACED_BEAD = "e0x6";
+
+    public static final int NUMBER_OF_CELLS = 13;
+
+    //public static final int CELL_WIDTH = 65;
+
+    //public static final int OFFSET_HORIZONTAL_X = 2;
+
+    //public static final int OFFSET_VERTICAL_Y = 180;
+
+
 }

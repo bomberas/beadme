@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Ids for all beads -->
+    <item name="p1b1" type="id"/>
+    <item name="p1b2" type="id"/>
+    <item name="p1b3" type="id"/>
+    <item name="p1b4" type="id"/>
+    <item name="p1b5" type="id"/>
+    <item name="p2b1" type="id"/>
+    <item name="p2b2" type="id"/>
+    <item name="p2b3" type="id"/>
+    <item name="p2b4" type="id"/>
+    <item name="p2b5" type="id"/>
+    <item name="p3b1" type="id"/>
+    <item name="p3b2" type="id"/>
+    <item name="p3b3" type="id"/>
+    <item name="p3b4" type="id"/>
+    <item name="p3b5" type="id"/>
+    <item name="p4b1" type="id"/>
+    <item name="p4b2" type="id"/>
+    <item name="p4b3" type="id"/>
+    <item name="p4b4" type="id"/>
+    <item name="p4b5" type="id"/>
+
+    <!-- Ids for summary images -->
+    <item name="summaryP1" type="id"/>
+    <item name="summaryP2" type="id"/>
+    <item name="summaryP3" type="id"/>
+    <item name="summaryP4" type="id"/>
+    <item name="summaryP5" type="id"/>
+
+    <item name="snitch0" type="id"/>
+    <item name="snitch1" type="id"/>
+    <item name="snitch2" type="id"/>
+    <item name="snitch3" type="id"/>
+    <item name="snitch4" type="id"/>
+    <item name="snitch5" type="id"/>
+
+    <item name="star0" type="id"/>
+    <item name="star1" type="id"/>
+    <item name="star2" type="id"/>
+    <item name="star3" type="id"/>
+    <item name="star4" type="id"/>
+    <item name="star5" type="id"/>
+
+    <item name="saber0" type="id"/>
+    <item name="saber1" type="id"/>
+    <item name="saber2" type="id"/>
+    <item name="saber3" type="id"/>
+    <item name="saber4" type="id"/>
+    <item name="saber5" type="id"/>
+
+</resources>

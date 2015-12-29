@@ -148,6 +148,7 @@ public class Game {
      */
     public void refreshBeads(Bar bar) {
         for ( Player player : activePlayers() ) {
+            int i =0;
             for ( Bead bead : player.activeBeads() ) {
                 if ( BarOrientation.VERTICAL.equals(bar.getOrientation()) ) {//checking only Y coordinate
                     if ( bar.getId() == bead.getPosition().getY() ) {
@@ -160,7 +161,7 @@ public class Game {
                         bead.setActive(!SlotInfo.BLACK.equals(board[bead.getPosition().getX()][bead.getPosition().getY()]));
                     }
                 }
-
+                i++;
             }
             //if there aren't active beads for the player, the player won't be active too
             if ( CommonUtil.isEmpty(player.activeBeads()) ){

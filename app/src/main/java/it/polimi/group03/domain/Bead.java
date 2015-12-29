@@ -22,13 +22,29 @@ public class Bead {
      */
     private Position position;
     /**
-     * Indicates whether if a bead is present <tt>[active]</tt> on the board or not <tt>[inactive]</tt>.
+     * Indicates whether a bead is present <tt>[active]</tt> on the board or not <tt>[inactive]</tt>.
      */
     private boolean active;
 
+    /**
+     * Indicates whether a bead is placed on the board or not.
+     */
+    private  boolean placed;
+
+    public Bead(){
+        this.position = new Position(-1,-1);
+        this.active = true;
+    }
+
     public Bead(int x, int y) {
         this.active = true;
+        this.placed = false;
         this.position = new Position(x,y);
+    }
+
+    public void setPosition(int x, int y){
+        this.position.setX(x);
+        this.position.setY(y);
     }
 
     public Position getPosition() {
@@ -41,5 +57,13 @@ public class Bead {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean isPlaced() {
+        return placed;
+    }
+
+    public void setPlaced(boolean placed) {
+        this.placed = placed;
     }
 }

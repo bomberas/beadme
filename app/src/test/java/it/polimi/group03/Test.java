@@ -226,7 +226,28 @@ public class Test {
         output = test.moveTest(input);
         System.out.println(output.equals("error: Cannot placed the bead in this position."));
 
-        test.printBoard();
+        input = "4" + "2" + "0000000" + "0000001" + "0000000" + "0000000" + "0000000" + "1020102" + "0000000" + "0000000" + "0000000" +
+                "h4o" /* Player 1 kills both himself and 2 */ ; // Ok, out = 41000100000000010000000000000000000000000000000000000000000000000
+        output = test.moveTest(input);
+        System.out.println(output.equals("42000100000000010000000000000000000000000000000000000000000000000"));
+
+        input = "2"
+                + "2"
+                + "0211120"
+                + "2200102"
+                + "0000100"
+                + "0000000"
+                + "0000000"
+                + "2000000"
+                + "0000000"
+                + "0001000"
+                + "0000000"
+                + "h5o" //player 2 non-winning move
+                + "v1i" // player 1 kills player 2
+                + "h3i";
+        output = test.moveTest(input);
+        System.out.println(output);
+                test.printBoard();
     }
 
     /**
