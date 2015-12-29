@@ -29,7 +29,16 @@ import it.polimi.group03.util.Constant;
 public class NotificationManager extends BroadcastReceiver {
 
     private static final String TAG = "NotificationManager";
+
+    private static NotificationManager ourInstance = new NotificationManager();
     private static final int PENDING_INTENT_ID = 135792468;
+
+    public static NotificationManager getInstance() {
+        return ourInstance;
+    }
+
+    private NotificationManager() {
+    }
 
     /**
      * Checks if the preference corresponding to the application <i>sound</i> is
@@ -43,7 +52,7 @@ public class NotificationManager extends BroadcastReceiver {
      * @return {@code isNotificationOn} <tt>true</tt> if notification is enabled
      * <tt>false</tt> if not
      */
-    public static boolean isNotificationOn(Context context) {
+    public boolean isNotificationOn(Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         boolean isNotificationOn = sharedPref.getBoolean(Constant.KEY_PREF_NOTIFICATION, Constant.PREF_NOTIFICATION_DEFAULT);
 
@@ -81,7 +90,7 @@ public class NotificationManager extends BroadcastReceiver {
      *
      * @param context Calling activity
      */
-    public static void start(Context context) {
+    public void start(Context context) {
         if ( !isNotificationOn(context) ) {
             return;
         }
@@ -105,7 +114,7 @@ public class NotificationManager extends BroadcastReceiver {
      *
      * @param context Calling activity
      */
-    public static void updateNotificationPrefs(Context context) {
+    public void updateNotificationPrefs(Context context) {
         if ( isNotificationOn(context) ) {
             start(context);
         } else {
@@ -122,7 +131,7 @@ public class NotificationManager extends BroadcastReceiver {
      * @param context Calling activity
      * @param mBuilder Builder in charge of build the notification
      */
-    private static void setLight(Context context, NotificationCompat.Builder mBuilder) {
+    private void setLight(Context context, NotificationCompat.Builder mBuilder) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         boolean isLightOn = sharedPref.getBoolean(Constant.KEY_PREF_LIGHT, Constant.PREF_LIGHT_DEFAULT);
 

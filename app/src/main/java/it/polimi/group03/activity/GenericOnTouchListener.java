@@ -4,7 +4,6 @@ package it.polimi.group03.activity;
 import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ViewFlipper;
 
 import it.polimi.group03.R;
-import it.polimi.group03.manager.ThemeManager;
 
 /**
  * This class holds the logic to support the Help page of the application, the look and feel
@@ -27,10 +26,10 @@ public class HelpActivity extends GenericActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "Accessing to Help");
         super.onCreate(savedInstanceState);
-        ThemeManager.setTheme(this);
+        getThemeManager().setTheme(this);
         setContentView(R.layout.activity_help);
         flipper = (ViewFlipper) findViewById(R.id.viewFlipper);
-        ThemeManager.setHelpText(this, findViewById(R.id.txt_help_intro_desc));
+        getThemeManager().setHelpText(this, findViewById(R.id.txt_help_intro_desc));
         findViewById(R.id.btn_help_home).setOnClickListener(
                 new View.OnClickListener() {
                     @Override

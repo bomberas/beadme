@@ -15,9 +15,6 @@ import android.view.View;
 import java.lang.reflect.Method;
 
 import it.polimi.group03.R;
-import it.polimi.group03.manager.MusicManager;
-import it.polimi.group03.manager.NotificationManager;
-import it.polimi.group03.manager.ThemeManager;
 import it.polimi.group03.util.Preferences;
 
 import static it.polimi.group03.util.Constant.*;
@@ -54,7 +51,7 @@ public class SettingsActivity extends GenericActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeManager.setTheme(this);
+        getThemeManager().setTheme(this);
         //Creating the fragment and setting-up the listener
         settingsFragment = new SettingsFragment();
         settingsFragment.setSharedPreferenceListener(getOnSharedPreferenceChangedListener());
@@ -129,7 +126,7 @@ public class SettingsActivity extends GenericActivity {
     protected void setSound() {
         boolean isSoundOn = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(KEY_PREF_SOUND, PREF_SOUND_DEFAULT);
         Log.i(TAG, String.valueOf(isSoundOn));
-        MusicManager.updateSoundPrefs(this);
+        getMusicManager().updateSoundPrefs(this);
     }
 
     /**
@@ -154,7 +151,7 @@ public class SettingsActivity extends GenericActivity {
     protected void setNotification() {
         boolean isNotificationOn = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(KEY_PREF_NOTIFICATION, PREF_NOTIFICATION_DEFAULT);
         Log.i(TAG, String.valueOf(isNotificationOn));
-        NotificationManager.updateNotificationPrefs(this);
+        getNotificationManager().updateNotificationPrefs(this);
     }
 
     /**
@@ -192,7 +189,7 @@ public class SettingsActivity extends GenericActivity {
         Log.i(TAG, theme);
         ListPreference preference = (ListPreference) settingsFragment.findPreference(KEY_PREF_THEMES);
         preference.setSummary(preference.getEntry());
-        ThemeManager.updateTheme(this, findViewById(R.id.settings_frame), (FloatingActionButton) findViewById(R.id.btn_home));
+        getThemeManager().updateTheme(this, findViewById(R.id.settings_frame), (FloatingActionButton) findViewById(R.id.btn_home));
     }
 
     /**

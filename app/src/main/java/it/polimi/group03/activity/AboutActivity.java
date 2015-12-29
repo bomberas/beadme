@@ -7,7 +7,6 @@ import android.view.View;
 import com.facebook.share.widget.LikeView;
 
 import it.polimi.group03.R;
-import it.polimi.group03.manager.ThemeManager;
 
 /**
  * This class holds the logic to support the About page of the application, the look and feel
@@ -24,7 +23,7 @@ public class AboutActivity extends GenericActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeManager.setTheme(this);
+        getThemeManager().setTheme(this);
         setContentView(R.layout.activity_about);
         Log.i(TAG, "Accessing to About");
 

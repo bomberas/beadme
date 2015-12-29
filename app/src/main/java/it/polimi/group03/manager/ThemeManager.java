@@ -30,6 +30,17 @@ public class ThemeManager {
 
     private static final String TAG = "ThemeManager";
 
+    private static ThemeManager ourInstance = new ThemeManager();
+    private MusicManager musicManager;
+
+    public static ThemeManager getInstance() {
+        return ourInstance;
+    }
+
+    private ThemeManager() {
+        musicManager = MusicManager.getInstance();
+    }
+
     /**
      * Retrieves the preference corresponding to the application <i>theme</i> by default <tt>PINK</tt>.<br/><br/>
      * <b>Reference</b><br/>
@@ -44,7 +55,7 @@ public class ThemeManager {
      * @return {@code theme} <tt>PINK</tt> for "On wednesdays we wear PINK",
      * <tt>CHEWBACCA</tt> for "Star Wars" or <tt>EXPELLIARMUS</tt> for "Harry Potter".
      */
-    public static String theme(Context context) {
+    public String theme(Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         String theme = sharedPref.getString(Constant.KEY_PREF_THEMES, Constant.PREF_THEME_DEFAULT);
 
@@ -57,7 +68,7 @@ public class ThemeManager {
      *
      * @param activity Calling Activity
      */
-    public static void setTheme(Activity activity) {
+    public void setTheme(Activity activity) {
         switch ( theme(activity) ) {
             default:
             case Constant.PREF_THEME_DEFAULT:
@@ -83,26 +94,26 @@ public class ThemeManager {
      * @param mainFrame Main container <tt>frameLayout</tt> of the Activity
      * @param home Home button of the Activity
      */
-    public static void updateTheme(Activity activity, View mainFrame, FloatingActionButton home) {
+    public void updateTheme(Activity activity, View mainFrame, FloatingActionButton home) {
         switch ( theme(activity) ) {
             default:
             case Constant.PREF_THEME_DEFAULT:
                 activity.setTheme(R.style.PINK);
                 mainFrame.setBackgroundColor(ContextCompat.getColor(activity, R.color.pinkbackground));
                 home.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.pinkcolorAccent)));
-                MusicManager.updateSoundPrefs(activity);
+                musicManager.updateSoundPrefs(activity);
                 break;
             case Constant.PREF_THEME_STAR_WARS:
                 activity.setTheme(R.style.CHEWBACCA);
                 mainFrame.setBackground(ContextCompat.getDrawable(activity, R.drawable.starwars));
                 home.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.starcolorAccent)));
-                MusicManager.updateSoundPrefs(activity);
+                musicManager.updateSoundPrefs(activity);
                 break;
             case Constant.PREF_THEME_HARRY_POTTER:
                 activity.setTheme(R.style.EXPELLIARMUS);
                 mainFrame.setBackground(ContextCompat.getDrawable(activity, R.drawable.harrypotter));
                 home.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.hpotbackground)));
-                MusicManager.updateSoundPrefs(activity);
+                musicManager.updateSoundPrefs(activity);
                 break;
         }
 
@@ -115,7 +126,7 @@ public class ThemeManager {
      * @param context Calling Activity
      * @param view ButtonView in which set the background according to the theme
      */
-    public static void setDrawableButton(Context context, View view) {
+    public void setDrawableButton(Context context, View view) {
         switch ( theme(context) ) {
             default:
             case Constant.PREF_THEME_DEFAULT:
@@ -136,7 +147,7 @@ public class ThemeManager {
      * @param context Calling Activity
      * @param view TextView in which set the text according to the theme
      */
-    public static void setTextHome(Context context, View view) {
+    public void setTextHome(Context context, View view) {
         TextView txt_home = (TextView) view;
         switch ( theme(context) ) {
             default:
@@ -158,7 +169,7 @@ public class ThemeManager {
      * @param context Calling Activity
      * @param view TextView in which set the text according to the theme
      */
-    public static void setHelpText(Context context, View view) {
+    public void setHelpText(Context context, View view) {
         TextView txt_help = (TextView) view;
         switch ( theme(context) ) {
             default:
@@ -188,7 +199,7 @@ public class ThemeManager {
      * @param icon Bound ImageView for the icon
      * @param order in which the icon is displayed on the fragment
      */
-    public static void setPreferenceStyle(Context context, TextView title, TextView summary, ImageView icon, int order) {
+    public void setPreferenceStyle(Context context, TextView title, TextView summary, ImageView icon, int order) {
         switch ( theme(context) ) {
             default:
             case Constant.PREF_THEME_DEFAULT:
@@ -218,7 +229,7 @@ public class ThemeManager {
      * @param icon image view bound to the preference
      * @param order in which the icon is displayed on the fragment
      */
-    public static void setIcon(Context context, ImageView icon, int order) {
+    public void setIcon(Context context, ImageView icon, int order) {
         switch ( order ) {
             default:
             case 1:

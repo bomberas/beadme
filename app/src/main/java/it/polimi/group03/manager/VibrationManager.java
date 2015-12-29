@@ -22,6 +22,15 @@ public class VibrationManager {
 
     private static final String TAG = "VibrationManager";
 
+    private static VibrationManager ourInstance = new VibrationManager();
+
+    public static VibrationManager getInstance() {
+        return ourInstance;
+    }
+
+    private VibrationManager() {
+    }
+
     /**
      * Retrieves the preference corresponding to the application <i>vibration</i>.<br/><br/>
      * <b>Reference</b><br/>
@@ -32,7 +41,7 @@ public class VibrationManager {
      * @return {@code isSoundOn} <tt>true</tt> if vibration is enabled
      * <tt>false</tt> if not
      */
-    public static boolean isVibrationOn(Context context) {
+    public boolean isVibrationOn(Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         boolean isVibrationOn = sharedPref.getBoolean(Constant.KEY_PREF_VIBRATION, Constant.PREF_VIBRATION_DEFAULT);
 
@@ -46,7 +55,7 @@ public class VibrationManager {
      *
      * @param context Calling Activity
      */
-    public static void vibrate(Context context) {
+    public void vibrate(Context context) {
         if ( isVibrationOn(context) ) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(500);

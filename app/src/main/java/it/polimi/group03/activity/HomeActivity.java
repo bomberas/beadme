@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import it.polimi.group03.R;
-import it.polimi.group03.manager.ThemeManager;
-import it.polimi.group03.manager.VibrationManager;
 import it.polimi.group03.util.Constant;
 
 /**
@@ -26,7 +24,7 @@ public class HomeActivity extends GenericActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeManager.setTheme(this);
+        getThemeManager().setTheme(this);
         setContentView(R.layout.activity_home);
         setButtonStyles();
         createGenericListeners();
@@ -58,7 +56,7 @@ public class HomeActivity extends GenericActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting Statistics Activity");
-                VibrationManager.vibrate(getApplicationContext());
+                getVibrationManager().vibrate(getApplicationContext());
             }
         });
         findViewById(R.id.btn_help).setOnClickListener(new View.OnClickListener() {
@@ -82,10 +80,10 @@ public class HomeActivity extends GenericActivity {
      * the customizable welcoming text, according to the selected theme.
      */
     private void setButtonStyles(){
-        ThemeManager.setDrawableButton(this, findViewById(R.id.btn_play));
-        ThemeManager.setDrawableButton(this, findViewById(R.id.btn_statistics));
-        ThemeManager.setDrawableButton(this, findViewById(R.id.btn_settings));
-        ThemeManager.setTextHome(this, findViewById(R.id.txt_home));
+        getThemeManager().setDrawableButton(this, findViewById(R.id.btn_play));
+        getThemeManager().setDrawableButton(this, findViewById(R.id.btn_statistics));
+        getThemeManager().setDrawableButton(this, findViewById(R.id.btn_settings));
+        getThemeManager().setTextHome(this, findViewById(R.id.txt_home));
     }
 
 }

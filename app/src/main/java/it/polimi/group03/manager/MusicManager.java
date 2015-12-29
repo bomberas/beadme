@@ -21,8 +21,19 @@ import it.polimi.group03.util.Constant;
 public class MusicManager {
 
     private static final String TAG = "MusicManager";
-    public static MediaPlayer media;
-    public static String theme;
+
+    private static MusicManager ourInstance = new MusicManager();
+    private ThemeManager themeManager;
+    private MediaPlayer media;
+    private String theme;
+
+    public static MusicManager getInstance() {
+        return ourInstance;
+    }
+
+    private MusicManager() {
+        themeManager = ThemeManager.getInstance();
+    }
 
     /**
      * Checks if the preference corresponding to the application <i>sound</i> is
@@ -36,7 +47,7 @@ public class MusicManager {
      * @return {@code isSoundOn} <tt>true</tt> if sound is enabled
      * <tt>false</tt> if not
      */
-    public static boolean isSoundOn(Context context) {
+    public boolean isSoundOn(Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         boolean isSoundOn = sharedPref.getBoolean(Constant.KEY_PREF_SOUND, Constant.PREF_SOUND_DEFAULT);
 
@@ -53,7 +64,7 @@ public class MusicManager {
      *
      * @param context Calling Activity
      */
-    public static void start(Context context) {
+    public void start(Context context) {
         if ( !isSoundOn(context) ) {
             Log.i(TAG, "The sound preference is off");
             return;
@@ -61,13 +72,13 @@ public class MusicManager {
         if ( media == null ) {
             Log.i(TAG, "There is no media detected on the application.");
             media = MediaPlayer.create(context, getSoundTrack(context));
-        } else if ( !ThemeManager.theme(context).equals(theme) ) { //in case the theme has been changed
+        } else if ( !themeManager.theme(context).equals(theme) ) { //in case the theme has been changed
             Log.i(TAG, "Changing media...");
             media.reset();
             media = MediaPlayer.create(context, getSoundTrack(context));
         }
         //Just to check if the theme was changed
-        theme = ThemeManager.theme(context);
+        theme = themeManager.theme(context);
 
         if ( !media.isPlaying() ) {
             media.start();
@@ -79,7 +90,7 @@ public class MusicManager {
      * If the application <i>sound</i> is enabled (and previously started and playing), the manager will
      * pause the current track.<br/><br/>
      */
-    public static void pause() {
+    public void pause() {
         if ( media != null && media.isPlaying() ) {
             Log.i(TAG, "The track will be paused.");
             media.pause();
@@ -93,7 +104,7 @@ public class MusicManager {
      *
      * @param context Calling Activity
      */
-    public static void updateSoundPrefs(Context context) {
+    public void updateSoundPrefs(Context context) {
         try {
             if ( !isSoundOn(context) ) {
                 pause();
@@ -112,10 +123,10 @@ public class MusicManager {
      * @param context Calling Activity
      * @return {@code id} of the soundtrack according to the theme selected.
      */
-    private static int getSoundTrack(Context context) {
+    private int getSoundTrack(Context context) {
         int soundtrack;
 
-        switch ( ThemeManager.theme(context) ) {
+        switch ( themeManager.theme(context) ) {
             default:
             case Constant.PREF_THEME_DEFAULT:
                 soundtrack = R.raw.pink;
