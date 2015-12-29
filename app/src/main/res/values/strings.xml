@@ -1,12 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Group03</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name" translatable="false">Bead Me</string>
+    <string name="action_settings">App Icon</string>
+
+    <!-- Icon Descriptions -->
+    <string name="app_icon">App Icon</string>
+    <string name="app_id">1542680726054510</string>
+
+    <!-- Error Descriptions -->
     <string name="s0x0">Action performed successfully.</string>
     <string name="e0x1">Number of players out of bound.</string>
-    <string name="e0x2">Cannot move this bar to the new position.</string>
-    <string name="e0x3">Cannot move this bar because it was moved in the previous round by one of your opponents.</string>
-    <string name="e0x4">Cannot move this bar because it was moved in one of your two previous consecutive turns.</string>
-    <string name="e0x5">Cannot move twice in a row.</string>
-    <string name="e0x6">Cannot placed the bead in this position.</string>
+    <string name="e0x2">You cannot move this bar to the new position.</string>
+    <string name="e0x3">You cannot move this bar because it was moved in the previous round by one of your opponents.</string>
+    <string name="e0x4">You cannot move this bar because it was moved in one of your two previous consecutive turns.</string>
+    <string name="e0x5">You cannot move twice in a row.</string>
+    <string name="e0x6">You cannot placed the bead in this position.</string>
+    <string name="e0x7">You cannot moved this bead because is already placed.</string>
+    <string name="e0x8">The bead must be placed inside the board.</string>
+    <string name="current_player">Playing: &#160;</string>
+    <string name="next_player">Next Player: &#160;</string>
+    <string name="winner_1">God save &#160;</string>
+    <string name="winner_2">&#160; almighty king of &#160;</string>
+    <string name="debbuggable">true</string>
+
+    <string name="txt_home_text_pink">be cool, but also be warm</string>
+    <string name="txt_home_text_starwars">if you only knew the power of the darkside</string>
+    <string name="txt_home_text_harrypotter">don\'t let the muggles get you down</string>
+    <string name="ic_home_desc">Home icon</string>
+    <string name="btn_play_text">PLAY</string>
+    <string name="btn_settings_text">SETTINGS</string>
+    <string name="btn_statistics_text">STATISTICS</string>
+
+    <string-array name="players">
+        <item>2 players</item>
+        <item>3 players</item>
+        <item>4 players</item>
+    </string-array>
+    <string-array name="players_keys">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Italian</item>
+        <item>Spanish</item>
+        <item>Albanian</item>
+    </string-array>
+    <string-array name="languages_keys">
+        <item>EN</item>
+        <item>IT</item>
+        <item>SP</item>
+        <item>AL</item>
+    </string-array>
+    <string-array name="themes">
+        <item>On Wednesdays we wear PINK</item>
+        <item>Star Wars</item>
+        <item>Harry Potter</item>
+    </string-array>
+    <string-array name="themes_keys">
+        <item>PINK</item>
+        <item>CHEWBACCA</item>
+        <item>EXPELLIARMUS</item>
+    </string-array>
+
+    <string name="title_activity_help">Help</string>
+    <string name="title_activity_about">About</string>
+    <string name="ic_help">Help icon</string>
+    <string name="ic_about">About icon</string>
+
+
+    <string name="pref_sound_text">Sound</string>
+    <string name="pref_vibration_text">Vibration</string>
+    <string name="pref_notification_text">Notifications</string>
+    <string name="pref_orientation_text">Lock Orientation</string>
+    <string name="pref_light_text">Light</string>
+    <string name="pref_players_text">Players</string>
+    <string name="pref_themes_text">Theme</string>
+    <string name="pref_languages_text">Language</string>
+    <string name="pref_players_dialog_text">Please select the number of players</string>
+    <string name="pref_themes_dialog_text">Please select a theme</string>
+    <string name="pref_languages_dialog_text">Please select your language</string>
+
+    <string name="pref_vibration_default">true</string>
+    <string name="pref_speaker_default">true</string>
+    <string name="pref_notification_default">false</string>
+    <string name="pref_orientation_default">false</string>
+    <string name="pref_light_default">false</string>
+    <string name="pref_players_default">2</string>
+    <string name="pref_themes_default">PINK</string>
+    <string name="pref_languages_default">EN</string>
+
+    <string name="notification_text">I found your lack of interest disturbing. Are you a zombie??? I think you\'re not, so come back and play!!!.</string>
+
+    <!-- About Page -->
+    <string name="about_authors_title">About the\n@uthors</string>
+    <string name="author1">\@cecibloom</string>
+    <string name="author1_intro">(vampire hunter wannabe)</string>
+    <string name="author1_desc">She enjoys long romantic walks to the fridge.</string>
+    <string name="author2">\@tatibloom</string>
+    <string name="author2_intro">(doctor\'s companion wannabe)</string>
+    <string name="author2_desc">She hates morning people &#8230; and morning &#8230; and people.</string>
+    <string name="author3">\@megireci</string>
+    <string name="author3_desc">She loves rice with yogurt, Milano and her boyfriend (in that order).</string>
+    <string name="about_game_title">About the\nG@me</string>
+    <string name="about_game_text">Bead Me!\nFinal project for\nMobile Applications\n15&#8211;16\n@PoliMi</string>
+
+    <!-- Help Page -->
+    <string name="help_intro_title">Why should I play this?</string>
+    <string name="help_intro_pink">Little mermaid A.K.A Megi, a clown, santa and even our little red devil are super excited to be part of this game,
+        what they don\'t know (but you will if you just keep reading this wonderful tutorial) is that just one single move could be THE end.\n\nSorry but
+        not sorry! You have to be smart, there is no zombies in this game, so don\'t commit suicide.
+    </string>
+    <string name="help_intro_expelliarmus">Harry, Hermione, Snape and even He-Who-Must-Not-Be-Named will appreciate your help, all of them are hanging on
+        broomsticks, praying to not fall down so be careful and smart! (unless you want to meet with Sirius) or just a move of these brand new Nimbus 2000
+        (I know, 15 years later right? We\'re short on budget &#8230;) could be as lethal as an Avada kedavra!!!
+    </string>
+    <string name="help_intro_chewbacca">Help Han Solo, Chew, the stormtroopers and even Darth Vader in this war of stars (copyright right? let\'s all embrace
+        the power of the dark side).\n\nAll of them are praying to not be killed and be part of the sequel, we all know about Darth Vader so be careful! don\'t
+        push your luck, no one can survive a light saber stab, not even Han Solo!!!
+    </string>
+    <string name="help_first_title">Game\'s Mechanic</string>
+    <string name="help_first_desc">The game involves two to four players, the number of players can be selected in the
+        settings section (by default the game will start with 2 players), each player can select a character and place 5 of these on the board.
+        \n\nThis board is a square grid of 7x7 with 14 sliding bars, 7 placed vertically and 7 horizontally, plus each bar has 9 slots, each of which is
+        either holed or filled.
+    </string>
+    <string name="help_second_title">How to play?</string>
+    <string name="help_second_desc">Each player places the beads of his/her own character over the grid\'s holes in turns (in a robin fashion way). Of course it\'s
+        not possible place two beads in the same hole nor place a bead over a not covered hole.\n\nThe player then slides a bar by a single position,
+        some beads may \"fall down\" and disappear from the game. The goal is to eliminate as many opponents\' beads as
+        possible without eliminating one\'s own beads (that\'s suicide!!!). When a player loses all his/her beads, the player is out of the game.
+    </string>
+    <string name="help_third_title">One more thing!</string>
+    <string name="help_third_desc">You can\'t slide a bar that was slid in the previous turn by anyone of your opponents, sorry but RULES are RULES,
+        and when only two players are left, you cannot slide the same bar for more than two consecutive turns.\n\nIf the remaining beads belong to different players,
+        and they all fall down at the same time, the player sliding the bar wins. And that\'s all folks!
+    </string>
+    <string-array name="bead_colors">
+        <item> Pink </item>
+        <item> Green </item>
+        <item> Orange </item>
+        <item> Yellow </item>
+    </string-array>
+    <string name="nickname">Choose your nickname:</string>
+    <string name="bead_color">Choose bead color:</string>
+    <string name="title_activity_fullscreen">Choose bead color:</string>
 </resources>

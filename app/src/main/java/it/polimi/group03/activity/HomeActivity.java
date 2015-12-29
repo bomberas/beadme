@@ -38,7 +38,7 @@ public class HomeActivity extends GenericActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting Play Activity");
-                VibrationManager.vibrate(getApplicationContext());
+                startActivity(new Intent(getApplicationContext(), PlayBeadMeActivity.class));
             }
         });
         findViewById(R.id.btn_settings).setOnClickListener(new View.OnClickListener() {

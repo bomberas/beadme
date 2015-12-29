@@ -56,13 +56,72 @@ public class Constant {
      */
     public static final String STATUS_ERR_PLACED_BEAD = "e0x6";
 
+    /**
+     * This constant holds the key of the sound preference.
+     */
+    public static final String KEY_PREF_SOUND = "key_sound";
+    /**
+     * This constant holds the key of the vibration preference.
+     */
+    public static final String KEY_PREF_VIBRATION = "key_vibration";
+    /**
+     * This constant holds the key of the notification preference.
+     */
+    public static final String KEY_PREF_NOTIFICATION = "key_notification";
+    /**
+     * This constant holds the key of the light preference.
+     */
+    public static final String KEY_PREF_LIGHT = "key_light";
+    /**
+     * This constant holds the key of the number of players preference.
+     */
+    public static final String KEY_PREF_PLAYERS = "key_players";
+    /**
+     * This constant holds the key of the themes preference.
+     */
+    public static final String KEY_PREF_THEMES = "key_themes";
+    /**
+     * This constant holds the key of the language preference.
+     */
+    public static final String KEY_PREF_LANGUAGE = "key_languages";
+    /**
+     * This constant holds the default value of the sound-on preference.
+     */
+    public static final boolean PREF_SOUND_DEFAULT = true;
+    /**
+     * This constant holds the default value of the vibration-on preference.
+     */
+    public static final boolean PREF_VIBRATION_DEFAULT = true;
+    /**
+     * This constant holds the default value of the notification-on preference.
+     */
+    public static final boolean PREF_NOTIFICATION_DEFAULT = true;
+    /**
+     * This constant holds the default value of the light-on preference.
+     */
+    public static final boolean PREF_LIGHT_DEFAULT = false;
+    /**
+     * This constant holds the default value of the language preference.
+     */
+    public static final String PREF_LANGUAGE_DEFAULT = "EN";
+    /**
+     * This constant holds the default value of the theme preference.
+     */
+    public static final String PREF_THEME_DEFAULT = "PINK";
+    /**
+     * This constant holds the default value of the number of players preference.
+     */
+    public static final String PREF_PLAYER_DEFAULT = "2";
+    /**
+     * This constant holds the value of the star wars theme.
+     */
+    public static final String PREF_THEME_STAR_WARS = "CHEWBACCA";
+    /**
+     * This constant holds the default value of the harry potter theme.
+     */
+    public static final String PREF_THEME_HARRY_POTTER = "EXPELLIARMUS";
+    /**
+     * This constant holds the value of the number of cells on the board.
+     */
     public static final int NUMBER_OF_CELLS = 13;
-
-    //public static final int CELL_WIDTH = 65;
-
-    //public static final int OFFSET_HORIZONTAL_X = 2;
-
-    //public static final int OFFSET_VERTICAL_Y = 180;
-
-
 }
