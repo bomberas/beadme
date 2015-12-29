@@ -124,4 +124,12 @@ public class Constant {
      * This constant holds the value of the number of cells on the board.
      */
     public static final int NUMBER_OF_CELLS = 13;
+    /**
+     * This constant holds the value of the number of cells on the board.
+     */
+    public static final String HEIGHT = "height";
+    /**
+     * This constant holds the value of the number of cells on the board.
+     */
+    public static final String WIDTH = "width";
 }
