@@ -44,10 +44,18 @@ public class Statistic {
      * <code>true</code> if there was a winner.
      * <code>false</code> if not.
      */
-    private boolean winner;
-    /**
-     * Name of the winner.
-     */
+    public static boolean defeats;
+    public static int victories;
+    public static boolean winner;
+    public int getVictory()
+    {
+        while (winner=true){
+            victories++;
+            break;
+        }
+        return victories;
+    }
+
     private String winnerName;
     /**
      * Color picked by the winner. Could be used for "Which is your lucky color?"
@@ -56,7 +64,7 @@ public class Statistic {
     /**
      * Number of rounds played in the game until someone won.
      */
-    private int rounds;
+    private static int rounds;
     /**
      * Number of turns played in the game until someone won.
      */
@@ -92,9 +100,7 @@ public class Statistic {
     public boolean isWinner() {
         return winner;
     }
-    /**
-     * Get-Set for the winner.
-     */
+
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
@@ -123,7 +129,7 @@ public class Statistic {
     /**
      * Gets the round, player 1 makes his move again.
      */
-    public int getRounds() {
+    public static int getRounds() {
         return rounds;
     }
 
@@ -205,10 +211,11 @@ public class Statistic {
         this.endTime = endTime;
     }
 
-    public Date getDuration()
+    public static Date getDuration()
     {
         //
         return new Date();
     }
+
 
 }

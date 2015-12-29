@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp" android:layout_height="350dp"
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingStart="16dp"
+    android:background="#efefef">
+
+
+    <EditText
+        android:layout_width="247dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nickname"
+        android:hint="@string/nickname"
+        android:phoneNumber="false"
+        android:layout_gravity="center_vertical" />
+
+    <EditText
+        android:text="@string/bead_color"
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/bead_color_spiner"
+        android:visibility="visible" />
+
+    <Spinner
+        android:id="@+id/spinner_bead_color"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
+
+    </Spinner>
+</LinearLayout>

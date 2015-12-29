@@ -18,7 +18,8 @@ import it.polimi.group03.domain.StatusMessage;
 /**
  *
  * This class contains all the unit tests performed
- * on the code. All shall pass without any unknown/unhandled errors
+ * on the code. All shall pass without any unknown/unhandled errors and along
+ * {@link it.polimi.group03.Test} covers all the possible scenarios.
  *
  *
  * @see GameEngine
