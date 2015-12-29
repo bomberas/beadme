@@ -11,6 +11,7 @@ import it.polimi.group03.R;
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Player;
+import it.polimi.group03.manager.VibrationManager;
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
 import it.polimi.group03.util.CommonUtil;
@@ -103,11 +104,13 @@ public class HorizontalBarOnTouchListener extends GenericOnTouchListener impleme
                             } else {
                                 par.leftMargin = 0;
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
+                                VibrationManager.vibrate(v.getContext());
                                 CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else {
                             Log.i("TEST", "NOT ALLOWED Moving from OUTER to other position than CENTRAL");
                             par.leftMargin = 0;
+                            VibrationManager.vibrate(v.getContext());
                             CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x2), Toast.LENGTH_LONG);
                         }
 
@@ -130,6 +133,7 @@ public class HorizontalBarOnTouchListener extends GenericOnTouchListener impleme
                             } else {
                                 par.leftMargin = cellWidth;
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
+                                VibrationManager.vibrate(v.getContext());
                                 CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else if ((int) event.getRawX() < prevFixedX) {   // Not with CELL_WIDTH because is enough moving to the left, having in mind that
@@ -147,6 +151,7 @@ public class HorizontalBarOnTouchListener extends GenericOnTouchListener impleme
                             } else {
                                 par.leftMargin = cellWidth;
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
+                                VibrationManager.vibrate(v.getContext());
                                 CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else {
@@ -175,11 +180,13 @@ public class HorizontalBarOnTouchListener extends GenericOnTouchListener impleme
                             } else {
                                 par.leftMargin = 2 * cellWidth;
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
+                                VibrationManager.vibrate(v.getContext());
                                 CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else {
                             Log.i("TEST", "NOT ALLOWED Moving from INNER to other position than CENTRAL");
                             par.leftMargin = 2 * cellWidth;
+                            VibrationManager.vibrate(v.getContext());
                             CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x2), Toast.LENGTH_LONG);
                         }
 
