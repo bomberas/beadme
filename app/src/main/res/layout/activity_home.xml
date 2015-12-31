@@ -33,6 +33,7 @@
                     android:src="@drawable/img_app"
                     android:contentDescription="@string/app_icon"
                     android:layout_gravity="center|bottom" />
+
             </GridLayout>
 
             <TextView
@@ -45,13 +46,14 @@
                 android:layout_above="@+id/btn_play"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="56dp"
-                style="?aboutStyle" />
+                style="?homeText"/>
 
             <Button
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_play_text"
                 android:id="@+id/btn_play"
+                style="?buttonStyles"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:drawableLeft="@drawable/ic_play"
@@ -65,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/btn_settings_text"
                 android:id="@+id/btn_settings"
+                style="?buttonStyles"
                 android:layout_below="@+id/btn_play"
                 android:layout_alignEnd="@+id/btn_play"
                 android:drawableLeft="@drawable/ic_setting"
@@ -81,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/btn_statistics_text"
                 android:id="@+id/btn_statistics"
+                style="?buttonStyles"
                 android:layout_marginTop="15dp"
                 android:layout_alignStart="@+id/btn_settings"
                 android:layout_alignEnd="@+id/btn_settings"

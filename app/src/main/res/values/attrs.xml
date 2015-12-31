@@ -11,9 +11,24 @@
 
     <attr name="backgroundStyle" format="reference" />
     <attr name="floatingButtonStyle" format="reference" />
+    <attr name="buttonStyles" format="reference" />
     <attr name="textStyle" format="reference" />
+    <attr name="homeText" format="reference" />
+    <attr name="helpText" format="reference" />
     <attr name="helpIconStyle" format="reference" />
     <attr name="aboutIconStyle" format="reference" />
     <attr name="aboutStyle" format="reference" />
+    <attr name="firstImage" format="reference" />
+    <attr name="firstText" format="reference" />
+    <attr name="firstTextTitle" format="reference" />
+    <attr name="secondImage" format="reference" />
+    <attr name="secondText" format="reference" />
+    <attr name="secondTextTitle" format="reference" />
+    <attr name="thirdImage" format="reference" />
+    <attr name="thirdText" format="reference" />
+    <attr name="thirdTextTitle" format="reference" />
+    <attr name="fourthImage" format="reference" />
+    <attr name="fourthText" format="reference" />
+    <attr name="fourthTextTitle" format="reference" />
 
 </resources>

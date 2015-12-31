@@ -153,25 +153,6 @@ public class CommonUtil {
         }
     }
 
-    public static int getSummaryImageId(int numberOfBeads) {
-        switch (numberOfBeads) {
-            case 0:
-                return R.drawable.snitch0;
-            case 1:
-                return R.drawable.snitch1;
-            case 2:
-                return R.drawable.snitch2;
-            case 3:
-                return R.drawable.snitch3;
-            case 4:
-                return R.drawable.snitch4;
-            case 5:
-                return R.drawable.snitch5;
-            default:
-                return -1;
-        }
-    }
-
     public static int getPlayerSummaryImageId(int playerId) {
         switch (playerId) {
             case 0:

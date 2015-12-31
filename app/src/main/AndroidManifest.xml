@@ -40,6 +40,16 @@
                 android:value="it.polimi.group03.activity.HomeActivity" />
         </activity>
 
+        <activity android:name=".activity.CharactersActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/FullscreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
+        </activity>
+
         <activity
             android:name=".activity.FullscreenActivity"
 
@@ -68,7 +78,7 @@
             android:theme="@style/FullscreenTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.polimi.group03.activity.HomeActivity" />
+                android:value=".activity.HomeActivity" />
         </activity>
 
         <activity android:name=".activity.AboutActivity"
@@ -79,7 +89,7 @@
             android:theme="@style/FullscreenTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.polimi.group03.activity.HomeActivity" />
+                android:value=".activity.HomeActivity" />
         </activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationName" android:value="@string/app_name" />

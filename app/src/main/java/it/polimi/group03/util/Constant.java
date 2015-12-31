@@ -132,4 +132,12 @@ public class Constant {
      * This constant holds the value of the number of cells on the board.
      */
     public static final String WIDTH = "width";
+    /**
+     * This constant holds the value of the player name tag.
+     */
+    public static final String PLAYER_NAME = "player_name";
+    /**
+     * This constant holds the value of the player icon tag.
+     */
+    public static final String PLAYER_ICON = "player_icon";
 }

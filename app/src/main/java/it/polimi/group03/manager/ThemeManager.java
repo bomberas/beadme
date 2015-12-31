@@ -46,7 +46,6 @@ public class ThemeManager {
      * {@link #setTheme(Activity)}<br/>
      * {@link #updateTheme(Activity, View, FloatingActionButton)}<br/>
      * {@link #setPreferenceStyle(Context, TextView, TextView, ImageView, int)}<br/>
-     * {@link #setTextHome(Context, View)}<br/>
      * {@link #setDrawableButton(Context, View)}<br/>
      *
      * @param context Calling Activity
@@ -118,72 +117,6 @@ public class ThemeManager {
     }
 
     /**
-     * Set the background effect (onPress, onFocus) according to the selected theme and in based of the
-     * selector configured on the xml files.<br /><br />
-     *
-     * @param context Calling Activity
-     * @param view ButtonView in which set the background according to the theme
-     */
-    public void setDrawableButton(Context context, View view) {
-        switch ( theme(context) ) {
-            default:
-            case Constant.PREF_THEME_DEFAULT:
-                view.setBackground(ContextCompat.getDrawable(context, R.drawable.button));
-                break;
-            case Constant.PREF_THEME_STAR_WARS:
-                view.setBackground(ContextCompat.getDrawable(context, R.drawable.button_sw));
-                break;
-            case Constant.PREF_THEME_HARRY_POTTER:
-                view.setBackground(ContextCompat.getDrawable(context, R.drawable.button_hp));
-                break;
-        }
-    }
-
-    /**
-     * Set the welcoming text in the home activity according to the selected theme.<br /><br />
-     *
-     * @param context Calling Activity
-     * @param view TextView in which set the text according to the theme
-     */
-    public void setTextHome(Context context, View view) {
-        TextView txt_home = (TextView) view;
-        switch ( theme(context) ) {
-            default:
-            case Constant.PREF_THEME_DEFAULT:
-                txt_home.setText(R.string.txt_home_text_pink);
-                break;
-            case Constant.PREF_THEME_STAR_WARS:
-                txt_home.setText(R.string.txt_home_text_starwars);
-                break;
-            case Constant.PREF_THEME_HARRY_POTTER:
-                txt_home.setText(R.string.txt_home_text_harrypotter);
-                break;
-        }
-    }
-
-    /**
-     * Set the brief background story in the help activity according to the selected theme.<br /><br />
-     *
-     * @param context Calling Activity
-     * @param view TextView in which set the text according to the theme
-     */
-    public void setHelpText(Context context, View view) {
-        TextView txt_help = (TextView) view;
-        switch ( theme(context) ) {
-            default:
-            case Constant.PREF_THEME_DEFAULT:
-                txt_help.setText(R.string.help_intro_pink);
-                break;
-            case Constant.PREF_THEME_STAR_WARS:
-                txt_help.setText(R.string.help_intro_chewbacca);
-                break;
-            case Constant.PREF_THEME_HARRY_POTTER:
-                txt_help.setText(R.string.help_intro_expelliarmus);
-                break;
-        }
-    }
-
-    /**
      * A preference fragment doesn't use the style of the calling activity, so we need to set it
      * <b>manually</b> for each preference we have in the fragment. So, the manager will
      * update the text color of the bound textview, as well as the text color of the summaries
@@ -252,6 +185,142 @@ public class ThemeManager {
                 icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_language_white));
                 break;
         }
+    }
+
+    public int getSummaryIcon(Context context, int beads) {
+        int summaryIconID;
+        switch ( theme(context) ) {
+            default:
+            case Constant.PREF_THEME_DEFAULT:
+                switch (beads) {
+                    default:
+                    case 0:
+                        summaryIconID = R.drawable.star0;
+                        break;
+                    case 1:
+                        summaryIconID = R.drawable.star1;
+                        break;
+                    case 2:
+                        summaryIconID = R.drawable.star2;
+                        break;
+                    case 3:
+                        summaryIconID = R.drawable.star3;
+                        break;
+                    case 4:
+                        summaryIconID = R.drawable.star4;
+                        break;
+                    case 5:
+                        summaryIconID = R.drawable.star5;
+                        break;
+                }
+                break;
+            case Constant.PREF_THEME_STAR_WARS:
+                switch (beads) {
+                    default:
+                    case 0:
+                        summaryIconID = R.drawable.star0;
+                        break;
+                    case 1:
+                        summaryIconID = R.drawable.star1;
+                        break;
+                    case 2:
+                        summaryIconID = R.drawable.star2;
+                        break;
+                    case 3:
+                        summaryIconID = R.drawable.star3;
+                        break;
+                    case 4:
+                        summaryIconID = R.drawable.star4;
+                        break;
+                    case 5:
+                        summaryIconID = R.drawable.star5;
+                        break;
+                }
+                break;
+            case Constant.PREF_THEME_HARRY_POTTER:
+                switch (beads) {
+                    default:
+                    case 0:
+                        summaryIconID = R.drawable.snitch0;
+                        break;
+                    case 1:
+                        summaryIconID = R.drawable.snitch1;
+                        break;
+                    case 2:
+                        summaryIconID = R.drawable.snitch2;
+                        break;
+                    case 3:
+                        summaryIconID = R.drawable.snitch3;
+                        break;
+                    case 4:
+                        summaryIconID = R.drawable.snitch4;
+                        break;
+                    case 5:
+                        summaryIconID = R.drawable.snitch5;
+                        break;
+                }
+                break;
+        }
+        return summaryIconID;
+    }
+
+    public int getPlayerIcon(Context context, int id) {
+        int playerIconID;
+        switch ( theme(context) ) {
+            default:
+            case Constant.PREF_THEME_DEFAULT:
+                switch (id) {
+                    default:
+                    case 0:
+                        playerIconID = R.drawable.santa;
+                        break;
+                    case 1:
+                        playerIconID = R.drawable.mermaid;
+                        break;
+                    case 2:
+                        playerIconID = R.drawable.clown;
+                        break;
+                    case 3:
+                        playerIconID = R.drawable.devil;
+                        break;
+                }
+                break;
+            case Constant.PREF_THEME_STAR_WARS:
+                switch (id) {
+                    default:
+                    case 0:
+                        playerIconID = R.drawable.santa;
+                        break;
+                    case 1:
+                        playerIconID = R.drawable.mermaid;
+                        break;
+                    case 2:
+                        playerIconID = R.drawable.clown;
+                        break;
+                    case 3:
+                        playerIconID = R.drawable.devil;
+                        break;
+                }
+                break;
+            case Constant.PREF_THEME_HARRY_POTTER:
+                switch (id) {
+                    default:
+                    case 0:
+                        playerIconID = R.drawable.harry;
+                        break;
+                    case 1:
+                        playerIconID = R.drawable.hermione;
+                        break;
+                    case 2:
+                        playerIconID = R.drawable.snape;
+                        break;
+                    case 3:
+                        playerIconID = R.drawable.voldemort;
+                        break;
+                }
+                break;
+        }
+        return playerIconID;
     }
 
 }

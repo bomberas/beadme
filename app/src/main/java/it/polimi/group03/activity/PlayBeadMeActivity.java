@@ -1,5 +1,6 @@
 package it.polimi.group03.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -162,13 +163,11 @@ public class PlayBeadMeActivity extends GenericActivity {
 
         for ( int i = 0; i < numberOfPlayers; i++ ){
 
-            Player player = new Player(i, i == 0? "Harry Potter":i==1?"Hermione Granger":i==2?"Voldemort":"Severus Snape", "");
+            Player player = new Player(i, getIntent().getStringExtra(Constant.PLAYER_NAME + i), "");
             engine.addPlayer(player);
 
-            //Adding image of player for the summary section
-            //todo Reemplazar esto con logica de verdad
-            int imageId = player.getId() == 0 ? R.drawable.harry : (player.getId() == 1 ? R.drawable.hermione : (player.getId() == 2 ? R.drawable.voldemort : R.drawable.snape));
-            int imageSummaryId = R.drawable.snitch5;
+            int imageId = getIntent().getIntExtra(Constant.PLAYER_ICON + i, 0);
+            int imageSummaryId = getThemeManager().getSummaryIcon(this, Constant.GAME_MAX_NUMBER_BEADS);
 
             ImageView imgSummary= new ImageView(getApplicationContext());
             imgSummary.setId(CommonUtil.getPlayerSummaryImageId(player.getId()));
@@ -286,6 +285,15 @@ public class PlayBeadMeActivity extends GenericActivity {
                 indexBead --;
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
 }

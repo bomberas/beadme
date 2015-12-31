@@ -4,7 +4,8 @@
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" android:background="@color/grid_background">
+    android:orientation="vertical"
+    android:background="@drawable/play_pink">
 
     <LinearLayout android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -21,7 +22,8 @@
             android:textColor="#851672"
             android:textStyle="bold"
             android:gravity="center"
-            android:paddingBottom="25dp"/>
+            android:paddingBottom="25dp"
+            android:layout_marginTop="25dp" />
 
         <LinearLayout
             android:id="@+id/summary"

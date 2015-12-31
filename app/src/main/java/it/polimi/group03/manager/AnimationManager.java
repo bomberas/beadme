@@ -1,9 +1,9 @@
 package it.polimi.group03.manager;
 
 import android.content.Context;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import it.polimi.group03.R;
 
@@ -26,37 +26,37 @@ public class AnimationManager {
     private AnimationManager() {
     }
 
-    public void rotate(Context context, ImageView image) {
+    public void rotate(Context context, View image) {
         Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.rotate);
         image.startAnimation(animRotate);
     }
 
-    public void bounce(Context context, ImageView image) {
+    public void bounce(Context context, View image) {
         Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.bounce);
         image.startAnimation(animRotate);
     }
 
-    public void zoom(Context context, ImageView image) {
+    public void zoom(Context context, View image) {
         Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.zoom);
         image.startAnimation(animRotate);
     }
 
-    public void slideInFromRight(Context context, ImageView image) {
+    public void slideInFromRight(Context context, View image) {
         Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.slidein_right);
         image.startAnimation(animRotate);
     }
 
-    public void SlideInFromLeft(Context context, ImageView image) {
+    public void SlideInFromLeft(Context context, View image) {
         Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.slidein_left);
         image.startAnimation(animRotate);
     }
 
-    public void SlideOutFromRight(Context context, ImageView image) {
+    public void SlideOutFromRight(Context context, View image) {
         Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.slideout_right);
         image.startAnimation(animRotate);
     }
 
-    public void SlideOutFromLeft(Context context, ImageView image) {
+    public void SlideOutFromLeft(Context context, View image) {
         Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.slideout_left);
         image.startAnimation(animRotate);
     }
