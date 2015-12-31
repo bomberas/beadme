@@ -131,7 +131,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Swipe if you are curious George"
+                            android:text="Swipe if you like swipping"
                             android:id="@+id/curious_george"
                             android:layout_row="15"
                             android:layout_column="1"
