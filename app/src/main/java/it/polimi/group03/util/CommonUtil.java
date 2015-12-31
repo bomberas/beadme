@@ -8,7 +8,10 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 
 import it.polimi.group03.R;
 
@@ -168,5 +171,29 @@ public class CommonUtil {
             default:
                 return -1;
         }
+    }
+
+    public static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                    (l + " cannot be cast to int without changing its value.");
+        }
+        return (int) l;
+    }
+
+    public static String convertDateToString(Date dateNow)
+    {
+        SimpleDateFormat dateConvertion = new SimpleDateFormat("yyyyMMddHHmmss");
+        String date_to_string = dateConvertion.format(dateNow);
+        return date_to_string;
+
+    }
+
+
+    public static Date convertStringToDate(String string) throws ParseException {
+        String str = "January 2, 2010";
+        SimpleDateFormat format = new SimpleDateFormat("yyyMMddHHmmss");
+        Date date = format.parse(str);
+        return date;
     }
 }

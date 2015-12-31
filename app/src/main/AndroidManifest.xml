@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:name=".BeadMeApp">
 
-        <receiver android:name="it.polimi.group03.manager.NotificationManager"/>
+
 
         <activity
             android:name=".activity.HomeActivity"
@@ -38,6 +38,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polimi.group03.activity.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".activity.StatisticActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/FullscreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
         </activity>
 
         <activity android:name=".activity.CharactersActivity"
