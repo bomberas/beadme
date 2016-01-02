@@ -4,9 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import it.polimi.group03.engine.GameEngine;
-
-
 /**
  * This class contains all the information related
  * to the statistics collected during the game.
@@ -48,7 +45,6 @@ public class Statistic {
         }
         return victories;
     }
-    GameEngine engine=new GameEngine();
 
     private int playerID;
     public void setPlayerID(int playerID)
