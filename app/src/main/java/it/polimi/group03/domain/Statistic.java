@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import it.polimi.group03.engine.GameEngine;
+
 
 /**
  * This class contains all the information related
@@ -16,20 +18,11 @@ import java.util.Date;
  * <ul style="list-style-type:circle">
  * <li>Number of games played.</li>
  * <li>Top 10 players.</li>
- * <li>Bottom 10 players.</li>
  * <li>Number of victories per player.</li>
- * <li>Number of defeats per player.</li>
  * <li>Number of rounds in last game.</li>
- * <li>Number of turns in last game.</li>
- * <li>Average rounds in a game.</li>
- * <li>Average turns in a game.</li>
- * <li>Number of unconcluded games.</li>
- * <li>Average time of a game.</li>
  * <li>Duration of the last game played. </li>
  * <li>The longest game.</li>
  * <li>The shortest game. </li>
- * <li>The fastest elimination of the players. </li>
- * <li>The player who survived the longest time. </li>
  *
  * @author cecibloom
  * @author megireci
@@ -54,6 +47,29 @@ public class Statistic {
             break;
         }
         return victories;
+    }
+    GameEngine engine=new GameEngine();
+
+    private int playerID;
+    public void setPlayerID(int playerID)
+    {
+        this.playerID=playerID;
+    }
+
+    public int getPlayerID ()
+    {
+        return playerID;
+    }
+
+    private int gameID;
+    public void setGameID(int playerID)
+    {
+        this.gameID=gameID;
+    }
+
+    public int getGameID ()
+    {
+        return gameID;
     }
 
     private String winnerName;
@@ -85,6 +101,14 @@ public class Statistic {
      * Name of one of the losers. It may happen that there are no winners.
      */
     private String loser4Name;
+
+    private int gamecount;
+
+    public void setGameCount (int gamecount)
+    {
+        this.gamecount=gamecount;
+    }
+
     /**
      * Time in which the game started. Possibly used for retrieving the average time of the game.
      */
@@ -106,7 +130,15 @@ public class Statistic {
     }
 
     public String getWinnerName() {
+// just to test
         return winnerName;
+
+    }
+    private int nr_vict;
+
+    public void setVictories (int nr_vict)
+    {
+        this.nr_vict=nr_vict;
     }
 
     public void setWinnerName(String winnerName) {

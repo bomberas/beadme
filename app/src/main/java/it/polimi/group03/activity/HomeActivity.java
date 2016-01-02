@@ -52,7 +52,7 @@ public class HomeActivity extends GenericActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting Statistics Activity");
-                getVibrationManager().vibrate(getApplicationContext());
+                startActivity(new Intent(getApplicationContext(), StatisticActivity.class));
             }
         });
         findViewById(R.id.btn_help).setOnClickListener(new View.OnClickListener() {
