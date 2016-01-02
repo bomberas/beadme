@@ -37,7 +37,7 @@ public class GenericActivity extends AppCompatActivity {
      * This methods hides the action bar set it by default for the OS; in order to obtain
      * a full screen view.
      */
-    private void hideBars() {
+    public void hideBars() {
         ActionBar actionBar = getSupportActionBar();
         if ( actionBar != null ) {
             actionBar.hide();

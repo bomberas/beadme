@@ -10,6 +10,7 @@
     </declare-styleable>
 
     <attr name="backgroundStyle" format="reference" />
+    <attr name="playBackground" format="reference" />
     <attr name="floatingButtonStyle" format="reference" />
     <attr name="buttonStyles" format="reference" />
     <attr name="textStyle" format="reference" />
@@ -30,5 +31,13 @@
     <attr name="fourthImage" format="reference" />
     <attr name="fourthText" format="reference" />
     <attr name="fourthTextTitle" format="reference" />
+    <attr name="preference_speaker" format="reference" />
+    <attr name="preference_vibration" format="reference" />
+    <attr name="preference_notification" format="reference" />
+    <attr name="preference_light" format="reference" />
+    <attr name="preference_player" format="reference" />
+    <attr name="preference_theme" format="reference" />
+    <attr name="preference_language" format="reference" />
+    <attr name="backgroundDialog" format="reference" />
 
 </resources>

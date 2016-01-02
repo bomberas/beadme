@@ -289,11 +289,7 @@ public class PlayBeadMeActivity extends GenericActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
+        startActivity(new Intent(getApplicationContext(), DialogActivity.class));
     }
 
 }

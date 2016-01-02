@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,54 +49,88 @@ public class CharactersActivity extends GenericActivity {
                 });
         playActivityIntent = new Intent(getApplicationContext(), PlayBeadMeActivity.class);
         pickedCharacters = 1;
+        getAnimationManager().blink(this, findViewById(R.id.btn_first));
+        getAnimationManager().zoomOut(this, findViewById(R.id.characters_players));
+        getAnimationManager().zoomIn(this, findViewById(R.id.characters_players));
     }
 
     //Using the following method, we will handle all screen swaps.
-   @Override
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch ( event.getAction() ) {
             case MotionEvent.ACTION_DOWN:
                 lastX = event.getX();
                 break;
             case MotionEvent.ACTION_UP:
-
                 float currentX = event.getX();
                 // Handling left to right screen swap.
                 if ( lastX < currentX ) {
-                    // If there aren't any other children, just break.
-                    if ( flipper.getDisplayedChild() == 0 ) {
-                        break;
-                    }
-                    // Next screen comes in from left.
-                    flipper.setInAnimation(this, R.anim.slidein_left);
-                    // Current screen goes out from right.
-                    flipper.setOutAnimation(this, R.anim.slideout_right);
-                    // Display next screen.
-                    flipper.showNext();
+                    moveToRight();
                 }
                 // Handling right to left screen swap.
-                if ( lastX > currentX ) {
-                    // If there is a child (to the left), kust break.
-                    if ( flipper.getDisplayedChild() == 1 ){
-                        break;
-                    }
-                    // Next screen comes in from right.
-                    flipper.setInAnimation(this, R.anim.slidein_right);
-                    // Current screen goes out from left.
-                    flipper.setOutAnimation(this, R.anim.slideout_left);
-                    // Display previous screen.
-                    flipper.showPrevious();
+                if ( lastX > currentX) {
+                    moveToLeft();
                 }
                 break;
         }
         return false;
     }
 
+    public void moveToLeft(View v) {
+        moveToLeft();
+    }
+
+    public void moveToRight(View view) {
+        moveToRight();
+    }
+
+    private void moveToLeft() {
+        // Next screen comes in from right.
+        flipper.setInAnimation(this, R.anim.slidein_right);
+        // Current screen goes out from left.
+        flipper.setOutAnimation(this, R.anim.slideout_left);
+
+        // If there aren't any other children (to the left), jump to the end.
+        if ( flipper.getDisplayedChild() == 3 ){
+            flipper.setDisplayedChild(0);
+            flipper.animate();
+        } else {
+            // Display next screen.
+            flipper.showNext();
+        }
+        animate();
+    }
+
+    private void moveToRight() {
+        // Next screen comes in from left.
+        flipper.setInAnimation(this, R.anim.slidein_left);
+        // Current screen goes out from right.
+        flipper.setOutAnimation(this, R.anim.slideout_right);
+
+        // If there aren't any other children (to the right), jump to the beginning.
+        if ( flipper.getDisplayedChild() == 0) {
+            flipper.setDisplayedChild(3);
+            flipper.animate();
+        } else {
+            // Display previous screen.
+            flipper.showPrevious();
+        }
+
+        animate();
+    }
+
+    private void animate() {
+        Button pickMe = (Button) ((LinearLayout) flipper.getCurrentView()).getChildAt(3);
+        if ( pickMe.isEnabled() ) {
+            getAnimationManager().blink(this, pickMe);
+        }
+    }
+
     public void pickPlayerCharacter(View v) {
         int numberOfPlayers = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString(Constant.KEY_PREF_PLAYERS, Constant.PREF_PLAYER_DEFAULT));
         v.setEnabled(false);
+        v.clearAnimation();
         ImageView character = (ImageView)((LinearLayout) v.getParent()).getChildAt(0);
-        Log.i("tatitati", String.valueOf(pickedCharacters));
         playActivityIntent.putExtra(Constant.PLAYER_NAME + (pickedCharacters - 1), character.getContentDescription());
         playActivityIntent.putExtra(Constant.PLAYER_ICON + (pickedCharacters - 1), getThemeManager().getPlayerIcon(this, Integer.valueOf((String) character.getTag())));
 
@@ -108,7 +143,10 @@ public class CharactersActivity extends GenericActivity {
         } else {
             pickedCharacters++;
             ((TextView) findViewById(R.id.characters_players)).setText(String.valueOf(pickedCharacters));
-            getAnimationManager().bounce(this, findViewById(R.id.characters_players));
+            getAnimationManager().zoomOut(this, findViewById(R.id.characters_players));
+            moveToLeft();
+            getAnimationManager().zoomIn(this, findViewById(R.id.characters_players));
         }
     }
+
 }

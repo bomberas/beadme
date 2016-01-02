@@ -173,4 +173,8 @@
     <string name="choose_character">Choose character for Player</string>
     <string name="choose_character_1">1</string>
     <string name="button_choose_character">Pick Me!</string>
+
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="leave_app">Are you sure you want to leave us now? The current game will be lost!</string>
 </resources>

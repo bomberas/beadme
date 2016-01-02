@@ -38,12 +38,7 @@ public class HelpActivity extends GenericActivity {
                 });
     }
 
-    /**
-     * Using the following method, we will handle all screen swaps.
-     *
-     * @param event
-     * @return
-     */
+    //Using the following method, we will handle all screen swaps.
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch ( event.getAction() ) {
@@ -54,33 +49,55 @@ public class HelpActivity extends GenericActivity {
                 float currentX = event.getX();
                 // Handling left to right screen swap.
                 if ( lastX < currentX ) {
-                    // If there aren't any other children, just break.
-                    if ( flipper.getDisplayedChild() == 0 ) {
-                        break;
-                    }
-                    // Next screen comes in from left.
-                    flipper.setInAnimation(this, R.anim.slidein_left);
-                    // Current screen goes out from right.
-                    flipper.setOutAnimation(this, R.anim.slideout_right);
-                    // Display next screen.
-                    flipper.showNext();
+                    moveToRight();
                 }
                 // Handling right to left screen swap.
-                if ( lastX > currentX ) {
-                    // If there is a child (to the left), kust break.
-                    if ( flipper.getDisplayedChild() == 1 ){
-                        break;
-                    }
-                    // Next screen comes in from right.
-                    flipper.setInAnimation(this, R.anim.slidein_right);
-                    // Current screen goes out from left.
-                    flipper.setOutAnimation(this, R.anim.slideout_left);
-                    // Display previous screen.
-                    flipper.showPrevious();
+                if ( lastX > currentX) {
+                    moveToLeft();
                 }
                 break;
         }
         return false;
+    }
+
+    public void moveToLeft(View v) {
+        moveToLeft();
+    }
+
+    public void moveToRight(View view) {
+        moveToRight();
+    }
+
+    private void moveToLeft() {
+        // Next screen comes in from right.
+        flipper.setInAnimation(this, R.anim.slidein_right);
+        // Current screen goes out from left.
+        flipper.setOutAnimation(this, R.anim.slideout_left);
+
+        // If there aren't any other children (to the left), jump to the end.
+        if ( flipper.getDisplayedChild() == 3 ){
+            flipper.setDisplayedChild(0);
+            flipper.animate();
+        } else {
+            // Display next screen.
+            flipper.showNext();
+        }
+    }
+
+    private void moveToRight() {
+        // Next screen comes in from left.
+        flipper.setInAnimation(this, R.anim.slidein_left);
+        // Current screen goes out from right.
+        flipper.setOutAnimation(this, R.anim.slideout_right);
+
+        // If there aren't any other children (to the right), jump to the beginning.
+        if ( flipper.getDisplayedChild() == 0) {
+            flipper.setDisplayedChild(3);
+            flipper.animate();
+        } else {
+            // Display previous screen.
+            flipper.showPrevious();
+        }
     }
 
 }

@@ -24,8 +24,10 @@ public class HomeActivity extends GenericActivity {
         super.onCreate(savedInstanceState);
         getThemeManager().setTheme(this);
         setContentView(R.layout.activity_home);
-        //setButtonStyles();
         createGenericListeners();
+        getAnimationManager().slideInFromRight(this, findViewById(R.id.btn_play));
+        getAnimationManager().slideInFromLeft(this, findViewById(R.id.btn_settings));
+        getAnimationManager().slideInFromRight(this, findViewById(R.id.btn_statistics));
     }
 
     /**

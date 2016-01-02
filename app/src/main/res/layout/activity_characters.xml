@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight=".05"
+            android:layout_weight=".15"
             android:layout_marginTop="50dp">
 
             <TextView
@@ -25,7 +25,6 @@
                 android:gravity="top"
                 android:textSize="20sp"
                 android:textAlignment="center"
-                android:textStyle="bold"
                 android:text="@string/choose_character"
                 style="?aboutStyle"
                 android:layout_gravity="center_horizontal" />
@@ -37,7 +36,6 @@
                 android:gravity="top"
                 android:textSize="25sp"
                 android:textAlignment="center"
-                android:textStyle="bold"
                 android:text="@string/choose_character_1"
                 style="?aboutStyle"
                 android:layout_gravity="center_horizontal" />
@@ -48,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight=".85"
+            android:layout_weight=".8"
             android:baselineAligned="false">
 
             <LinearLayout
@@ -65,7 +63,8 @@
                     android:src="@drawable/ic_arrow_left"
                     android:contentDescription="@string/app_icon"
                     android:layout_gravity="center"
-                    android:id="@+id/play_go_left" />
+                    android:id="@+id/play_go_left"
+                    android:onClick="moveToRight" />
 
             </LinearLayout>
 
@@ -74,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/viewFlipperCharacters"
                 android:layout_weight=".90"
-                android:layout_marginTop="35dp">
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -92,22 +91,22 @@
                     <TextView
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
                         android:id="@+id/txt_first_character_name"
                         android:layout_gravity="center_horizontal"
                         android:textAlignment="center"
-                        android:textStyle="bold"
                         style="?firstTextTitle"/>
 
                     <TextView
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_first_character_desc"
+                        android:textSize="16sp"
                         style="?firstText"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
-                        android:textAlignment="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textAlignment="center"/>
 
                     <Button
                         style="?buttonStyles"
@@ -115,8 +114,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/btn_first"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="20dp"
                         android:text="@string/button_choose_character"
                         android:onClick="pickPlayerCharacter" />
 
@@ -139,22 +137,23 @@
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_second_character_name"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
                         android:textAlignment="center"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textStyle="bold"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         style="?secondTextTitle"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_second_character_desc"
+                        android:textSize="16sp"
                         style="?secondText"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
-                        android:textAlignment="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textAlignment="center"/>
 
                     <Button
                         style="?buttonStyles"
@@ -162,8 +161,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/btn_second"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="20dp"
                         android:text="@string/button_choose_character"
                         android:onClick="pickPlayerCharacter" />
 
@@ -186,22 +184,23 @@
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_third_character_name"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
                         android:textAlignment="center"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textStyle="bold"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         style="?thirdTextTitle"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_third_character_desc"
+                        android:textSize="16sp"
                         style="?thirdText"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
-                        android:textAlignment="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textAlignment="center"/>
 
                     <Button
                         style="?buttonStyles"
@@ -209,8 +208,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/btn_third"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="20dp"
                         android:text="@string/button_choose_character"
                         android:onClick="pickPlayerCharacter" />
 
@@ -233,21 +231,23 @@
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_fourth_character_name"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
                         android:textAlignment="center"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         style="?fourthTextTitle"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_fourth_character_desc"
+                        android:textSize="16sp"
                         style="?fourthText"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
-                        android:textAlignment="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textAlignment="center"/>
 
                     <Button
                         style="?buttonStyles"
@@ -255,7 +255,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/btn_fourth"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/button_choose_character"
                         android:onClick="pickPlayerCharacter" />
@@ -278,7 +278,8 @@
                     android:src="@drawable/ic_arrow_right"
                     android:contentDescription="@string/app_icon"
                     android:layout_gravity="center"
-                    android:id="@+id/play_go_right" />
+                    android:id="@+id/play_go_right"
+                    android:onClick="moveToLeft" />
 
             </LinearLayout>
 
