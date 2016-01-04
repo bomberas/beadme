@@ -1,11 +1,9 @@
 package it.polimi.group03.util;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Collection;
@@ -75,9 +73,15 @@ public class CommonUtil {
      * @param duration The duration of the message on the screen. It's either
      *              {@link Toast#LENGTH_LONG} or {@link Toast#LENGTH_SHORT}
      */
-    public static void showToastMessage(Context context, String msg, int duration){
-        Toast toast = Toast.makeText(context, msg, duration);
-        toast.show();
+    public static void showToastMessage(Context context, View view, TextView text, String msg, int duration){
+
+        text.setText(msg);
+
+        Toast myToast = new Toast(context);
+        myToast.setView(view);
+        myToast.setDuration(duration);
+        myToast.setGravity(Gravity.CENTER , 0, 0);
+        myToast.show();
     }
 
     /**

@@ -17,10 +17,9 @@
     <string name="e0x6">You cannot placed the bead in this position.</string>
     <string name="e0x7">You cannot moved this bead because is already placed.</string>
     <string name="e0x8">The bead must be placed inside the board.</string>
-    <string name="current_player">Playing: &#160;</string>
+    <string name="current_player">C\'mon %1$s is your turn!</string>
     <string name="next_player">Next Player: &#160;</string>
-    <string name="winner_1">God save &#160;</string>
-    <string name="winner_2">&#160; almighty king of &#160;</string>
+    <string name="winner">God save %1$s almighty king of Bead Me</string>
     <string name="debbuggable">true</string>
 
     <string name="txt_home_text_pink">be cool, but also be warm</string>
@@ -149,4 +148,5 @@
     <string name="nickname">Choose your nickname:</string>
     <string name="bead_color">Choose bead color:</string>
     <string name="title_activity_fullscreen">Choose bead color:</string>
+    <string name="title_activity_fall_animation">FallAnimationActivity</string>
 </resources>

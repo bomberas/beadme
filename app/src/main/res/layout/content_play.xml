@@ -6,6 +6,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" android:background="@color/grid_background">
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/animation"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
     <LinearLayout android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -42,7 +47,7 @@
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border">
                 <ImageView
                     android:id="@+id/imgViewH1"
-                    android:src="@drawable/red1"
+                    android:src="@drawable/red1_sw"
                     android:layout_marginLeft="1dp"
                     android:layout_marginStart="1dp"
                     android:layout_width="wrap_content"
@@ -111,7 +116,7 @@
                     android:id="@+id/imgViewV1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/blue1"
+                    android:src="@drawable/blue1_sw"
                      />
             </LinearLayout>
 
@@ -178,7 +183,24 @@
         android:background="@drawable/border"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:id="@+id/waiting_spot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/waiting_spot" />
+            </LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>

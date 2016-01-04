@@ -37,7 +37,7 @@ public class NotificationManager extends BroadcastReceiver {
         return ourInstance;
     }
 
-    private NotificationManager() {
+    public NotificationManager() {
     }
 
     /**
