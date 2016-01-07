@@ -69,6 +69,15 @@ public class CommonUtil {
         return !s2.trim().equals("") && s1.toLowerCase().trim().equals(s2.toLowerCase().trim());
     }
 
+    public static int[][] cloneArray( int[][] source) {
+        int[][] dest = new int[source.length][source.length];
+        for ( int col = 0; col < source.length; col++) {
+            for ( int row = 0; row < source.length; row++) {
+                dest[row][col] = source[row][col];
+            }
+        }
+        return dest;
+    }
     /**
      *
      * Creates a toast message on the screen displaying a customized <tt>text</tt>text
@@ -171,6 +180,24 @@ public class CommonUtil {
             default:
                 return -1;
         }
+    }
+
+    public static String maxValue(int[][] matrix) {
+        int max = matrix[0][0];
+        int r = 0;
+        int c = 0;
+
+        for ( int col = 0; col < Constant.BOARD_INDEX; col++) {
+            for ( int row = 0; row < Constant.BOARD_INDEX; row++) {
+                if ( matrix[row][col] > max) {
+                    max = matrix[row][col];
+                    r = row;
+                    c = col;
+                }
+            }
+        }
+
+        return String.valueOf(r)  + "|" + String.valueOf(c);
     }
 
     public static int safeLongToInt(long l) {
