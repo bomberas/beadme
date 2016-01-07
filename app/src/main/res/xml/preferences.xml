@@ -4,7 +4,7 @@
         android:title="@string/pref_sound_text"
         android:key="key_sound"
         android:checked="true"
-        android:icon="@drawable/ic_speaker"
+        style="?preference_speaker"
         android:defaultValue="@string/pref_speaker_default"
         android:order="1"/>
 
@@ -12,7 +12,7 @@
         android:title="@string/pref_vibration_text"
         android:key="key_vibration"
         android:checked="true"
-        android:icon="@drawable/ic_vibration"
+        style="?preference_vibration"
         android:defaultValue="@string/pref_vibration_default"
         android:order="2"/>
 
@@ -20,7 +20,7 @@
         android:title="@string/pref_notification_text"
         android:key="key_notification"
         android:checked="false"
-        android:icon="@drawable/ic_notification"
+        style="?preference_notification"
         android:defaultValue="@string/pref_notification_default"
         android:order="3"/>
 
@@ -28,7 +28,7 @@
         android:title="@string/pref_light_text"
         android:key="key_light"
         android:checked="true"
-        android:icon="@drawable/ic_light"
+        style="?preference_light"
         android:defaultValue="@string/pref_light_default"
         android:order="4"/>
 
@@ -36,7 +36,7 @@
         android:title="@string/pref_players_text"
         android:key="key_players"
         android:entries="@array/players"
-        android:icon="@drawable/ic_player"
+        style="?preference_player"
         android:entryValues="@array/players_keys"
         android:defaultValue="@string/pref_players_default"
         android:dialogTitle="@string/pref_players_dialog_text"
@@ -46,7 +46,7 @@
         android:title="@string/pref_themes_text"
         android:key="key_themes"
         android:entries="@array/themes"
-        android:icon="@drawable/ic_theme"
+        style="?preference_theme"
         android:entryValues="@array/themes_keys"
         android:defaultValue="@string/pref_themes_default"
         android:dialogTitle="@string/pref_themes_dialog_text"
@@ -56,7 +56,7 @@
         android:title="@string/pref_languages_text"
         android:key="key_languages"
         android:entries="@array/languages"
-        android:icon="@drawable/ic_language"
+        style="?preference_language"
         android:entryValues="@array/languages_keys"
         android:defaultValue="@string/pref_languages_default"
         android:dialogTitle="@string/pref_languages_dialog_text"

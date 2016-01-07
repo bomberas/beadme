@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import it.polimi.group03.manager.ThemeManager;
@@ -22,6 +21,7 @@ import it.polimi.group03.manager.ThemeManager;
 public class ListPreference extends android.preference.ListPreference {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @SuppressWarnings("unused")
     public ListPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -47,9 +47,8 @@ public class ListPreference extends android.preference.ListPreference {
         super.onBindView(view);
         TextView titleView = (TextView) view.findViewById(android.R.id.title);
         TextView summaryView = (TextView) view.findViewById(android.R.id.summary);
-        ImageView icon = (ImageView) view.findViewById(android.R.id.icon);
         //Set the style for the text views and icon manually
-        ThemeManager.getInstance().setPreferenceStyle(getContext(), titleView, summaryView, icon, this.getOrder());
+        ThemeManager.getInstance().setPreferenceStyle(getContext(), titleView, summaryView);
     }
 
 }

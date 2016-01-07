@@ -8,7 +8,6 @@ import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 
@@ -189,7 +188,11 @@ public class SettingsActivity extends GenericActivity {
         Log.i(TAG, theme);
         ListPreference preference = (ListPreference) settingsFragment.findPreference(KEY_PREF_THEMES);
         preference.setSummary(preference.getEntry());
-        getThemeManager().updateTheme(this, findViewById(R.id.settings_frame), (FloatingActionButton) findViewById(R.id.btn_home));
+        getThemeManager().theme(this);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 
     /**

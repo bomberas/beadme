@@ -6,7 +6,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 
 import it.polimi.group03.R;
 
@@ -157,25 +160,6 @@ public class CommonUtil {
         }
     }
 
-    public static int getSummaryImageId(int numberOfBeads) {
-        switch (numberOfBeads) {
-            case 0:
-                return R.drawable.snitch0;
-            case 1:
-                return R.drawable.snitch1;
-            case 2:
-                return R.drawable.snitch2;
-            case 3:
-                return R.drawable.snitch3;
-            case 4:
-                return R.drawable.snitch4;
-            case 5:
-                return R.drawable.snitch5;
-            default:
-                return -1;
-        }
-    }
-
     public static int getPlayerSummaryImageId(int playerId) {
         switch (playerId) {
             case 0:
@@ -191,5 +175,29 @@ public class CommonUtil {
             default:
                 return -1;
         }
+    }
+
+    public static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                    (l + " cannot be cast to int without changing its value.");
+        }
+        return (int) l;
+    }
+
+    public static String convertDateToString(Date dateNow)
+    {
+        SimpleDateFormat dateConvertion = new SimpleDateFormat("yyyyMMddHHmmss");
+        String date_to_string = dateConvertion.format(dateNow);
+        return date_to_string;
+
+    }
+
+
+    public static Date convertStringToDate(String string) throws ParseException {
+        String str = "January 2, 2010";
+        SimpleDateFormat format = new SimpleDateFormat("yyyMMddHHmmss");
+        Date date = format.parse(str);
+        return date;
     }
 }

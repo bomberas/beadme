@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import it.polimi.group03.R;
-import it.polimi.group03.util.Constant;
 
 /**
  * This class holds the logic to support the Home page of the application, the look and feel
@@ -26,8 +24,10 @@ public class HomeActivity extends GenericActivity {
         super.onCreate(savedInstanceState);
         getThemeManager().setTheme(this);
         setContentView(R.layout.activity_home);
-        setButtonStyles();
         createGenericListeners();
+        getAnimationManager().slideInFromRight(this, findViewById(R.id.btn_play));
+        getAnimationManager().slideInFromLeft(this, findViewById(R.id.btn_settings));
+        getAnimationManager().slideInFromRight(this, findViewById(R.id.btn_statistics));
     }
 
     /**
@@ -37,12 +37,8 @@ public class HomeActivity extends GenericActivity {
         findViewById(R.id.btn_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "Starting Play Activity");
-                Intent intent = new Intent(getApplicationContext(), PlayBeadMeActivity.class);
-                FrameLayout frame = (FrameLayout)findViewById(R.id.home_frame);
-                intent.putExtra(Constant.HEIGHT, frame.getHeight());
-                intent.putExtra(Constant.WIDTH, frame.getWidth());
-                startActivity(intent);
+                Log.i(TAG, "Starting Characters Activity");
+                startActivity(new Intent(getApplicationContext(), CharactersActivity.class));
             }
         });
         findViewById(R.id.btn_settings).setOnClickListener(new View.OnClickListener() {
@@ -56,7 +52,7 @@ public class HomeActivity extends GenericActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting Statistics Activity");
-                getVibrationManager().vibrate(getApplicationContext());
+                startActivity(new Intent(getApplicationContext(), StatisticActivity.class));
             }
         });
         findViewById(R.id.btn_help).setOnClickListener(new View.OnClickListener() {
@@ -73,17 +69,6 @@ public class HomeActivity extends GenericActivity {
                 startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
         });
-    }
-
-    /**
-     * Set the styles for the button: <tt>Play</tt>, <tt>Settings</tt> and <tt>Statistics</tt> and
-     * the customizable welcoming text, according to the selected theme.
-     */
-    private void setButtonStyles(){
-        getThemeManager().setDrawableButton(this, findViewById(R.id.btn_play));
-        getThemeManager().setDrawableButton(this, findViewById(R.id.btn_statistics));
-        getThemeManager().setDrawableButton(this, findViewById(R.id.btn_settings));
-        getThemeManager().setTextHome(this, findViewById(R.id.txt_home));
     }
 
 }

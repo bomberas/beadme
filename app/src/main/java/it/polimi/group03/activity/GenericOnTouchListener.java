@@ -65,7 +65,7 @@ public class GenericOnTouchListener {
 
         for (Player player: parentActivity.getEngine().getGame().getPlayers()) {
             ImageView imgSummary = (ImageView)parentActivity.findViewById(CommonUtil.getPlayerSummaryImageId(player.getId()));
-            imgSummary.setImageResource(CommonUtil.getSummaryImageId(player.activeBeads().size()));
+            imgSummary.setImageResource(getParentActivity().getThemeManager().getSummaryIcon(imgSummary.getContext(), player.activeBeads().size()));
         }
     }
 

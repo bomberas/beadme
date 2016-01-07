@@ -24,18 +24,55 @@
         <item name="colorPrimaryDark">@color/pinkprimarydarkcolor</item>
         <item name="colorAccent">@color/pinkcolorAccent</item>
         <item name="backgroundStyle">@style/bgpink</item>
+        <item name="playBackground">@style/bgplaypink</item>
         <item name="textStyle">@style/tvpink</item>
         <item name="helpIconStyle">@style/ichelppink</item>
         <item name="aboutIconStyle">@style/icaboutpink</item>
         <item name="floatingButtonStyle">@style/floatingpink</item>
+        <item name="buttonStyles">@style/buttonpink</item>
+        <item name="homeText">@style/homepink</item>
+        <item name="helpText">@style/helppink</item>
         <item name="aboutStyle">@style/tvpink</item>
+        <item name="firstImage">@style/firstImageP</item>
+        <item name="firstText">@style/firstTextP</item>
+        <item name="firstTextTitle">@style/firstTextTitleP</item>
+        <item name="secondImage">@style/secondImageP</item>
+        <item name="secondText">@style/secondTextP</item>
+        <item name="secondTextTitle">@style/secondTextTitleP</item>
+        <item name="thirdImage">@style/thirdImageP</item>
+        <item name="thirdText">@style/thirdTextP</item>
+        <item name="thirdTextTitle">@style/thirdTextTitleP</item>
+        <item name="fourthImage">@style/fourthImageP</item>
+        <item name="fourthText">@style/fourthTextP</item>
+        <item name="fourthTextTitle">@style/fourthTextTitleP</item>
+        <item name="preference_speaker">@style/speakerp</item>
+        <item name="preference_vibration">@style/vibrationp</item>
+        <item name="preference_notification">@style/notificationp</item>
+        <item name="preference_light">@style/lightp</item>
+        <item name="preference_player">@style/playerp</item>
+        <item name="preference_theme">@style/themep</item>
+        <item name="preference_language">@style/languagep</item>
+        <item name="backgroundDialog">@style/bgdialogp</item>
     </style>
 
     <style name="bgpink">
         <item name="android:background">@color/pinkbackground</item>
     </style>
+    <style name="bgplaypink">
+        <item name="android:background">@drawable/play_pink</item>
+    </style>
+    <style name="bgdialogp">
+        <item name="android:background">@color/pinkdialogcolor</item>
+    </style>
     <style name="tvpink">
-        <item name="android:textColor">@color/foreground_material_light</item>
+        <item name="android:textColor">@color/foreground_light</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+    <style name="homepink" parent="tvpink">
+        <item name="android:text">@string/txt_home_text_pink</item>
+    </style>
+    <style name="helppink" parent="tvpink">
+        <item name="android:text">@string/help_intro_pink</item>
     </style>
     <style name="ichelppink">
         <item name="android:src">@drawable/ic_help</item>
@@ -46,24 +83,132 @@
     <style name="floatingpink">
         <item name="android:tint">@color/pinkdarkcolor</item>
     </style>
+    <style name="buttonpink">
+        <item name="android:background">@drawable/button</item>
+    </style>
+    <style name="firstImageP">
+        <item name="android:src">@drawable/santa</item>
+        <item name="android:contentDescription">@string/santa_name</item>
+        <item name="android:tag">0</item>
+    </style>
+    <style name="firstTextP" parent="tvpink">
+        <item name="android:text">@string/santa_desc</item>
+    </style>
+    <style name="firstTextTitleP" parent="tvpink">
+        <item name="android:text">@string/santa_name</item>
+    </style>
+    <style name="secondImageP">
+        <item name="android:src">@drawable/mermaid</item>
+        <item name="android:contentDescription">@string/mermaid_name</item>
+        <item name="android:tag">1</item>
+    </style>
+    <style name="secondTextP" parent="tvpink">
+        <item name="android:text">@string/mermaid_desc</item>
+    </style>
+    <style name="secondTextTitleP" parent="tvpink">
+        <item name="android:text">@string/mermaid_name</item>
+    </style>
+    <style name="thirdImageP">
+        <item name="android:src">@drawable/clown</item>
+        <item name="android:contentDescription">@string/clown_name</item>
+        <item name="android:tag">2</item>
+    </style>
+    <style name="thirdTextP" parent="tvpink">
+        <item name="android:text">@string/clown_desc</item>
+    </style>
+    <style name="thirdTextTitleP" parent="tvpink">
+        <item name="android:text">@string/clown_name</item>
+    </style>
+    <style name="fourthImageP">
+        <item name="android:src">@drawable/devil</item>
+        <item name="android:contentDescription">@string/devil_name</item>
+        <item name="android:tag">3</item>
+    </style>
+    <style name="fourthTextP" parent="tvpink">
+        <item name="android:text">@string/devil_desc</item>
+    </style>
+    <style name="fourthTextTitleP" parent="tvpink">
+        <item name="android:text">@string/devil_name</item>
+    </style>
+    <!-- Preferences -->
+    <style name="speakerp" parent="tvpink">
+        <item name="android:icon">@drawable/ic_speaker</item>
+    </style>
+    <style name="vibrationp" parent="tvpink">
+        <item name="android:icon">@drawable/ic_vibration</item>
+    </style>
+    <style name="notificationp" parent="tvpink">
+        <item name="android:icon">@drawable/ic_notification</item>
+    </style>
+    <style name="lightp" parent="tvpink">
+        <item name="android:icon">@drawable/ic_light</item>
+    </style>
+    <style name="playerp" parent="tvpink">
+        <item name="android:icon">@drawable/ic_player</item>
+    </style>
+    <style name="themep" parent="tvpink">
+        <item name="android:icon">@drawable/ic_theme</item>
+    </style>
+    <style name="languagep" parent="tvpink">
+        <item name="android:icon">@drawable/ic_language</item>
+    </style>
 
+
+    <!-- Star Wars Style -->
     <style name="CHEWBACCA" parent="FullscreenTheme">
         <item name="colorPrimary">@color/starprimarycolor</item>
         <item name="colorPrimaryDark">@color/starprimarydarkcolor</item>
         <item name="colorAccent">@color/starcolorAccent</item>
         <item name="backgroundStyle">@style/bgstarwars</item>
+        <item name="playBackground">@style/bgplaystarwars</item>
         <item name="textStyle">@style/tvstarwars</item>
         <item name="helpIconStyle">@style/ichelpstarwars</item>
         <item name="aboutIconStyle">@style/icaboutstarwars</item>
         <item name="floatingButtonStyle">@style/floatingstarwars</item>
+        <item name="buttonStyles">@style/buttonstarwars</item>
+        <item name="homeText">@style/homesw</item>
+        <item name="helpText">@style/helpsw</item>
         <item name="aboutStyle">@style/tvstarwars</item>
+        <item name="firstImage">@style/firstImageSW</item>
+        <item name="firstText">@style/firstTextSW</item>
+        <item name="firstTextTitle">@style/firstTextTitleSW</item>
+        <item name="secondImage">@style/secondImageSW</item>
+        <item name="secondText">@style/secondTextSW</item>
+        <item name="secondTextTitle">@style/secondTextTitleSW</item>
+        <item name="thirdImage">@style/thirdImageSW</item>
+        <item name="thirdText">@style/thirdTextSW</item>
+        <item name="thirdTextTitle">@style/thirdTextTitleSW</item>
+        <item name="fourthImage">@style/fourthImageSW</item>
+        <item name="fourthText">@style/fourthTextSW</item>
+        <item name="fourthTextTitle">@style/fourthTextTitleSW</item>
+        <item name="preference_speaker">@style/speakersw</item>
+        <item name="preference_vibration">@style/vibrationsw</item>
+        <item name="preference_notification">@style/notificationsw</item>
+        <item name="preference_light">@style/lightsw</item>
+        <item name="preference_player">@style/playersw</item>
+        <item name="preference_theme">@style/themesw</item>
+        <item name="preference_language">@style/languagesw</item>
+        <item name="backgroundDialog">@style/bgdialogsw</item>
     </style>
 
     <style name="bgstarwars">
         <item name="android:background">@drawable/starwars</item>
     </style>
+    <style name="bgplaystarwars">
+        <item name="android:background">@drawable/play_pink</item>
+    </style>
+    <style name="bgdialogsw">
+        <item name="android:background">@color/stardialogcolor</item>
+    </style>
     <style name="tvstarwars">
         <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+    <style name="homesw" parent="tvstarwars">
+        <item name="android:text">@string/txt_home_text_starwars</item>
+    </style>
+    <style name="helpsw" parent="tvstarwars">
+        <item name="android:text">@string/help_intro_chewbacca</item>
     </style>
     <style name="ichelpstarwars">
         <item name="android:src">@drawable/ic_help_white</item>
@@ -74,24 +219,133 @@
     <style name="floatingstarwars">
         <item name="android:tint">@color/starbuttonPrimary</item>
     </style>
+    <style name="buttonstarwars">
+        <item name="android:background">@drawable/button_sw</item>
+    </style>
+    <style name="firstImageSW">
+        <item name="android:src">@drawable/santa</item>
+        <item name="android:contentDescription">@string/santa_name</item>
+        <item name="android:tag">0</item>
+    </style>
+    <style name="firstTextSW" parent="tvstarwars">
+        <item name="android:text">@string/santa_desc</item>
+    </style>
+    <style name="firstTextTitleSW" parent="tvstarwars">
+        <item name="android:text">@string/santa_name</item>
+    </style>
+    <style name="secondImageSW">
+        <item name="android:src">@drawable/mermaid</item>
+        <item name="android:contentDescription">@string/mermaid_name</item>
+        <item name="android:tag">1</item>
+    </style>
+    <style name="secondTextSW" parent="tvstarwars">
+        <item name="android:text">@string/mermaid_desc</item>
+    </style>
+    <style name="secondTextTitleSW" parent="tvstarwars">
+        <item name="android:text">@string/mermaid_name</item>
+    </style>
+    <style name="thirdImageSW">
+        <item name="android:src">@drawable/clown</item>
+        <item name="android:contentDescription">@string/clown_name</item>
+        <item name="android:tag">2</item>
+    </style>
+    <style name="thirdTextSW" parent="tvstarwars">
+        <item name="android:text">@string/clown_desc</item>
+    </style>
+    <style name="thirdTextTitleSW" parent="tvstarwars">
+        <item name="android:text">@string/clown_name</item>
+    </style>
+    <style name="fourthImageSW">
+        <item name="android:src">@drawable/devil</item>
+        <item name="android:contentDescription">@string/devil_name</item>
+        <item name="android:tag">3</item>
+    </style>
+    <style name="fourthTextSW" parent="tvstarwars">
+        <item name="android:text">@string/devil_desc</item>
+    </style>
+    <style name="fourthTextTitleSW" parent="tvstarwars">
+        <item name="android:text">@string/devil_name</item>
+    </style>
+    <!-- Preferences -->
+    <style name="speakersw" parent="tvstarwars">
+        <item name="android:icon">@drawable/ic_speaker_white</item>
+    </style>
+    <style name="vibrationsw" parent="tvstarwars">
+        <item name="android:icon">@drawable/ic_vibration_white</item>
+    </style>
+    <style name="notificationsw" parent="tvstarwars">
+        <item name="android:icon">@drawable/ic_notification_white</item>
+    </style>
+    <style name="lightsw" parent="tvstarwars">
+        <item name="android:icon">@drawable/ic_light_white</item>
+    </style>
+    <style name="playersw" parent="tvstarwars">
+        <item name="android:icon">@drawable/ic_player_white</item>
+    </style>
+    <style name="themesw" parent="tvstarwars">
+        <item name="android:icon">@drawable/ic_theme_white</item>
+    </style>
+    <style name="languagesw" parent="tvstarwars">
+        <item name="android:icon">@drawable/ic_language_white</item>
+    </style>
 
+
+    <!-- Harry Potter Style -->
     <style name="EXPELLIARMUS" parent="FullscreenTheme">
         <item name="colorPrimary">@color/hpotprimarycolor</item>
         <item name="colorPrimaryDark">@color/hpotprimarydarkcolor</item>
         <item name="colorAccent">@color/hpotbackground</item>
         <item name="backgroundStyle">@style/bgharrypotter</item>
+        <item name="playBackground">@style/bgplayharrypotter</item>
         <item name="textStyle">@style/tvharrypotter</item>
         <item name="helpIconStyle">@style/ichelppotter</item>
         <item name="aboutIconStyle">@style/icaboutpotter</item>
         <item name="floatingButtonStyle">@style/floatingpotter</item>
-        <item name="aboutStyle">@style/aboutPageharrypotter</item>
+        <item name="buttonStyles">@style/buttonharrypotter</item>
+        <item name="homeText">@style/homehp</item>
+        <item name="helpText">@style/helphp</item>
+        <item name="aboutStyle">@style/tvharrypotter</item>
+        <item name="firstImage">@style/firstImageHP</item>
+        <item name="firstText">@style/firstTextHP</item>
+        <item name="firstTextTitle">@style/firstTextTitleHP</item>
+        <item name="secondImage">@style/secondImageHP</item>
+        <item name="secondText">@style/secondTextHP</item>
+        <item name="secondTextTitle">@style/secondTextTitleHP</item>
+        <item name="thirdImage">@style/thirdImageHP</item>
+        <item name="thirdText">@style/thirdTextHP</item>
+        <item name="thirdTextTitle">@style/thirdTextTitleHP</item>
+        <item name="fourthImage">@style/fourthImageHP</item>
+        <item name="fourthText">@style/fourthTextHP</item>
+        <item name="fourthTextTitle">@style/fourthTextTitleHP</item>
+        <item name="preference_speaker">@style/speakerhp</item>
+        <item name="preference_vibration">@style/vibrationhp</item>
+        <item name="preference_notification">@style/notificationhp</item>
+        <item name="preference_light">@style/lighthp</item>
+        <item name="preference_player">@style/playerhp</item>
+        <item name="preference_theme">@style/themehp</item>
+        <item name="preference_language">@style/languagehp</item>
+        <item name="backgroundDialog">@style/bgdialoghp</item>
     </style>
 
     <style name="bgharrypotter">
         <item name="android:background">@drawable/harrypotter</item>
     </style>
+    <style name="bgdialoghp">
+        <item name="android:background">@color/hpotdialogcolor</item>
+    </style>
+    <style name="bgplayharrypotter">
+        <item name="android:background">@drawable/play_pink</item>
+    </style>
     <style name="tvharrypotter">
-        <item name="android:textColor">@color/foreground_material_light</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-condensed-light</item>
+    </style>
+    <style name="homehp" parent="tvharrypotter">
+        <item name="android:text">@string/txt_home_text_harrypotter</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+    <style name="helphp" parent="tvharrypotter">
+        <item name="android:text">@string/help_intro_expelliarmus</item>
     </style>
     <style name="ichelppotter">
         <item name="android:src">@drawable/ic_help</item>
@@ -102,11 +356,76 @@
     <style name="floatingpotter">
         <item name="android:tint">@color/hpotprimarycolor</item>
     </style>
-    <style name="aboutPageharrypotter">
-        <item name="android:textColor">@color/hpotbuttonPrimary</item>
-        <!--<item name="android:textStyle">bold</item>-->
-        <item name="android:fontFamily">sans-serif-regular</item>
+    <style name="buttonharrypotter">
+        <item name="android:background">@drawable/button_hp</item>
     </style>
+    <style name="firstImageHP">
+        <item name="android:src">@drawable/harry</item>
+        <item name="android:contentDescription">@string/harry_name</item>
+        <item name="android:tag">0</item>
+    </style>
+    <style name="firstTextHP" parent="tvharrypotter">
+        <item name="android:text">@string/harry_desc</item>
+    </style>
+    <style name="firstTextTitleHP" parent="tvharrypotter">
+        <item name="android:text">@string/harry_name</item>
+    </style>
+    <style name="secondImageHP">
+        <item name="android:src">@drawable/hermione</item>
+        <item name="android:contentDescription">@string/hermione_name</item>
+        <item name="android:tag">1</item>
+    </style>
+    <style name="secondTextHP" parent="tvharrypotter">
+        <item name="android:text">@string/hermione_desc</item>
+    </style>
+    <style name="secondTextTitleHP" parent="tvharrypotter">
+        <item name="android:text">@string/hermione_name</item>
+    </style>
+    <style name="thirdImageHP">
+        <item name="android:src">@drawable/snape</item>
+        <item name="android:contentDescription">@string/snape_name</item>
+        <item name="android:tag">2</item>
+    </style>
+    <style name="thirdTextHP" parent="tvharrypotter">
+        <item name="android:text">@string/snape_desc</item>
+    </style>
+    <style name="thirdTextTitleHP" parent="tvharrypotter">
+        <item name="android:text">@string/snape_name</item>
+    </style>
+    <style name="fourthImageHP">
+        <item name="android:src">@drawable/voldemort</item>
+        <item name="android:contentDescription">@string/voldemort_name</item>
+        <item name="android:tag">3</item>
+    </style>
+    <style name="fourthTextHP" parent="tvharrypotter">
+        <item name="android:text">@string/voldemort_desc</item>
+    </style>
+    <style name="fourthTextTitleHP" parent="tvharrypotter">
+        <item name="android:text">@string/voldemort_name</item>
+    </style>
+    <!-- Preferences -->
+    <style name="speakerhp" parent="tvharrypotter">
+        <item name="android:icon">@drawable/ic_speaker_white</item>
+    </style>
+    <style name="vibrationhp" parent="tvharrypotter">
+        <item name="android:icon">@drawable/ic_vibration_white</item>
+    </style>
+    <style name="notificationhp" parent="tvharrypotter">
+        <item name="android:icon">@drawable/ic_notification_white</item>
+    </style>
+    <style name="lighthp" parent="tvharrypotter">
+        <item name="android:icon">@drawable/ic_light_white</item>
+    </style>
+    <style name="playerhp" parent="tvharrypotter">
+        <item name="android:icon">@drawable/ic_player_white</item>
+    </style>
+    <style name="themehp" parent="tvharrypotter">
+        <item name="android:icon">@drawable/ic_theme_white</item>
+    </style>
+    <style name="languagehp" parent="tvharrypotter">
+        <item name="android:icon">@drawable/ic_language_white</item>
+    </style>
+
     <!-- Generic Text Style -->
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">sans-serif-thin</item>
@@ -116,5 +435,11 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 
 </resources>
