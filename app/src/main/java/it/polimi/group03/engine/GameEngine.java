@@ -42,6 +42,7 @@ public class GameEngine {
 
     private Game game;
     private GameValidator validator;
+    private GameBrain brain;
 
     /**
      * This method initializes some attributes in order the prepare the game for the start. This method initializes the board,
@@ -57,6 +58,7 @@ public class GameEngine {
         this.game.init();
         this.game.resetMovedBarsByOpponents();
         this.game.resetLosersAfterTurn();
+        this.brain = new GameBrain();
     }
 
     /**
@@ -348,4 +350,7 @@ public class GameEngine {
         return this.game;
     }
 
+    public GameBrain getBrain() {
+        return this.brain;
+    }
 }

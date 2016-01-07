@@ -31,11 +31,13 @@
     <string name="btn_statistics_text">STATISTICS</string>
 
     <string-array name="players">
+        <item>1 player</item>
         <item>2 players</item>
         <item>3 players</item>
         <item>4 players</item>
     </string-array>
     <string-array name="players_keys">
+        <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
