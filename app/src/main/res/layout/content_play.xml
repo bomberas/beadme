@@ -47,7 +47,7 @@
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/imgViewH1"
-                    android:src="@drawable/red1_sw"
+                    android:src="@drawable/red1_hp"
                     android:layout_marginLeft="1dp"
                     android:layout_marginStart="1dp"
                     android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                     android:id="@+id/imgViewH2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red2" />
+                    android:src="@drawable/red1_hp" />
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -68,7 +68,7 @@
                     android:id="@+id/imgViewH3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red3"/>
+                    android:src="@drawable/red1_hp"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -76,7 +76,7 @@
                     android:id="@+id/imgViewH4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red4"/>
+                    android:src="@drawable/red1_hp"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -84,7 +84,7 @@
                     android:id="@+id/imgViewH5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red5"
+                    android:src="@drawable/red1_hp"
                      />
             </LinearLayout>
 
@@ -93,7 +93,7 @@
                     android:id="@+id/imgViewH6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red6"
+                    android:src="@drawable/red1_hp"
                     />
             </LinearLayout>
 
@@ -109,7 +109,7 @@
 
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/linLayoutHorizontal" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <LinearLayout android:id="@+id/linLayoutHorizontal" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="invisible">
 
             <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent">
                 <ImageView

@@ -1,5 +1,6 @@
 package it.polimi.group03.activity;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +53,7 @@ public class PlayBeadMeActivity extends GenericActivity {
     private TextView txt_toast;
     private int cellWidth;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +67,11 @@ public class PlayBeadMeActivity extends GenericActivity {
 
         setScreenDimensions(height, width);
         getThemeManager().setPlayBackgroundAnimation(this, (RelativeLayout)findViewById(R.id.animation), height, width);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), DialogActivity.class));
     }
 
     private void setScreenDimensions(int height, int width) {
@@ -182,19 +188,16 @@ public class PlayBeadMeActivity extends GenericActivity {
         //relPlayers.setHorizontalGravity(RelativeLayout.CENTER_HORIZONTAL);
 
         LinearLayout summary = (LinearLayout)findViewById(R.id.summary);
-
         int space = (int)((box.getLayoutParams().width - getCellWidth())/ 2 );
-
 
         for ( int i = 0; i < numberOfPlayers; i++ ) {
 
-            Player player = new Player(i, i == 0 ? "Harry Potter" : i == 1 ? "Hermione Granger" : i == 2 ? "Voldemort" : "Severus Snape", "");
+            Player player = new Player(i, getIntent().getStringExtra(Constant.PLAYER_NAME + i), "");
             engine.addPlayer(player);
 
             //Adding image of player for the summary section
-            //todo Reemplazar esto con logica de verdad
-            int imageId = player.getId() == 0 ? R.drawable.harry : (player.getId() == 1 ? R.drawable.hermione : (player.getId() == 2 ? R.drawable.voldemort : R.drawable.snape));
-            int imageSummaryId = R.drawable.snitch5;
+            int imageId = getIntent().getIntExtra(Constant.PLAYER_ICON + i, 0);
+            int imageSummaryId = getThemeManager().getSummaryIcon(this, Constant.GAME_MAX_NUMBER_BEADS);
 
             ImageView imgSummary = new ImageView(getApplicationContext());
             imgSummary.setId(CommonUtil.getPlayerSummaryImageId(player.getId()));
@@ -220,42 +223,43 @@ public class PlayBeadMeActivity extends GenericActivity {
         }
 
 
-            int count = numberOfPlayers - 1;
-            int countI = 0;
-            // Adding beads to the view
-            for (int  j = 0; j < Constant.GAME_MAX_NUMBER_BEADS * numberOfPlayers; j++){
+        int count = numberOfPlayers - 1;
+        int countI = 0;
+        // Adding beads to the view
+        for (int  j = 0; j < Constant.GAME_MAX_NUMBER_BEADS * numberOfPlayers; j++){
 
-                int imageId = getEngine().getGame().getPlayers().get(count).getId() == 0 ? R.drawable.harry : (getEngine().getGame().getPlayers().get(count).getId() == 1 ? R.drawable.hermione : (getEngine().getGame().getPlayers().get(count).getId() == 2 ? R.drawable.voldemort : R.drawable.snape));
+            int imageId = getIntent().getIntExtra(Constant.PLAYER_ICON + count, 0);
 
-                ImageView imgBead= new ImageView(getApplicationContext());
-                imgBead.setTag(new Bead());
-                imgBead.setId(CommonUtil.getBeadId(count, countI));
-                imgBead.setImageResource(imageId);
+            //int imageId = getEngine().getGame().getPlayers().get(count).getId() == 0 ? R.drawable.harry : (getEngine().getGame().getPlayers().get(count).getId() == 1 ? R.drawable.hermione : (getEngine().getGame().getPlayers().get(count).getId() == 2 ? R.drawable.voldemort : R.drawable.snape));
 
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                params.leftMargin = space;
-                params.width = (int) (cellWidth * 1.1);
-                params.height = (int) (cellWidth * 1.1);
-                params.topMargin = (int) (cellWidth * Constant.NUMBER_OF_CELLS + 1.5 * ((RelativeLayout.LayoutParams) box.getLayoutParams()).topMargin);
-                imgBead.setLayoutParams(params);
-                imgBead.setScaleType(ImageView.ScaleType.FIT_XY);
+            ImageView imgBead= new ImageView(getApplicationContext());
+            imgBead.setTag(new Bead());
+            imgBead.setId(CommonUtil.getBeadId(count, countI));
+            imgBead.setImageResource(imageId);
 
-                imgBead.setOnTouchListener(new BeadOnTouchListener(this, getEngine().getGame().getPlayers().get(count), ((RelativeLayout.LayoutParams) box.getLayoutParams()).leftMargin,
-                        ((RelativeLayout.LayoutParams) box.getLayoutParams()).topMargin,
-                        params.leftMargin, 5));
-                relPlayers.addView(imgBead, j);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-                count--;
+            params.leftMargin = space;
+            params.width = (int) (cellWidth * 1.1);
+            params.height = (int) (cellWidth * 1.1);
+            params.topMargin = (int) (cellWidth * Constant.NUMBER_OF_CELLS + 1.5 * ((RelativeLayout.LayoutParams) box.getLayoutParams()).topMargin);
+            imgBead.setLayoutParams(params);
+            imgBead.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                if ( count < 0 ){
-                    count = numberOfPlayers -1;
-                    countI++;
-                }
+            imgBead.setOnTouchListener(new BeadOnTouchListener(this, getEngine().getGame().getPlayers().get(count), ((RelativeLayout.LayoutParams) box.getLayoutParams()).leftMargin,
+                    ((RelativeLayout.LayoutParams) box.getLayoutParams()).topMargin,
+                    params.leftMargin, 5));
 
+            relPlayers.addView(imgBead, j);
+
+            count--;
+
+            if ( count < 0 ){
+                count = numberOfPlayers -1;
+                countI++;
             }
 
-
-
+        }
         engine.getGame().setNextPlayer(engine.getGame().getPlayers().get(0));
         showBeadsOnBoard(false);
     }
@@ -312,29 +316,31 @@ public class PlayBeadMeActivity extends GenericActivity {
 
     public void showBeadsOnBoard(boolean animate){
 
-            for (Player player: getEngine().getGame().getPlayers()) {
-                int indexBead = Constant.GAME_MAX_NUMBER_BEADS - 1;
+        for (Player player: getEngine().getGame().getPlayers()) {
+            int indexBead = Constant.GAME_MAX_NUMBER_BEADS - 1;
 
-                for (int i = 0; i < Constant.GAME_MAX_NUMBER_BEADS; i++) {
-                    ImageView imgBead = (ImageView) findViewById(CommonUtil.getBeadId(player.getId(), indexBead));
+            for (int i = 0; i < Constant.GAME_MAX_NUMBER_BEADS; i++) {
+                ImageView imgBead = (ImageView) findViewById(CommonUtil.getBeadId(player.getId(), indexBead));
 
-                    if ( player.getId() == getEngine().getGame().getNextPlayer().getId() ) {
-                        imgBead.setVisibility(ImageView.VISIBLE);
-                        getAnimationManager().fadeIn(imgBead);
-                        if(((Bead)imgBead.getTag()).isActive())getAnimationManager().bounce(imgBead.getContext(), imgBead);
-                    } else {
-                        if ( !((Bead)imgBead.getTag()).isPlaced() ) {
-                            if (animate) getAnimationManager().fadeOut(imgBead);
-                            imgBead.setVisibility(ImageView.GONE);
-                        }
+                if ( player.getId() == getEngine().getGame().getNextPlayer().getId() ) {
+                    imgBead.setVisibility(ImageView.VISIBLE);
+
+                    getAnimationManager().fadeIn(imgBead);
+                    if(((Bead)imgBead.getTag()).isActive())getAnimationManager().bounce(imgBead.getContext(), imgBead);
+                } else {
+                    if ( !((Bead)imgBead.getTag()).isPlaced() ) {
+                        if (animate) getAnimationManager().fadeOut(imgBead);
+                        imgBead.setVisibility(ImageView.GONE);
                     }
-                    indexBead --;
                 }
+                indexBead --;
             }
 
-            TextView text = (TextView) findViewById(R.id.txtCurrentPlayer);
-            text.setText(getResources().getString(R.string.current_player, getEngine().getGame().getNextPlayer().getNickname()));
-            CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(), getResources().getString(R.string.next_player) + getEngine().getGame().getNextPlayer().getNickname(), Toast.LENGTH_SHORT);
+        }
+
+        TextView text = (TextView) findViewById(R.id.txtCurrentPlayer);
+        text.setText(getResources().getString(R.string.current_player, getEngine().getGame().getNextPlayer().getNickname()));
+        CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(), getResources().getString(R.string.next_player) + getEngine().getGame().getNextPlayer().getNickname(), Toast.LENGTH_SHORT);
     }
 
     public GameEngine getEngine() {

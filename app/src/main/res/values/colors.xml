@@ -34,9 +34,11 @@
     <color name="hpotprimarycolor">#f1ab00</color>
     <color name="hpotprimarydarkcolor">#0E780E</color>
     <color name="hpotcolorAccent">#a55d68</color>
-    <color name="hpotbuttonPrimary">#0E500E</color>
+    <!--<color name="hpotbuttonPrimary">#0E500E</color>-->
+    <color name="hpotbuttonPrimary">#8A0808</color>
     <color name="hpotbuttonFocused">#fea531</color>
-    <color name="hpotbuttonPressed">#0EA00E</color>
+    <!--<color name="hpotbuttonPressed">#0EA00E</color>-->
+    <color name="hpotbuttonPressed">#B40404</color>
     <color name="hpotdialogcolor">#80070000</color>
 
     <color name="grid_background">#FF000000</color>

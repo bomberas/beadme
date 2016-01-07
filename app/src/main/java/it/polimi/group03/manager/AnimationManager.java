@@ -6,15 +6,12 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Rect;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import java.util.Random;
@@ -40,39 +37,54 @@ public class AnimationManager {
     private AnimationManager() {
     }
 
-    public void rotate(Context context, ImageView image) {
+    public void rotate(Context context, View image) {
         Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.rotate);
         image.startAnimation(animRotate);
     }
 
-    public void bounce(Context context, ImageView image) {
-        Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.bounce);
-        image.startAnimation(animRotate);
+    public void bounce(Context context, View image) {
+        Animation bounce = AnimationUtils.loadAnimation(context, R.anim.bounce);
+        image.startAnimation(bounce);
     }
 
-    public void zoom(Context context, ImageView image) {
-        Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.zoom);
-        image.startAnimation(animRotate);
+    public void zoomIn(Context context, View view) {
+        Animation zoomIn = AnimationUtils.loadAnimation(context, R.anim.zoom_in);
+        view.startAnimation(zoomIn);
     }
 
-    public void slideInFromRight(Context context, ImageView image) {
-        Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.slidein_right);
-        image.startAnimation(animRotate);
+    public void zoomOut(Context context, View view) {
+        Animation zoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out);
+        view.startAnimation(zoomOut);
     }
 
-    public void slideInFromLeft(Context context, ImageView image) {
-        Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.slidein_left);
-        image.startAnimation(animRotate);
+    public void slideInFromRight(Context context, View view) {
+        Animation slide = AnimationUtils.loadAnimation(context, R.anim.slidein_right);
+        view.startAnimation(slide);
     }
 
-    public void slideOutFromRight(Context context, ImageView image) {
-        Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.slideout_right);
-        image.startAnimation(animRotate);
+    public void slideInFromLeft(Context context, View view) {
+        Animation slide = AnimationUtils.loadAnimation(context, R.anim.slidein_left);
+        view.startAnimation(slide);
     }
 
-    public void slideOutFromLeft(Context context, ImageView image) {
-        Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.slideout_left);
-        image.startAnimation(animRotate);
+    public void slideOutFromRight(Context context, View view) {
+        Animation slide = AnimationUtils.loadAnimation(context, R.anim.slideout_right);
+        view.startAnimation(slide);
+    }
+
+    public void slideOutFromLeft(Context context, View view) {
+        Animation slide = AnimationUtils.loadAnimation(context, R.anim.slideout_left);
+        view.startAnimation(slide);
+    }
+
+    public void blink(Context context, View view) {
+        Animation blink = AnimationUtils.loadAnimation(context, R.anim.blink);
+        view.startAnimation(blink);
+    }
+
+    public void moveUp(Context context, View view) {
+        Animation moveUp = AnimationUtils.loadAnimation(context, R.anim.move_up);
+        view.startAnimation(moveUp);
     }
 
     public void fadeOut(ImageView image){
