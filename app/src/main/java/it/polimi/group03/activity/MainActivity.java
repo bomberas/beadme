@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 
+import android.util.Log;
 import android.widget.*;
 
 import it.polimi.group03.R;
+import it.polimi.group03.dao.SQLiteStatisticRepository;
+import it.polimi.group03.domain.Statistic;
 
 public class MainActivity extends Activity {
     private static final String IMAGEVIEW_TAG = "Cte Logo";
@@ -20,6 +23,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
 
 
 /*

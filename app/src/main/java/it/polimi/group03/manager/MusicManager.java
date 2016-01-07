@@ -1,9 +1,14 @@
 package it.polimi.group03.manager;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.media.SoundPool;
 import android.util.Log;
 
 import it.polimi.group03.R;
@@ -20,10 +25,11 @@ import it.polimi.group03.util.Constant;
  */
 public class MusicManager {
 
-    private static final String TAG = "MusicManager";
+    private static final String TAG = MusicManager.class.getSimpleName();
 
     private static MusicManager ourInstance = new MusicManager();
     private MediaPlayer media;
+    private SoundPool sndPool;
     private String theme;
 
     public static MusicManager getInstance() {
@@ -31,6 +37,11 @@ public class MusicManager {
     }
 
     private MusicManager() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            createNewSoundPool();
+        }else{
+            createOldSoundPool();
+        }
     }
 
     /**
@@ -85,6 +96,62 @@ public class MusicManager {
     }
 
     /**
+     * Plays the corresponding sound effect for the action of moving bars in the game.
+     * <b>Reference</b><br/>
+     *
+     * {@link #getMoveSoundEffect(Context)}<br/>
+     *
+     * @param context Calling Activity
+     */
+    public void playMoveSoundEffect(Context context) {
+        if ( !isSoundOn(context) ) {
+            Log.i(TAG, "The sound preference is off");
+            return;
+        }
+
+        //MediaPlayer.create(context, getMoveSoundEffect(context)).start();
+
+        sndPool.play(sndPool.load(context, getMoveSoundEffect(context), 1), 1, 1, 0, 0, 1);
+
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected void createNewSoundPool(){
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        sndPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
+
+    @SuppressWarnings("deprecation")
+    protected void createOldSoundPool(){
+        sndPool = new SoundPool(5,AudioManager.STREAM_MUSIC,0);
+    }
+
+    /**
+     * Plays the corresponding sound effect for the action of changing turn in the game.
+     * <b>Reference</b><br/>
+     *
+     * {@link #getNextPlayerSoundEffect(Context)}<br/>
+     *
+     * @param context Calling Activity
+     */
+    public void playNextPlayerSoundEffect(Context context) {
+        if ( !isSoundOn(context) ) {
+            Log.i(TAG, "The sound preference is off");
+            return;
+        }
+
+        sndPool.play(sndPool.load(context, getNextPlayerSoundEffect(context), 1), 1, 1, 0, 0, 1);
+        //MediaPlayer.create(context, getNextPlayerSoundEffect(context)).start();
+
+    }
+
+    /**
      * If the application <i>sound</i> is enabled (and previously started and playing), the manager will
      * pause the current track.<br/><br/>
      */
@@ -134,6 +201,54 @@ public class MusicManager {
                 break;
             case Constant.PREF_THEME_HARRY_POTTER:
                 soundtrack = R.raw.harrypotter;
+                break;
+        }
+        return soundtrack;
+    }
+
+    /**
+     * Returns the sound effect for the action of moving the bar, according to the selected theme.
+     *
+     * @param context Calling Activity
+     * @return {@code id} of the soundtrack according to the selected theme.
+     */
+    private int getMoveSoundEffect(Context context) {
+        int soundtrack;
+
+        switch ( ThemeManager.getInstance().theme(context) ) {
+            default:
+            case Constant.PREF_THEME_DEFAULT:
+                soundtrack = R.raw.pink;
+                break;
+            case Constant.PREF_THEME_STAR_WARS:
+                soundtrack = R.raw.lightsaber;
+                break;
+            case Constant.PREF_THEME_HARRY_POTTER:
+                soundtrack = R.raw.harrypotter;
+                break;
+        }
+        return soundtrack;
+    }
+
+    /**
+     * Returns the sound effect for the action of next player in the game, according to the selected theme.
+     *
+     * @param context Calling Activity
+     * @return {@code id} of the soundtrack according to the selected theme.
+     */
+    private int getNextPlayerSoundEffect(Context context) {
+        int soundtrack;
+
+        switch ( ThemeManager.getInstance().theme(context) ) {
+            default:
+            case Constant.PREF_THEME_DEFAULT:
+                soundtrack = 0;
+                break;
+            case Constant.PREF_THEME_STAR_WARS:
+                soundtrack = R.raw.chewee;
+                break;
+            case Constant.PREF_THEME_HARRY_POTTER:
+                soundtrack = 0;
                 break;
         }
         return soundtrack;

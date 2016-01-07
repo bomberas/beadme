@@ -17,10 +17,9 @@
     <string name="e0x6">You cannot placed the bead in this position.</string>
     <string name="e0x7">You cannot moved this bead because is already placed.</string>
     <string name="e0x8">The bead must be placed inside the board.</string>
-    <string name="current_player">Playing: &#160;</string>
+    <string name="current_player">C\'mon %1$s is your turn!</string>
     <string name="next_player">Next Player: &#160;</string>
-    <string name="winner_1">God save &#160;</string>
-    <string name="winner_2">&#160; almighty king of &#160;</string>
+    <string name="winner">God save %1$s almighty king of Bead Me</string>
     <string name="debbuggable">true</string>
 
     <string name="txt_home_text_pink">be cool, but also be warm</string>
@@ -140,9 +139,8 @@
     <string name="help_third_title">One more thing!</string>
     <string name="help_third_desc">You can\'t slide a bar that was slid in the previous turn by anyone of your opponents, sorry but RULES are RULES,
         and when only two players are left, you cannot slide the same bar for more than two consecutive turns.\n\nIf the remaining beads belong to different players,
-        and they all fall down at the same time, the player sliding the bar wins.
+        and they all fall down at the same time, the player sliding the bar wins. And that\'s all folks!
     </string>
-    <string name="help_third_desc_x">And that\'s all folks!</string>
     <string-array name="bead_colors">
         <item> Pink </item>
         <item> Green </item>
@@ -152,31 +150,5 @@
     <string name="nickname">Choose your nickname:</string>
     <string name="bead_color">Choose bead color:</string>
     <string name="title_activity_fullscreen">Choose bead color:</string>
-
-
-    <!-- Characters Activity -->
-    <string name="santa_name">Santa</string>
-    <string name="santa_desc">A.K.A Kris Kringle, pick him only if you have been a nice boy!</string>
-    <string name="mermaid_name">Little Mermaid</string>
-    <string name="mermaid_desc">You want her fish tail, she wants your legs!</string>
-    <string name="clown_name">Killer Clown</string>
-    <string name="clown_desc">Why aren\'t you allowed to incinerate clowns? They burn funny lol!</string>
-    <string name="devil_name">The Dreaded Devil</string>
-    <string name="devil_desc">Let\'s ask him if he wears Prada!</string>
-    <string name="harry_name">Harry Potter</string>
-    <string name="harry_desc">The boy who lived! Beware, you may be the chosen one!</string>
-    <string name="hermione_name">Hermione Granger</string>
-    <string name="hermione_desc">A know-it all right? Maybe, bet you want to be like her!</string>
-    <string name="snape_name">Severus Snape</string>
-    <string name="snape_desc">The Half-Blood Prince, a good heart with a tough exterior</string>
-    <string name="voldemort_name">Voldemort</string>
-    <string name="voldemort_desc">He-Who-Must-Not-Be-Named, he claims to be pure blood, but we all know the truth.</string>
-
-    <string name="choose_character">Choose character for Player</string>
-    <string name="choose_character_1">1</string>
-    <string name="button_choose_character">Pick Me!</string>
-
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
-    <string name="leave_app">Are you sure you want to leave us now? The current game will be lost!</string>
+    <string name="title_activity_fall_animation">FallAnimationActivity</string>
 </resources>

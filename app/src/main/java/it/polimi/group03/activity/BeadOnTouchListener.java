@@ -1,11 +1,10 @@
 package it.polimi.group03.activity;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import it.polimi.group03.R;
@@ -37,23 +36,19 @@ import it.polimi.group03.util.Constant;
  */
 public class BeadOnTouchListener implements View.OnTouchListener {
 
-    private GenericActivity activity;
-    private GameEngine engine;
+    private PlayBeadMeActivity parentActivity;
     private Player player;
     private int prevMovX;
     private int prevMovY;
     private int startLeftMargin;
     private int startTopMargin;
-    private int cellWidth;
     private int leftMargin;
     private int topMargin;
 
 
-    public BeadOnTouchListener(GenericActivity activity, GameEngine engine, Player player, int cellWidth, int leftMargin, int topMargin, int leftImg, int topImg) {
-        this.activity = activity;
-        this.engine = engine;
+    public BeadOnTouchListener(PlayBeadMeActivity activity, Player player, int leftMargin, int topMargin, int leftImg, int topImg) {
+        this.parentActivity = activity;
         this.player = player;
-        this.cellWidth = cellWidth;
         this.leftMargin = leftMargin;
         this.topMargin = topMargin;
         this.startLeftMargin = leftImg;
@@ -78,7 +73,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
 
             case MotionEvent.ACTION_MOVE: {
                 // Move only if the bead hasn't yet been placed
-                if ( !bead.isPlaced() && player.getId() == engine.getGame().getNextPlayer().getId() ) {
+                if ( !bead.isPlaced() && player.getId() == parentActivity.getEngine().getGame().getNextPlayer().getId() ) {
                     par.topMargin += (int) event.getRawY() - prevMovY;
                     prevMovY = (int) event.getRawY();
                     par.leftMargin += (int) event.getRawX() - prevMovX;
@@ -90,33 +85,34 @@ public class BeadOnTouchListener implements View.OnTouchListener {
 
             case MotionEvent.ACTION_UP: {
                 // Checking if the bead was already placed
-                if ( !bead.isPlaced() && player.getId() == engine.getGame().getNextPlayer().getId() ) {
+                if ( !bead.isPlaced() && player.getId() == parentActivity.getEngine().getGame().getNextPlayer().getId() ) {
 
                     Log.i("TEST", "Trying to place bead");
                     Log.i("TEST", "Number of beads placed for player " + player.getId() + " = " + player.getBeads().size());
 
                     // Checking if the new location is inside the board
-                    if ( (int)event.getRawX() > leftMargin + 3*cellWidth && (int)event.getRawX() < (leftMargin + cellWidth * (Constant.NUMBER_OF_CELLS - 2)) &&
-                         (int)event.getRawY() > topMargin  + 3*cellWidth && (int)event.getRawY() < (topMargin  + cellWidth * (Constant.NUMBER_OF_CELLS - 2))) {
+                    if ( (int)event.getRawX() > leftMargin + 3*parentActivity.getCellWidth() && (int)event.getRawX() < (leftMargin + parentActivity.getCellWidth() * (Constant.NUMBER_OF_CELLS - 2)) &&
+                         (int)event.getRawY() > topMargin  + 3*parentActivity.getCellWidth() && (int)event.getRawY() < (topMargin  + parentActivity.getCellWidth() * (Constant.NUMBER_OF_CELLS - 2))) {
 
                         bead.setPosition(convertXYToRowColumn((int) event.getRawY(), topMargin), convertXYToRowColumn((int) event.getRawX() + 30, leftMargin));
 
                         if ( bead.getPosition().getX() > -1 && bead.getPosition().getY() > -1 ) {
 
                             // Calling validator
-                            StatusMessage status = engine.addBeadToBoard(player, bead);
+                            StatusMessage status = parentActivity.getEngine().addBeadToBoard(player, bead);
 
                             if (status.getCode().equals(Constant.STATUS_OK)) {
                                 par.topMargin = convertRowColumnToXY(bead.getPosition().getX(), topMargin);
                                 par.leftMargin = convertRowColumnToXY(bead.getPosition().getY(), leftMargin);
-                                engine.getGame().setNextPlayer(engine.getNextPlayer(player));
-                                enableImages(engine.getGame().getNextPlayer().getId());
+                                parentActivity.getEngine().getGame().setNextPlayer(parentActivity.getEngine().getNextPlayer(player));
+                                //parentActivity.showBeadsOnBoard(parentActivity.getEngine().getGame().getNextPlayer().getId());
+                                parentActivity.showBeadsOnBoard(true);
                                 Log.i("TEST", "Bead added to player " + player.getId());
                                 Log.i("TEST", "New position of bead " + bead.getPosition().toString());
                             } else {
                                 Log.i("TEST", "Invalid position. " + v.getResources().getString(status.getRCode()));
-                                CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
-                                this.activity.getVibrationManager().vibrate(v.getContext());
+                                CommonUtil.showToastMessage(v.getContext(), this.parentActivity.getVie_toast(), this.parentActivity.getTxt_toast(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
+                                this.parentActivity.getVibrationManager().vibrate(v.getContext());
                                 par.topMargin = startTopMargin;
                                 par.leftMargin = startLeftMargin;
                                 bead.setPosition(-1, -1);
@@ -124,16 +120,16 @@ public class BeadOnTouchListener implements View.OnTouchListener {
                             }
                         }else{
                             Log.i("TEST", "Invalid " + bead.getPosition().toString());
-                            CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x8), Toast.LENGTH_SHORT);
-                            this.activity.getVibrationManager().vibrate(v.getContext());
+                            CommonUtil.showToastMessage(v.getContext(), this.parentActivity.getVie_toast(), this.parentActivity.getTxt_toast(), v.getResources().getString(R.string.e0x8), Toast.LENGTH_SHORT);
+                            this.parentActivity.getVibrationManager().vibrate(v.getContext());
                             par.topMargin  = startTopMargin;
                             par.leftMargin = startLeftMargin;
                         }
 
                     } else {
                         Log.i("TEST", "New position outside board, not possible to place bead");
-                        CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x8), Toast.LENGTH_SHORT);
-                        this.activity.getVibrationManager().vibrate(v.getContext());
+                        CommonUtil.showToastMessage(v.getContext(), this.parentActivity.getVie_toast(), this.parentActivity.getTxt_toast(), v.getResources().getString(R.string.e0x8), Toast.LENGTH_SHORT);
+                        this.parentActivity.getVibrationManager().vibrate(v.getContext());
                         par.topMargin  = startTopMargin;
                         par.leftMargin = startLeftMargin;
                     }
@@ -142,20 +138,19 @@ public class BeadOnTouchListener implements View.OnTouchListener {
                     v.setTag(bead);
                 }
 
-                /*else {
-
-                    Log.i("TEST", "Bead already placed, not possible to place bead");
-                    CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x7), Toast.LENGTH_SHORT);
-                    par.topMargin = startTopMargin;
-                    par.leftMargin = startLeftMargin;
-                }
-*/
-
                 return true;
             }
 
             case MotionEvent.ACTION_DOWN: {
-                if ( !bead.isPlaced() && player.getId() == engine.getGame().getNextPlayer().getId() ) {
+                Log.i("TEST", "estoy moviendome, " + player.getId() + " " + parentActivity.getEngine().getGame().getNextPlayer().getId() );
+
+                Log.i("TEST", "intentando con el Jugador: "+ parentActivity.getEngine().getGame().getNextPlayer().getNickname());
+                Log.i("TEST", "bead.isPlaced(): "+ bead.isPlaced());
+                Log.i("TEST", "player.getId(): "+ player.getId());
+                Log.i("TEST", "parent player.getId(): "+ parentActivity.getEngine().getGame().getNextPlayer().getId());
+                Log.i("TEST", "Your moving bead number " + v.getId());
+
+                if ( !bead.isPlaced() && player.getId() == parentActivity.getEngine().getGame().getNextPlayer().getId() ) {
                     Log.i("TEST", "Your moving bead number " + v.getId());
                     prevMovX = (int) event.getRawX();
                     prevMovY = (int) event.getRawY();
@@ -181,7 +176,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
      * @return the corresponding {@code row} or {@code column} on the board.
      */
     private int convertXYToRowColumn(int x, int offset){
-        return (int)Math.floor((x - offset)/cellWidth) - 4;
+        return (int)Math.floor((x - offset)/parentActivity.getCellWidth()) - 4;
     }
 
     /**
@@ -193,31 +188,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
      * @return the corresponding {@code x coordinate} or {@code y coordinate} in which the bead will be placed.
      */
     private int convertRowColumnToXY(int i, int offset){
-        return (i + 3)*cellWidth + offset;
+        return (i + 3)*parentActivity.getCellWidth() + offset;
     }
 
-    private void enableImages(int id){
-
-        Log.i("TEST", "The next player is: " + id);
-        Log.i("TEST", "The player of this bead: " + player.getId());
-        for (Player player: this.engine.getGame().getPlayers()) {
-            int indexBead = Constant.GAME_MAX_NUMBER_BEADS - 1;
-            for (int i = 0; i < Constant.GAME_MAX_NUMBER_BEADS; i++) {
-                ImageView imgBead = (ImageView)activity.findViewById(CommonUtil.getBeadId(player.getId(), indexBead));
-                if ( player.getId() == id ) {
-                    imgBead.setVisibility(ImageView.VISIBLE);
-                } else {
-                    if ( !((Bead)imgBead.getTag()).isPlaced() ) {
-                        this.activity.getAnimationManager().rotate(imgBead.getContext(), imgBead);
-                        imgBead.setVisibility(ImageView.INVISIBLE);
-                    }
-                }
-                indexBead --;
-            }
-        }
-
-        TextView text = (TextView)activity.findViewById(R.id.txtCurrentPlayer);
-        text.setText(activity.getApplicationContext().getResources().getString(R.string.current_player) + engine.getGame().getNextPlayer().getNickname());
-        CommonUtil.showToastMessage(activity.getApplicationContext(), activity.getResources().getString(R.string.next_player) + engine.getGame().getNextPlayer().getNickname(), Toast.LENGTH_SHORT);
-    }
 }

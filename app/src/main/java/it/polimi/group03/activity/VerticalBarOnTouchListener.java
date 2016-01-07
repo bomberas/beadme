@@ -1,6 +1,7 @@
 package it.polimi.group03.activity;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -36,11 +37,9 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
     private int prevFixedY;
     private int prevMovY;
     private int leftMargin;
-    private int cellWidth;
 
-    public VerticalBarOnTouchListener(GenericActivity activity, GameEngine engine, int cellWidth) {
-        super(activity, engine);
-        this.cellWidth = cellWidth;
+    public VerticalBarOnTouchListener(PlayBeadMeActivity activity) {
+        super(activity);
     }
 
     /**
@@ -62,7 +61,7 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
 
             case MotionEvent.ACTION_MOVE: {
 
-                if ( getEngine().isGameStartConditionReached() && !getEngine().isGameEndConditionReached()) {
+                if ( getParentActivity().getEngine().isGameStartConditionReached() && !getParentActivity().getEngine().isGameEndConditionReached()) {
                     par.topMargin += (int) event.getRawY() - prevMovY;
                     prevMovY = (int) event.getRawY();
                     v.setLayoutParams(par);
@@ -72,7 +71,7 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
 
             case MotionEvent.ACTION_UP: {
 
-                if ( getEngine().isGameStartConditionReached() && !getEngine().isGameEndConditionReached()) {
+                if ( getParentActivity().getEngine().isGameStartConditionReached() && !getParentActivity().getEngine().isGameEndConditionReached()) {
 
                     par.leftMargin = leftMargin;
 
@@ -81,7 +80,7 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
 
                         Log.i("TEST", "Starting in OUTER, I can move only to the middle, so CENTRAL, INNER not allowed");
 
-                        if ((int) event.getRawY() >= cellWidth && (int) event.getRawY() > prevFixedY) {
+                        if ((int) event.getRawY() >= getParentActivity().getCellWidth() && (int) event.getRawY() > prevFixedY) {
                             //This means I'm moving to the right, which is the only
                             //correct movement starting from the OUTER position
                             //In this case I move just one cell, so CENTRAL
@@ -89,10 +88,11 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
                             Log.i("TEST", "Moving from OUTER to CENTRAL");
 
                             // Calling validator
-                            StatusMessage status = getEngine().makeMove(bar.getId(), bar.getOrientation(), BarPosition.CENTRAL, getEngine().getGame().getNextPlayer());
+                            StatusMessage status = getParentActivity().getEngine().makeMove(bar.getId(), bar.getOrientation(), BarPosition.CENTRAL, getParentActivity().getEngine().getGame().getNextPlayer());
 
                             if (status.getCode().equals(Constant.STATUS_OK)) {
-                                par.topMargin = cellWidth;
+                                getParentActivity().getMusicManager().playMoveSoundEffect(getParentActivity().getApplicationContext());
+                                par.topMargin = getParentActivity().getCellWidth();
                                 bar.setPosition(BarPosition.CENTRAL);
                                 refreshBoard();
                                 refreshState();
@@ -100,13 +100,13 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
                                 par.topMargin = 0;
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
                                 getParentActivity().getVibrationManager().vibrate(v.getContext());
-                                CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
+                                CommonUtil.showToastMessage(v.getContext(), getParentActivity().getVie_toast(), getParentActivity().getTxt_toast(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else {
                             Log.i("TEST", "NOT ALLOWED Moving from OUTER to other position than CENTRAL");
                             par.topMargin = 0;
                             getParentActivity().getVibrationManager().vibrate(v.getContext());
-                            CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x2), Toast.LENGTH_LONG);
+                            CommonUtil.showToastMessage(v.getContext(), getParentActivity().getVie_toast(), getParentActivity().getTxt_toast(), v.getResources().getString(R.string.e0x2), Toast.LENGTH_SHORT);
                         }
 
                     } else if (bar.getPosition().equals(BarPosition.CENTRAL)) {
@@ -114,44 +114,46 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
 
                         Log.i("TEST", "Starting in CENTRAL, I can move both to the top and to the bottom, so INNER, OUTER");
 
-                        if ((int) event.getRawY() > (prevFixedY + cellWidth)) { //This means I'm moving to the bottom
+                        if ((int) event.getRawY() > (prevFixedY + getParentActivity().getCellWidth())) { //This means I'm moving to the bottom
                             Log.i("TEST", "Moving from CENTRAL to INNER");
 
                             // Calling validator
-                            StatusMessage status = getEngine().makeMove(bar.getId(), bar.getOrientation(), BarPosition.INNER, getEngine().getGame().getNextPlayer());
+                            StatusMessage status = getParentActivity().getEngine().makeMove(bar.getId(), bar.getOrientation(), BarPosition.INNER, getParentActivity().getEngine().getGame().getNextPlayer());
 
                             if (status.getCode().equals(Constant.STATUS_OK)) {
-                                par.topMargin = 2 * cellWidth;
+                                getParentActivity().getMusicManager().playMoveSoundEffect(getParentActivity().getApplicationContext());
+                                par.topMargin = 2 * getParentActivity().getCellWidth();
                                 bar.setPosition(BarPosition.INNER);
                                 refreshBoard();
                                 refreshState();
                             } else {
-                                par.topMargin = cellWidth;
+                                par.topMargin = getParentActivity().getCellWidth();
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
                                 getParentActivity().getVibrationManager().vibrate(v.getContext());
-                                CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
+                                CommonUtil.showToastMessage(v.getContext(), getParentActivity().getVie_toast(), getParentActivity().getTxt_toast(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else if ((int) event.getRawY() < prevFixedY) {   // Not with CELL_WIDTH because is enough moving to the left, having in mind that
                             // all bar start at the beginning of each cell
                             Log.i("TEST", "Moving from CENTRAL to OUTER");
 
                             // Calling validator
-                            StatusMessage status = getEngine().makeMove(bar.getId(), bar.getOrientation(), BarPosition.OUTER, getEngine().getGame().getNextPlayer());
+                            StatusMessage status = getParentActivity().getEngine().makeMove(bar.getId(), bar.getOrientation(), BarPosition.OUTER, getParentActivity().getEngine().getGame().getNextPlayer());
 
                             if (status.getCode().equals(Constant.STATUS_OK)) {
+                                getParentActivity().getMusicManager().playMoveSoundEffect(getParentActivity().getApplicationContext());
                                 par.topMargin = 0;
                                 bar.setPosition(BarPosition.OUTER);
                                 refreshBoard();
                                 refreshState();
                             } else {
-                                par.topMargin = cellWidth;
+                                par.topMargin = getParentActivity().getCellWidth();
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
                                 getParentActivity().getVibrationManager().vibrate(v.getContext());
-                                CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
+                                CommonUtil.showToastMessage(v.getContext(), getParentActivity().getVie_toast(), getParentActivity().getTxt_toast(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else {
                             Log.i("TEST", "NOT ALLOWED Moving from CENTRAL to other position than INNER/OUTER.");
-                            par.topMargin = cellWidth;
+                            par.topMargin = getParentActivity().getCellWidth();
                         }
 
                     } else if (bar.getPosition().equals(BarPosition.INNER)) {
@@ -165,24 +167,25 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
                             Log.i("TEST", "Moving from INNER to CENTRAL");
 
                             // Calling validator
-                            StatusMessage status = getEngine().makeMove(bar.getId(), bar.getOrientation(), BarPosition.CENTRAL, getEngine().getGame().getNextPlayer());
+                            StatusMessage status = getParentActivity().getEngine().makeMove(bar.getId(), bar.getOrientation(), BarPosition.CENTRAL, getParentActivity().getEngine().getGame().getNextPlayer());
 
                             if (status.getCode().equals(Constant.STATUS_OK)) {
-                                par.topMargin = cellWidth;
+                                getParentActivity().getMusicManager().playMoveSoundEffect(getParentActivity().getApplicationContext());
+                                par.topMargin = getParentActivity().getCellWidth();
                                 bar.setPosition(BarPosition.CENTRAL);
                                 refreshBoard();
                                 refreshState();
                             } else {
-                                par.topMargin = 2 * cellWidth;
+                                par.topMargin = 2 * getParentActivity().getCellWidth();
                                 Log.i("TEST", "Invalid movement. " + v.getResources().getString(status.getRCode()));
                                 getParentActivity().getVibrationManager().vibrate(v.getContext());
-                                CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
+                                CommonUtil.showToastMessage(v.getContext(), getParentActivity().getVie_toast(), getParentActivity().getTxt_toast(), v.getResources().getString(status.getRCode()), Toast.LENGTH_SHORT);
                             }
                         } else {
                             Log.i("TEST", "NOT ALLOWED Moving from INNER to other position than CENTRAL");
                             getParentActivity().getVibrationManager().vibrate(v.getContext());
-                            CommonUtil.showToastMessage(v.getContext(), v.getResources().getString(R.string.e0x2), Toast.LENGTH_LONG);
-                            par.topMargin = 2 * cellWidth;
+                            CommonUtil.showToastMessage(v.getContext(), getParentActivity().getVie_toast(), getParentActivity().getTxt_toast(), v.getResources().getString(R.string.e0x2), Toast.LENGTH_SHORT);
+                            par.topMargin = 2 * getParentActivity().getCellWidth();
                         }
 
                     }
@@ -195,7 +198,7 @@ public class VerticalBarOnTouchListener extends GenericOnTouchListener implement
             }
 
             case MotionEvent.ACTION_DOWN: {
-                if ( getEngine().isGameStartConditionReached() && !getEngine().isGameEndConditionReached()) {
+                if ( getParentActivity().getEngine().isGameStartConditionReached() && !getParentActivity().getEngine().isGameEndConditionReached()) {
                     prevFixedY = (int) event.getRawY();
                     prevMovY = (int) event.getRawY();
                     par.bottomMargin = -2 * v.getHeight();
