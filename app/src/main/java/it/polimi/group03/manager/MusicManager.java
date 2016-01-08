@@ -133,25 +133,6 @@ public class MusicManager {
     }
 
     /**
-     * Plays the corresponding sound effect for the action of changing turn in the game.
-     * <b>Reference</b><br/>
-     *
-     * {@link #getNextPlayerSoundEffect(Context)}<br/>
-     *
-     * @param context Calling Activity
-     */
-    public void playNextPlayerSoundEffect(Context context) {
-        if ( !isSoundOn(context) ) {
-            Log.i(TAG, "The sound preference is off");
-            return;
-        }
-
-        sndPool.play(sndPool.load(context, getNextPlayerSoundEffect(context), 1), 1, 1, 0, 0, 1);
-        //MediaPlayer.create(context, getNextPlayerSoundEffect(context)).start();
-
-    }
-
-    /**
      * If the application <i>sound</i> is enabled (and previously started and playing), the manager will
      * pause the current track.<br/><br/>
      */
@@ -218,13 +199,13 @@ public class MusicManager {
         switch ( ThemeManager.getInstance().theme(context) ) {
             default:
             case Constant.PREF_THEME_DEFAULT:
-                soundtrack = R.raw.pink;
+                soundtrack = R.raw.balloon;
                 break;
             case Constant.PREF_THEME_STAR_WARS:
                 soundtrack = R.raw.lightsaber;
                 break;
             case Constant.PREF_THEME_HARRY_POTTER:
-                soundtrack = R.raw.harrypotter;
+                soundtrack = R.raw.flying;
                 break;
         }
         return soundtrack;
