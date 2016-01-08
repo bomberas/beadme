@@ -39,7 +39,7 @@ public class MusicManager {
     private MusicManager() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             createNewSoundPool();
-        }else{
+        } else {
             createOldSoundPool();
         }
     }
@@ -48,7 +48,7 @@ public class MusicManager {
      * Checks if the preference corresponding to the application <i>sound</i> is
      * enabled.<br/><br/>
      * <b>Reference</b><br/>
-     *
+     * <p/>
      * {@link #start(Context)}<br/>
      * {@link #updateSoundPrefs(Context)}<br/>
      *
@@ -68,20 +68,20 @@ public class MusicManager {
      * If the application <i>sound</i> is enabled, the manager will start (or continue) playing the selected track
      * (in a loop) corresponding to the application <i>theme</i>.<br/><br/>
      * <b>Reference</b><br/>
-     *
+     * <p/>
      * {@link #getSoundTrack(Context)}<br/>
      *
      * @param context Calling Activity
      */
     public void start(Context context) {
-        if ( !isSoundOn(context) ) {
+        if (!isSoundOn(context)) {
             Log.i(TAG, "The sound preference is off");
             return;
         }
-        if ( media == null ) {
+        if (media == null) {
             Log.i(TAG, "There is no media detected on the application.");
             media = MediaPlayer.create(context, getSoundTrack(context));
-        } else if ( !ThemeManager.getInstance().theme(context).equals(theme) ) { //in case the theme has been changed
+        } else if (!ThemeManager.getInstance().theme(context).equals(theme)) { //in case the theme has been changed
             Log.i(TAG, "Changing media...");
             media.reset();
             media = MediaPlayer.create(context, getSoundTrack(context));
@@ -89,7 +89,7 @@ public class MusicManager {
         //Just to check if the theme was changed
         theme = ThemeManager.getInstance().theme(context);
 
-        if ( !media.isPlaying() ) {
+        if (!media.isPlaying()) {
             media.start();
             media.setLooping(true);
         }
@@ -98,13 +98,13 @@ public class MusicManager {
     /**
      * Plays the corresponding sound effect for the action of moving bars in the game.
      * <b>Reference</b><br/>
-     *
+     * <p/>
      * {@link #getMoveSoundEffect(Context)}<br/>
      *
      * @param context Calling Activity
      */
     public void playMoveSoundEffect(Context context) {
-        if ( !isSoundOn(context) ) {
+        if (!isSoundOn(context)) {
             Log.i(TAG, "The sound preference is off");
             return;
         }
@@ -114,8 +114,25 @@ public class MusicManager {
 
     }
 
+    /**
+     * Plays the corresponding sound effect for the action of moving bars in the game.
+     * <b>Reference</b><br/>
+     * <p/>
+     * {@link #getMoveSoundEffect(Context)}<br/>
+     *
+     * @param context Calling Activity
+     */
+    public void playWinningSoundEffect(Context context) {
+        if (!isSoundOn(context)) {
+            Log.i(TAG, "The sound preference is off");
+            return;
+        }
+
+        sndPool.play(sndPool.load(context, getWinningSoundEffect(context), 1), 1, 1, 0, -1, 1);
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    protected void createNewSoundPool(){
+    protected void createNewSoundPool() {
         AudioAttributes attributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -126,8 +143,8 @@ public class MusicManager {
     }
 
     @SuppressWarnings("deprecation")
-    protected void createOldSoundPool(){
-        sndPool = new SoundPool(5,AudioManager.STREAM_MUSIC,0);
+    protected void createOldSoundPool() {
+        sndPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     }
 
     /**
@@ -135,7 +152,7 @@ public class MusicManager {
      * pause the current track.<br/><br/>
      */
     public void pause() {
-        if ( media != null && media.isPlaying() ) {
+        if (media != null && media.isPlaying()) {
             Log.i(TAG, "The track will be paused.");
             media.pause();
         }
@@ -150,7 +167,7 @@ public class MusicManager {
      */
     public void updateSoundPrefs(Context context) {
         try {
-            if ( !isSoundOn(context) ) {
+            if (!isSoundOn(context)) {
                 pause();
             } else {
                 start(context);
@@ -170,7 +187,7 @@ public class MusicManager {
     private int getSoundTrack(Context context) {
         int soundtrack;
 
-        switch ( ThemeManager.getInstance().theme(context) ) {
+        switch (ThemeManager.getInstance().theme(context)) {
             default:
             case Constant.PREF_THEME_DEFAULT:
                 soundtrack = R.raw.pink;
@@ -194,7 +211,7 @@ public class MusicManager {
     private int getMoveSoundEffect(Context context) {
         int soundtrack;
 
-        switch ( ThemeManager.getInstance().theme(context) ) {
+        switch (ThemeManager.getInstance().theme(context)) {
             default:
             case Constant.PREF_THEME_DEFAULT:
                 soundtrack = R.raw.balloon;
@@ -210,27 +227,12 @@ public class MusicManager {
     }
 
     /**
-     * Returns the sound effect for the action of next player in the game, according to the selected theme.
+     * Returns the sound effect to be used when a player has won the game.
      *
      * @param context Calling Activity
      * @return {@code id} of the soundtrack according to the selected theme.
      */
-    private int getNextPlayerSoundEffect(Context context) {
-        int soundtrack;
-
-        switch ( ThemeManager.getInstance().theme(context) ) {
-            default:
-            case Constant.PREF_THEME_DEFAULT:
-                soundtrack = 0;
-                break;
-            case Constant.PREF_THEME_STAR_WARS:
-                soundtrack = R.raw.chewee;
-                break;
-            case Constant.PREF_THEME_HARRY_POTTER:
-                soundtrack = 0;
-                break;
-        }
-        return soundtrack;
+    private int getWinningSoundEffect(Context context) {
+        return R.raw.ovation;
     }
-
 }

@@ -391,14 +391,7 @@ public class PlayBeadMeActivity extends GenericActivity {
                 R.drawable.confetti6,
                 R.drawable.confetti7,
                 R.drawable.confetti8,
-                R.drawable.confetti9,
-                R.drawable.serpentineblue,
-                R.drawable.serpentinegreen,
-                R.drawable.serpentinelightblue,
-                R.drawable.serpentineorange,
-                R.drawable.serpentinepurple,
-                R.drawable.serpentinered,
-                R.drawable.serpentinered2,
+                R.drawable.confetti9
         };
         final float mScale;
         final Handler imageHandler = new Handler();
@@ -435,5 +428,6 @@ public class PlayBeadMeActivity extends GenericActivity {
             }
         });
 
+        //getMusicManager().playWinningSoundEffect(this);
     }
 }

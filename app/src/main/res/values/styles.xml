@@ -189,7 +189,7 @@
         <item name="android:background">@drawable/red7</item>
     </style>
     <style name="barV1p">
-        <item name="android:background">@drawable/blue1</item>
+        <item name="android:background">@drawable/blue111</item>
     </style>
     <style name="barV2p">
         <item name="android:background">@drawable/blue2</item>

@@ -369,11 +369,11 @@ public class ThemeManager {
                 int[] offsetY1 = new int[4];
 
                 ImageView img_TopLeft = new ImageView(context);
-                paramsHP1.topMargin =  (int) (height * 0.05);
-                paramsHP1.leftMargin =  (int) (width * 0.05);
+                paramsHP1.topMargin  =  height - 100;
+                paramsHP1.leftMargin =  150;
                 img_TopLeft.setLayoutParams(paramsHP1);
                 img_TopLeft.setScaleType(ImageView.ScaleType.FIT_XY);
-                img_TopLeft.setImageResource(R.drawable.dementor);
+                img_TopLeft.setImageResource(R.drawable.dementor2);
                 box.addView(img_TopLeft);
                 animations[0] = img_TopLeft;
                 offsetX1[0] = (int)(0.9 * width);
@@ -381,11 +381,11 @@ public class ThemeManager {
 
                 ImageView img_TopRight = new ImageView(context);
                 RelativeLayout.LayoutParams paramsHP2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                paramsHP2.topMargin =  (int) (height * 0.05);
-                paramsHP2.leftMargin =  width - 50;
+                paramsHP2.topMargin  =  height - 100;
+                paramsHP2.leftMargin =  width - 150;
                 img_TopRight.setLayoutParams(paramsHP2);
                 img_TopRight.setScaleType(ImageView.ScaleType.FIT_XY);
-                img_TopRight.setImageResource(R.drawable.dementor);
+                img_TopRight.setImageResource(R.drawable.dementor2);
                 box.addView(img_TopRight);
                 animations[1] = img_TopRight;
                 offsetX1[1] = -(int)(0.85 * width);
@@ -393,11 +393,11 @@ public class ThemeManager {
 
                 ImageView img_BottomLeft = new ImageView(context);
                 RelativeLayout.LayoutParams paramsHP3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                paramsHP3.topMargin  =  height - 50;
-                paramsHP3.leftMargin =  10;
+                paramsHP3.topMargin  =  height - 150;
+                paramsHP3.leftMargin =  150;
                 img_BottomLeft.setLayoutParams(paramsHP3);
                 img_BottomLeft.setScaleType(ImageView.ScaleType.FIT_XY);
-                img_BottomLeft.setImageResource(R.drawable.dementor);
+                img_BottomLeft.setImageResource(R.drawable.dementor2);
                 box.addView(img_BottomLeft);
                 animations[2] = img_BottomLeft;
                 offsetX1[2] = (int)(0.85 * width);
@@ -406,10 +406,10 @@ public class ThemeManager {
                 ImageView img_BottomRight = new ImageView(context);
                 RelativeLayout.LayoutParams paramsHP4 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                 img_BottomRight.setScaleType(ImageView.ScaleType.FIT_XY);
-                paramsHP4.topMargin  =  height - 50;
-                paramsHP4.leftMargin =  width - 50;
+                paramsHP4.topMargin  =  height - 150;
+                paramsHP4.leftMargin =  width - 150;
                 img_BottomRight.setLayoutParams(paramsHP4);
-                img_BottomRight.setImageResource(R.drawable.dementor);
+                img_BottomRight.setImageResource(R.drawable.dementor2);
                 box.addView(img_BottomRight);
                 animations[3] = img_BottomRight;
                 offsetX1[3] = -(int)(0.85 * width);
