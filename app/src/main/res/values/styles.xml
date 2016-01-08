@@ -53,6 +53,20 @@
         <item name="preference_theme">@style/themep</item>
         <item name="preference_language">@style/languagep</item>
         <item name="backgroundDialog">@style/bgdialogp</item>
+        <item name="barH1">@style/barH1p</item>
+        <item name="barH2">@style/barH2p</item>
+        <item name="barH3">@style/barH3p</item>
+        <item name="barH4">@style/barH4p</item>
+        <item name="barH5">@style/barH5p</item>
+        <item name="barH6">@style/barH6p</item>
+        <item name="barH7">@style/barH7p</item>
+        <item name="barV1">@style/barV1p</item>
+        <item name="barV2">@style/barV2p</item>
+        <item name="barV3">@style/barV3p</item>
+        <item name="barV4">@style/barV4p</item>
+        <item name="barV5">@style/barV5p</item>
+        <item name="barV6">@style/barV6p</item>
+        <item name="barV7">@style/barV7p</item>
     </style>
 
     <style name="bgpink">
@@ -65,7 +79,7 @@
         <item name="android:background">@color/pinkdialogcolor</item>
     </style>
     <style name="tvpink">
-        <item name="android:textColor">@color/foreground_light</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
     <style name="homepink" parent="tvpink">
@@ -152,6 +166,50 @@
     <style name="languagep" parent="tvpink">
         <item name="android:icon">@drawable/ic_language</item>
     </style>
+    <!-- Bars -->
+    <style name="barH1p">
+        <item name="android:background">@drawable/red1</item>
+    </style>
+    <style name="barH2p">
+        <item name="android:background">@drawable/red2</item>
+    </style>
+    <style name="barH3p">
+        <item name="android:background">@drawable/red3</item>
+    </style>
+    <style name="barH4p">
+        <item name="android:background">@drawable/red4</item>
+    </style>
+    <style name="barH5p">
+        <item name="android:background">@drawable/red5</item>
+    </style>
+    <style name="barH6p">
+        <item name="android:background">@drawable/red6</item>
+    </style>
+    <style name="barH7p">
+        <item name="android:background">@drawable/red7</item>
+    </style>
+    <style name="barV1p">
+        <item name="android:background">@drawable/blue1</item>
+    </style>
+    <style name="barV2p">
+        <item name="android:background">@drawable/blue2</item>
+    </style>
+    <style name="barV3p">
+        <item name="android:background">@drawable/blue3</item>
+    </style>
+    <style name="barV4p">
+        <item name="android:background">@drawable/blue4</item>
+    </style>
+    <style name="barV5p">
+        <item name="android:background">@drawable/blue5</item>
+    </style>
+    <style name="barV6p">
+        <item name="android:background">@drawable/blue6</item>
+    </style>
+    <style name="barV7p">
+        <item name="android:background">@drawable/blue7</item>
+    </style>
+
 
 
     <!-- Star Wars Style -->
@@ -189,6 +247,20 @@
         <item name="preference_theme">@style/themesw</item>
         <item name="preference_language">@style/languagesw</item>
         <item name="backgroundDialog">@style/bgdialogsw</item>
+        <item name="barH1">@style/barH1sw</item>
+        <item name="barH2">@style/barH2sw</item>
+        <item name="barH3">@style/barH3sw</item>
+        <item name="barH4">@style/barH4sw</item>
+        <item name="barH5">@style/barH5sw</item>
+        <item name="barH6">@style/barH6sw</item>
+        <item name="barH7">@style/barH7sw</item>
+        <item name="barV1">@style/barV1sw</item>
+        <item name="barV2">@style/barV2sw</item>
+        <item name="barV3">@style/barV3sw</item>
+        <item name="barV4">@style/barV4sw</item>
+        <item name="barV5">@style/barV5sw</item>
+        <item name="barV6">@style/barV6sw</item>
+        <item name="barV7">@style/barV7sw</item>
     </style>
 
     <style name="bgstarwars">
@@ -288,6 +360,49 @@
     <style name="languagesw" parent="tvstarwars">
         <item name="android:icon">@drawable/ic_language_white</item>
     </style>
+    <!-- Bars -->
+    <style name="barH1sw">
+        <item name="android:background">@drawable/red1</item>
+    </style>
+    <style name="barH2sw">
+        <item name="android:background">@drawable/red2</item>
+    </style>
+    <style name="barH3sw">
+        <item name="android:background">@drawable/red3</item>
+    </style>
+    <style name="barH4sw">
+        <item name="android:background">@drawable/red4</item>
+    </style>
+    <style name="barH5sw">
+        <item name="android:background">@drawable/red5</item>
+    </style>
+    <style name="barH6sw">
+        <item name="android:background">@drawable/red6</item>
+    </style>
+    <style name="barH7sw">
+        <item name="android:background">@drawable/red7</item>
+    </style>
+    <style name="barV1sw">
+        <item name="android:background">@drawable/blue1</item>
+    </style>
+    <style name="barV2sw">
+        <item name="android:background">@drawable/blue2</item>
+    </style>
+    <style name="barV3sw">
+        <item name="android:background">@drawable/blue3</item>
+    </style>
+    <style name="barV4sw">
+        <item name="android:background">@drawable/blue4</item>
+    </style>
+    <style name="barV5sw">
+        <item name="android:background">@drawable/blue5</item>
+    </style>
+    <style name="barV6sw">
+        <item name="android:background">@drawable/blue6</item>
+    </style>
+    <style name="barV7sw">
+        <item name="android:background">@drawable/blue7</item>
+    </style>
 
 
     <!-- Harry Potter Style -->
@@ -325,6 +440,20 @@
         <item name="preference_theme">@style/themehp</item>
         <item name="preference_language">@style/languagehp</item>
         <item name="backgroundDialog">@style/bgdialoghp</item>
+        <item name="barH1">@style/barH1hp</item>
+        <item name="barH2">@style/barH2hp</item>
+        <item name="barH3">@style/barH3hp</item>
+        <item name="barH4">@style/barH4hp</item>
+        <item name="barH5">@style/barH5hp</item>
+        <item name="barH6">@style/barH6hp</item>
+        <item name="barH7">@style/barH7hp</item>
+        <item name="barV1">@style/barV1hp</item>
+        <item name="barV2">@style/barV2hp</item>
+        <item name="barV3">@style/barV3hp</item>
+        <item name="barV4">@style/barV4hp</item>
+        <item name="barV5">@style/barV5hp</item>
+        <item name="barV6">@style/barV6hp</item>
+        <item name="barV7">@style/barV7hp</item>
     </style>
 
     <style name="bgharrypotter">
@@ -338,7 +467,7 @@
     </style>
     <style name="tvharrypotter">
         <item name="android:textColor">@color/black</item>
-        <item name="android:fontFamily">sans-serif-condensed-thin</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
     </style>
     <style name="homehp" parent="tvharrypotter">
         <item name="android:text">@string/txt_home_text_harrypotter</item>
@@ -404,25 +533,68 @@
     </style>
     <!-- Preferences -->
     <style name="speakerhp" parent="tvharrypotter">
-        <item name="android:icon">@drawable/ic_speaker_white</item>
+        <item name="android:icon">@drawable/ic_speaker</item>
     </style>
     <style name="vibrationhp" parent="tvharrypotter">
-        <item name="android:icon">@drawable/ic_vibration_white</item>
+        <item name="android:icon">@drawable/ic_vibration</item>
     </style>
     <style name="notificationhp" parent="tvharrypotter">
-        <item name="android:icon">@drawable/ic_notification_white</item>
+        <item name="android:icon">@drawable/ic_notification</item>
     </style>
     <style name="lighthp" parent="tvharrypotter">
-        <item name="android:icon">@drawable/ic_light_white</item>
+        <item name="android:icon">@drawable/ic_light</item>
     </style>
     <style name="playerhp" parent="tvharrypotter">
-        <item name="android:icon">@drawable/ic_player_white</item>
+        <item name="android:icon">@drawable/ic_player</item>
     </style>
     <style name="themehp" parent="tvharrypotter">
-        <item name="android:icon">@drawable/ic_theme_white</item>
+        <item name="android:icon">@drawable/ic_theme</item>
     </style>
     <style name="languagehp" parent="tvharrypotter">
-        <item name="android:icon">@drawable/ic_language_white</item>
+        <item name="android:icon">@drawable/ic_language</item>
+    </style>
+    <!-- Bars -->
+    <style name="barH1hp">
+        <item name="android:background">@drawable/red1</item>
+    </style>
+    <style name="barH2hp">
+        <item name="android:background">@drawable/red2</item>
+    </style>
+    <style name="barH3hp">
+        <item name="android:background">@drawable/red3</item>
+    </style>
+    <style name="barH4hp">
+        <item name="android:background">@drawable/red4</item>
+    </style>
+    <style name="barH5hp">
+        <item name="android:background">@drawable/red5</item>
+    </style>
+    <style name="barH6hp">
+        <item name="android:background">@drawable/red6</item>
+    </style>
+    <style name="barH7hp">
+        <item name="android:background">@drawable/red7</item>
+    </style>
+    <style name="barV1hp">
+        <item name="android:background">@drawable/blue1</item>
+    </style>
+    <style name="barV2hp">
+        <item name="android:background">@drawable/blue2</item>
+    </style>
+    <style name="barV3hp">
+        <item name="android:background">@drawable/blue3</item>
+    </style>
+    <style name="barV4hp">
+        <item name="android:background">@drawable/blue4</item>
+    </style>
+    <style name="barV5hp">
+        <item name="android:background">@drawable/blue5</item>
+    </style>
+    <style name="barV6hp">
+        <item name="android:background">@drawable/blue6</item>
+    </style>
+    <style name="barV7hp">
+        <item name="android:background">@drawable/blue7</item>
     </style>
 
     <!-- Generic Text Style -->

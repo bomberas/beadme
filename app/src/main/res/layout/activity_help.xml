@@ -85,7 +85,7 @@
                         android:layout_marginRight="15dp"
                         android:text="@string/help_intro_title"
                         android:textStyle="bold"
-                        android:textSize="18sp"
+                        android:textSize="19sp"
                         style="?aboutStyle"
                         android:textAlignment="center" />
 
@@ -117,7 +117,7 @@
                         android:layout_marginRight="15dp"
                         android:text="@string/help_first_title"
                         android:textStyle="bold"
-                        android:textSize="18sp"
+                        android:textSize="19sp"
                         style="?aboutStyle"
                         android:textAlignment="center" />
 
@@ -150,7 +150,7 @@
                         android:layout_marginRight="15dp"
                         android:text="@string/help_second_title"
                         android:textStyle="bold"
-                        android:textSize="18sp"
+                        android:textSize="19sp"
                         style="?aboutStyle"
                         android:textAlignment="center" />
 
@@ -183,7 +183,7 @@
                         android:layout_marginRight="15dp"
                         android:text="@string/help_third_title"
                         android:textStyle="bold"
-                        android:textSize="18sp"
+                        android:textSize="19sp"
                         style="?aboutStyle"
                         android:textAlignment="center" />
 
@@ -207,7 +207,7 @@
                         android:layout_marginTop="15dp"
                         android:text="@string/help_third_desc_x"
                         android:textStyle="bold"
-                        android:textSize="18sp"
+                        android:textSize="19sp"
                         android:textAlignment="center"
                         style="?aboutStyle"/>
 

@@ -47,12 +47,11 @@
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/imgViewH1"
-                    android:src="@drawable/red1_hp"
                     android:layout_marginLeft="1dp"
                     android:layout_marginStart="1dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
+                    style="?barH1"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -60,7 +59,7 @@
                     android:id="@+id/imgViewH2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red1_hp" />
+                    style="?barH2"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -68,7 +67,7 @@
                     android:id="@+id/imgViewH3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red1_hp"/>
+                    style="?barH3"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -76,7 +75,7 @@
                     android:id="@+id/imgViewH4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red1_hp"/>
+                    style="?barH4"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -84,8 +83,7 @@
                     android:id="@+id/imgViewH5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red1_hp"
-                     />
+                    style="?barH5"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -93,8 +91,7 @@
                     android:id="@+id/imgViewH6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red1_hp"
-                    />
+                    style="?barH6"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -102,9 +99,7 @@
                     android:id="@+id/imgViewH7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/red7"
-
-                    />
+                    style="?barH7"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -116,8 +111,7 @@
                     android:id="@+id/imgViewV1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/blue1_sw"
-                     />
+                    style="?barV1"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent">
@@ -125,8 +119,7 @@
                     android:id="@+id/imgViewV2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/blue2"
-                     />
+                    style="?barV2"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent">
@@ -134,8 +127,7 @@
                     android:id="@+id/imgViewV3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/blue3"
-                     />
+                    style="?barV3"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent">
@@ -143,8 +135,7 @@
                     android:id="@+id/imgViewV4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/blue4"
-                     />
+                    style="?barV4"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent">
@@ -152,8 +143,7 @@
                     android:id="@+id/imgViewV5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/blue5"
-                     />
+                    style="?barV5"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent">
@@ -161,8 +151,7 @@
                     android:id="@+id/imgViewV6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/blue6"
-                     />
+                    style="?barV6"/>
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="fill_parent">
@@ -170,8 +159,7 @@
                     android:id="@+id/imgViewV7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/blue7"
-                     />
+                    style="?barV7"/>
             </LinearLayout>
 
         </LinearLayout>

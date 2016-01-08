@@ -40,4 +40,19 @@
     <attr name="preference_language" format="reference" />
     <attr name="backgroundDialog" format="reference" />
 
+    <attr name="barV1" format="reference" />
+    <attr name="barV2" format="reference" />
+    <attr name="barV3" format="reference" />
+    <attr name="barV4" format="reference" />
+    <attr name="barV5" format="reference" />
+    <attr name="barV6" format="reference" />
+    <attr name="barV7" format="reference" />
+    <attr name="barH1" format="reference" />
+    <attr name="barH2" format="reference" />
+    <attr name="barH3" format="reference" />
+    <attr name="barH4" format="reference" />
+    <attr name="barH5" format="reference" />
+    <attr name="barH6" format="reference" />
+    <attr name="barH7" format="reference" />
+
 </resources>

@@ -3,13 +3,10 @@ package it.polimi.group03.manager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -105,9 +102,9 @@ public class ThemeManager {
                 summary.setTextColor(ContextCompat.getColor(context, R.color.white));
                 break;
             case Constant.PREF_THEME_HARRY_POTTER:
-                title.setTextColor(ContextCompat.getColor(context, R.color.white));
+                title.setTextColor(ContextCompat.getColor(context, R.color.black));
                 title.setTypeface(title.getTypeface(), Typeface.BOLD);
-                summary.setTextColor(ContextCompat.getColor(context, R.color.white));
+                summary.setTextColor(ContextCompat.getColor(context, R.color.black));
                 break;
         }
     }
@@ -423,4 +420,5 @@ public class ThemeManager {
                 break;
         }
     }
+
 }

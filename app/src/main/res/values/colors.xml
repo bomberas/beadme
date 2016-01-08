@@ -2,7 +2,7 @@
 <resources>
     <color name="black_overlay">#66000000</color>
     <color name="foreground_light">#4e4e4e</color>
-    <color name="black">#454444</color>
+    <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
@@ -30,16 +30,20 @@
     <color name="stardialogcolor">#80543400</color>
 
     <!-- Harry Potter -->
-    <color name="hpotbackground">#0E780E</color>
+    <color name="hpotbackground">#B40404</color>
+    <!--<color name="hpotbackground">#0E780E</color>-->
     <color name="hpotprimarycolor">#f1ab00</color>
-    <color name="hpotprimarydarkcolor">#0E780E</color>
+    <!--<color name="hpotprimarycolor">#f1ab00</color>-->
+    <color name="hpotprimarydarkcolor">#8A0808</color>
+    <!--<color name="hpotprimarydarkcolor">#0E780E</color>-->
     <color name="hpotcolorAccent">#a55d68</color>
-    <!--<color name="hpotbuttonPrimary">#0E500E</color>-->
+    <!--<color name="hpotcolorAccent">#a55d68</color>-->
     <color name="hpotbuttonPrimary">#8A0808</color>
+    <!--<color name="hpotbuttonPrimary">#0E500E</color>-->
     <color name="hpotbuttonFocused">#fea531</color>
-    <!--<color name="hpotbuttonPressed">#0EA00E</color>-->
     <color name="hpotbuttonPressed">#B40404</color>
-    <color name="hpotdialogcolor">#80070000</color>
+    <!--<color name="hpotbuttonPressed">#0EA00E</color>-->
+    <color name="hpotdialogcolor">#60B40404</color>
 
     <color name="grid_background">#FF000000</color>
 </resources>
