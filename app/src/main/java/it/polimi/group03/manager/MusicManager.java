@@ -109,8 +109,6 @@ public class MusicManager {
             return;
         }
 
-        //MediaPlayer.create(context, getMoveSoundEffect(context)).start();
-
         sndPool.play(sndPool.load(context, getMoveSoundEffect(context), 1), 1, 1, 0, 0, 1);
 
 
