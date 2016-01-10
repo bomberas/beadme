@@ -6,6 +6,7 @@ import java.util.List;
 import it.polimi.group03.util.CommonUtil;
 
 import it.polimi.group03.engine.GameValidator;
+import it.polimi.group03.util.Constant;
 
 /**
  * This class defines and holds the basic information of a player in the game.
@@ -48,12 +49,18 @@ public class Player {
      */
     private boolean active;
 
+    /**
+     * Indicates whether if a player is Mr. Roboto or not.
+     */
+    private boolean isMrRoboto;
+
     public Player(int id, String nickname, String color) {
         this.id = id;
         this.nickname = nickname;
         this.color = color;
         this.beads = new ArrayList<>();
         this.active = true;
+        this.isMrRoboto = false;
     }
 
     public int getId() {
@@ -74,6 +81,14 @@ public class Player {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean isMrRoboto() {
+        return isMrRoboto;
+    }
+
+    public void setIsMrRoboto(boolean isMrRoboto) {
+        this.isMrRoboto = isMrRoboto;
     }
 
     /**
@@ -113,4 +128,15 @@ public class Player {
         return beads;
     }
 
+    public int getRemainingBeadsToPlace(){
+        int count = Constant.GAME_MAX_NUMBER_BEADS;
+
+        for ( int i = 0; i < this.beads.size(); i++ ) {
+            if ( this.beads.get(i).isPlaced() ) {
+                count --;
+            }
+        }
+
+        return count;
+    }
 }

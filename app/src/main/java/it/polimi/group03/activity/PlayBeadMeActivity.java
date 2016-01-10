@@ -3,7 +3,7 @@ package it.polimi.group03.activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -52,21 +52,28 @@ public class PlayBeadMeActivity extends GenericActivity {
     private View vie_toast;
     private TextView txt_toast;
     private int cellWidth;
-
+    private int offsetX;
+    private int offsetY;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Setting the theme of the game
         getThemeManager().setTheme(this);
         setContentView(R.layout.activity_play);
+        //Obtaining the box layout where the bars should be shown
         box = (RelativeLayout) findViewById(R.id.box);
+        //This attribute is the link to the mechanics of the game
         engine = new GameEngine();
         engine.startGame();
+
+        //Obtaining the width and height of the device, these are needed to properly show all the bars and beads on the screen
         int height = getIntent().getIntExtra(Constant.HEIGHT, 0);
         int width = getIntent().getIntExtra(Constant.WIDTH, 0);
 
-        setScreenDimensions(height, width);
-        getThemeManager().setPlayBackgroundAnimation(this, (RelativeLayout)findViewById(R.id.animation), height, width);
+        setBoardDimensions(height, width);
+        getThemeManager().setPlayBackgroundAnimation(this, (RelativeLayout) findViewById(R.id.animation), height, width);
+        getMusicManager().initSoundMap(this);
     }
 
     /**
@@ -80,15 +87,15 @@ public class PlayBeadMeActivity extends GenericActivity {
 
     /**
      *
-     * This method sets the dimensions of the "board" according to the device height and width that was previously sent by the
-     * {@link MainActivity}. It also calculates the proper dimensions for the bars and beads so they can all fit in the playing
+     * This method sets the dimensions of the board according to the device height and width that was previously sent by the
+     * {@link CharactersActivity}. It also calculates the proper dimensions for the bars and beads so they can all fit in the playing
      * section.
-     *     *
      *
-     * @param height
-     * @param width
+     *
+     * @param height the actual height of the device
+     * @param width the actual width of the device
      */
-    private void setScreenDimensions(int height, int width) {
+    private void setBoardDimensions(int height, int width) {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) box.getLayoutParams();
 
         double maxAllowedSize;
@@ -103,10 +110,10 @@ public class PlayBeadMeActivity extends GenericActivity {
         }
 
         // I'm saving the original values
-        int offsetX = width;
-        int offsetY = height;
+        offsetX = width;
+        offsetY = height;
 
-        Log.i("TEST", "The maximum size allowed is " + maxAllowedSize);
+        Log.i(TAG, "The maximum size allowed is " + maxAllowedSize);
 
         // I'm making the height and the width equal because I want the box to be a square equivalent to 13 size-fixed cells
         // I'm also trimming this square to be multiple of the fixed number of cells (13), this is for managing the margin, which here cannot be float
@@ -153,8 +160,16 @@ public class PlayBeadMeActivity extends GenericActivity {
         createAndAddPlayersAndBeadsToUI();
     }
 
+    /**
+     *
+     * Sets the dimension of an horizontal bar and places it on the board, and scales it to the dimensions of the device.
+     * It also sets the bar in the initial position: INNER, CENTRAL and OUTER
+     *
+     * @param bar the bar to be scaled
+     */
     private void createAndAddHorizontalBarToUI(Bar bar){
-        ImageView image = (ImageView)findViewById(getBarId(bar.getOrientation(), bar.getId()));
+        ImageView image = (ImageView)findViewById(CommonUtil.getBarId(bar.getOrientation(), bar.getId()));
+        Log.i(TAG, "Horizonatl : " + image.getId());
         LinearLayout.LayoutParams paramsImg = (LinearLayout.LayoutParams)image.getLayoutParams();
 
         //Setting the initial position of the bars according to what the randomize method indicates
@@ -174,8 +189,16 @@ public class PlayBeadMeActivity extends GenericActivity {
 
     }
 
+    /**
+     *
+     * Sets the dimension of an vertical bar and places it on the board, and scales it to the dimensions of the device.
+     * It also sets the bar in the initial position: INNER, CENTRAL and OUTER
+     *
+     * @param bar the bar to be scaled
+     */
     private void createAndAddVerticalBarToUI(Bar bar){
-        ImageView image = (ImageView)findViewById(getBarId(bar.getOrientation(), bar.getId()));
+        ImageView image = (ImageView)findViewById(CommonUtil.getBarId(bar.getOrientation(), bar.getId()));
+        Log.i(TAG, "Vertical : " + image.getId());
         LinearLayout.LayoutParams paramsImg = (LinearLayout.LayoutParams)image.getLayoutParams();
 
         paramsImg.topMargin = bar.getPosition().equals(BarPosition.OUTER) ? 0 : bar.getPosition().equals(BarPosition.CENTRAL) ?
@@ -193,33 +216,39 @@ public class PlayBeadMeActivity extends GenericActivity {
         layout.setLayoutParams(paramsLayout);
     }
 
+    /**
+     * This method creates all the beads needed in the game according to the number of players configured in the preference section.
+     * It also creates the images of the Summary section, that displays how many beads a player has on the board.
+     */
     private void createAndAddPlayersAndBeadsToUI(){
 
+        //Retrieving the number of players from the settings.
         int numberOfPlayers = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString(Constant.KEY_PREF_PLAYERS, Constant.PREF_PLAYER_DEFAULT));
 
         RelativeLayout relPlayers = (RelativeLayout) findViewById(R.id.relPlayers);
-        //relPlayers.setGravity(RelativeLayout.CENTER_HORIZONTAL);
-        //relPlayers.setHorizontalGravity(RelativeLayout.CENTER_HORIZONTAL);
 
         LinearLayout summary = (LinearLayout)findViewById(R.id.summary);
         int space = (int)((box.getLayoutParams().width - getCellWidth())/ 2 );
 
+        if ( numberOfPlayers == 1) numberOfPlayers ++; //This means we're playing with Mr. Roboto
         for ( int i = 0; i < numberOfPlayers; i++ ) {
 
             Player player = new Player(i, getIntent().getStringExtra(Constant.PLAYER_NAME + i), "");
+            player.setIsMrRoboto(!getIntent().getBooleanExtra(Constant.PLAYER_HUMAN + i, false));
             engine.addPlayer(player);
 
             //Adding image of player for the summary section
             int imageId = getIntent().getIntExtra(Constant.PLAYER_ICON + i, 0);
-            int imageSummaryId = getThemeManager().getSummaryIcon(this, Constant.GAME_MAX_NUMBER_BEADS);
+            int imageSummaryId = getThemeManager().getSummaryIcon(this, 0);
 
             ImageView imgSummary = new ImageView(getApplicationContext());
             imgSummary.setId(CommonUtil.getPlayerSummaryImageId(player.getId()));
             imgSummary.setImageResource(imageSummaryId);
             LinearLayout.LayoutParams paramsS = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             paramsS.width = (int) (cellWidth * 1.5);
-            paramsS.height = (int) (cellWidth * 1.2);
-            imgSummary.setPadding(10, 0, 10, 0);
+            paramsS.height = (int) (cellWidth * 1.5);
+            paramsS.leftMargin = 45;
+            //imgSummary.setPadding(25, 0, 0, 0);
             imgSummary.setLayoutParams(paramsS);
             imgSummary.setScaleType(ImageView.ScaleType.FIT_XY);
             summary.addView(imgSummary);
@@ -227,111 +256,70 @@ public class PlayBeadMeActivity extends GenericActivity {
             ImageView imgPlayer = new ImageView(getApplicationContext());
             imgPlayer.setImageResource(imageId);
             LinearLayout.LayoutParams paramsP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsP.width = (int) (cellWidth * 1.5);
-            paramsP.height = (int) (cellWidth * 1.5);
-            imgPlayer.setPadding(10, 0, 10, 0);
+            paramsP.width = (int) (cellWidth * 1.2);
+            paramsP.height = (int) (cellWidth * 1.2);
+            //imgPlayer.setPadding(0, 5, 25, 0);
             imgPlayer.setLayoutParams(paramsP);
             imgPlayer.setScaleType(ImageView.ScaleType.FIT_XY);
             summary.addView(imgPlayer);
-
         }
 
+        int countIdPlayer = numberOfPlayers - 1;
+        int countIdBead = 0;
 
-        int count = numberOfPlayers - 1;
-        int countI = 0;
-        // Adding beads to the view
+        // Adding beads to the view, one after the other in the order players are suppose to play.
         for (int  j = 0; j < Constant.GAME_MAX_NUMBER_BEADS * numberOfPlayers; j++){
-
-            int imageId = getIntent().getIntExtra(Constant.PLAYER_ICON + count, 0);
-
-            //int imageId = getEngine().getGame().getPlayers().get(count).getId() == 0 ? R.drawable.harry : (getEngine().getGame().getPlayers().get(count).getId() == 1 ? R.drawable.hermione : (getEngine().getGame().getPlayers().get(count).getId() == 2 ? R.drawable.voldemort : R.drawable.snape));
-
-            ImageView imgBead= new ImageView(getApplicationContext());
-            imgBead.setTag(new Bead());
-            imgBead.setId(CommonUtil.getBeadId(count, countI));
-            imgBead.setImageResource(imageId);
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
             params.leftMargin = space;
             params.width = (int) (cellWidth * 1.1);
             params.height = (int) (cellWidth * 1.1);
-            params.topMargin = (int) (cellWidth * Constant.NUMBER_OF_CELLS + 1.5 * ((RelativeLayout.LayoutParams) box.getLayoutParams()).topMargin);
+            params.topMargin = (int) (cellWidth * Constant.NUMBER_OF_CELLS + 1.6 * ((RelativeLayout.LayoutParams) box.getLayoutParams()).topMargin);
+
+            int imageId = getIntent().getIntExtra(Constant.PLAYER_ICON + countIdPlayer, 0);
+
+            ImageView imgBead = new ImageView(getApplicationContext());
+            imgBead.setTag(new Bead());
+            imgBead.setId(CommonUtil.getBeadId(countIdPlayer, countIdBead));
+            imgBead.setImageResource(imageId);
             imgBead.setLayoutParams(params);
             imgBead.setScaleType(ImageView.ScaleType.FIT_XY);
-
-            imgBead.setOnTouchListener(new BeadOnTouchListener(this, getEngine().getGame().getPlayers().get(count), ((RelativeLayout.LayoutParams) box.getLayoutParams()).leftMargin,
-                    ((RelativeLayout.LayoutParams) box.getLayoutParams()).topMargin,
-                    params.leftMargin, 5));
+            imgBead.setOnTouchListener(new BeadOnTouchListener(this, getEngine().getGame().getPlayers().get(countIdPlayer), params.leftMargin, 5));
 
             relPlayers.addView(imgBead, j);
 
-            count--;
+            countIdPlayer--;
 
-            if ( count < 0 ){
-                count = numberOfPlayers -1;
-                countI++;
+            if ( countIdPlayer < 0 ){
+                countIdPlayer = numberOfPlayers -1;
+                countIdBead++;
             }
 
         }
+
         engine.getGame().setNextPlayer(engine.getGame().getPlayers().get(0));
-        showBeadsOnBoard(false);
-    }
 
-    private int getBarId(BarOrientation pos, int id){
-
-        switch (id) {
-            case 0:
-                if (pos.equals(BarOrientation.HORIZONTAL)){
-                    return R.id.imgViewH1;
-                }else {
-                    return R.id.imgViewV1;
-                }
-            case 1:
-                if (pos.equals(BarOrientation.HORIZONTAL)){
-                    return R.id.imgViewH2;
-                }else {
-                    return R.id.imgViewV2;
-                }
-            case 2:
-                if (pos.equals(BarOrientation.HORIZONTAL)){
-                    return R.id.imgViewH3;
-                }else {
-                    return R.id.imgViewV3;
-                }
-            case 3:
-                if (pos.equals(BarOrientation.HORIZONTAL)){
-                    return R.id.imgViewH4;
-                }else {
-                    return R.id.imgViewV4;
-                }
-            case 4:
-                if (pos.equals(BarOrientation.HORIZONTAL)){
-                    return R.id.imgViewH5;
-                }else {
-                    return R.id.imgViewV5;
-                }
-            case 5:
-                if (pos.equals(BarOrientation.HORIZONTAL)){
-                    return R.id.imgViewH6;
-                }else {
-                    return R.id.imgViewV6;
-                }
-            case 6:
-                if (pos.equals(BarOrientation.HORIZONTAL)){
-                    return R.id.imgViewH7;
-                }else {
-                    return R.id.imgViewV7;
-                }
-            default:
-                return -1;
+        if ( engine.getGame().getPlayers().get(0).isMrRoboto() ) {
+            automaticBeadMove(false);
+        } else {
+            showBeadsOnBoard(false);
         }
+
+        getAnimationManager().blink(this, findViewById(R.id.img_arrowRight));
     }
 
+    /**
+     * This method shows a bead on the board if the bead is active in the game, if not hides it.
+     * It also plays an animation if required.
+     *
+     * @param animate {@code true} if an animation should be shown {@code  false} if not
+     */
     public void showBeadsOnBoard(boolean animate){
 
         for (Player player: getEngine().getGame().getPlayers()) {
             int indexBead = Constant.GAME_MAX_NUMBER_BEADS - 1;
+            int placed = 0;
 
             for (int i = 0; i < Constant.GAME_MAX_NUMBER_BEADS; i++) {
                 ImageView imgBead = (ImageView) findViewById(CommonUtil.getBeadId(player.getId(), indexBead));
@@ -347,14 +335,198 @@ public class PlayBeadMeActivity extends GenericActivity {
                         imgBead.setVisibility(ImageView.GONE);
                     }
                 }
+
+                if ( ((Bead)imgBead.getTag()).isPlaced() ) placed ++;
                 indexBead --;
             }
 
+            ImageView imgSummary = (ImageView)findViewById(CommonUtil.getPlayerSummaryImageId(player.getId()));
+            imgSummary.setImageResource(getThemeManager().getSummaryIcon(this, placed));
         }
 
         TextView text = (TextView) findViewById(R.id.txtCurrentPlayer);
         text.setText(getResources().getString(R.string.current_player, getEngine().getGame().getNextPlayer().getNickname()));
-        CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(), getResources().getString(R.string.next_player) + getEngine().getGame().getNextPlayer().getNickname(), Toast.LENGTH_SHORT);
+        //CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(), getResources().getString(R.string.next_player) + getEngine().getGame().getNextPlayer().getNickname(), Toast.LENGTH_SHORT);
+
+        getAnimationManager().zoomIn(this, text);
+        getAnimationManager().zoomOut(this, text);
+        getAnimationManager().zoomIn(this, text);
+
+        if ( engine.isGameStartConditionReached() ) {
+            (findViewById(R.id.img_arrowRight)).clearAnimation();
+            (findViewById(R.id.img_arrowRight)).setVisibility(View.INVISIBLE);
+            (findViewById(R.id.waiting_spot)).setVisibility(View.INVISIBLE);
+            (findViewById(R.id.img_arrowUp)).setVisibility(View.VISIBLE);
+            getAnimationManager().blink(this, findViewById(R.id.img_arrowUp));
+
+            if( getEngine().getGame().getNextPlayer().isMrRoboto() ) automaticBarMove();
+
+        }
+    }
+
+    /**
+     * This method makes the calls to Mr. Roboto's brain to place a bead automatically. After receiving the position where the bead
+     * should be placed it makes the necessary assignments to place the bead on the board and present it to the player.
+     *
+     * @see it.polimi.group03.engine.GameBrain
+     *
+     * @param animate {@code true} if an animation should be shown {@code  false} if not
+     */
+    public void automaticBeadMove(boolean animate){
+        // If we're playing against Mr. Roboto
+        if ( !engine.isGameStartConditionReached() ) {
+            Log.i(TAG, "This is Mr. Roboto");
+            Bead bead = getEngine().getBrain().placeBead(getEngine());
+            Log.i(TAG, "Mr Roboto thinks: " + bead.getPosition().toString());
+            ImageView image = (ImageView) findViewById(CommonUtil.getBeadId(getEngine().getGame().getNextPlayer().getId(), getEngine().getGame().getNextPlayer().getRemainingBeadsToPlace() - 1));
+            ((Bead) image.getTag()).setPosition(bead.getPosition().getX(), bead.getPosition().getY());
+            getEngine().addBeadToBoard(getEngine().getGame().getNextPlayer(), ((Bead) image.getTag()));
+            RelativeLayout.LayoutParams par = (RelativeLayout.LayoutParams) image.getLayoutParams();
+            par.topMargin = CommonUtil.convertRowColumnToXY(((Bead) image.getTag()).getPosition().getX(), getOffsetY(), getCellWidth());
+            par.leftMargin = CommonUtil.convertRowColumnToXY(((Bead) image.getTag()).getPosition().getY(), getOffsetX(), getCellWidth());
+            image.setLayoutParams(par);
+            getEngine().getGame().setNextPlayer(getEngine().getNextPlayer(getEngine().getGame().getNextPlayer()));
+
+            showBeadsOnBoard(animate);
+        }
+    }
+
+    /**
+     * This method makes the calls to Mr. Roboto's brain to move a bar automatically. After receiving the position where the bars
+     * should be moved it makes the necessary assignments to move the bar and present it to the player.
+     *
+     * @see it.polimi.group03.engine.GameBrain
+     *
+     */
+    public void automaticBarMove(){
+        // If we're playing against Mr. Roboto
+
+        Log.i(TAG, "This is Mr. Roboto trying to move a bar");
+
+        Bar bar = getEngine().getBrain().move(getEngine());
+        ImageView imgBar = (ImageView)findViewById(CommonUtil.getBarId(bar.getOrientation(), bar.getId()));
+        Log.i(TAG, "Mr. Roboto chooses " + bar.getOrientation().toString() + " # " + bar.getId() + ". He wants to move it to " + bar.getPosition().toString());
+
+        getEngine().makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), getEngine().getGame().getNextPlayer());
+        getMusicManager().playMoveSoundEffect(this);
+
+        ((Bar) imgBar.getTag()).setPosition(bar.getPosition());
+        LinearLayout.LayoutParams par = (LinearLayout.LayoutParams) imgBar.getLayoutParams();
+
+        if ( bar.getOrientation().equals(BarOrientation.HORIZONTAL)){
+            par.leftMargin = bar.getPosition().equals(BarPosition.OUTER) ? 0 : bar.getPosition().equals(BarPosition.CENTRAL) ?
+                    cellWidth : 2 * cellWidth;
+        } else {
+            par.topMargin = bar.getPosition().equals(BarPosition.OUTER) ? 0 : bar.getPosition().equals(BarPosition.CENTRAL) ?
+                    cellWidth : 2 * cellWidth;
+        }
+
+        imgBar.setLayoutParams(par);
+        refreshBoard();
+
+    }
+
+    /**
+     *
+     * This method shows on the screen all the beads that are still active after a move, and hides the ones that are not,
+     * and gives them the proper animation.
+     *
+     * <p> It also updates the views of all the current scores for every player in the game. If the game has finished starts the confetti
+     * animation th rough {@link #endGame()}.
+     */
+    public void refreshBoard(){
+
+        for (Player player: getEngine().getGame().getPlayers()) {
+            int indexBead = Constant.GAME_MAX_NUMBER_BEADS - 1;
+
+            for (int i = 0; i < player.getBeads().size(); i++) {
+
+                if (!player.getBeads().get(i).isActive()){
+                    // Make image invisible
+                    ImageView bead = (ImageView)findViewById(CommonUtil.getBeadId(player.getId(), indexBead));
+                    if ( bead.getVisibility() == View.VISIBLE ) {
+                        bead.setVisibility(View.INVISIBLE);
+                        getAnimationManager().rotate(bead.getContext(), bead);
+                    }
+                }
+                indexBead --;
+            }
+
+            ImageView imgSummary = (ImageView)findViewById(CommonUtil.getPlayerSummaryImageId(player.getId()));
+            imgSummary.setImageResource(getThemeManager().getSummaryIcon(imgSummary.getContext(), player.activeBeads().size()));
+        }
+
+        if ( getEngine().isGameEndConditionReached() ){
+            CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(),
+                    getResources().getString(R.string.winner, getEngine().getWinner().getNickname()),
+                    Toast.LENGTH_LONG);
+            findViewById(R.id.img_arrowUp).clearAnimation();
+            findViewById(R.id.img_arrowUp).setVisibility(View.GONE);
+            endGame();
+        } else {
+            TextView text = (TextView)findViewById(R.id.txtCurrentPlayer);
+            text.setText(getApplicationContext().getResources().getString(R.string.current_player, getEngine().getGame().getNextPlayer().getNickname()));
+            getAnimationManager().zoomIn(getApplicationContext(), text);
+            getAnimationManager().zoomOut(getApplicationContext(), text);
+            getAnimationManager().zoomIn(getApplicationContext(), text);
+            CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(), getResources().getString(R.string.next_player) + getEngine().getGame().getNextPlayer().getNickname(),
+                    Toast.LENGTH_SHORT);
+        }
+    }
+
+    /**
+     * This method starts the animation when the game has finished and someone has won.
+     * 
+     */
+    private void endGame() {
+
+        final Rect mDisplaySize = new Rect();
+        final LayoutInflater inflate;
+        final int[] CONFETTI = {
+
+                //R.drawable.confetti1,
+                R.drawable.confetti2,
+                R.drawable.confetti3,
+                //R.drawable.confetti4,
+                //R.drawable.confetti5,
+                R.drawable.confetti6,
+                //R.drawable.confetti7,
+                R.drawable.confetti8,
+                //R.drawable.confetti9
+        };
+        final float mScale;
+
+        final Display display = getWindowManager().getDefaultDisplay();
+        display.getRectSize(mDisplaySize);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        mScale = metrics.density;
+        inflate = LayoutInflater.from(PlayBeadMeActivity.this);
+
+        CountDownTimer counterTimer = new CountDownTimer(15000, 300) {
+            public void onFinish() {
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+
+            public void onTick(long millisUntilFinished) {
+                ImageView imageView = (ImageView) inflate.inflate(R.layout.ani_image_view, null);
+                imageView.setImageResource(CONFETTI[new Random().nextInt(CONFETTI.length - 1)]);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                ((RelativeLayout) findViewById(R.id.container)).addView(imageView);
+
+                RelativeLayout.LayoutParams animationLayout = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+                animationLayout.setMargins(new Random().nextInt(getCellWidth()) * Constant.GAME_MAX_NUMBER_BEADS, (int) (-150 * mScale), 0, 0);
+                animationLayout.width = (int) (60 * mScale);
+                animationLayout.height = (int) (60 * mScale);
+                imageView.setLayoutParams(animationLayout);
+                getAnimationManager().confetti(mDisplaySize, mScale, imageView);
+            }
+        };
+        counterTimer.start();
     }
 
     public GameEngine getEngine() {
@@ -377,57 +549,12 @@ public class PlayBeadMeActivity extends GenericActivity {
         return txt_toast;
     }
 
-    public void endGame() {
-
-        final Rect mDisplaySize = new Rect();
-        final LayoutInflater inflate;
-        final int[] CONFETTI = {
-
-                R.drawable.confetti1,
-                R.drawable.confetti2,
-                R.drawable.confetti3,
-                R.drawable.confetti4,
-                R.drawable.confetti5,
-                R.drawable.confetti6,
-                R.drawable.confetti7,
-                R.drawable.confetti8,
-                R.drawable.confetti9
-        };
-        final float mScale;
-        final Handler imageHandler = new Handler();
-
-        final Display display = getWindowManager().getDefaultDisplay();
-        display.getRectSize(mDisplaySize);
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getMetrics(metrics);
-        mScale = metrics.density;
-        inflate = LayoutInflater.from(PlayBeadMeActivity.this);
-
-        imageHandler.post(new Runnable() {
-            public void run() {
-                try {
-
-                    ImageView imageView = (ImageView) inflate.inflate(R.layout.ani_image_view, null);
-                    imageView.setImageResource(CONFETTI[new Random().nextInt(CONFETTI.length - 1)]);
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    ((RelativeLayout)findViewById(R.id.container)).addView(imageView);
-
-                    RelativeLayout.LayoutParams animationLayout = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-                    animationLayout.setMargins(new Random().nextInt(getCellWidth()) * Constant.GAME_MAX_NUMBER_BEADS, (int) (-150 * mScale), 0, 0);
-                    animationLayout.width = (int) (60 * mScale);
-                    animationLayout.height = (int) (60 * mScale);
-
-                    imageView.setLayoutParams(animationLayout);
-
-                    getAnimationManager().confetti(mDisplaySize,mScale,imageView);
-                    imageHandler.postDelayed(this, 500);
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-        });
-
-        //getMusicManager().playWinningSoundEffect(this);
+    public int getOffsetX() {
+        return offsetX;
     }
+
+    public int getOffsetY() {
+        return offsetY;
+    }
+
 }

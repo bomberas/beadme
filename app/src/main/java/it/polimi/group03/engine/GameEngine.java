@@ -2,6 +2,8 @@ package it.polimi.group03.engine;
 
 //import android.util.Log;
 
+import android.util.Log;
+
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Game;

@@ -11,6 +11,8 @@ import android.preference.PreferenceManager;
 import android.media.SoundPool;
 import android.util.Log;
 
+import java.util.HashMap;
+
 import it.polimi.group03.R;
 import it.polimi.group03.util.Constant;
 
@@ -29,7 +31,8 @@ public class MusicManager {
 
     private static MusicManager ourInstance = new MusicManager();
     private MediaPlayer media;
-    private SoundPool sndPool;
+    private SoundPool soundPool;
+    private HashMap<String, Integer> soundMap;
     private String theme;
 
     public static MusicManager getInstance() {
@@ -42,6 +45,28 @@ public class MusicManager {
         } else {
             createOldSoundPool();
         }
+    }
+
+    /**
+     * Creates a sound pool for handling all the sounds effects, this method is target for LOLLIPOP ir higher versions
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected void createNewSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        soundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
+
+    /**
+     * Creates a sound pool for handling all the sounds effects, this method is target for version lower than LOLLIPOP
+     */
+    @SuppressWarnings("deprecation")
+    protected void createOldSoundPool() {
+        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     }
 
     /**
@@ -96,58 +121,6 @@ public class MusicManager {
     }
 
     /**
-     * Plays the corresponding sound effect for the action of moving bars in the game.
-     * <b>Reference</b><br/>
-     * <p/>
-     * {@link #getMoveSoundEffect(Context)}<br/>
-     *
-     * @param context Calling Activity
-     */
-    public void playMoveSoundEffect(Context context) {
-        if (!isSoundOn(context)) {
-            Log.i(TAG, "The sound preference is off");
-            return;
-        }
-
-        sndPool.play(sndPool.load(context, getMoveSoundEffect(context), 1), 1, 1, 0, 0, 1);
-
-
-    }
-
-    /**
-     * Plays the corresponding sound effect for the action of moving bars in the game.
-     * <b>Reference</b><br/>
-     * <p/>
-     * {@link #getMoveSoundEffect(Context)}<br/>
-     *
-     * @param context Calling Activity
-     */
-    public void playWinningSoundEffect(Context context) {
-        if (!isSoundOn(context)) {
-            Log.i(TAG, "The sound preference is off");
-            return;
-        }
-
-        sndPool.play(sndPool.load(context, getWinningSoundEffect(context), 1), 1, 1, 0, -1, 1);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    protected void createNewSoundPool() {
-        AudioAttributes attributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_GAME)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build();
-        sndPool = new SoundPool.Builder()
-                .setAudioAttributes(attributes)
-                .build();
-    }
-
-    @SuppressWarnings("deprecation")
-    protected void createOldSoundPool() {
-        sndPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-    }
-
-    /**
      * If the application <i>sound</i> is enabled (and previously started and playing), the manager will
      * pause the current track.<br/><br/>
      */
@@ -175,6 +148,52 @@ public class MusicManager {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
+    }
+
+    /**
+     * Loads the sound effects into a map so they can be available when is needed.
+     *
+     * @param context Calling Activity
+     */
+    public void initSoundMap(Context context){
+        soundMap = new HashMap<String, Integer>();
+
+        soundMap.put(Constant.MOVE_SFX, soundPool.load(context,getMoveSoundEffect(context),1));
+        soundMap.put(Constant.WIN_SFX, soundPool.load(context,R.raw.ovation,1));
+    }
+
+    /**
+     * Plays the corresponding sound effect for the action of moving bars in the game.
+     * <b>Reference</b><br/>
+     * <p/>
+     * {@link #getMoveSoundEffect(Context)}<br/>
+     *
+     * @param context Calling Activity
+     */
+    public void playMoveSoundEffect(Context context) {
+        if (!isSoundOn(context)) {
+            Log.i(TAG, "The sound preference is off");
+            return;
+        }
+
+        soundPool.play(soundMap.get(Constant.MOVE_SFX), 1, 1, 0, 0, 1);
+    }
+
+    /**
+     * Plays the corresponding sound effect for the action of moving bars in the game.
+     * <b>Reference</b><br/>
+     * <p/>
+     * {@link #getMoveSoundEffect(Context)}<br/>
+     *
+     * @param context Calling Activity
+     */
+    public void playWinningSoundEffect(Context context) {
+        if (!isSoundOn(context)) {
+            Log.i(TAG, "The sound preference is off");
+            return;
+        }
+
+        soundPool.play(soundMap.get(Constant.WIN_SFX), 1, 1, 0, 5, 1);
     }
 
     /**
@@ -224,15 +243,5 @@ public class MusicManager {
                 break;
         }
         return soundtrack;
-    }
-
-    /**
-     * Returns the sound effect to be used when a player has won the game.
-     *
-     * @param context Calling Activity
-     * @return {@code id} of the soundtrack according to the selected theme.
-     */
-    private int getWinningSoundEffect(Context context) {
-        return R.raw.ovation;
     }
 }

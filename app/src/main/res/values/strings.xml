@@ -17,7 +17,7 @@
     <string name="e0x6">You cannot placed the bead in this position.</string>
     <string name="e0x7">You cannot moved this bead because is already placed.</string>
     <string name="e0x8">The bead must be placed inside the board.</string>
-    <string name="current_player">C\'mon %1$s is your turn!</string>
+    <string name="current_player">%1$s is your turn!</string>
     <string name="next_player">Next Player: &#160;</string>
     <string name="winner">God save %1$s almighty king of Bead Me</string>
     <string name="debbuggable">true</string>
@@ -29,6 +29,9 @@
     <string name="btn_play_text">PLAY</string>
     <string name="btn_settings_text">SETTINGS</string>
     <string name="btn_statistics_text">STATISTICS</string>
+
+    <string name="roboto_name"><b>Mr. Roboto</b></string>
+    <string name="roboto_desc"><b>You\'re wondering who I am. Machine or mannequin? My heart is human, my blood is boiling, my brain belongs to Tati. Domo arigato, Mr. Roboto.</b></string>
 
     <string-array name="players">
         <item>1 player</item>

@@ -76,6 +76,47 @@ public class CommonUtil {
         }
         return dest;
     }
+
+    public static String maxValue(int[][] matrix) {
+        int max = matrix[0][0];
+        int r = 0;
+        int c = 0;
+
+        for ( int col = 0; col < Constant.BOARD_INDEX; col++) {
+            for ( int row = 0; row < Constant.BOARD_INDEX; row++) {
+                if ( matrix[row][col] > max) {
+                    max = matrix[row][col];
+                    r = row;
+                    c = col;
+                }
+            }
+        }
+
+        return String.valueOf(r)  + "|" + String.valueOf(c);
+    }
+
+    public static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                    (l + " cannot be cast to int without changing its value.");
+        }
+        return (int) l;
+    }
+
+    public static String convertDateToString(Date dateNow){
+        SimpleDateFormat dateConvertion = new SimpleDateFormat("yyyyMMddHHmmss");
+        String date_to_string = dateConvertion.format(dateNow);
+        return date_to_string;
+
+    }
+
+    public static Date convertStringToDate(String string) throws ParseException {
+        String str = "January 2, 2010";
+        SimpleDateFormat format = new SimpleDateFormat("yyyMMddHHmmss");
+        Date date = format.parse(str);
+        return date;
+    }
+
     /**
      *
      * Creates a toast message on the screen displaying a customized <tt>text</tt>text
@@ -92,7 +133,7 @@ public class CommonUtil {
         Toast myToast = new Toast(context);
         myToast.setView(view);
         myToast.setDuration(duration);
-        myToast.setGravity(Gravity.CENTER , 0, 0);
+        myToast.setGravity(Gravity.CENTER , 0, 400);
         myToast.show();
     }
 
@@ -169,6 +210,15 @@ public class CommonUtil {
         }
     }
 
+    /**
+     *
+     * Returns the corresponding view id of the summary image. This method checks the id of the player
+     * so it can return the view id
+     * related to the bead.
+     *
+     * @param playerId The id of the player for whom the image view id is needed.
+     * @return {@code id} The id of the view representing the image on the screen.
+     */
     public static int getPlayerSummaryImageId(int playerId) {
         switch (playerId) {
             case 0:
@@ -186,45 +236,87 @@ public class CommonUtil {
         }
     }
 
-    public static String maxValue(int[][] matrix) {
-        int max = matrix[0][0];
-        int r = 0;
-        int c = 0;
+    /**
+     *
+     * Returns the corresponding view id of the given bar. This method checks the  orientation and location
+     * given so it can return the proper view id.
+     *
+     * @param orientation orientation of the given bar
+     * @param id position - number of bar from 0 to 6
+     * @return {@code id} The id of the view representing the bar on the screen.
+     */
+    public static int getBarId(BarOrientation orientation, int id){
 
-        for ( int col = 0; col < Constant.BOARD_INDEX; col++) {
-            for ( int row = 0; row < Constant.BOARD_INDEX; row++) {
-                if ( matrix[row][col] > max) {
-                    max = matrix[row][col];
-                    r = row;
-                    c = col;
+        switch (id) {
+            case 0:
+                if (orientation.equals(BarOrientation.HORIZONTAL)){
+                    return R.id.imgViewH1;
+                }else {
+                    return R.id.imgViewV1;
                 }
-            }
+            case 1:
+                if (orientation.equals(BarOrientation.HORIZONTAL)){
+                    return R.id.imgViewH2;
+                }else {
+                    return R.id.imgViewV2;
+                }
+            case 2:
+                if (orientation.equals(BarOrientation.HORIZONTAL)){
+                    return R.id.imgViewH3;
+                }else {
+                    return R.id.imgViewV3;
+                }
+            case 3:
+                if (orientation.equals(BarOrientation.HORIZONTAL)){
+                    return R.id.imgViewH4;
+                }else {
+                    return R.id.imgViewV4;
+                }
+            case 4:
+                if (orientation.equals(BarOrientation.HORIZONTAL)){
+                    return R.id.imgViewH5;
+                }else {
+                    return R.id.imgViewV5;
+                }
+            case 5:
+                if (orientation.equals(BarOrientation.HORIZONTAL)){
+                    return R.id.imgViewH6;
+                }else {
+                    return R.id.imgViewV6;
+                }
+            case 6:
+                if (orientation.equals(BarOrientation.HORIZONTAL)){
+                    return R.id.imgViewH7;
+                }else {
+                    return R.id.imgViewV7;
+                }
+            default:
+                return -1;
         }
-
-        return String.valueOf(r)  + "|" + String.valueOf(c);
     }
 
-    public static int safeLongToInt(long l) {
-        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException
-                    (l + " cannot be cast to int without changing its value.");
-        }
-        return (int) l;
+    /**
+     *
+     * This method converts the given coordinates into a valid row or column on the board.
+     * Both rows and columns go from 0 to 6.
+     *
+     * @param x coordinate x or y that represents the position of the finger on the screen
+     * @param offset the offset either on x or y coordinate.
+     * @return the corresponding {@code row} or {@code column} on the board.
+     */
+    public static int convertXYToRowColumn(int x, int offset, int width){
+        return (int)Math.floor((x - offset)/width) - 4;
     }
 
-    public static String convertDateToString(Date dateNow)
-    {
-        SimpleDateFormat dateConvertion = new SimpleDateFormat("yyyyMMddHHmmss");
-        String date_to_string = dateConvertion.format(dateNow);
-        return date_to_string;
-
-    }
-
-
-    public static Date convertStringToDate(String string) throws ParseException {
-        String str = "January 2, 2010";
-        SimpleDateFormat format = new SimpleDateFormat("yyyMMddHHmmss");
-        Date date = format.parse(str);
-        return date;
+    /**
+     *
+     * This method converts the given row or column into a valid position on the screen.
+     *
+     * @param i the row or column in which the bead has been placed.
+     * @param offset the offset either on x or y coordinate.
+     * @return the corresponding {@code x coordinate} or {@code y coordinate} in which the bead will be placed.
+     */
+    public static int convertRowColumnToXY(int i, int offset, int width){
+        return (i + 3)*width + offset;
     }
 }

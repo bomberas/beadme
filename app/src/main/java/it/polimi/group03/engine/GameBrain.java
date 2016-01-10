@@ -80,7 +80,7 @@ public class GameBrain {
     /**
      * Retrieve a bar with the new position selected as the preferred movement.
      */
-    public Bar move(GameEngine engine, Player me, Player theOtherGuy) {
+    public Bar move(GameEngine engine) {
         Map<String, Object> mapH;
         Bar bestHorizontalBar = null;
         int defeatsOnHorizontal = 0;
@@ -92,6 +92,10 @@ public class GameBrain {
         int suicidesOnVertical = 0;
 
         int level = 0;//0 for counting the defeats, 1 for placing the beads on red slots, 2 for placing the beads on blue slots.
+
+        //Obtaining players
+        Player me = engine.getGame().getPlayers().get(0).isMrRoboto() ? engine.getGame().getPlayers().get(0) : engine.getGame().getPlayers().get(1);
+        Player theOtherGuy = engine.getGame().getPlayers().get(0).isMrRoboto() ? engine.getGame().getPlayers().get(1) : engine.getGame().getPlayers().get(0);
 
         //Keep doing this unless a good move has been found
         while ( defeatsOnHorizontal +  defeatsOnVertical == 0 ) {
@@ -176,13 +180,13 @@ public class GameBrain {
         List<Bar> bars = new ArrayList<>();
 
         for ( Bead bead : beads ) {
-            Bar bar,b;
+            Bar b;
             if ( isHorizontal ) {
                 b = engine.getGame().findBar(bead.getPosition().getX(), BarOrientation.HORIZONTAL);
             } else {
                 b = engine.getGame().findBar(bead.getPosition().getY(), BarOrientation.VERTICAL);
             }
-            bar = new Bar(b.getId(), b.getOrientation(), b.getKeys());
+            Bar bar = new Bar(b.getId(), b.getOrientation(), b.getKeys());
             bar.setPosition(b.getPosition());
             bars.add(bar);
         }

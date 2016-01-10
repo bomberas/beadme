@@ -6,6 +6,7 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -28,6 +29,7 @@ import it.polimi.group03.R;
  */
 public class AnimationManager {
 
+    private static final String TAG = AnimationManager.class.getSimpleName();
     private static AnimationManager ourInstance = new AnimationManager();
 
     public static AnimationManager getInstance() {
@@ -105,35 +107,35 @@ public class AnimationManager {
         cloudAnim.start();
     }
 
-    public void moveXY(int[] offsetX, int[] offsetY, ImageView ... items) {
+    public void moveXY(boolean accelerate, boolean reverse, int[] offsetX, int[] offsetY, ImageView ... items) {
 
         if (items != null) {
 
             ObjectAnimator[] animations = new ObjectAnimator[items.length *2];
             TimeInterpolator[] interpolators = {new AccelerateDecelerateInterpolator(), new AccelerateInterpolator(), new DecelerateInterpolator()};
             int c = 0;
-            long duration = 12000;
 
             for (int i = 0; i < items.length; ++i) {
+                Log.i(TAG, "moving [" + i + "] x = " + offsetX[i] + " y = " + offsetY[i]);
                 ObjectAnimator animX = ObjectAnimator.ofFloat(items[i], "x", offsetX[i]);
                 animX.setRepeatCount(ValueAnimator.INFINITE);
-                animX.setRepeatMode(ValueAnimator.REVERSE);
-                //animX.setInterpolator(interpolators[new Random().nextInt(interpolators.length - 1)]);
-                long delay = (new Random().nextInt((int)(duration/4000)) * 1000);
-                animX.setStartDelay(delay);
+                animX.setRepeatMode(reverse ? ValueAnimator.REVERSE : ValueAnimator.RESTART);
+                if ( accelerate ) animX.setInterpolator(new AccelerateInterpolator());
+                //animX.setStartDelay(new Random().nextInt(3) * 1000);
                 animations[c] = animX;
                 c++;
                 ObjectAnimator animY = ObjectAnimator.ofFloat(items[i], "y", offsetY[i]);
                 animY.setRepeatCount(ValueAnimator.INFINITE);
-                animY.setRepeatMode(ValueAnimator.REVERSE);
-                //animY.setInterpolator(interpolators[new Random().nextInt(interpolators.length - 1)]);
-                animX.setStartDelay(delay);
+                animY.setRepeatMode(reverse ? ValueAnimator.REVERSE : ValueAnimator.RESTART);
+                if ( accelerate ) animY.setInterpolator(new AccelerateInterpolator());
+                //animX.setStartDelay(new Random().nextInt(3) * 1000);
                 animations[c] = animY;
                 c++;
             }
 
             AnimatorSet animSetXY = new AnimatorSet();
-            animSetXY.setDuration(duration);
+            animSetXY.setDuration(12000);
+
             animSetXY.playTogether(animations);
             animSetXY.start();
         }
@@ -144,12 +146,9 @@ public class AnimationManager {
         aniView.setPivotX(aniView.getWidth() / 2);
         aniView.setPivotY(aniView.getHeight() / 2);
 
-        long delay = new Random().nextInt(3000);
-
         final ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
-        animator.setDuration(7000);
+        animator.setDuration(5000);
         animator.setInterpolator(new AccelerateInterpolator());
-        //animator.setStartDelay(delay);
 
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 

@@ -140,4 +140,21 @@ public class Constant {
      * This constant holds the value of the player icon tag.
      */
     public static final String PLAYER_ICON = "player_icon";
+    /**
+     * This constant holds the value of the player icon tag.
+     */
+    public static final String PLAYER_HUMAN = "player_human";
+    /**
+     * This constant holds the key of the sound effect for moving a bar.
+     */
+    public static final String MOVE_SFX = "MOVE_SFX";
+    /**
+     * This constant holds the key of the sound effect for winning the game.
+     */
+    public static final String WIN_SFX = "WIN_SFX";
+
+    /**
+     * This constant holds the name of this game brain :)
+     */
+    public static final String MR_ROBOTO = "Mr. Roboto";
 }

@@ -27,7 +27,7 @@ import it.polimi.group03.util.Constant;
  */
 public class ThemeManager {
 
-    private static final String TAG = "ThemeManager";
+    private static final String TAG = ThemeManager.class.getSimpleName();
 
     private static ThemeManager ourInstance = new ThemeManager();
 
@@ -109,6 +109,14 @@ public class ThemeManager {
         }
     }
 
+    /**
+     *
+     * Retrieves the drawable id of the corresponding image that shows the number of beads that a given user still has in the game.
+     *
+     * @param context Calling Activity
+     * @param beads Remaining number of beads that are still active
+     * @return {@code id} of the drawable resource that represents the number of beads active per user
+     */
     public int getSummaryIcon(Context context, int beads) {
         int summaryIconID;
         switch ( theme(context) ) {
@@ -189,6 +197,14 @@ public class ThemeManager {
         return summaryIconID;
     }
 
+    /**
+     *
+     * Retrieves the drawable id of the corresponding image that shows the character of a given player.
+     *
+     * @param context Calling Activity
+     * @param id identifier of the player in the list of players active in the game
+     * @return {@code id} of the drawable resource that represents the icon of the given player
+     */
     public int getPlayerIcon(Context context, int id) {
         int playerIconID;
         switch ( theme(context) ) {
@@ -248,7 +264,7 @@ public class ThemeManager {
         return playerIconID;
     }
 
-   /**
+    /**
      *
      * Set the background animation for the {@link it.polimi.group03.activity.PlayBeadMeActivity} activity according
      * to the selected theme.
@@ -285,15 +301,15 @@ public class ThemeManager {
             case Constant.PREF_THEME_STAR_WARS:
 
                 RelativeLayout.LayoutParams paramsSW1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                ImageView[] animations1 = new ImageView[6];
-                int[] offsetX = new int[6];
-                int[] offsetY = new int[6];
+                ImageView[] animations1 = new ImageView[3];
+                int[] offsetX = new int[3];
+                int[] offsetY = new int[3];
                 ImageView img_TopLeft1 = new ImageView(context);
                 paramsSW1.leftMargin = 10;
-                paramsSW1.topMargin  = 10;
+                paramsSW1.topMargin  = 60;
                 img_TopLeft1.setScaleType(ImageView.ScaleType.FIT_XY);
                 img_TopLeft1.setLayoutParams(paramsSW1);
-                img_TopLeft1.setImageResource(R.drawable.shooting_star2);
+                img_TopLeft1.setImageResource(R.drawable.meteorite4);
                 box.addView(img_TopLeft1);
                 animations1[0] = img_TopLeft1;
                 offsetX[0] = (int)(0.9 * width);
@@ -301,28 +317,28 @@ public class ThemeManager {
 
                 ImageView img_TopCenter = new ImageView(context);
                 RelativeLayout.LayoutParams paramsSW2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                paramsSW2.leftMargin = (int) (width * 0.60);
-                paramsSW2.topMargin  = 10;
+                paramsSW2.leftMargin = 60;
+                paramsSW2.topMargin  = 40;
                 img_TopCenter.setLayoutParams(paramsSW2);
                 img_TopCenter.setScaleType(ImageView.ScaleType.FIT_XY);
-                img_TopCenter.setImageResource(R.drawable.planet2);
+                img_TopCenter.setImageResource(R.drawable.meteorite4);
                 box.addView(img_TopCenter);
                 animations1[1] = img_TopCenter;
-                offsetX[1] = 0;
+                offsetX[1] = (int)(0.9 * width);
                 offsetY[1] = (int)(0.9 * height);
 
                 ImageView img_TopRight1 = new ImageView(context);
                 RelativeLayout.LayoutParams paramsSW3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                paramsSW3.leftMargin =  width - 50;
-                paramsSW3.topMargin = 10;
+                paramsSW3.leftMargin =  110;
+                paramsSW3.topMargin = 20;
                 img_TopRight1.setLayoutParams(paramsSW3);
                 img_TopRight1.setScaleType(ImageView.ScaleType.FIT_XY);
-                img_TopRight1.setImageResource(R.drawable.planet);
+                img_TopRight1.setImageResource(R.drawable.meteorite4);
                 box.addView(img_TopRight1);
                 animations1[2] = img_TopRight1;
-                offsetX[2] = -(int)(0.9 * width);
-                offsetY[2] =  (int)(0.9 * height);
-
+                offsetX[2] = (int)(0.9 * width);
+                offsetY[2] = (int)(0.9 * height);
+/*
                 ImageView img_BottomLeft1 = new ImageView(context);
                 RelativeLayout.LayoutParams paramsSW4 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                 paramsSW4.leftMargin =  10;
@@ -358,64 +374,74 @@ public class ThemeManager {
                 animations1[5] = img_BottomRight1;
                 offsetX[5] = -(int)(0.8 * width);
                 offsetY[5] = -(int)(0.8 * height);
-
-                AnimationManager.getInstance().moveXY( offsetX, offsetY, animations1);
+*/
+                AnimationManager.getInstance().moveXY(true, false, offsetX, offsetY, animations1);
                 break;
             case Constant.PREF_THEME_HARRY_POTTER:
 
                 RelativeLayout.LayoutParams paramsHP1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                ImageView[] animations = new ImageView[4];
-                int[] offsetX1 = new int[4];
-                int[] offsetY1 = new int[4];
+                ImageView[] animations = new ImageView[2];
+                int[] offsetX1 = new int[2];
+                int[] offsetY1 = new int[2];
+                int iconHeight = (int)(((height > width ? width : height)/ Constant.NUMBER_OF_CELLS) * 2.95);
+                int iconWidth = (int)(((height > width ? width : height)/ Constant.NUMBER_OF_CELLS) * 2.3);
 
                 ImageView img_TopLeft = new ImageView(context);
-                paramsHP1.topMargin  =  height - 100;
-                paramsHP1.leftMargin =  150;
+                paramsHP1.topMargin  =  height - iconHeight;
+                paramsHP1.leftMargin =  iconWidth;
+                paramsHP1.height = iconHeight;
+                paramsHP1.width = iconWidth;
                 img_TopLeft.setLayoutParams(paramsHP1);
                 img_TopLeft.setScaleType(ImageView.ScaleType.FIT_XY);
                 img_TopLeft.setImageResource(R.drawable.dementor2);
                 box.addView(img_TopLeft);
                 animations[0] = img_TopLeft;
-                offsetX1[0] = (int)(0.9 * width);
-                offsetY1[0] = (int)(0.9 * height);
+                offsetX1[0] = (int)(0.8 * width);
+                offsetY1[0] = (int)(0.8 * height);
 
                 ImageView img_TopRight = new ImageView(context);
                 RelativeLayout.LayoutParams paramsHP2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                paramsHP2.topMargin  =  height - 100;
-                paramsHP2.leftMargin =  width - 150;
+                paramsHP2.topMargin  =  height - iconHeight;
+                paramsHP2.leftMargin =  width - iconWidth;
+                paramsHP2.height = iconHeight;
+                paramsHP2.width = iconWidth;
                 img_TopRight.setLayoutParams(paramsHP2);
                 img_TopRight.setScaleType(ImageView.ScaleType.FIT_XY);
                 img_TopRight.setImageResource(R.drawable.dementor2);
                 box.addView(img_TopRight);
                 animations[1] = img_TopRight;
-                offsetX1[1] = -(int)(0.85 * width);
-                offsetY1[1] =  (int)(0.85 * height);
-
+                offsetX1[1] = -(int)(0.8 * width);
+                offsetY1[1] = -(int)(0.8 * height);
+/*
                 ImageView img_BottomLeft = new ImageView(context);
                 RelativeLayout.LayoutParams paramsHP3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                paramsHP3.topMargin  =  height - 150;
-                paramsHP3.leftMargin =  150;
+                paramsHP3.topMargin  =  height - iconHeight;
+                paramsHP3.leftMargin =  iconWidth;
+                paramsHP3.height = iconHeight;
+                paramsHP3.width = iconWidth;
                 img_BottomLeft.setLayoutParams(paramsHP3);
                 img_BottomLeft.setScaleType(ImageView.ScaleType.FIT_XY);
                 img_BottomLeft.setImageResource(R.drawable.dementor2);
                 box.addView(img_BottomLeft);
                 animations[2] = img_BottomLeft;
-                offsetX1[2] = (int)(0.85 * width);
-                offsetY1[2] = -(int)(0.85 * height);
+                offsetX1[2] = (int)(0.8 * width);
+                offsetY1[2] = -(int)(0.8 * height);
 
                 ImageView img_BottomRight = new ImageView(context);
                 RelativeLayout.LayoutParams paramsHP4 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                 img_BottomRight.setScaleType(ImageView.ScaleType.FIT_XY);
-                paramsHP4.topMargin  =  height - 150;
-                paramsHP4.leftMargin =  width - 150;
+                paramsHP4.topMargin  =  height - iconHeight;
+                paramsHP4.leftMargin =  width - iconWidth;
+                paramsHP4.height = iconHeight;
+                paramsHP4.width = iconWidth;
                 img_BottomRight.setLayoutParams(paramsHP4);
                 img_BottomRight.setImageResource(R.drawable.dementor2);
                 box.addView(img_BottomRight);
                 animations[3] = img_BottomRight;
-                offsetX1[3] = -(int)(0.85 * width);
-                offsetY1[3] = -(int)(0.85 * height);
-
-                AnimationManager.getInstance().moveXY( offsetX1, offsetY1, animations);
+                offsetX1[3] = -(int)(0.8 * width);
+                offsetY1[3] = -(int)(0.8 * height);
+*/
+                AnimationManager.getInstance().moveXY(false, true, offsetX1, offsetY1, animations);
 
                 break;
         }

@@ -35,7 +35,7 @@ public class CharactersActivity extends GenericActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "Accessing to Choosing Characters");
+        Log.i(TAG, "Choosing Characters");
         super.onCreate(savedInstanceState);
         getThemeManager().setTheme(this);
         setContentView(R.layout.activity_characters);
@@ -52,6 +52,13 @@ public class CharactersActivity extends GenericActivity {
         getAnimationManager().blink(this, findViewById(R.id.btn_first));
         getAnimationManager().zoomOut(this, findViewById(R.id.characters_players));
         getAnimationManager().zoomIn(this, findViewById(R.id.characters_players));
+
+        int numberOfPlayers = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString(Constant.KEY_PREF_PLAYERS, Constant.PREF_PLAYER_DEFAULT));
+
+        if ( numberOfPlayers > 1) {
+            ViewFlipper layout = (ViewFlipper)findViewById(R.id.viewFlipperCharacters);
+            layout.removeViewAt(0);
+        }
     }
 
     //Using the following method, we will handle all screen swaps.
@@ -132,13 +139,34 @@ public class CharactersActivity extends GenericActivity {
         v.clearAnimation();
         ImageView character = (ImageView)((LinearLayout) v.getParent()).getChildAt(0);
         playActivityIntent.putExtra(Constant.PLAYER_NAME + (pickedCharacters - 1), character.getContentDescription());
-        playActivityIntent.putExtra(Constant.PLAYER_ICON + (pickedCharacters - 1), getThemeManager().getPlayerIcon(this, Integer.valueOf((String) character.getTag())));
+
+
+
+        if ( numberOfPlayers == 1){ // This means we're playing against Mr. Roboto
+            if ( character.getContentDescription().equals(Constant.MR_ROBOTO) ) {
+                playActivityIntent.putExtra(Constant.PLAYER_ICON + (pickedCharacters - 1), R.drawable.img_app);
+                playActivityIntent.putExtra(Constant.PLAYER_HUMAN + (pickedCharacters - 1), false);
+
+                numberOfPlayers --;
+            } else {
+                playActivityIntent.putExtra(Constant.PLAYER_ICON + (pickedCharacters - 1), getThemeManager().getPlayerIcon(this, Integer.valueOf((String) character.getTag())));
+                playActivityIntent.putExtra(Constant.PLAYER_HUMAN + (pickedCharacters - 1), true);
+
+                playActivityIntent.putExtra(Constant.PLAYER_NAME + "1", Constant.MR_ROBOTO);
+                playActivityIntent.putExtra(Constant.PLAYER_ICON + "1", R.drawable.img_app);
+                playActivityIntent.putExtra(Constant.PLAYER_HUMAN + "1", false);
+            }
+        } else {
+            playActivityIntent.putExtra(Constant.PLAYER_ICON + (pickedCharacters - 1), getThemeManager().getPlayerIcon(this, Integer.valueOf((String) character.getTag())));
+            playActivityIntent.putExtra(Constant.PLAYER_HUMAN + (pickedCharacters - 1), true);
+        }
 
         if ( numberOfPlayers == pickedCharacters ) {
             Log.i(TAG, "Starting Play Activity");
             FrameLayout frame = (FrameLayout)findViewById(R.id.characters_frame);
             playActivityIntent.putExtra(Constant.HEIGHT, frame.getHeight());
             playActivityIntent.putExtra(Constant.WIDTH, frame.getWidth());
+
             startActivity(playActivityIntent);
         } else {
             pickedCharacters++;

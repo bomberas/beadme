@@ -137,6 +137,7 @@ public class GameTest {
         Player tati = new Player(0, "tatibloom", "PINK");
         Assert.assertEquals(Constant.STATUS_OK, engine.addPlayer(tati).getCode());
         Player ceci = new Player(1, "cecibloom", "PURPLE");
+        ceci.setIsMrRoboto(true);
         Assert.assertEquals(Constant.STATUS_OK, engine.addPlayer(ceci).getCode());
 
         Assert.assertEquals(Constant.STATUS_OK, engine.addBeadToBoard(tati, new Bead(0, 5)).getCode());
@@ -152,49 +153,49 @@ public class GameTest {
         printBars();
 
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(2, BarOrientation.VERTICAL, BarPosition.INNER, tati).getCode());
-        Bar bar = brain.move(engine, ceci, tati);
+        Bar bar = brain.move(engine);
         System.out.println("Brain >>> Bar id[" + bar.getId() + "] orientation[" + bar.getOrientation() + "] position[" + bar.getPosition() + "]");
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), ceci).getCode());
         printBars();
         printBoard();
 
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(6, BarOrientation.HORIZONTAL, BarPosition.OUTER, tati).getCode());
-        bar = brain.move(engine, ceci, tati);
+        bar = brain.move(engine);
         System.out.println("\n\nBrain >>> Bar id[" + bar.getId() + "] orientation[" + bar.getOrientation() + "] position[" + bar.getPosition() + "]");
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), ceci).getCode());
         printBars();
         printBoard();
 
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(0, BarOrientation.VERTICAL, BarPosition.CENTRAL, tati).getCode());
-        bar = brain.move(engine, ceci, tati);
+        bar = brain.move(engine);
         System.out.println("\n\nBrain >>> Bar id[" + bar.getId() + "] orientation[" + bar.getOrientation() + "] position[" + bar.getPosition() + "]");
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), ceci).getCode());
         printBars();
         printBoard();
 
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(5, BarOrientation.HORIZONTAL, BarPosition.OUTER, tati).getCode());
-        bar = brain.move(engine, ceci, tati);
+        bar = brain.move(engine);
         System.out.println("\n\nBrain >>> Bar id[" + bar.getId() + "] orientation[" + bar.getOrientation() + "] position[" + bar.getPosition() + "]");
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), ceci).getCode());
         printBars();
         printBoard();
 
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(4, BarOrientation.VERTICAL, BarPosition.INNER, tati).getCode());//2-
-        bar = brain.move(engine, ceci, tati);
+        bar = brain.move(engine);
         System.out.println("\n\nBrain >>> Bar id[" + bar.getId() + "] orientation[" + bar.getOrientation() + "] position[" + bar.getPosition() + "]");
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), ceci).getCode());
         printBars();
         printBoard();
 
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(3, BarOrientation.HORIZONTAL, BarPosition.INNER, tati).getCode());
-        bar = brain.move(engine, ceci, tati);
+        bar = brain.move(engine);
         System.out.println("\n\nBrain >>> Bar id[" + bar.getId() + "] orientation[" + bar.getOrientation() + "] position[" + bar.getPosition() + "]");
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), ceci).getCode());
         printBars();
         printBoard();
 
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(1, BarOrientation.VERTICAL, BarPosition.INNER, tati).getCode());
-        bar = brain.move(engine, ceci, tati);
+        bar = brain.move(engine);
         System.out.println("\n\nBrain >>> Bar id[" + bar.getId() + "] orientation[" + bar.getOrientation() + "] position[" + bar.getPosition() + "]");
         Assert.assertEquals(Constant.STATUS_OK, engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), ceci).getCode());
         printBars();

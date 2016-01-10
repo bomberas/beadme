@@ -24,7 +24,7 @@
             android:id="@+id/txtCurrentPlayer"
             android:foreground="#f5ffffff"
             android:gravity="center"
-            android:paddingBottom="25dp"
+            android:paddingBottom="15dp"
             android:layout_marginTop="25dp"
             style="?textStyle"/>
 
@@ -171,7 +171,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal|bottom">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -187,7 +187,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/waiting_spot" />
-            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom|left"
+        android:id="@+id/rel_arrowRigth"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_right"
+            android:id="@+id/img_arrowRight" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/rel_arrowUp"
+        android:gravity="center_horizontal|bottom"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_up"
+            android:id="@+id/img_arrowUp"
+            android:visibility="invisible"/>
     </RelativeLayout>
 
 </RelativeLayout>
