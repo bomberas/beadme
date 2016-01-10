@@ -69,11 +69,25 @@ public class PlayBeadMeActivity extends GenericActivity {
         getThemeManager().setPlayBackgroundAnimation(this, (RelativeLayout)findViewById(R.id.animation), height, width);
     }
 
+    /**
+     * This methods controls the action of going back while playing. It prompts a customized popup to warn the player
+     * that the current game will be lost if he or she decides to.
+     */
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), DialogActivity.class));
     }
 
+    /**
+     *
+     * This method sets the dimensions of the "board" according to the device height and width that was previously sent by the
+     * {@link MainActivity}. It also calculates the proper dimensions for the bars and beads so they can all fit in the playing
+     * section.
+     *     *
+     *
+     * @param height
+     * @param width
+     */
     private void setScreenDimensions(int height, int width) {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) box.getLayoutParams();
 
@@ -367,28 +381,17 @@ public class PlayBeadMeActivity extends GenericActivity {
 
         final Rect mDisplaySize = new Rect();
         final LayoutInflater inflate;
-        final int[] LEAVES = {
+        final int[] CONFETTI = {
 
-                R.drawable.greendot,
-                R.drawable.lavenderdot,
-                R.drawable.lavandersquare,
-                R.drawable.lemongreendot,
-                R.drawable.lemongreensquare,
-                R.drawable.lightbluedot,
-                R.drawable.lightbluesquare,
-                R.drawable.orangedot,
-                R.drawable.orangesquare,
-                R.drawable.pinkdot,
-                R.drawable.pinksquare,
-                R.drawable.reddot,
-                R.drawable.redsquare,
-                R.drawable.serpentineblue,
-                R.drawable.serpentinegreen,
-                R.drawable.serpentinelightblue,
-                R.drawable.serpentineorange,
-                R.drawable.serpentinepurple,
-                R.drawable.serpentinered,
-                R.drawable.serpentinered2,
+                R.drawable.confetti1,
+                R.drawable.confetti2,
+                R.drawable.confetti3,
+                R.drawable.confetti4,
+                R.drawable.confetti5,
+                R.drawable.confetti6,
+                R.drawable.confetti7,
+                R.drawable.confetti8,
+                R.drawable.confetti9
         };
         final float mScale;
         final Handler imageHandler = new Handler();
@@ -406,7 +409,7 @@ public class PlayBeadMeActivity extends GenericActivity {
                 try {
 
                     ImageView imageView = (ImageView) inflate.inflate(R.layout.ani_image_view, null);
-                    imageView.setImageResource(LEAVES[new Random().nextInt(LEAVES.length - 1)]);
+                    imageView.setImageResource(CONFETTI[new Random().nextInt(CONFETTI.length - 1)]);
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     ((RelativeLayout)findViewById(R.id.container)).addView(imageView);
 
@@ -425,5 +428,6 @@ public class PlayBeadMeActivity extends GenericActivity {
             }
         });
 
+        //getMusicManager().playWinningSoundEffect(this);
     }
 }
