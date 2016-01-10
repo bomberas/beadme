@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -25,11 +24,9 @@ import it.polimi.group03.util.Constant;
  * @version 1.0
  * @since 22/12/2015.
  */
-public class CharactersActivity extends GenericActivity {
+public class CharactersActivity extends FlipperActivity {
 
     private static final String TAG = "HelpActivity";
-    private ViewFlipper flipper;
-    private float lastX;
     private int pickedCharacters;
     private Intent playActivityIntent;
 
@@ -39,7 +36,9 @@ public class CharactersActivity extends GenericActivity {
         super.onCreate(savedInstanceState);
         getThemeManager().setTheme(this);
         setContentView(R.layout.activity_characters);
-        flipper = (ViewFlipper) findViewById(R.id.viewFlipperCharacters);
+        setFlipper((ViewFlipper) findViewById(R.id.viewFlipperCharacters));
+        setLayouts(4);
+
         findViewById(R.id.btn_characters_home).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -54,78 +53,41 @@ public class CharactersActivity extends GenericActivity {
         getAnimationManager().zoomIn(this, findViewById(R.id.characters_players));
     }
 
-    //Using the following method, we will handle all screen swaps.
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch ( event.getAction() ) {
-            case MotionEvent.ACTION_DOWN:
-                lastX = event.getX();
-                break;
-            case MotionEvent.ACTION_UP:
-                float currentX = event.getX();
-                // Handling left to right screen swap.
-                if ( lastX < currentX ) {
-                    moveToRight();
-                }
-                // Handling right to left screen swap.
-                if ( lastX > currentX) {
-                    moveToLeft();
-                }
-                break;
-        }
-        return false;
-    }
-
-    public void moveToLeft(View v) {
-        moveToLeft();
-    }
-
-    public void moveToRight(View view) {
-        moveToRight();
-    }
-
-    private void moveToLeft() {
-        // Next screen comes in from right.
-        flipper.setInAnimation(this, R.anim.slidein_right);
-        // Current screen goes out from left.
-        flipper.setOutAnimation(this, R.anim.slideout_left);
-
-        // If there aren't any other children (to the left), jump to the end.
-        if ( flipper.getDisplayedChild() == 3 ){
-            flipper.setDisplayedChild(0);
-            flipper.animate();
-        } else {
-            // Display next screen.
-            flipper.showNext();
-        }
+    public void moveToLeft() {
+        super.moveToLeft();
         animate();
     }
 
-    private void moveToRight() {
-        // Next screen comes in from left.
-        flipper.setInAnimation(this, R.anim.slidein_left);
-        // Current screen goes out from right.
-        flipper.setOutAnimation(this, R.anim.slideout_right);
-
-        // If there aren't any other children (to the right), jump to the beginning.
-        if ( flipper.getDisplayedChild() == 0) {
-            flipper.setDisplayedChild(3);
-            flipper.animate();
-        } else {
-            // Display previous screen.
-            flipper.showPrevious();
-        }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void moveToRight() {
+        super.moveToRight();
         animate();
     }
 
+    /**
+     * Starts a blink animation for the button <b>Pick Me</b>.
+     */
     private void animate() {
-        Button pickMe = (Button) ((LinearLayout) flipper.getCurrentView()).getChildAt(3);
+        Button pickMe = (Button) ((LinearLayout) getFlipper().getCurrentView()).getChildAt(3);
         if ( pickMe.isEnabled() ) {
             getAnimationManager().blink(this, pickMe);
         }
     }
 
+    /**
+     * This method will put extra information on the intent according to the
+     * characters selected, like: name and icon. When all the players have chosen
+     * their characters an intent will be fired up to start the play activity.
+     *
+      * @param v Button clicked
+     */
     public void pickPlayerCharacter(View v) {
         int numberOfPlayers = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString(Constant.KEY_PREF_PLAYERS, Constant.PREF_PLAYER_DEFAULT));
         v.setEnabled(false);

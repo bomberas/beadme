@@ -52,14 +52,12 @@
         android:dialogTitle="@string/pref_themes_dialog_text"
         android:order="6"/>
 
-    <it.polimi.group03.util.ListPreference
-        android:title="@string/pref_languages_text"
-        android:key="key_languages"
-        android:entries="@array/languages"
-        style="?preference_language"
-        android:entryValues="@array/languages_keys"
-        android:defaultValue="@string/pref_languages_default"
-        android:dialogTitle="@string/pref_languages_dialog_text"
+    <it.polimi.group03.util.EditTextPreference
+        android:title="@string/pref_bars_text"
+        android:key="key_bars"
+        style="?preference_bar"
+        android:defaultValue="@string/pref_bars_default"
+        android:dialogMessage="@string/pref_bars_dialog_text"
         android:order="7"/>
 
 </PreferenceScreen>

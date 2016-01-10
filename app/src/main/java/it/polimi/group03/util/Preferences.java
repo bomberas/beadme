@@ -23,7 +23,7 @@ public enum Preferences {
     key_light("setLight"),
     key_players("setNumberOfPlayers"),
     key_themes("setTheme"),
-    key_languages("setLanguage");
+    key_bars("setBars");
 
     private String method;
 

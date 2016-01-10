@@ -28,6 +28,7 @@ public class HomeActivity extends GenericActivity {
         getAnimationManager().slideInFromRight(this, findViewById(R.id.btn_play));
         getAnimationManager().slideInFromLeft(this, findViewById(R.id.btn_settings));
         getAnimationManager().slideInFromRight(this, findViewById(R.id.btn_statistics));
+        getAnimationManager().slideInFromLeft(this, findViewById(R.id.btn_history));
     }
 
     /**
@@ -53,6 +54,13 @@ public class HomeActivity extends GenericActivity {
             public void onClick(View v) {
                 Log.i(TAG, "Starting Statistics Activity");
                 startActivity(new Intent(getApplicationContext(), StatisticActivity.class));
+            }
+        });
+        findViewById(R.id.btn_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Starting History Activity");
+                startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
             }
         });
         findViewById(R.id.btn_help).setOnClickListener(new View.OnClickListener() {

@@ -55,7 +55,6 @@ public class Constant {
      * This constant holds the error code when the bead is placed in an invalid place.
      */
     public static final String STATUS_ERR_PLACED_BEAD = "e0x6";
-
     /**
      * This constant holds the key of the sound preference.
      */
@@ -81,9 +80,9 @@ public class Constant {
      */
     public static final String KEY_PREF_THEMES = "key_themes";
     /**
-     * This constant holds the key of the language preference.
+     * This constant holds the key of the configuration for the bars preference.
      */
-    public static final String KEY_PREF_LANGUAGE = "key_languages";
+    public static final String KEY_PREF_BARS = "key_bars";
     /**
      * This constant holds the default value of the sound-on preference.
      */
@@ -99,11 +98,7 @@ public class Constant {
     /**
      * This constant holds the default value of the light-on preference.
      */
-    public static final boolean PREF_LIGHT_DEFAULT = false;
-    /**
-     * This constant holds the default value of the language preference.
-     */
-    public static final String PREF_LANGUAGE_DEFAULT = "EN";
+    public static final boolean PREF_LIGHT_DEFAULT = true;
     /**
      * This constant holds the default value of the theme preference.
      */
@@ -112,6 +107,10 @@ public class Constant {
      * This constant holds the default value of the number of players preference.
      */
     public static final String PREF_PLAYER_DEFAULT = "2";
+    /**
+     * This constant holds the default value for the configuration of the bars preference.
+     */
+    public static final String PREF_BARS_DEFAULT = "";
     /**
      * This constant holds the value of the star wars theme.
      */
