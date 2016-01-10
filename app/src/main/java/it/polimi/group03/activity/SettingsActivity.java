@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
@@ -32,7 +34,7 @@ import static it.polimi.group03.util.Constant.*;
  * <li>Light.</li>
  * <li>Number of Players.</li>
  * <li>Theme.</li>
- * <li>Language.</li>
+ * <li>Bars configuration.</li>
  * </ul>
  *
  * @author tatibloom
@@ -54,6 +56,7 @@ public class SettingsActivity extends GenericActivity {
         //Creating the fragment and setting-up the listener
         settingsFragment = new SettingsFragment();
         settingsFragment.setSharedPreferenceListener(getOnSharedPreferenceChangedListener());
+        settingsFragment.setTextPreferenceListener(getOnPreferenceChangedListener());
         // Display the fragment as part of the content.
         getFragmentManager().beginTransaction().replace(R.id.preferences, settingsFragment).commit();
         //Setting-up default values
@@ -77,7 +80,9 @@ public class SettingsActivity extends GenericActivity {
      */
     public SharedPreferences.OnSharedPreferenceChangeListener getOnSharedPreferenceChangedListener() {
         final SettingsActivity thisActivity = this;
+
         return new SharedPreferences.OnSharedPreferenceChangeListener() {
+
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
                 try {
                     Preferences preference = Preferences.getPreference(key);
@@ -91,6 +96,20 @@ public class SettingsActivity extends GenericActivity {
             }
         };
 
+    }
+
+    /**
+     * Called when the bars configuration preference is changed, added, or removed. This will validate
+     * that the input entered on the edit text of the dialog contains 14 characters with only
+     * 1,2 or 0 or if is it empty, otherwise, the changes won't be saved.
+     */
+    public Preference.OnPreferenceChangeListener getOnPreferenceChangedListener() {
+        return new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference pref, Object val) {
+                return val.toString().length() == 0 || (val.toString().length() == 14 && val.toString().matches("^[0-2]+$"));
+            }
+        };
     }
 
     @Override
@@ -196,16 +215,16 @@ public class SettingsActivity extends GenericActivity {
     }
 
     /**
-     * Updates the application language, changed through the settings fragment inserted in this activity.
-     * Predefined language. EN=English, ES=Spanish, SQ=Albanian, IT=Italian
+     * Updates the configuration for the bars, when a game against the AI is started,
+     * however it's possible to start such game if this preference is empty, in that
+     * case the configuration of the bars will be made randomly.
      */
     @SuppressWarnings("unused")
-    protected void setLanguage() {
-        String language = PreferenceManager.getDefaultSharedPreferences(this).getString(KEY_PREF_LANGUAGE, PREF_LANGUAGE_DEFAULT);
-        Log.i(TAG, language);
-        ListPreference preference = (ListPreference) settingsFragment.findPreference(KEY_PREF_LANGUAGE);
-        preference.setSummary(preference.getEntry());
-
+    protected void setBars() {
+        String hBars = PreferenceManager.getDefaultSharedPreferences(this).getString(KEY_PREF_BARS, PREF_BARS_DEFAULT);
+        Log.i(TAG, hBars);
+        EditTextPreference bars = (EditTextPreference) settingsFragment.findPreference(KEY_PREF_BARS);
+        bars.setSummary(bars.getText());
     }
 
     /**
@@ -215,6 +234,7 @@ public class SettingsActivity extends GenericActivity {
     public static class SettingsFragment extends PreferenceFragment {
 
         private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceListener;
+        private Preference.OnPreferenceChangeListener textPreferenceListener;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -224,21 +244,10 @@ public class SettingsActivity extends GenericActivity {
             //Setting-up initial values for summaries, otherwise it wont be present at the beginning, just when a change is made
             findPreference(KEY_PREF_PLAYERS).setSummary(((ListPreference) findPreference(KEY_PREF_PLAYERS)).getEntry());
             findPreference(KEY_PREF_THEMES).setSummary(((ListPreference) findPreference(KEY_PREF_THEMES)).getEntry());
-            findPreference(KEY_PREF_LANGUAGE).setSummary(((ListPreference) findPreference(KEY_PREF_LANGUAGE)).getEntry());
+            findPreference(KEY_PREF_BARS).setSummary(((EditTextPreference) findPreference(KEY_PREF_BARS)).getText());
+            //Setting-up the listener for the edit text view and run validations against the input entered.
+            findPreference(KEY_PREF_BARS).setOnPreferenceChangeListener(getTextPreferenceListener());
         }
-
-        /*@Override
-        public void onResume() {
-            super.onResume();
-            getPreferenceScreen().getSharedPreferences()
-                    .registerOnSharedPreferenceChangeListener(sharedPreferenceListener);
-        }
-        @Override
-        public void onPause() {
-            super.onPause();
-            getPreferenceScreen().getSharedPreferences()
-                    .unregisterOnSharedPreferenceChangeListener(sharedPreferenceListener);
-        }*/
 
         public void setSharedPreferenceListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
             this.sharedPreferenceListener = listener;
@@ -247,6 +256,14 @@ public class SettingsActivity extends GenericActivity {
         public SharedPreferences.OnSharedPreferenceChangeListener getSharedPreferenceListener() {
             return sharedPreferenceListener;
         }
-    }
 
+        public Preference.OnPreferenceChangeListener getTextPreferenceListener() {
+            return textPreferenceListener;
+        }
+
+        public void setTextPreferenceListener(Preference.OnPreferenceChangeListener textPreferenceListener) {
+            this.textPreferenceListener = textPreferenceListener;
+        }
+
+    }
 }

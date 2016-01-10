@@ -51,7 +51,7 @@
         <item name="preference_light">@style/lightp</item>
         <item name="preference_player">@style/playerp</item>
         <item name="preference_theme">@style/themep</item>
-        <item name="preference_language">@style/languagep</item>
+        <item name="preference_bar">@style/languagep</item>
         <item name="backgroundDialog">@style/bgdialogp</item>
         <item name="barH1">@style/barH1p</item>
         <item name="barH2">@style/barH2p</item>
@@ -245,7 +245,7 @@
         <item name="preference_light">@style/lightsw</item>
         <item name="preference_player">@style/playersw</item>
         <item name="preference_theme">@style/themesw</item>
-        <item name="preference_language">@style/languagesw</item>
+        <item name="preference_bar">@style/languagesw</item>
         <item name="backgroundDialog">@style/bgdialogsw</item>
         <item name="barH1">@style/barH1sw</item>
         <item name="barH2">@style/barH2sw</item>
@@ -438,7 +438,7 @@
         <item name="preference_light">@style/lighthp</item>
         <item name="preference_player">@style/playerhp</item>
         <item name="preference_theme">@style/themehp</item>
-        <item name="preference_language">@style/languagehp</item>
+        <item name="preference_bar">@style/languagehp</item>
         <item name="backgroundDialog">@style/bgdialoghp</item>
         <item name="barH1">@style/barH1hp</item>
         <item name="barH2">@style/barH2hp</item>

@@ -29,6 +29,7 @@
     <string name="btn_play_text">PLAY</string>
     <string name="btn_settings_text">SETTINGS</string>
     <string name="btn_statistics_text">STATISTICS</string>
+    <string name="btn_history_text">HISTORY</string>
 
     <string name="roboto_name"><b>Mr. Roboto</b></string>
     <string name="roboto_desc"><b>You\'re wondering who I am. Machine or mannequin? My heart is human, my blood is boiling, my brain belongs to Tati. Domo arigato, Mr. Roboto.</b></string>
@@ -81,9 +82,11 @@
     <string name="pref_players_text"><b>Players</b></string>
     <string name="pref_themes_text"><b>Theme</b></string>
     <string name="pref_languages_text"><b>Language</b></string>
+    <string name="pref_bars_text"><b>Bars Configurations</b></string>
     <string name="pref_players_dialog_text">Please select the number of players</string>
     <string name="pref_themes_dialog_text">Please select a theme</string>
     <string name="pref_languages_dialog_text">Please select your language</string>
+    <string name="pref_bars_dialog_text">You must enter 14 characters and only [0,1 or 2] are allowed, otherwise the values won\'t be saved.</string>
 
     <string name="pref_vibration_default">true</string>
     <string name="pref_speaker_default">true</string>
@@ -93,6 +96,7 @@
     <string name="pref_players_default">2</string>
     <string name="pref_themes_default">PINK</string>
     <string name="pref_languages_default">EN</string>
+    <string name="pref_bars_default">01201202101102</string>
 
     <string name="notification_text">I found your lack of interest disturbing. Are you a zombie??? I think you\'re not, so come back and play!!!.</string>
 
@@ -178,5 +182,48 @@
 
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="ok">OK</string>
     <string name="leave_app">Are you sure you want to leave us now? The current game will be lost!</string>
+
+    <!-- Statistics -->
+    <string name="stat_total_game_title"><b>How many times have you played?</b></string>
+    <string name="stat_total_game_main"><b>%1$s</b></string>
+    <string name="stat_total_game_extra">Are you kidding me??? I have faith on you, keep playing!</string>
+    <string name="stat_top_players_title"><b>Hall of Fame</b></string>
+    <string name="stat_first_name"><b>%1$s</b></string>
+    <string name="stat_first_victories"><b>Victories: %1$s</b></string>
+    <string name="stat_first_date"><b>Last play: %1$s</b></string>
+    <string name="stat_second_name"><b>%1$s</b></string>
+    <string name="stat_second_victories"><b>Victories: %1$s</b></string>
+    <string name="stat_second_date"><b>Last play: %1$s</b></string>
+    <string name="stat_third_name"><b>%1$s</b></string>
+    <string name="stat_third_victories"><b>Victories: %1$s</b></string>
+    <string name="stat_third_date"><b>Last play: %1$s</b></string>
+    <string name="stat_bottom_players_title"><b>Hall of Shame</b></string>
+    <string name="stat_worst_name"><b>%1$s</b></string>
+    <string name="stat_worst_victories"><b>Defeats: %1$s</b></string>
+    <string name="stat_worst_date"><b>Last play: %1$s</b></string>
+    <string name="stat_worse_name"><b>%1$s</b></string>
+    <string name="stat_worse_victories"><b>Defeats: %1$s</b></string>
+    <string name="stat_worse_date"><b>Last play: %1$s</b></string>
+    <string name="stat_bad_name"><b>%1$s</b></string>
+    <string name="stat_bad_victories"><b>Defeats: %1$s</b></string>
+    <string name="stat_bad_date"><b>Last play: %1$s</b></string>
+    <string name="stat_avg_game_title"><b>How many rounds do you usually play?</b></string>
+    <string name="stat_avg_game_main"><b>%1$s</b></string>
+
+    <!-- History -->
+    <string name="hist_title"><b>This is your game history</b></string>
+    <string name="hist_num_title"><b>#</b></string>
+    <string name="hist_date_title"><b>Date</b></string>
+    <string name="hist_winner_title"><b>Winner</b></string>
+    <string name="hist_duration_title"><b>Duration</b></string>
+
+    <string name="hist_nplayers_text">Number of Players: %1$s</string>
+    <string name="hist_round_text">Rounds: %1$s</string>
+    <string name="hist_losers_text"><b>Other players:</b></string>
+    <string name="hist_loser1_text">Player 1: %1$s</string>
+    <string name="hist_loser2_text">Player 2: %1$s</string>
+    <string name="hist_loser3_text">Player 3: %1$s</string>
+
 </resources>

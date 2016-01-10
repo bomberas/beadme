@@ -1,25 +1,27 @@
 package it.polimi.group03.domain;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class contains all the information related
  * to the statistics collected during the game.
- * It will be used also to hold the status sent and
+ * It will be used also to hold the stats sent and
  * retrieved from the database.
  * <p>The game will show in the Statistic section all kind of
  * history such as, but not limited to:
  *
  * <ul style="list-style-type:circle">
  * <li>Number of games played.</li>
- * <li>Top 10 players.</li>
+ * <li>Top 3 players.</li>
+ * <li>Bottom 3 players.</li>
  * <li>Number of victories per player.</li>
+ * <li>Number of defeats per player.</li>
  * <li>Number of rounds in last game.</li>
- * <li>Duration of the last game played. </li>
- * <li>The longest game.</li>
- * <li>The shortest game. </li>
+ * <li>Average rounds in a game.</li>
+ * <li>Number of unconcluded games.</li>
+ * <li>Average time of a game.</li>
  *
  * @author cecibloom
  * @author megireci
@@ -28,83 +30,12 @@ import java.util.Date;
  * @since 11/11/2015.
  */
 
-public class Statistic {
+public class Statistic implements Serializable {
 
     /**
-     * <code>true</code> if there was a winner.
-     * <code>false</code> if not.
+     * ID for the game.
      */
-    public static boolean defeats;
-    public static int victories;
-    public static boolean winner;
-    public int getVictory()
-    {
-        while (winner=true){
-            victories++;
-            break;
-        }
-        return victories;
-    }
-
-    private int playerID;
-    public void setPlayerID(int playerID)
-    {
-        this.playerID=playerID;
-    }
-
-    public int getPlayerID ()
-    {
-        return playerID;
-    }
-
-    private int gameID;
-    public void setGameID(int playerID)
-    {
-        this.gameID=gameID;
-    }
-
-    public int getGameID ()
-    {
-        return gameID;
-    }
-
-    private String winnerName;
-    /**
-     * Color picked by the winner. Could be used for "Which is your lucky color?"
-     */
-    private String winnerColor;
-    /**
-     * Number of rounds played in the game until someone won.
-     */
-    private static int rounds;
-    /**
-     * Number of turns played in the game until someone won.
-     */
-    private int turns;
-    /**
-     * Name of one of the losers.
-     */
-    private String loser1Name;
-    /**
-     * Name of one of the losers.
-     */
-    private String loser2Name;
-    /**
-     * Name of one of the losers.
-     */
-    private String loser3Name;
-    /**
-     * Name of one of the losers. It may happen that there are no winners.
-     */
-    private String loser4Name;
-
-    private int gamecount;
-
-    public void setGameCount (int gamecount)
-    {
-        this.gamecount=gamecount;
-    }
-
+    private int id;
     /**
      * Time in which the game started. Possibly used for retrieving the average time of the game.
      */
@@ -113,78 +44,79 @@ public class Statistic {
      * Time in which the game finished. Possibly used for retrieving the average time of the game.
      */
     private Date endTime;
-
     /**
-     *  Returns the possible winner.
+     * Number of players in the game
      */
-    public boolean isWinner() {
-        return winner;
-    }
-
-    public void setWinner(boolean winner) {
-        this.winner = winner;
-    }
+    private int numberOfPlayers;
+    /**
+     * Name of the winner.
+     */
+    private String winnerName;
+    /**
+     * Icon picked by the winner.
+     */
+    private int winnerIcon;
+    /**
+     * Name of one of the losers.
+     */
+    private String loser1Name;
+    /**
+     * Icon picked by the loser 1.
+     */
+    private int loser1Icon;
+    /**
+     * Name of one of the loser 2.
+     */
+    private String loser2Name;
+    /**
+     * Icon picked by the loser 2.
+     */
+    private int loser2Icon;
+    /**
+     * Name of one of the loser 3.
+     */
+    private String loser3Name;
+    /**
+     * Icon picked by the loser 3.
+     */
+    private int loser3Icon;
+    /**
+     * Number of rounds played in the game until someone won.
+     */
+    private int rounds;
+    /**
+     * Number of victories.
+     */
+    private int victories;
+    /**
+     * Number of defeats.
+     */
+    private int defeats;
 
     public String getWinnerName() {
-// just to test
         return winnerName;
-
-    }
-    private int nr_vict;
-
-    public void setVictories (int nr_vict)
-    {
-        this.nr_vict=nr_vict;
     }
 
     public void setWinnerName(String winnerName) {
         this.winnerName = winnerName;
     }
-    /**
-     * Gets the winner's chosen bead's color.
-     */
-    public String getWinnerColor() {
-        return winnerColor;
+
+    public int getWinnerIcon() {
+        return winnerIcon;
     }
 
-    /**
-     * Sets the winner's chosen bead's color.
-     */
-    public void setWinnerColor(String winnerColor) {
-        this.winnerColor = winnerColor;
+    public void setWinnerIcon(int winnerIcon) {
+        this.winnerIcon = winnerIcon;
     }
 
-    /**
-     * Gets the round, player 1 makes his move again.
-     */
-    public static int getRounds() {
+    public int getRounds() {
         return rounds;
     }
 
-    /**
-     * Sets the round, player 1 makes his move again.
-     */
     public void setRounds(int rounds) {
         this.rounds = rounds;
     }
 
-    /**
-     * Gets the turn for the next player.
-     */
-    public int getTurns() {
-        return turns;
-    }
-
-    /**
-     * Sets the turn for the next player.
-     */
-    public void setTurns(int turns) {
-        this.turns = turns;
-    }
-
-    /**
-     * Get-Sets for the losers.
-     */
     public String getLoser1Name() {
         return loser1Name;
     }
@@ -209,17 +141,6 @@ public class Statistic {
         this.loser3Name = loser3Name;
     }
 
-    public String getLoser4Name() {
-        return loser4Name;
-    }
-
-    public void setLoser4Name(String loser4Name) {
-        this.loser4Name = loser4Name;
-    }
-
-    /**
-     *  The time when the game starts.
-     */
     public Date getStartTime() {
         return startTime;
     }
@@ -228,9 +149,6 @@ public class Statistic {
         this.startTime = startTime;
     }
 
-    /**
-     * The time when the game ends.
-     */
     public Date getEndTime() {
         return endTime;
     }
@@ -239,11 +157,63 @@ public class Statistic {
         this.endTime = endTime;
     }
 
-    public static Date getDuration()
-    {
-        //
-        return new Date();
+    public int getId() {
+        return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public int getLoser1Icon() {
+        return loser1Icon;
+    }
+
+    public void setLoser1Icon(int loser1Icon) {
+        this.loser1Icon = loser1Icon;
+    }
+
+    public int getLoser2Icon() {
+        return loser2Icon;
+    }
+
+    public void setLoser2Icon(int loser2Icon) {
+        this.loser2Icon = loser2Icon;
+    }
+
+    public int getLoser3Icon() {
+        return loser3Icon;
+    }
+
+    public void setLoser3Icon(int loser3Icon) {
+        this.loser3Icon = loser3Icon;
+    }
+
+    public long getDuration() {
+        return TimeUnit.MILLISECONDS.toMinutes(endTime.getTime() - startTime.getTime());
+    }
+
+    public int getVictories() {
+        return victories;
+    }
+
+    public void setVictories(int victories) {
+        this.victories = victories;
+    }
+
+    public int getDefeats() {
+        return defeats;
+    }
+
+    public void setDefeats(int defeats) {
+        this.defeats = defeats;
+    }
 }
