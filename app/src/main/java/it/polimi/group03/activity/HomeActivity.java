@@ -17,7 +17,7 @@ import it.polimi.group03.R;
  */
 public class HomeActivity extends GenericActivity {
 
-    private static final String TAG = "HomeActivity";
+    private static final String TAG = HomeActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

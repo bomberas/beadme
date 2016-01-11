@@ -20,7 +20,7 @@ import it.polimi.group03.util.Constant;
  */
 public class VibrationManager {
 
-    private static final String TAG = "VibrationManager";
+    private static final String TAG = VibrationManager.class.getSimpleName();
 
     private static VibrationManager ourInstance = new VibrationManager();
 

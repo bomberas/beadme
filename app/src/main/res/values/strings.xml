@@ -33,6 +33,7 @@
 
     <string name="roboto_name"><b>Mr. Roboto</b></string>
     <string name="roboto_desc"><b>You\'re wondering who I am. Machine or mannequin? My heart is human, my blood is boiling, my brain belongs to Tati. Domo arigato, Mr. Roboto.</b></string>
+    <string name="roboto_winner"><b>Domo arigato Mr. Roboto, we know you are in control</b></string>
 
     <string-array name="players">
         <item>1 player</item>
@@ -175,6 +176,15 @@
     <string name="snape_desc"><b>The Half-Blood Prince, a good heart with a tough exterior.</b></string>
     <string name="voldemort_name"><b>Voldemort</b></string>
     <string name="voldemort_desc"><b>He-Who-Must-Not-Be-Named, he claims to be pure blood, but we all know the truth.</b></string>
+
+    <string name="c3po_name"><b>C-3PO</b></string>
+    <string name="c3po_desc"><b>Artoo says that the chances of survival are 725 to 1. I bet we can win this time!</b></string>
+    <string name="darthvader_name"><b>Darth Vader</b></string>
+    <string name="darthvader_desc"><b>The force is with you, young Skywalker, but you are not a Jedi yet</b></string>
+    <string name="stormtrooper_name"><b>Stormtrooper</b></string>
+    <string name="stormtrooper_desc"><b>Mi high combat effectiveness has been the main reason for deploying me almost exclusively in most of the military engagements of the Galactic Empire</b></string>
+    <string name="wookiee_name"><b>Chewbacca</b></string>
+    <string name="wookiee_desc"><b>Uuuuuuuu Ahhhhrrrrr Uhrrrr Ahhhhhrrrr Aaaaarrggghhh</b></string>
 
     <string name="choose_character"><b>Choose character for Player</b></string>
     <string name="choose_character_1">1</string>

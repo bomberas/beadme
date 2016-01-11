@@ -14,13 +14,14 @@ import java.util.List;
 import java.util.Locale;
 
 import it.polimi.group03.domain.Statistic;
+import it.polimi.group03.util.CommonUtil;
 
 /**
  * {@inheritDoc}
  */
 public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
 
-    private static final String TAG = "GameDAO";
+    private static final String TAG = GameDAOImpl.class.getSimpleName();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mm:ss", Locale.US);
 
     private static final String DATABASE = "BeadMe";
@@ -75,23 +76,31 @@ public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
      */
     @Override
     public void save(Statistic s) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(DATE_CREATED, sdf.format(s.getStartTime()));
-        values.put(DATE_ENDED, sdf.format(s.getEndTime()));
-        values.put(PLAYERS, s.getNumberOfPlayers());
-        values.put(WINNER_NAME, s.getWinnerName());
-        values.put(WINNER_ICON, s.getWinnerIcon());
-        values.put(LOSER1_NAME, s.getLoser1Name());
-        values.put(LOSER1_ICON, s.getLoser1Icon());
-        values.put(LOSER2_NAME, s.getLoser2Name());
-        values.put(LOSER2_ICON, s.getLoser2Icon());
-        values.put(LOSER3_NAME, s.getLoser3Name());
-        values.put(LOSER3_ICON, s.getLoser3Icon());
-        values.put(ROUNDS, s.getRounds());
+        try {
+            ContentValues values = new ContentValues();
+            values.put(DATE_CREATED, sdf.format(s.getStartTime()));
+            values.put(DATE_ENDED, sdf.format(s.getEndTime()));
+            values.put(PLAYERS, s.getNumberOfPlayers());
+            values.put(WINNER_NAME, s.getWinnerName());
+            values.put(WINNER_ICON, s.getWinnerIcon());
+            values.put(LOSER1_NAME, s.getLoser1Name());
+            values.put(LOSER1_ICON, s.getLoser1Icon());
+            values.put(LOSER2_NAME, s.getLoser2Name());
+            values.put(LOSER2_ICON, s.getLoser2Icon());
+            values.put(LOSER3_NAME, s.getLoser3Name());
+            values.put(LOSER3_ICON, s.getLoser3Icon());
+            values.put(ROUNDS, s.getRounds());
 
-        db.insert(TABLE, null, values);
+            db.insert(TABLE, null, values);
+            db.close();
+        } catch (Exception e) {
+            Log.i(TAG, "Error during insertion: " + e.getMessage());
+        } finally {
+            db.close();
+        }
     }
 
     /**
@@ -276,7 +285,7 @@ public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
                     s.setLoser1Name(cursor.getString(0));
                     s.setLoser1Icon(cursor.getInt(1));
                     s.setDefeats(cursor.getInt(2));
-                    stats.add(s);
+                    if ( !CommonUtil.isEmpty(s.getLoser1Name()) ) stats.add(s);
                 } while (cursor.moveToNext());
             }
 

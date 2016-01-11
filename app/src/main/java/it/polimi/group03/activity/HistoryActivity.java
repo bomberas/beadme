@@ -29,7 +29,7 @@ import it.polimi.group03.domain.Statistic;
  */
 public class HistoryActivity extends GenericActivity {
 
-    private static final String TAG = "HistoryActivity";
+    private static final String TAG = HistoryActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class HistoryActivity extends GenericActivity {
             TextView tvWinner = (TextView) tr.getChildAt(2);
             tvWinner.setText(game.getWinnerName());
             TextView tvDuration = (TextView) tr.getChildAt(3);
-            tvDuration.setText(String.valueOf(game.getDuration()));
+            tvDuration.setText(game.getDuration());
         }
 
     }

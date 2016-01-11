@@ -18,7 +18,7 @@ import it.polimi.group03.R;
  */
 public class AboutActivity extends GenericActivity {
 
-    private static final String TAG = "AboutActivity";
+    private static final String TAG = CharactersActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

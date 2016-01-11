@@ -168,46 +168,46 @@
     </style>
     <!-- Bars -->
     <style name="barH1p">
-        <item name="android:background">@drawable/red1</item>
+        <item name="android:background">@drawable/pinkh1</item>
     </style>
     <style name="barH2p">
-        <item name="android:background">@drawable/red2</item>
+        <item name="android:background">@drawable/pinkh2</item>
     </style>
     <style name="barH3p">
-        <item name="android:background">@drawable/red3</item>
+        <item name="android:background">@drawable/pinkh3</item>
     </style>
     <style name="barH4p">
-        <item name="android:background">@drawable/red4</item>
+        <item name="android:background">@drawable/pinkh4</item>
     </style>
     <style name="barH5p">
-        <item name="android:background">@drawable/red5</item>
+        <item name="android:background">@drawable/pinkh5</item>
     </style>
     <style name="barH6p">
-        <item name="android:background">@drawable/red6</item>
+        <item name="android:background">@drawable/pinkh6</item>
     </style>
     <style name="barH7p">
-        <item name="android:background">@drawable/red7</item>
+        <item name="android:background">@drawable/pinkh7</item>
     </style>
     <style name="barV1p">
-        <item name="android:background">@drawable/blue1</item>
+        <item name="android:background">@drawable/pinkv1</item>
     </style>
     <style name="barV2p">
-        <item name="android:background">@drawable/blue2</item>
+        <item name="android:background">@drawable/pinkv2</item>
     </style>
     <style name="barV3p">
-        <item name="android:background">@drawable/blue3</item>
+        <item name="android:background">@drawable/pinkv3</item>
     </style>
     <style name="barV4p">
-        <item name="android:background">@drawable/blue4</item>
+        <item name="android:background">@drawable/pinkv4</item>
     </style>
     <style name="barV5p">
-        <item name="android:background">@drawable/blue5</item>
+        <item name="android:background">@drawable/pinkv5</item>
     </style>
     <style name="barV6p">
-        <item name="android:background">@drawable/blue6</item>
+        <item name="android:background">@drawable/pinkv6</item>
     </style>
     <style name="barV7p">
-        <item name="android:background">@drawable/blue7</item>
+        <item name="android:background">@drawable/pinkv7</item>
     </style>
 
 
@@ -295,48 +295,48 @@
         <item name="android:background">@drawable/button_sw</item>
     </style>
     <style name="firstImageSW">
-        <item name="android:src">@drawable/santa</item>
-        <item name="android:contentDescription">@string/santa_name</item>
+        <item name="android:src">@drawable/c3po</item>
+        <item name="android:contentDescription">@string/c3po_name</item>
         <item name="android:tag">0</item>
     </style>
     <style name="firstTextSW" parent="tvstarwars">
-        <item name="android:text">@string/santa_desc</item>
+        <item name="android:text">@string/c3po_desc</item>
     </style>
     <style name="firstTextTitleSW" parent="tvstarwars">
-        <item name="android:text">@string/santa_name</item>
+        <item name="android:text">@string/c3po_name</item>
     </style>
     <style name="secondImageSW">
-        <item name="android:src">@drawable/mermaid</item>
-        <item name="android:contentDescription">@string/mermaid_name</item>
+        <item name="android:src">@drawable/darthvader</item>
+        <item name="android:contentDescription">@string/darthvader_name</item>
         <item name="android:tag">1</item>
     </style>
     <style name="secondTextSW" parent="tvstarwars">
-        <item name="android:text">@string/mermaid_desc</item>
+        <item name="android:text">@string/darthvader_desc</item>
     </style>
     <style name="secondTextTitleSW" parent="tvstarwars">
-        <item name="android:text">@string/mermaid_name</item>
+        <item name="android:text">@string/darthvader_name</item>
     </style>
     <style name="thirdImageSW">
-        <item name="android:src">@drawable/clown</item>
-        <item name="android:contentDescription">@string/clown_name</item>
+        <item name="android:src">@drawable/stormtrooper</item>
+        <item name="android:contentDescription">@string/stormtrooper_name</item>
         <item name="android:tag">2</item>
     </style>
     <style name="thirdTextSW" parent="tvstarwars">
-        <item name="android:text">@string/clown_desc</item>
+        <item name="android:text">@string/stormtrooper_desc</item>
     </style>
     <style name="thirdTextTitleSW" parent="tvstarwars">
-        <item name="android:text">@string/clown_name</item>
+        <item name="android:text">@string/stormtrooper_name</item>
     </style>
     <style name="fourthImageSW">
-        <item name="android:src">@drawable/devil</item>
-        <item name="android:contentDescription">@string/devil_name</item>
+        <item name="android:src">@drawable/wookiee</item>
+        <item name="android:contentDescription">@string/wookiee_name</item>
         <item name="android:tag">3</item>
     </style>
     <style name="fourthTextSW" parent="tvstarwars">
-        <item name="android:text">@string/devil_desc</item>
+        <item name="android:text">@string/wookiee_desc</item>
     </style>
     <style name="fourthTextTitleSW" parent="tvstarwars">
-        <item name="android:text">@string/devil_name</item>
+        <item name="android:text">@string/wookiee_name</item>
     </style>
     <!-- Preferences -->
     <style name="speakersw" parent="tvstarwars">

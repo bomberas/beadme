@@ -18,7 +18,7 @@ import it.polimi.group03.R;
  */
 public class HelpActivity extends FlipperActivity {
 
-    private static final String TAG = "HelpActivity";
+    private static final String TAG = HelpActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -348,6 +348,32 @@ public class GameEngine {
         */
     }
 
+    /**
+     *
+     * This method assigns the values specified with {@code initialBars} to all the bars that have the orientation
+     * specified by {@code orientation}.
+     *
+     * <p>Using this method implies that the initial configuration will be changed completely and will no longer be random.
+     *
+     * @see Game
+     * @see BarOrientation
+     *
+     * @param orientation the orientation of the bars that are going to be reconfigured
+     * @param initialBars the new configuration to use with the bar
+     */
+    public void reConfigureBars(BarOrientation orientation, char[] initialBars) {
+
+        for (int i = 0; i < 7; i++) {
+            if (((Character) '0').equals(initialBars[i])) {
+                this.game.getBars(orientation).get(i).setPosition(BarPosition.INNER);
+            } else if (((Character) '1').equals(initialBars[i])) {
+                this.game.getBars(orientation).get(i).setPosition(BarPosition.CENTRAL);
+            } else if (((Character) '2').equals(initialBars[i])) {
+                this.game.getBars(orientation).get(i).setPosition(BarPosition.OUTER);
+            }
+        }
+    }
+
     public Game getGame() {
         return this.game;
     }

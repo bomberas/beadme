@@ -17,12 +17,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.Random;
 
 import it.polimi.group03.R;
+import it.polimi.group03.dao.GameDAO;
+import it.polimi.group03.dao.GameDAOImpl;
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Player;
+import it.polimi.group03.domain.Statistic;
 import it.polimi.group03.engine.GameEngine;
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
@@ -34,10 +38,15 @@ import it.polimi.group03.util.Constant;
  * This class represents the principal activity in the project. It controls all things related to
  * the mechanics of the game and the corresponding response of the UI.
  *
- * <p>Here it's necessary to initialize an instance of (@link GameEngine) this way is possible to
- * link the UI with the game brain.
+ * <p>It uses an instance of the class {@link GameEngine} to make it possible for the UI connect with the game mechanics.
+ *
+ * <p>It is also responsible of storing all the info related to the statics and history into the database.
+ *
+ * <p>This class makes it able to use the AI of the game (a.k.a Mr. Roboto) through {@link it.polimi.group03.engine.GameBrain}
  *
  * @see GameEngine
+ * @see it.polimi.group03.engine.GameBrain
+ * @see Statistic
  *
  * @author cecibloom
  * @version 1.0
@@ -48,28 +57,39 @@ public class PlayBeadMeActivity extends GenericActivity {
 
     private static final String TAG = PlayBeadMeActivity.class.getSimpleName();
     private GameEngine engine;
+    private Statistic statistic;
     private RelativeLayout box;
     private View vie_toast;
     private TextView txt_toast;
     private int cellWidth;
     private int offsetX;
     private int offsetY;
+    private int numberOfPlayers;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Setting the theme of the game
         getThemeManager().setTheme(this);
         setContentView(R.layout.activity_play);
-        //Obtaining the box layout where the bars should be shown
+
+        // Initializing the statistic object, this will hold all the information related to the game, and it'll be used to store data in the db
+        statistic = new Statistic();
+        statistic.setStartTime(new Date());
+
+        //Setting the theme of the game
+
+        //Getting the box layout where the bars should be shown
         box = (RelativeLayout) findViewById(R.id.box);
         //This attribute is the link to the mechanics of the game
         engine = new GameEngine();
         engine.startGame();
 
-        //Obtaining the width and height of the device, these are needed to properly show all the bars and beads on the screen
+        //Getting the width and height of the device, these are needed to properly show all the bars and beads on the screen
         int height = getIntent().getIntExtra(Constant.HEIGHT, 0);
         int width = getIntent().getIntExtra(Constant.WIDTH, 0);
+
+        //Getting the number of players from the settings.
+        numberOfPlayers = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString(Constant.KEY_PREF_PLAYERS, Constant.PREF_PLAYER_DEFAULT));
 
         setBoardDimensions(height, width);
         getThemeManager().setPlayBackgroundAnimation(this, (RelativeLayout) findViewById(R.id.animation), height, width);
@@ -144,6 +164,19 @@ public class PlayBeadMeActivity extends GenericActivity {
         paramsHorizontalLayout.leftMargin = 3 * cellWidth;
         linLayoutHorizontal.setLayoutParams(paramsHorizontalLayout);
 
+        // If we're playing against Mr. Roboto it's necessary configure the bars with the values specified in the preferences of the game
+        if ( numberOfPlayers == 1 ){
+            String config = PreferenceManager.getDefaultSharedPreferences(this).getString(Constant.KEY_PREF_BARS, "");
+
+            // The bars will be configured if and only if there's a value for the corresponding preference, in any other case the initial
+            // configuration of the bars will remain random.
+
+            if ( !CommonUtil.isEmpty(config) ) {
+                engine.reConfigureBars(BarOrientation.HORIZONTAL, config.substring(0, 7).toCharArray());
+                engine.reConfigureBars(BarOrientation.VERTICAL, config.substring(7, 14).toCharArray());
+            }
+        }
+
         for (Bar bar : engine.getGame().getBars(BarOrientation.HORIZONTAL)) {
             createAndAddHorizontalBarToUI(bar);
         }
@@ -169,7 +202,6 @@ public class PlayBeadMeActivity extends GenericActivity {
      */
     private void createAndAddHorizontalBarToUI(Bar bar){
         ImageView image = (ImageView)findViewById(CommonUtil.getBarId(bar.getOrientation(), bar.getId()));
-        Log.i(TAG, "Horizonatl : " + image.getId());
         LinearLayout.LayoutParams paramsImg = (LinearLayout.LayoutParams)image.getLayoutParams();
 
         //Setting the initial position of the bars according to what the randomize method indicates
@@ -198,7 +230,6 @@ public class PlayBeadMeActivity extends GenericActivity {
      */
     private void createAndAddVerticalBarToUI(Bar bar){
         ImageView image = (ImageView)findViewById(CommonUtil.getBarId(bar.getOrientation(), bar.getId()));
-        Log.i(TAG, "Vertical : " + image.getId());
         LinearLayout.LayoutParams paramsImg = (LinearLayout.LayoutParams)image.getLayoutParams();
 
         paramsImg.topMargin = bar.getPosition().equals(BarPosition.OUTER) ? 0 : bar.getPosition().equals(BarPosition.CENTRAL) ?
@@ -222,15 +253,16 @@ public class PlayBeadMeActivity extends GenericActivity {
      */
     private void createAndAddPlayersAndBeadsToUI(){
 
-        //Retrieving the number of players from the settings.
-        int numberOfPlayers = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString(Constant.KEY_PREF_PLAYERS, Constant.PREF_PLAYER_DEFAULT));
-
         RelativeLayout relPlayers = (RelativeLayout) findViewById(R.id.relPlayers);
-
         LinearLayout summary = (LinearLayout)findViewById(R.id.summary);
-        int space = (int)((box.getLayoutParams().width - getCellWidth())/ 2 );
 
         if ( numberOfPlayers == 1) numberOfPlayers ++; //This means we're playing with Mr. Roboto
+
+        int space = (int)((box.getLayoutParams().width - getCellWidth())/ 2 );
+        int leftMargin = numberOfPlayers == 2 ? (int)(box.getLayoutParams().width / 5) : numberOfPlayers == 3 ? (int)(box.getLayoutParams().width / 7) : (int)(box.getLayoutParams().width / 9);
+
+        statistic.setNumberOfPlayers(numberOfPlayers);
+
         for ( int i = 0; i < numberOfPlayers; i++ ) {
 
             Player player = new Player(i, getIntent().getStringExtra(Constant.PLAYER_NAME + i), "");
@@ -247,8 +279,7 @@ public class PlayBeadMeActivity extends GenericActivity {
             LinearLayout.LayoutParams paramsS = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             paramsS.width = (int) (cellWidth * 1.5);
             paramsS.height = (int) (cellWidth * 1.5);
-            paramsS.leftMargin = 45;
-            //imgSummary.setPadding(25, 0, 0, 0);
+            paramsS.leftMargin = leftMargin;
             imgSummary.setLayoutParams(paramsS);
             imgSummary.setScaleType(ImageView.ScaleType.FIT_XY);
             summary.addView(imgSummary);
@@ -258,7 +289,6 @@ public class PlayBeadMeActivity extends GenericActivity {
             LinearLayout.LayoutParams paramsP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             paramsP.width = (int) (cellWidth * 1.2);
             paramsP.height = (int) (cellWidth * 1.2);
-            //imgPlayer.setPadding(0, 5, 25, 0);
             imgPlayer.setLayoutParams(paramsP);
             imgPlayer.setScaleType(ImageView.ScaleType.FIT_XY);
             summary.addView(imgPlayer);
@@ -285,7 +315,7 @@ public class PlayBeadMeActivity extends GenericActivity {
             imgBead.setImageResource(imageId);
             imgBead.setLayoutParams(params);
             imgBead.setScaleType(ImageView.ScaleType.FIT_XY);
-            imgBead.setOnTouchListener(new BeadOnTouchListener(this, getEngine().getGame().getPlayers().get(countIdPlayer), params.leftMargin, 5));
+            imgBead.setOnTouchListener(new BeadOnTouchListener(this, engine.getGame().getPlayers().get(countIdPlayer), params.leftMargin, 5));
 
             relPlayers.addView(imgBead, j);
 
@@ -317,14 +347,14 @@ public class PlayBeadMeActivity extends GenericActivity {
      */
     public void showBeadsOnBoard(boolean animate){
 
-        for (Player player: getEngine().getGame().getPlayers()) {
+        for (Player player: engine.getGame().getPlayers()) {
             int indexBead = Constant.GAME_MAX_NUMBER_BEADS - 1;
             int placed = 0;
 
             for (int i = 0; i < Constant.GAME_MAX_NUMBER_BEADS; i++) {
                 ImageView imgBead = (ImageView) findViewById(CommonUtil.getBeadId(player.getId(), indexBead));
 
-                if ( player.getId() == getEngine().getGame().getNextPlayer().getId() ) {
+                if ( player.getId() == engine.getGame().getNextPlayer().getId() ) {
                     imgBead.setVisibility(ImageView.VISIBLE);
 
                     getAnimationManager().fadeIn(imgBead);
@@ -345,8 +375,7 @@ public class PlayBeadMeActivity extends GenericActivity {
         }
 
         TextView text = (TextView) findViewById(R.id.txtCurrentPlayer);
-        text.setText(getResources().getString(R.string.current_player, getEngine().getGame().getNextPlayer().getNickname()));
-        //CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(), getResources().getString(R.string.next_player) + getEngine().getGame().getNextPlayer().getNickname(), Toast.LENGTH_SHORT);
+        text.setText(getResources().getString(R.string.current_player, engine.getGame().getNextPlayer().getNickname()));
 
         getAnimationManager().zoomIn(this, text);
         getAnimationManager().zoomOut(this, text);
@@ -359,7 +388,7 @@ public class PlayBeadMeActivity extends GenericActivity {
             (findViewById(R.id.img_arrowUp)).setVisibility(View.VISIBLE);
             getAnimationManager().blink(this, findViewById(R.id.img_arrowUp));
 
-            if( getEngine().getGame().getNextPlayer().isMrRoboto() ) automaticBarMove();
+            if( engine.getGame().getNextPlayer().isMrRoboto() ) automaticBarMove();
 
         }
     }
@@ -376,16 +405,16 @@ public class PlayBeadMeActivity extends GenericActivity {
         // If we're playing against Mr. Roboto
         if ( !engine.isGameStartConditionReached() ) {
             Log.i(TAG, "This is Mr. Roboto");
-            Bead bead = getEngine().getBrain().placeBead(getEngine());
+            Bead bead = engine.getBrain().placeBead(engine);
             Log.i(TAG, "Mr Roboto thinks: " + bead.getPosition().toString());
-            ImageView image = (ImageView) findViewById(CommonUtil.getBeadId(getEngine().getGame().getNextPlayer().getId(), getEngine().getGame().getNextPlayer().getRemainingBeadsToPlace() - 1));
+            ImageView image = (ImageView) findViewById(CommonUtil.getBeadId(engine.getGame().getNextPlayer().getId(), engine.getGame().getNextPlayer().getRemainingBeadsToPlace() - 1));
             ((Bead) image.getTag()).setPosition(bead.getPosition().getX(), bead.getPosition().getY());
-            getEngine().addBeadToBoard(getEngine().getGame().getNextPlayer(), ((Bead) image.getTag()));
+            engine.addBeadToBoard(engine.getGame().getNextPlayer(), ((Bead) image.getTag()));
             RelativeLayout.LayoutParams par = (RelativeLayout.LayoutParams) image.getLayoutParams();
             par.topMargin = CommonUtil.convertRowColumnToXY(((Bead) image.getTag()).getPosition().getX(), getOffsetY(), getCellWidth());
             par.leftMargin = CommonUtil.convertRowColumnToXY(((Bead) image.getTag()).getPosition().getY(), getOffsetX(), getCellWidth());
             image.setLayoutParams(par);
-            getEngine().getGame().setNextPlayer(getEngine().getNextPlayer(getEngine().getGame().getNextPlayer()));
+            engine.getGame().setNextPlayer(engine.getNextPlayer(engine.getGame().getNextPlayer()));
 
             showBeadsOnBoard(animate);
         }
@@ -403,11 +432,11 @@ public class PlayBeadMeActivity extends GenericActivity {
 
         Log.i(TAG, "This is Mr. Roboto trying to move a bar");
 
-        Bar bar = getEngine().getBrain().move(getEngine());
+        Bar bar = engine.getBrain().move(engine);
         ImageView imgBar = (ImageView)findViewById(CommonUtil.getBarId(bar.getOrientation(), bar.getId()));
         Log.i(TAG, "Mr. Roboto chooses " + bar.getOrientation().toString() + " # " + bar.getId() + ". He wants to move it to " + bar.getPosition().toString());
 
-        getEngine().makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), getEngine().getGame().getNextPlayer());
+        engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), engine.getGame().getNextPlayer());
         getMusicManager().playMoveSoundEffect(this);
 
         ((Bar) imgBar.getTag()).setPosition(bar.getPosition());
@@ -436,7 +465,7 @@ public class PlayBeadMeActivity extends GenericActivity {
      */
     public void refreshBoard(){
 
-        for (Player player: getEngine().getGame().getPlayers()) {
+        for (Player player: engine.getGame().getPlayers()) {
             int indexBead = Constant.GAME_MAX_NUMBER_BEADS - 1;
 
             for (int i = 0; i < player.getBeads().size(); i++) {
@@ -456,22 +485,135 @@ public class PlayBeadMeActivity extends GenericActivity {
             imgSummary.setImageResource(getThemeManager().getSummaryIcon(imgSummary.getContext(), player.activeBeads().size()));
         }
 
-        if ( getEngine().isGameEndConditionReached() ){
+        if ( engine.isGameEndConditionReached() ){
             CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(),
-                    getResources().getString(R.string.winner, getEngine().getWinner().getNickname()),
+                    getResources().getString(R.string.winner, engine.getWinner().getNickname()),
                     Toast.LENGTH_LONG);
             findViewById(R.id.img_arrowUp).clearAnimation();
             findViewById(R.id.img_arrowUp).setVisibility(View.GONE);
-            endGame();
-        } else {
+
             TextView text = (TextView)findViewById(R.id.txtCurrentPlayer);
-            text.setText(getApplicationContext().getResources().getString(R.string.current_player, getEngine().getGame().getNextPlayer().getNickname()));
+            text.setText(engine.getGame().getNextPlayer().isMrRoboto() ? getApplicationContext().getResources().getString(R.string.roboto_winner) : getApplicationContext().getResources().getString(R.string.winner, engine.getGame().getNextPlayer().getNickname()));
             getAnimationManager().zoomIn(getApplicationContext(), text);
             getAnimationManager().zoomOut(getApplicationContext(), text);
             getAnimationManager().zoomIn(getApplicationContext(), text);
-            CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(), getResources().getString(R.string.next_player) + getEngine().getGame().getNextPlayer().getNickname(),
+
+            // Storing game info into the db
+            saveGame();
+
+            // Finishing activity with a confetti animation
+            endGame();
+
+        } else {
+            TextView text = (TextView)findViewById(R.id.txtCurrentPlayer);
+            text.setText(getApplicationContext().getResources().getString(R.string.current_player, engine.getGame().getNextPlayer().getNickname()));
+            getAnimationManager().zoomIn(getApplicationContext(), text);
+            getAnimationManager().zoomOut(getApplicationContext(), text);
+            getAnimationManager().zoomIn(getApplicationContext(), text);
+            CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(), getResources().getString(R.string.next_player) + engine.getGame().getNextPlayer().getNickname(),
                     Toast.LENGTH_SHORT);
         }
+    }
+
+    /**
+     * This method prepares the statistics data tha will be stored in the db, it's called only when the game has finished, calls the DAO layer
+     * that handle all persistence methods and uses the {@link GameDAO#save(Statistic)} method.
+     *
+     * @see GameDAO
+     * @see Statistic
+     *
+     *
+     */
+    private void saveGame(){
+
+        statistic.setEndTime(new Date());
+        statistic.setRounds(engine.getGame().getRound());
+        statistic.setWinnerName(engine.getWinner().getNickname());
+        statistic.setWinnerIcon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getWinner().getId(), 0));
+
+        switch ( numberOfPlayers ){
+            case 2 :
+
+                if ( engine.getGame().getPlayers().get(0).isActive() ){
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                }
+
+                break;
+            case 3 :
+
+                if ( engine.getGame().getPlayers().get(0).isActive() ){
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+
+                } else  if ( engine.getGame().getPlayers().get(1).isActive() ){
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+
+                } else {
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                }
+
+                break;
+            case 4 :
+
+                if ( engine.getGame().getPlayers().get(0).isActive() ){
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(3).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
+
+                } else  if ( engine.getGame().getPlayers().get(1).isActive() ){
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(3).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
+
+                } else  if ( engine.getGame().getPlayers().get(2).isActive() ){
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(3).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
+
+                } else {
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                }
+                break;
+
+        }
+
+        GameDAO dao = new GameDAOImpl(this);
+        dao.save(statistic);
     }
 
     /**

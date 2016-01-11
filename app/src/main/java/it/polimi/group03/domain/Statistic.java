@@ -197,8 +197,16 @@ public class Statistic implements Serializable {
         this.loser3Icon = loser3Icon;
     }
 
-    public long getDuration() {
-        return TimeUnit.MILLISECONDS.toMinutes(endTime.getTime() - startTime.getTime());
+    public String getDuration() {
+
+        String duration;
+
+        if ( TimeUnit.MILLISECONDS.toMinutes(endTime.getTime() - startTime.getTime()) == 0 ){
+            duration = (long)((endTime.getTime() - startTime.getTime())/ 1000) + " s.";
+        } else {
+            duration = TimeUnit.MILLISECONDS.toMinutes(endTime.getTime() - startTime.getTime()) + " m.";
+        }
+        return duration;
     }
 
     public int getVictories() {

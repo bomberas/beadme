@@ -26,9 +26,10 @@ import it.polimi.group03.util.Constant;
  */
 public class CharactersActivity extends FlipperActivity {
 
-    private static final String TAG = "HelpActivity";
+    private static final String TAG = CharactersActivity.class.getSimpleName();
     private int pickedCharacters;
     private Intent playActivityIntent;
+    private boolean isBrainPicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,9 @@ public class CharactersActivity extends FlipperActivity {
         if ( numberOfPlayers > 1) {
             ViewFlipper layout = (ViewFlipper)findViewById(R.id.viewFlipperCharacters);
             layout.removeViewAt(0);
+        } else {
+            isBrainPicked = false;
+            setLayouts(5);
         }
     }
 
@@ -102,28 +106,31 @@ public class CharactersActivity extends FlipperActivity {
         ImageView character = (ImageView)((LinearLayout) v.getParent()).getChildAt(0);
         playActivityIntent.putExtra(Constant.PLAYER_NAME + (pickedCharacters - 1), character.getContentDescription());
 
-
-
         if ( numberOfPlayers == 1){ // This means we're playing against Mr. Roboto
             if ( character.getContentDescription().equals(Constant.MR_ROBOTO) ) {
+                Log.i(TAG, "Mr Roboto was picked");
                 playActivityIntent.putExtra(Constant.PLAYER_ICON + (pickedCharacters - 1), R.drawable.img_app);
                 playActivityIntent.putExtra(Constant.PLAYER_HUMAN + (pickedCharacters - 1), false);
 
-                numberOfPlayers --;
+                isBrainPicked = true;
+
             } else {
                 playActivityIntent.putExtra(Constant.PLAYER_ICON + (pickedCharacters - 1), getThemeManager().getPlayerIcon(this, Integer.valueOf((String) character.getTag())));
                 playActivityIntent.putExtra(Constant.PLAYER_HUMAN + (pickedCharacters - 1), true);
 
-                playActivityIntent.putExtra(Constant.PLAYER_NAME + "1", Constant.MR_ROBOTO);
-                playActivityIntent.putExtra(Constant.PLAYER_ICON + "1", R.drawable.img_app);
-                playActivityIntent.putExtra(Constant.PLAYER_HUMAN + "1", false);
+                if ( !isBrainPicked ) {
+                    pickedCharacters++;
+                    playActivityIntent.putExtra(Constant.PLAYER_NAME + "1", Constant.MR_ROBOTO);
+                    playActivityIntent.putExtra(Constant.PLAYER_ICON + "1", R.drawable.img_app);
+                    playActivityIntent.putExtra(Constant.PLAYER_HUMAN + "1", false);
+                }
             }
         } else {
             playActivityIntent.putExtra(Constant.PLAYER_ICON + (pickedCharacters - 1), getThemeManager().getPlayerIcon(this, Integer.valueOf((String) character.getTag())));
             playActivityIntent.putExtra(Constant.PLAYER_HUMAN + (pickedCharacters - 1), true);
         }
 
-        if ( numberOfPlayers == pickedCharacters ) {
+        if ( (numberOfPlayers == 1 && numberOfPlayers + 1 == pickedCharacters) || (numberOfPlayers > 1 && numberOfPlayers == pickedCharacters)) {
             Log.i(TAG, "Starting Play Activity");
             FrameLayout frame = (FrameLayout)findViewById(R.id.characters_frame);
             playActivityIntent.putExtra(Constant.HEIGHT, frame.getHeight());

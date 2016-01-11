@@ -30,7 +30,7 @@ import it.polimi.group03.util.CommonUtil;
  */
 public class StatisticActivity extends FlipperActivity {
 
-    private static final String TAG = "StatisticActivity";
+    private static final String TAG = StatisticActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

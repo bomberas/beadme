@@ -43,7 +43,7 @@ import static it.polimi.group03.util.Constant.*;
  */
 public class SettingsActivity extends GenericActivity {
 
-    private static final String TAG = "SettingsActivity";
+    private static final String TAG = SettingsActivity.class.getSimpleName();
     /**
      * Fragment created on fly to hold all the preferences of the application.
      */

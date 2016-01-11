@@ -20,7 +20,7 @@ import it.polimi.group03.util.CommonUtil;
  */
 public class DialogActivity extends GenericActivity {
 
-    private static final String TAG = "DialogActivity";
+    private static final String TAG = DialogActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
