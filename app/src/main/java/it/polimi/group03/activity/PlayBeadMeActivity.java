@@ -172,7 +172,7 @@ public class PlayBeadMeActivity extends GenericActivity {
             // configuration of the bars will remain random.
 
             if ( !CommonUtil.isEmpty(config) ) {
-                //re configuring bars
+
                 engine.reConfigureBars(BarOrientation.HORIZONTAL, config.substring(0, 7).toCharArray());
                 engine.reConfigureBars(BarOrientation.VERTICAL, config.substring(7, 14).toCharArray());
             }
