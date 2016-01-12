@@ -628,14 +628,10 @@ public class PlayBeadMeActivity extends GenericActivity {
         final int[] CONFETTI = {
 
                 //R.drawable.confetti1,
+                R.drawable.confetti1,
                 R.drawable.confetti2,
                 R.drawable.confetti3,
-                //R.drawable.confetti4,
-                //R.drawable.confetti5,
-                R.drawable.confetti6,
-                //R.drawable.confetti7,
-                R.drawable.confetti8,
-                //R.drawable.confetti9
+                R.drawable.confetti4
         };
         final float mScale;
 

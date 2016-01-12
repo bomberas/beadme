@@ -58,7 +58,7 @@ public class ThemeManager {
     }
 
     /**
-     * Set the theme for the current activity. Should be called in the Activity.onCreate method before setting the views.
+     * Sets the theme for the current activity. Should be called in the Activity.onCreate method before setting the views.
      *
      * @param activity Calling Activity
      */
@@ -266,7 +266,7 @@ public class ThemeManager {
 
     /**
      *
-     * Set the background animation for the {@link it.polimi.group03.activity.PlayBeadMeActivity} activity according
+     * Sets the background animation for the {@link it.polimi.group03.activity.PlayBeadMeActivity} activity according
      * to the selected theme.
      *
      *

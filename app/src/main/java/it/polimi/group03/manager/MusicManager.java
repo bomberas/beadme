@@ -21,6 +21,8 @@ import it.polimi.group03.util.Constant;
  * according to the selected <i>theme</i>. It will be used across the whole application
  * (all the activities) to retrieve the current status of the playing audio (if enabled).<br /><br />
  *
+ * @see ThemeManager
+ *
  * @author tatibloom
  * @version 1.0
  * @since 11/12/2015.
@@ -28,7 +30,6 @@ import it.polimi.group03.util.Constant;
 public class MusicManager {
 
     private static final String TAG = MusicManager.class.getSimpleName();
-
     private static MusicManager ourInstance = new MusicManager();
     private MediaPlayer media;
     private SoundPool soundPool;
@@ -177,23 +178,6 @@ public class MusicManager {
         }
 
         soundPool.play(soundMap.get(Constant.MOVE_SFX), 1, 1, 0, 0, 1);
-    }
-
-    /**
-     * Plays the corresponding sound effect for the action of moving bars in the game.
-     * <b>Reference</b><br/>
-     * <p/>
-     * {@link #getMoveSoundEffect(Context)}<br/>
-     *
-     * @param context Calling Activity
-     */
-    public void playWinningSoundEffect(Context context) {
-        if (!isSoundOn(context)) {
-            Log.i(TAG, "The sound preference is off");
-            return;
-        }
-
-        soundPool.play(soundMap.get(Constant.WIN_SFX), 1, 1, 0, 5, 1);
     }
 
     /**

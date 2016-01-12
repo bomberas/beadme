@@ -50,7 +50,7 @@ public class VibrationManager {
     }
 
     /**
-     * Get the vibrator service and vibrate if the <tt>vibration</tt> preference
+     * Gets the vibrator service and vibrate if the <tt>vibration</tt> preference
      * is on.
      *
      * @param context Calling Activity

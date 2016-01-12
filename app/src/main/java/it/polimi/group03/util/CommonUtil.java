@@ -67,6 +67,13 @@ public class CommonUtil {
         return !s2.trim().equals("") && s1.toLowerCase().trim().equals(s2.toLowerCase().trim());
     }
 
+    /**
+     *
+     * Clones the given array and creates another array exactly like the given one, in all forms and shapes.
+     *
+     * @param source array to be cloned
+     * @return {@code array} cloned after method
+     */
     public static int[][] cloneArray( int[][] source) {
         int[][] dest = new int[source.length][source.length];
         for ( int col = 0; col < source.length; col++) {
@@ -75,46 +82,6 @@ public class CommonUtil {
             }
         }
         return dest;
-    }
-
-    public static String maxValue(int[][] matrix) {
-        int max = matrix[0][0];
-        int r = 0;
-        int c = 0;
-
-        for ( int col = 0; col < Constant.BOARD_INDEX; col++) {
-            for ( int row = 0; row < Constant.BOARD_INDEX; row++) {
-                if ( matrix[row][col] > max) {
-                    max = matrix[row][col];
-                    r = row;
-                    c = col;
-                }
-            }
-        }
-
-        return String.valueOf(r)  + "|" + String.valueOf(c);
-    }
-
-    public static int safeLongToInt(long l) {
-        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException
-                    (l + " cannot be cast to int without changing its value.");
-        }
-        return (int) l;
-    }
-
-    public static String convertDateToString(Date dateNow){
-        SimpleDateFormat dateConvertion = new SimpleDateFormat("yyyyMMddHHmmss");
-        String date_to_string = dateConvertion.format(dateNow);
-        return date_to_string;
-
-    }
-
-    public static Date convertStringToDate(String string) throws ParseException {
-        String str = "January 2, 2010";
-        SimpleDateFormat format = new SimpleDateFormat("yyyMMddHHmmss");
-        Date date = format.parse(str);
-        return date;
     }
 
     /**
