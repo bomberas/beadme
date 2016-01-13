@@ -84,8 +84,8 @@ public class BeadOnTouchListener implements View.OnTouchListener {
                 // Checking if the bead was already placed
                 if ( !bead.isPlaced() && player.getId() == parentActivity.getEngine().getGame().getNextPlayer().getId() ) {
 
-                    Log.i(TAG, "Trying to place bead");
-                    Log.i(TAG, "Number of beads placed for player " + player.getId() + " = " + player.getBeads().size());
+                    Log.i(TAG, "Player " + player.getId() + " has placed " + player.getBeads().size() + " beads.");
+                    Log.i(TAG, "Intended row: " + CommonUtil.convertXYToRowColumn((int) event.getRawY(), parentActivity.getOffsetY(), parentActivity.getCellWidth())  + " / Intended column: " + CommonUtil.convertXYToRowColumn((int) event.getRawX() + 30, parentActivity.getOffsetX(), parentActivity.getCellWidth()));
 
                     // Checking if the new location is inside the board
                     if ( (int)event.getRawX() > parentActivity.getOffsetX() + 3*parentActivity.getCellWidth() && (int)event.getRawX() < (parentActivity.getOffsetX() + parentActivity.getCellWidth() * (Constant.NUMBER_OF_CELLS - 2)) &&
@@ -93,7 +93,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
 
                         bead.setPosition(CommonUtil.convertXYToRowColumn((int) event.getRawY(), parentActivity.getOffsetY(), parentActivity.getCellWidth()), CommonUtil.convertXYToRowColumn((int) event.getRawX() + 30, parentActivity.getOffsetX(), parentActivity.getCellWidth()));
 
-                        if ( bead.getPosition().getX() > -1 && bead.getPosition().getY() > -1 ) {
+                        if ( bead.getPosition().getX() > -1 && bead.getPosition().getX() < 7 && bead.getPosition().getY() > -1 && bead.getPosition().getY() < 7) {
 
                             // Calling validator
                             StatusMessage status = parentActivity.getEngine().addBeadToBoard(player, bead);
@@ -104,13 +104,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
                                 parentActivity.getEngine().getGame().setNextPlayer(parentActivity.getEngine().getNextPlayer(player));
                                 parentActivity.showBeadsOnBoard(true);
 
-                                Log.i(TAG, "Bead added to player " + player.getId());
-                                Log.i(TAG, "New position of bead " + bead.getPosition().toString());
-
-                                Log.i(TAG, "Next Player " + parentActivity.getEngine().getGame().getNextPlayer().getNickname());
-
                                 if (parentActivity.getEngine().getGame().getNextPlayer().isMrRoboto()) {
-                                    Log.i(TAG, "Currently playing Mr. Roboto");
                                     parentActivity.automaticBeadMove(true);
                                 }
 
@@ -147,6 +141,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
             }
 
             case MotionEvent.ACTION_DOWN: {
+
                 if ( !bead.isPlaced() && player.getId() == parentActivity.getEngine().getGame().getNextPlayer().getId() ) {
                     Log.i(TAG, "Your moving bead number " + v.getId());
                     prevMovX = (int) event.getRawX();
