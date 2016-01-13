@@ -1,10 +1,15 @@
 package it.polimi.group03.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 
+import it.polimi.group03.R;
 import it.polimi.group03.manager.AnimationManager;
 import it.polimi.group03.manager.MusicManager;
 import it.polimi.group03.manager.ThemeManager;
@@ -25,6 +30,7 @@ import it.polimi.group03.manager.NotificationManager;
  */
 public class GenericActivity extends AppCompatActivity {
 
+    private String TAG = GenericActivity.class.getSimpleName();
     private boolean keepMusicOn;
 
     @Override
@@ -32,17 +38,6 @@ public class GenericActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         keepMusicOn = true;
         hideBars();
-    }
-
-    /**
-     * This methods hides the action bar set it by default for the OS; in order to obtain
-     * a full screen view.
-     */
-    public void hideBars() {
-        ActionBar actionBar = getSupportActionBar();
-        if ( actionBar != null ) {
-            actionBar.hide();
-        }
     }
 
     @Override
@@ -61,12 +56,24 @@ public class GenericActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        finish();
-        startActivity(intent);
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.w(TAG, "I'm destroying this activity");
+
+        View rootView = null;
+
+        try {
+            rootView = ((ViewGroup) findViewById(android.R.id.content))
+                    .getChildAt(0);
+        } catch (Exception e) {
+            Log.w(TAG, "Cannot find root view to call unbindDrawables on");
+        }
+
+        if (rootView != null) {
+            Log.i(TAG, "Calling unbindDrawables");
+            unbindDrawables(rootView);
+        }
     }
 
     public ThemeManager getThemeManager() {
@@ -89,4 +96,43 @@ public class GenericActivity extends AppCompatActivity {
         return AnimationManager.getInstance();
     }
 
+    /**
+     * Utility method to unbind drawables when an activity is destroyed.  This
+     * ensures the drawables can be garbage collected.
+     */
+    public void unbindDrawables(View view) {
+
+        if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+
+        if (view instanceof ImageView) {
+            ImageView imageView = (ImageView) view;
+            imageView.setImageBitmap(null);
+        } else if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+            }
+
+            try {
+                // AdapterView objects do not support the removeAllViews method
+                if (!(view instanceof AdapterView)) {
+                    ((ViewGroup) view).removeAllViews();
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "Ignore Exception in unbindDrawables", e);
+            }
+        }
+    }
+
+    /**
+     * This methods hides the action bar set it by default for the OS; in order to obtain
+     * a full screen view.
+     */
+    public void hideBars() {
+        ActionBar actionBar = getSupportActionBar();
+        if ( actionBar != null ) {
+            actionBar.hide();
+        }
+    }
 }

@@ -7,7 +7,7 @@ import it.polimi.group03.domain.Statistic;
 
 /**
  * This class holds the logic to support all the transactions performed on database,
- * is used ONLY for statistics.<br /><br />
+ * is used ONLY for storing and retrieving info about statistics and history of the game.<br /><br />
  *
  * See {@link Statistic}
  *

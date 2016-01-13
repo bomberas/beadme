@@ -29,7 +29,6 @@ import it.polimi.group03.util.Constant;
 public class NotificationManager extends BroadcastReceiver {
 
     private static final String TAG = NotificationManager.class.getSimpleName();
-
     private static NotificationManager ourInstance = new NotificationManager();
     private static final int PENDING_INTENT_ID = 135792468;
 

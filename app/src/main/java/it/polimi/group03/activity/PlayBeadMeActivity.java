@@ -27,8 +27,6 @@ import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Player;
 import it.polimi.group03.domain.Statistic;
-import it.polimi.group03.domain.StatusMessage;
-import it.polimi.group03.engine.GameBrain;
 import it.polimi.group03.engine.GameEngine;
 import it.polimi.group03.util.BarOrientation;
 import it.polimi.group03.util.BarPosition;
@@ -59,7 +57,6 @@ public class PlayBeadMeActivity extends GenericActivity {
 
     private static final String TAG = PlayBeadMeActivity.class.getSimpleName();
     private GameEngine engine;
-    private GameBrain brain;
     private Statistic statistic;
     private RelativeLayout box;
     private View vie_toast;
@@ -68,7 +65,6 @@ public class PlayBeadMeActivity extends GenericActivity {
     private int offsetX;
     private int offsetY;
     private int numberOfPlayers;
-    private CountDownTimer counterTimer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +83,6 @@ public class PlayBeadMeActivity extends GenericActivity {
         //This attribute is the link to the mechanics of the game
         engine = new GameEngine();
         engine.startGame();
-        brain = new GameBrain();
 
         //Getting the width and height of the device, these are needed to properly show all the bars and beads on the screen
         int height = getIntent().getIntExtra(Constant.HEIGHT, 0);
@@ -107,7 +102,6 @@ public class PlayBeadMeActivity extends GenericActivity {
      */
     @Override
     public void onBackPressed() {
-        if ( counterTimer != null ) counterTimer.cancel();
         startActivity(new Intent(getApplicationContext(), DialogActivity.class));
     }
 
@@ -170,15 +164,6 @@ public class PlayBeadMeActivity extends GenericActivity {
         paramsHorizontalLayout.leftMargin = 3 * cellWidth;
         linLayoutHorizontal.setLayoutParams(paramsHorizontalLayout);
 
-        // Setting the board corners
-        LinearLayout linBoard = (LinearLayout)findViewById(R.id.linBoard);
-        RelativeLayout.LayoutParams paramsBoardLayout = (RelativeLayout.LayoutParams)linBoard.getLayoutParams();
-        paramsBoardLayout.leftMargin = 3 * cellWidth - 8;
-        paramsBoardLayout.topMargin = 3 * cellWidth - 8;
-        paramsBoardLayout.height = (Constant.NUMBER_OF_CELLS - 6) * cellWidth + 16;
-        paramsBoardLayout.width = (Constant.NUMBER_OF_CELLS - 6) * cellWidth + 16;
-        linBoard.setLayoutParams(paramsBoardLayout);
-
         // If we're playing against Mr. Roboto it's necessary configure the bars with the values specified in the preferences of the game
         if ( numberOfPlayers == 1 ){
             String config = PreferenceManager.getDefaultSharedPreferences(this).getString(Constant.KEY_PREF_BARS, "");
@@ -190,8 +175,6 @@ public class PlayBeadMeActivity extends GenericActivity {
 
                 engine.reConfigureBars(BarOrientation.HORIZONTAL, config.substring(0, 7).toCharArray());
                 engine.reConfigureBars(BarOrientation.VERTICAL, config.substring(7, 14).toCharArray());
-
-                engine.getGame().refreshBoard();
             }
         }
 
@@ -277,7 +260,7 @@ public class PlayBeadMeActivity extends GenericActivity {
         if ( numberOfPlayers == 1) numberOfPlayers ++; //This means we're playing with Mr. Roboto
 
         int space = (int)((box.getLayoutParams().width - getCellWidth())/ 2 );
-        int leftMargin = numberOfPlayers == 2 ? (int)(cellWidth * 2.7) : numberOfPlayers == 3 ? (int)(cellWidth * 1.2) : (int)(cellWidth * 0.4);
+        int leftMargin = numberOfPlayers == 2 ? (int)(box.getLayoutParams().width / 5) : numberOfPlayers == 3 ? (int)(box.getLayoutParams().width / 7) : (int)(box.getLayoutParams().width / 9);
 
         statistic.setNumberOfPlayers(numberOfPlayers);
 
@@ -423,7 +406,7 @@ public class PlayBeadMeActivity extends GenericActivity {
         // If we're playing against Mr. Roboto
         if ( !engine.isGameStartConditionReached() ) {
             Log.i(TAG, "This is Mr. Roboto");
-            Bead bead = brain.placeBead(engine);
+            Bead bead = engine.getBrain().placeBead(engine);
             Log.i(TAG, "Mr Roboto thinks: " + bead.getPosition().toString());
             ImageView image = (ImageView) findViewById(CommonUtil.getBeadId(engine.getGame().getNextPlayer().getId(), engine.getGame().getNextPlayer().getRemainingBeadsToPlace() - 1));
             ((Bead) image.getTag()).setPosition(bead.getPosition().getX(), bead.getPosition().getY());
@@ -450,31 +433,25 @@ public class PlayBeadMeActivity extends GenericActivity {
 
         Log.i(TAG, "This is Mr. Roboto trying to move a bar");
 
-        Bar bar = brain.move(engine);
+        Bar bar = engine.getBrain().move(engine);
         ImageView imgBar = (ImageView)findViewById(CommonUtil.getBarId(bar.getOrientation(), bar.getId()));
         Log.i(TAG, "Mr. Roboto chooses " + bar.getOrientation().toString() + " # " + bar.getId() + ". He wants to move it to " + bar.getPosition().toString());
 
-        StatusMessage msg = engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), engine.getGame().getNextPlayer());
+        engine.makeMove(bar.getId(), bar.getOrientation(), bar.getPosition(), engine.getGame().getNextPlayer());
         getMusicManager().playMoveSoundEffect(this);
 
-        Log.i(TAG, "Mr. Roboto move gives status " + msg.getCode());
+        ((Bar) imgBar.getTag()).setPosition(bar.getPosition());
+        LinearLayout.LayoutParams par = (LinearLayout.LayoutParams) imgBar.getLayoutParams();
 
-        if ( msg.getCode().equals(Constant.STATUS_OK) ) {
-
-            ((Bar) imgBar.getTag()).setPosition(bar.getPosition());
-            LinearLayout.LayoutParams par = (LinearLayout.LayoutParams) imgBar.getLayoutParams();
-
-            if (bar.getOrientation().equals(BarOrientation.HORIZONTAL)) {
-                par.leftMargin = bar.getPosition().equals(BarPosition.OUTER) ? 0 : bar.getPosition().equals(BarPosition.CENTRAL) ?
-                        cellWidth : 2 * cellWidth;
-            } else {
-                par.topMargin = bar.getPosition().equals(BarPosition.OUTER) ? 0 : bar.getPosition().equals(BarPosition.CENTRAL) ?
-                        cellWidth : 2 * cellWidth;
-            }
-
-            imgBar.setLayoutParams(par);
+        if ( bar.getOrientation().equals(BarOrientation.HORIZONTAL)){
+            par.leftMargin = bar.getPosition().equals(BarPosition.OUTER) ? 0 : bar.getPosition().equals(BarPosition.CENTRAL) ?
+                    cellWidth : 2 * cellWidth;
+        } else {
+            par.topMargin = bar.getPosition().equals(BarPosition.OUTER) ? 0 : bar.getPosition().equals(BarPosition.CENTRAL) ?
+                    cellWidth : 2 * cellWidth;
         }
 
+        imgBar.setLayoutParams(par);
         refreshBoard();
 
     }
@@ -512,12 +489,12 @@ public class PlayBeadMeActivity extends GenericActivity {
         if ( engine.isGameEndConditionReached() ){
             CommonUtil.showToastMessage(getApplicationContext(), getVie_toast(), getTxt_toast(),
                     getResources().getString(R.string.winner, engine.getWinner().getNickname()),
-                    Toast.LENGTH_SHORT);
+                    Toast.LENGTH_LONG);
             findViewById(R.id.img_arrowUp).clearAnimation();
             findViewById(R.id.img_arrowUp).setVisibility(View.GONE);
 
             TextView text = (TextView)findViewById(R.id.txtCurrentPlayer);
-            text.setText(engine.getWinner().isMrRoboto() ? getApplicationContext().getResources().getString(R.string.roboto_winner) : getApplicationContext().getResources().getString(R.string.winner, engine.getWinner().getNickname()));
+            text.setText(engine.getGame().getNextPlayer().isMrRoboto() ? getApplicationContext().getResources().getString(R.string.roboto_winner) : getApplicationContext().getResources().getString(R.string.winner, engine.getGame().getNextPlayer().getNickname()));
             getAnimationManager().zoomIn(getApplicationContext(), text);
             getAnimationManager().zoomOut(getApplicationContext(), text);
             getAnimationManager().zoomIn(getApplicationContext(), text);
@@ -559,13 +536,10 @@ public class PlayBeadMeActivity extends GenericActivity {
             case 2 :
 
                 if ( engine.getGame().getPlayers().get(0).isActive() ){
+
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
                     statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
-                } else {
-                    statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
                 }
-
 
                 break;
             case 3 :
@@ -574,22 +548,22 @@ public class PlayBeadMeActivity extends GenericActivity {
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
                     statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
 
-                    statistic.setLoser2Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
 
                 } else  if ( engine.getGame().getPlayers().get(1).isActive() ){
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
                     statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
 
-                    statistic.setLoser2Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
 
                 } else {
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
                     statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
 
-                    statistic.setLoser2Name(engine.getGame().getPlayers().get(1).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
                 }
 
                 break;
@@ -599,41 +573,41 @@ public class PlayBeadMeActivity extends GenericActivity {
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
                     statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
 
-                    statistic.setLoser2Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
 
-                    statistic.setLoser3Name(engine.getGame().getPlayers().get(3).getNickname());
-                    statistic.setLoser3Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(3).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
 
                 } else  if ( engine.getGame().getPlayers().get(1).isActive() ){
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
                     statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
 
-                    statistic.setLoser2Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
 
-                    statistic.setLoser3Name(engine.getGame().getPlayers().get(3).getNickname());
-                    statistic.setLoser3Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(3).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
 
                 } else  if ( engine.getGame().getPlayers().get(2).isActive() ){
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
                     statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
 
-                    statistic.setLoser2Name(engine.getGame().getPlayers().get(1).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
 
-                    statistic.setLoser3Name(engine.getGame().getPlayers().get(3).getNickname());
-                    statistic.setLoser3Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(3).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
 
                 } else {
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
                     statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
 
-                    statistic.setLoser2Name(engine.getGame().getPlayers().get(1).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
 
-                    statistic.setLoser3Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser3Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser1Name(engine.getGame().getPlayers().get(2).getNickname());
+                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
                 }
                 break;
 
@@ -652,10 +626,12 @@ public class PlayBeadMeActivity extends GenericActivity {
         final Rect mDisplaySize = new Rect();
         final LayoutInflater inflate;
         final int[] CONFETTI = {
+
+                //R.drawable.confetti1,
                 R.drawable.confetti1,
                 R.drawable.confetti2,
                 R.drawable.confetti3,
-                R.drawable.confetti4,
+                R.drawable.confetti4
         };
         final float mScale;
 
@@ -667,7 +643,7 @@ public class PlayBeadMeActivity extends GenericActivity {
         mScale = metrics.density;
         inflate = LayoutInflater.from(PlayBeadMeActivity.this);
 
-        counterTimer = new CountDownTimer(15000, 300) {
+        CountDownTimer counterTimer = new CountDownTimer(15000, 300) {
             public void onFinish() {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

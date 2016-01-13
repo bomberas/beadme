@@ -20,8 +20,10 @@ import java.util.Random;
 import it.polimi.group03.R;
 
 /**
- * This class holds the logic to support the animations present during the game
+ * This class holds the logic to support the animations used in the game
  * according to the selected <i>theme</i>.<br /><br />
+ *
+ * @see ThemeManager
  *
  * @author tatibloom
  * @version 1.0
@@ -39,75 +41,146 @@ public class AnimationManager {
     private AnimationManager() {
     }
 
-    public void rotate(Context context, View image) {
+    /**
+     *
+     * Rotates the given view 360° to the right.
+     *
+     * @param context Calling activity
+     * @param view view to be rotated
+     */
+    public void rotate(Context context, View view) {
         Animation animRotate = AnimationUtils.loadAnimation(context, R.anim.rotate);
-        image.startAnimation(animRotate);
+        view.startAnimation(animRotate);
     }
 
-    public void bounce(Context context, View image) {
+    /**
+     *
+     * Makes the given view bounce one time.
+     *
+     * @param context Calling activity
+     * @param view view to bounced
+     */
+    public void bounce(Context context, View view) {
         Animation bounce = AnimationUtils.loadAnimation(context, R.anim.bounce);
-        image.startAnimation(bounce);
+        view.startAnimation(bounce);
     }
 
+    /**
+     *
+     * Makes the effect of zooming in the given view.
+     *
+     * @param context Calling activity
+     * @param view view to be zoomed in
+     */
     public void zoomIn(Context context, View view) {
         Animation zoomIn = AnimationUtils.loadAnimation(context, R.anim.zoom_in);
         view.startAnimation(zoomIn);
     }
 
+    /**
+     *
+     * Makes the effect of zooming out the given view.
+     *
+     * @param context Calling activity
+     * @param view view to be zoomed out
+     */
     public void zoomOut(Context context, View view) {
         Animation zoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out);
         view.startAnimation(zoomOut);
     }
 
+    /**
+     *
+     * Makes the given view slide from the right to an inner position.
+     *
+     * @param context Calling activity
+     * @param view view to slide
+     */
     public void slideInFromRight(Context context, View view) {
         Animation slide = AnimationUtils.loadAnimation(context, R.anim.slidein_right);
         view.startAnimation(slide);
     }
 
+    /**
+     *
+     * Makes the given view slide from the left to an inner position.
+     *
+     * @param context Calling activity
+     * @param view view to slide
+     */
     public void slideInFromLeft(Context context, View view) {
         Animation slide = AnimationUtils.loadAnimation(context, R.anim.slidein_left);
         view.startAnimation(slide);
     }
 
-    public void slideOutFromRight(Context context, View view) {
-        Animation slide = AnimationUtils.loadAnimation(context, R.anim.slideout_right);
-        view.startAnimation(slide);
-    }
-
-    public void slideOutFromLeft(Context context, View view) {
-        Animation slide = AnimationUtils.loadAnimation(context, R.anim.slideout_left);
-        view.startAnimation(slide);
-    }
-
+    /**
+     *
+     * Makes the given view blink continuously.
+     *
+     * @param context Calling activity
+     * @param view view to blink
+     */
     public void blink(Context context, View view) {
         Animation blink = AnimationUtils.loadAnimation(context, R.anim.blink);
         view.startAnimation(blink);
     }
 
-    public void fadeOut(ImageView image){
-        image.animate().setDuration(500);
-        image.animate().alpha(0);
+    /**
+     *
+     * Fades out the given view.
+     *
+     * @param view view to be faded out
+     */
+    public void fadeOut(View view){
+        view.animate().setDuration(500);
+        view.animate().alpha(0);
     }
 
-    public void fadeIn(ImageView image){
-        image.animate().setDuration(500);
-        image.animate().alpha(1);
+    /**
+     *
+     * Fades in the given view.
+     *
+     * @param view view to be faded out
+     */
+    public void fadeIn(View view){
+        view.animate().setDuration(500);
+        view.animate().alpha(1);
     }
 
-    public void move(ImageView image, String axis, int offset){
-        ObjectAnimator cloudAnim = ObjectAnimator.ofFloat(image, axis, offset);
+    /**
+     *
+     * Moves the given view across the axis specified with the parameter {@code axis}. It displaces the view
+     * the length specified with {@code offset}
+     *
+     * @param view view to move
+     * @param axis property to animate
+     * @param offset length to move the view
+     */
+    public void move(View view, String axis, int offset){
+        ObjectAnimator cloudAnim = ObjectAnimator.ofFloat(view, axis, offset);
         cloudAnim.setDuration(10000);
         cloudAnim.setRepeatCount(ValueAnimator.INFINITE);
         cloudAnim.setRepeatMode(ValueAnimator.REVERSE);
         cloudAnim.start();
     }
 
+    /**
+     *
+     * Moves a set of views both in x and y axis the length specified with {@code offsetX} y {@code offsetY}
+     *
+     * @param accelerate {@code true} if the animation interpolator will be set as {@link AccelerateInterpolator}
+     *                          {@code false} if no interpolator needs to be set.
+     * @param reverse {@code true} if the animation mode will be set to {@link ValueAnimator#INFINITE},{@code false} if the animation mode
+     *                              will be set to {@link ValueAnimator#RESTART}.
+     * @param offsetX List of length to be move on the x axis.
+     * @param offsetY List of length to be move on the y axis.
+     * @param items List of view to animate
+     */
     public void moveXY(boolean accelerate, boolean reverse, int[] offsetX, int[] offsetY, ImageView ... items) {
 
         if (items != null) {
 
             ObjectAnimator[] animations = new ObjectAnimator[items.length *2];
-            TimeInterpolator[] interpolators = {new AccelerateDecelerateInterpolator(), new AccelerateInterpolator(), new DecelerateInterpolator()};
             int c = 0;
 
             for (int i = 0; i < items.length; ++i) {
@@ -136,6 +209,15 @@ public class AnimationManager {
         }
     }
 
+    /**
+     *
+     * Animates an image view in such a way that looks that is slowly falling from the top of the screen
+     * as a confetti.
+     *
+     * @param mDisplaySize Rect to be used
+     * @param mScale scale to be used with the images
+     * @param aniView view to animate
+     */
     public void confetti(final Rect mDisplaySize, final float mScale, final ImageView aniView) {
 
         aniView.setPivotX(aniView.getWidth() / 2);
