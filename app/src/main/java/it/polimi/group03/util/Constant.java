@@ -148,11 +148,6 @@ public class Constant {
      */
     public static final String MOVE_SFX = "MOVE_SFX";
     /**
-     * This constant holds the key of the sound effect for winning the game.
-     */
-    public static final String WIN_SFX = "WIN_SFX";
-
-    /**
      * This constant holds the name of this game brain :)
      */
     public static final String MR_ROBOTO = "Mr. Roboto";

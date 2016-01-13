@@ -89,7 +89,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
 
                     // Checking if the new location is inside the board
                     if ( (int)event.getRawX() > parentActivity.getOffsetX() + 3*parentActivity.getCellWidth() && (int)event.getRawX() < (parentActivity.getOffsetX() + parentActivity.getCellWidth() * (Constant.NUMBER_OF_CELLS - 2)) &&
-                         (int)event.getRawY() > parentActivity.getOffsetY()  + 3*parentActivity.getCellWidth() && (int)event.getRawY() < (parentActivity.getOffsetY()  + parentActivity.getCellWidth() * (Constant.NUMBER_OF_CELLS - 2))) {
+                            (int)event.getRawY() > parentActivity.getOffsetY()  + 3*parentActivity.getCellWidth() && (int)event.getRawY() < (parentActivity.getOffsetY()  + parentActivity.getCellWidth() * (Constant.NUMBER_OF_CELLS - 2))) {
 
                         bead.setPosition(CommonUtil.convertXYToRowColumn((int) event.getRawY(), parentActivity.getOffsetY(), parentActivity.getCellWidth()), CommonUtil.convertXYToRowColumn((int) event.getRawX() + 30, parentActivity.getOffsetX(), parentActivity.getCellWidth()));
 
