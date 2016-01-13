@@ -69,8 +69,8 @@ public class StatisticActivity extends FlipperActivity {
         int tot_games = gameDAO.getTotalGames();
         TextView totalGames = (TextView) findViewById(R.id.txt_stat_total_games);
         TextView totalGamesX = (TextView) findViewById(R.id.txt_stat_total_games_x);
-        totalGamesX.setVisibility(tot_games < 50 ? View.VISIBLE : View.INVISIBLE);
         countDown(totalGames, 0, tot_games);
+        totalGamesX.setVisibility(tot_games < 50 ? View.VISIBLE : View.INVISIBLE);
 
         //Top 3
         List<Statistic> hallOfFame = gameDAO.findHallOfFame();

@@ -271,10 +271,14 @@ public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
         List<Statistic> stats = new ArrayList<>();
 
         try {
-            String selectQuery = "SELECT loserName, loserIcon, defeats FROM ( SELECT " + LOSER1_NAME + " AS loserName, " + LOSER1_ICON + " AS loserIcon, COUNT(" +
-                    LOSER1_NAME + ") AS defeats FROM " + TABLE + " GROUP BY 1, 2 UNION SELECT " + LOSER2_NAME + " AS loserName, " + LOSER2_ICON +
-                    " AS loserIcon, COUNT(" + LOSER2_NAME + ") AS defeats FROM " + TABLE + " GROUP BY 1, 2 UNION SELECT " + LOSER3_NAME + " AS loserName, " +
-                    LOSER3_ICON + " AS loserIcon, COUNT(" + LOSER3_NAME + ") AS defeats FROM " + TABLE + " GROUP BY 1, 2) GROUP BY 1, 2 ORDER BY 3 DESC" ;
+            String selectQuery = "SELECT G.loserName, G.loserIcon, SUM(G.defeats) FROM ( " +
+                    "SELECT G1." + LOSER1_NAME + " AS loserName, G1." + LOSER1_ICON + " AS loserIcon, COUNT(G1." + LOSER1_NAME + " ) " +
+                    "AS defeats FROM " + TABLE + " G1 WHERE G1." + LOSER1_NAME + " IS NOT NULL GROUP BY 1, 2 UNION " +
+                    "SELECT G2." + LOSER2_NAME + " AS loserName, G2." + LOSER2_ICON + " AS loserIcon, COUNT(G2." + LOSER2_NAME + ") " +
+                    "AS defeats FROM " + TABLE + " G2 WHERE G2." + LOSER2_NAME + " IS NOT NULL GROUP BY 1, 2 UNION " +
+                    "SELECT G3." + LOSER3_NAME + " AS loserName, G3." + LOSER3_ICON + " AS loserIcon, COUNT(G3." + LOSER3_NAME + ") " +
+                    "AS defeats FROM " + TABLE + " G3 WHERE G3." + LOSER3_NAME + " IS NOT NULL GROUP BY 1, 2 ) " +
+                    "G GROUP BY 1, 2 ORDER BY 3, 2 DESC";
 
             SQLiteDatabase db = this.getWritableDatabase();
             Cursor cursor = db.rawQuery(selectQuery, null);

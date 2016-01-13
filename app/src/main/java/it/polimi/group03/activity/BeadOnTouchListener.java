@@ -58,7 +58,7 @@ public class BeadOnTouchListener implements View.OnTouchListener {
      *
      * @param v The image view representing the bead the touch event has been dispatched to.
      * @param event The MotionEvent object containing full information about the event.
-     * @return {@code true} True if the listener has consumed the event, {@code false] otherwise.
+     * @return {@code true} True if the listener has consumed the event, {@code false} otherwise.
      */
     @Override
     public boolean onTouch(final View v, final MotionEvent event) {

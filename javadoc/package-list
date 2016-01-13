@@ -1,4 +1,7 @@
 it.polimi.group03
+it.polimi.group03.activity
+it.polimi.group03.dao
 it.polimi.group03.domain
 it.polimi.group03.engine
+it.polimi.group03.manager
 it.polimi.group03.util
