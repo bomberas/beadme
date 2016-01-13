@@ -48,6 +48,8 @@ public class CharactersActivity extends FlipperActivity {
                     }
                 });
         playActivityIntent = new Intent(getApplicationContext(), PlayBeadMeActivity.class);
+        playActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         pickedCharacters = 1;
         getAnimationManager().blink(this, findViewById(R.id.btn_first));
         getAnimationManager().zoomOut(this, findViewById(R.id.characters_players));

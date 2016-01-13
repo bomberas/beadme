@@ -38,7 +38,8 @@
                 android:textAlignment="center"
                 android:text="@string/choose_character_1"
                 style="?aboutStyle"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -61,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_left"
-                    android:contentDescription="@string/app_icon"
+                    android:contentDescription="@string/img_desc"
                     android:layout_gravity="center"
                     android:id="@+id/play_go_left"
                     android:onClick="moveToRight" />
@@ -98,7 +99,8 @@
                         android:layout_gravity="center_horizontal"
                         android:textAlignment="center"
                         android:text="@string/roboto_name"
-                        style="?textStyle"/>
+                        style="?textStyle"
+                        android:layout_marginTop="20dp" />
 
                     <TextView
                         android:layout_width="200dp"
@@ -144,7 +146,8 @@
                         android:id="@+id/txt_first_character_name"
                         android:layout_gravity="center_horizontal"
                         android:textAlignment="center"
-                        style="?firstTextTitle"/>
+                        style="?firstTextTitle"
+                        android:layout_marginTop="20dp" />
 
                     <TextView
                         android:layout_width="200dp"
@@ -324,7 +327,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_right"
-                    android:contentDescription="@string/app_icon"
+                    android:contentDescription="@string/img_desc"
                     android:layout_gravity="center"
                     android:id="@+id/play_go_right"
                     android:onClick="moveToLeft" />
@@ -346,7 +349,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_characters_home"
                 android:layout_gravity="center|bottom"
-                android:contentDescription="@string/ic_home_desc"
+                android:contentDescription="@string/img_desc"
                 android:src="@drawable/ic_home"
                 style="?floatingButtonStyle"/>
 

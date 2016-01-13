@@ -122,7 +122,7 @@ public class StatisticActivity extends FlipperActivity {
         //Bottom 3
         List<Statistic> hallOfShame = gameDAO.findHallOfShame();
 
-        if ( !CommonUtil.isEmpty(hallOfFame) ) {
+        if ( !CommonUtil.isEmpty(hallOfShame) ) {
             int icon_id_worst = hallOfShame.get(0).getLoser1Icon();
             String name_worst = hallOfShame.get(0).getLoser1Name();
             int num_victories_worst = hallOfShame.get(0).getDefeats();

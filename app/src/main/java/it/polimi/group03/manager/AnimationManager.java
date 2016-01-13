@@ -84,11 +84,6 @@ public class AnimationManager {
         view.startAnimation(blink);
     }
 
-    public void moveUp(Context context, View view) {
-        Animation moveUp = AnimationUtils.loadAnimation(context, R.anim.move_up);
-        view.startAnimation(moveUp);
-    }
-
     public void fadeOut(ImageView image){
         image.animate().setDuration(500);
         image.animate().alpha(0);

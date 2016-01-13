@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_left"
-                    android:contentDescription="@string/app_icon"
+                    android:contentDescription="@string/img_desc"
                     android:layout_gravity="center"
                     android:id="@+id/play_go_left"
                     android:onClick="moveToRight" />
@@ -119,7 +119,7 @@
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
                                 android:src="@drawable/best"
-                                android:contentDescription="@string/app_name"
+                                android:contentDescription="@string/img_desc"
                                 android:layout_margin="5dp" />
 
                             <LinearLayout
@@ -137,7 +137,7 @@
                                         android:layout_width="48dp"
                                         android:layout_height="48dp"
                                         android:id="@+id/img_stat_first"
-                                        android:contentDescription="@string/app_name" />
+                                        android:contentDescription="@string/img_desc" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
                                 android:src="@drawable/better"
-                                android:contentDescription="@string/app_name"
+                                android:contentDescription="@string/img_desc"
                                 android:layout_margin="5dp" />
 
                             <LinearLayout
@@ -203,7 +203,7 @@
                                         android:layout_width="48dp"
                                         android:layout_height="48dp"
                                         android:id="@+id/img_stat_second"
-                                        android:contentDescription="@string/app_name" />
+                                        android:contentDescription="@string/img_desc" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
                                 android:src="@drawable/good"
-                                android:contentDescription="@string/app_name"
+                                android:contentDescription="@string/img_desc"
                                 android:layout_margin="5dp" />
 
                             <LinearLayout
@@ -268,7 +268,7 @@
                                         android:layout_width="48dp"
                                         android:layout_height="48dp"
                                         android:id="@+id/img_stat_third"
-                                        android:contentDescription="@string/app_name" />
+                                        android:contentDescription="@string/img_desc" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -342,7 +342,7 @@
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
                                 android:src="@drawable/worst"
-                                android:contentDescription="@string/app_name"
+                                android:contentDescription="@string/img_desc"
                                 android:layout_margin="5dp" />
 
                             <LinearLayout
@@ -360,7 +360,7 @@
                                         android:layout_width="48dp"
                                         android:layout_height="48dp"
                                         android:id="@+id/img_stat_worst"
-                                        android:contentDescription="@string/app_name" />
+                                        android:contentDescription="@string/img_desc" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -408,7 +408,7 @@
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
                                 android:src="@drawable/worse"
-                                android:contentDescription="@string/app_name"
+                                android:contentDescription="@string/img_desc"
                                 android:layout_margin="5dp" />
 
                             <LinearLayout
@@ -426,7 +426,7 @@
                                         android:layout_width="48dp"
                                         android:layout_height="48dp"
                                         android:id="@+id/img_stat_worse"
-                                        android:contentDescription="@string/app_name" />
+                                        android:contentDescription="@string/img_desc" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -473,7 +473,7 @@
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
                                 android:src="@drawable/bad"
-                                android:contentDescription="@string/app_name"
+                                android:contentDescription="@string/img_desc"
                                 android:layout_margin="5dp" />
 
                             <LinearLayout
@@ -491,7 +491,7 @@
                                         android:layout_width="48dp"
                                         android:layout_height="48dp"
                                         android:id="@+id/img_stat_bad"
-                                        android:contentDescription="@string/app_name" />
+                                        android:contentDescription="@string/img_desc" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -579,7 +579,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_right"
-                    android:contentDescription="@string/app_icon"
+                    android:contentDescription="@string/img_desc"
                     android:layout_gravity="center"
                     android:id="@+id/play_go_right"
                     android:onClick="moveToLeft" />
@@ -601,7 +601,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_statistic_home"
                 android:layout_gravity="center|bottom"
-                android:contentDescription="@string/ic_home_desc"
+                android:contentDescription="@string/img_desc"
                 android:src="@drawable/ic_home"
                 style="?floatingButtonStyle"/>
 

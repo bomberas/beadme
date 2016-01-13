@@ -1,9 +1,5 @@
 package it.polimi.group03.engine;
 
-//import android.util.Log;
-
-import android.util.Log;
-
 import it.polimi.group03.domain.Bar;
 import it.polimi.group03.domain.Bead;
 import it.polimi.group03.domain.Game;
@@ -44,7 +40,6 @@ public class GameEngine {
 
     private Game game;
     private GameValidator validator;
-    private GameBrain brain;
 
     /**
      * This method initializes some attributes in order the prepare the game for the start. This method initializes the board,
@@ -60,7 +55,6 @@ public class GameEngine {
         this.game.init();
         this.game.resetMovedBarsByOpponents();
         this.game.resetLosersAfterTurn();
-        this.brain = new GameBrain();
     }
 
     /**
@@ -378,7 +372,4 @@ public class GameEngine {
         return this.game;
     }
 
-    public GameBrain getBrain() {
-        return this.brain;
-    }
 }

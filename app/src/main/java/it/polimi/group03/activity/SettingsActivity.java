@@ -126,15 +126,6 @@ public class SettingsActivity extends GenericActivity {
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(settingsFragment.getSharedPreferenceListener());
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-    }
-
     /**
      * Updates the application sound effects, changed through the settings fragment inserted in this activity.
      * <code>true</code> if sound effects are set to on.
@@ -208,9 +199,11 @@ public class SettingsActivity extends GenericActivity {
         ListPreference preference = (ListPreference) settingsFragment.findPreference(KEY_PREF_THEMES);
         preference.setSummary(preference.getEntry());
         getThemeManager().theme(this);
+        Intent intent = getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
         overridePendingTransition(0, 0);
-        startActivity(getIntent());
+        startActivity(intent);
         overridePendingTransition(0, 0);
     }
 

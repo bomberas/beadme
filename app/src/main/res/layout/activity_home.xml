@@ -31,7 +31,7 @@
                     android:layout_row="0"
                     android:layout_column="0"
                     android:src="@drawable/img_app"
-                    android:contentDescription="@string/app_icon"
+                    android:contentDescription="@string/img_desc"
                     android:layout_gravity="center|bottom" />
 
             </GridLayout>
@@ -71,12 +71,12 @@
                 android:layout_below="@+id/btn_play"
                 android:layout_alignEnd="@+id/btn_play"
                 android:drawableLeft="@drawable/ic_setting"
-                android:drawablePadding="-20dp"
+                android:drawablePadding="-16dp"
                 android:textAlignment="center"
                 android:contextClickable="false"
                 android:layout_marginTop="15dp"
                 android:layout_alignStart="@+id/btn_play"
-                android:paddingStart="20dp"
+                android:paddingStart="16dp"
                 android:textColor="@color/white"/>
 
             <Button
@@ -125,7 +125,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:contentDescription="@string/ic_help" />
+                android:contentDescription="@string/img_desc" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -135,7 +135,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="5dp"
-                android:contentDescription="@string/ic_about" />
+                android:contentDescription="@string/img_desc" />
 
         </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package it.polimi.group03.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +58,15 @@ public class GenericActivity extends AppCompatActivity {
         super.onResume();
         keepMusicOn = false;
         getMusicManager().start(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        finish();
+        startActivity(intent);
     }
 
     public ThemeManager getThemeManager() {

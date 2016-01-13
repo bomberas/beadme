@@ -23,7 +23,7 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:src="@drawable/img_app"
-                android:contentDescription="@string/app_icon"
+                android:contentDescription="@string/img_desc"
                 android:layout_gravity="center_horizontal"/>
 
             <TextView
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_left"
-                    android:contentDescription="@string/app_icon"
+                    android:contentDescription="@string/img_desc"
                     android:layout_gravity="center"
                     android:id="@+id/play_go_left"
                     android:onClick="moveToRight" />
@@ -99,6 +99,43 @@
                         android:textSize="16sp"
                         style="?helpText"
                         android:textAlignment="center" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_margin="5dp"
+                            android:contentDescription="@string/img_desc"
+                            style="?firstImage" />
+
+                        <ImageView
+                            style="?secondImage"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_margin="5dp"
+                            android:contentDescription="@string/img_desc" />
+
+                        <ImageView
+                            style="?thirdImage"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_margin="5dp"
+                            android:contentDescription="@string/img_desc" />
+
+                        <ImageView
+                            style="?fourthImage"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_margin="5dp"
+                            android:contentDescription="@string/img_desc" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -227,7 +264,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_right"
-                    android:contentDescription="@string/app_icon"
+                    android:contentDescription="@string/img_desc"
                     android:layout_gravity="center"
                     android:id="@+id/play_go_right"
                     android:onClick="moveToLeft" />
@@ -249,7 +286,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_help_home"
                 android:layout_gravity="center|bottom"
-                android:contentDescription="@string/ic_home_desc"
+                android:contentDescription="@string/img_desc"
                 android:src="@drawable/ic_home"
                 style="?floatingButtonStyle"/>
 

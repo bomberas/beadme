@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/scrollView"
-            android:layout_weight=".9"
+            android:layout_weight=".95"
             android:layout_margin="10dp">
 
             <TableLayout
@@ -44,7 +44,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tbl_history"
                 android:measureWithLargestChild="true"
-                android:clickable="false">
+                android:clickable="false"
+                android:divider="?android:attr/dividerHorizontal"
+                android:showDividers="middle">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -60,7 +62,9 @@
                         android:text="@string/hist_num_title"
                         android:textStyle="bold"
                         android:layout_weight=".2"
-                        style="?textStyle" />
+                        style="?textStyle"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center_horizontal" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -100,18 +104,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n1"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -121,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -131,7 +136,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -150,18 +155,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n2"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -171,7 +177,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -181,7 +187,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -200,18 +206,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n3"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -221,7 +228,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -231,7 +238,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -250,40 +257,39 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n4"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:id="@+id/txt_hist_date4"
-                        android:gravity="right" />
+                        android:id="@+id/txt_hist_date4" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:id="@+id/txt_hist_winner4"
-                        android:gravity="right" />
+                        android:id="@+id/txt_hist_winner4" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -302,18 +308,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n5"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -323,7 +330,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -333,7 +340,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -352,18 +359,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n6"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -373,7 +381,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -383,7 +391,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -402,18 +410,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n7"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -423,7 +432,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -433,7 +442,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -452,18 +461,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n8"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -473,7 +483,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -483,7 +493,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -502,18 +512,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n9"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -523,7 +534,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -533,7 +544,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -552,18 +563,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txt_hist_n10"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -573,7 +585,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".3"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -583,7 +595,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight=".2"
                         style="?textStyle"
                         android:layout_marginTop="5dp"
@@ -610,7 +622,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_history_home"
                 android:layout_gravity="center|bottom"
-                android:contentDescription="@string/ic_home_desc"
+                android:contentDescription="@string/img_desc"
                 android:src="@drawable/ic_home"
                 style="?floatingButtonStyle"/>
 

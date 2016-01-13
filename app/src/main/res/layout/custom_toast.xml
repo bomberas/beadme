@@ -14,6 +14,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/img_desc"
             android:src="@drawable/app_toast_icon"/>
         <LinearLayout
             android:orientation="vertical"

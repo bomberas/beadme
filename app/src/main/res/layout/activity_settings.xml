@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_home"
                 android:layout_gravity="center|bottom"
-                android:contentDescription="@string/ic_home_desc"
+                android:contentDescription="@string/img_desc"
                 android:src="@drawable/ic_home"
                 style="?floatingButtonStyle"/>
         </LinearLayout>

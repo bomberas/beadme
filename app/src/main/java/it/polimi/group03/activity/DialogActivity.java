@@ -36,13 +36,10 @@ public class DialogActivity extends GenericActivity {
         findViewById(R.id.btn_yes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "Starting Home Activity");
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 finish();
-                overridePendingTransition(0, 0);
                 startActivity(intent);
-                overridePendingTransition(0, 0);
             }
         });
         setContent();

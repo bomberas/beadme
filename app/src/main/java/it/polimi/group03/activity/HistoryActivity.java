@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -74,6 +74,8 @@ public class HistoryActivity extends GenericActivity {
             tvWinner.setText(game.getWinnerName());
             TextView tvDuration = (TextView) tr.getChildAt(3);
             tvDuration.setText(game.getDuration());
+
+            tr.startAnimation(i%2==0 ? AnimationUtils.loadAnimation(this, R.anim.slidein_left) : AnimationUtils.loadAnimation(this, R.anim.slidein_right));
         }
 
     }
@@ -86,6 +88,7 @@ public class HistoryActivity extends GenericActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.clearAnimation();
                 Intent intent = new Intent(getApplicationContext(), DialogActivity.class);
                 intent.putExtra("game", game);
                 intent.putExtra("class", HistoryActivity.class.getName());

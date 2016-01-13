@@ -81,15 +81,9 @@ public class GameBrain {
      * Retrieve a bar with the new position selected as the preferred movement.
      */
     public Bar move(GameEngine engine) {
-        Map<String, Object> mapH;
-        Bar bestHorizontalBar = null;
-        int defeatsOnHorizontal = 0;
-        int suicidesOnHorizontal = 0;
-
-        Map<String, Object> mapV;
-        Bar bestVerticalBar = null;
-        int defeatsOnVertical = 0;
-        int suicidesOnVertical = 0;
+        Map<String, Object> map;
+        Bar bestBar = null;
+        int defeats = 0;
 
         int level = 0;//0 for counting the defeats, 1 for placing the beads on red slots, 2 for placing the beads on blue slots.
 
@@ -98,76 +92,177 @@ public class GameBrain {
         Player theOtherGuy = engine.getGame().getPlayers().get(0).isMrRoboto() ? engine.getGame().getPlayers().get(1) : engine.getGame().getPlayers().get(0);
 
         //Keep doing this unless a good move has been found
-        while ( defeatsOnHorizontal +  defeatsOnVertical == 0 ) {
+        while ( defeats <= 0 && level <= 2 ) {
 
-            mapH = getBestBarToMove(engine, me, theOtherGuy.activeBeads(), true, level);
-            bestHorizontalBar = (Bar) mapH.get("bar");
-            defeatsOnHorizontal = Integer.valueOf(String.valueOf(mapH.get("defeats")));
-            suicidesOnHorizontal = getDefeatsOnBar(engine, getBeadsOnBar(me.activeBeads(), bestHorizontalBar.getId(), true), bestHorizontalBar, true, 0);
-
-            mapV = getBestBarToMove(engine, me, theOtherGuy.activeBeads(), false, level);
-            bestVerticalBar = (Bar) mapV.get("bar");
-            defeatsOnVertical = Integer.valueOf(String.valueOf(mapV.get("defeats")));
-            suicidesOnVertical = getDefeatsOnBar(engine, getBeadsOnBar(me.activeBeads(), bestVerticalBar.getId(), false), bestVerticalBar, false, 0);
+            map = getBestBarToMove(engine, me, theOtherGuy, level);
+            bestBar = (Bar) map.get("bar");
+            defeats = Integer.valueOf(String.valueOf(map.get("defeats")));
 
             level++;// if it can not kill, then put the beads on red slots, if it can not do that, put the bead on blue slots.
         }
 
-        //we need to validate the number of suicides too, to choose the next move, if both produce the same
-        //result, it's better to choose the vertical bar, cause can discover a empty hole.
-        if ( (defeatsOnVertical - suicidesOnVertical) >= (defeatsOnHorizontal - suicidesOnHorizontal) ) {
-            return bestVerticalBar;
+        //if we can find a proper bar, we will make a defensive move.
+        if ( defeats <= 0 ) {
+            return getBestDefensiveBar(engine, me);
         } else {
-            return bestHorizontalBar;
+           return bestBar;
         }
     }
 
     /**
-     * For each orientation (horizontal or vertical), the algorithm will search for the bar
-     * and the position in which most of the opponent's beads will fall, by counting the defeats
-     * and validating according to the game rules if the movement is valid, if no, will retrieve
-     * the next best bar/position.
+     * If the algorithm wasn't able to find a proper bar to move and defeats the opponents' beads,
+     * nor place at least one of his/her beads on a cover slot,
+     * the next move will be a defensive one, which means that will retrieve a new position
+     * that will cover most of are own beads with both bars without committing suicide.
      */
-    private Map<String,Object> getBestBarToMove(GameEngine engine, Player me, List<Bead> beads, boolean isHorizontal, int level) {
-        List<Bar> bars = getBarsOfBeads(engine, beads, isHorizontal);
-        BarPosition position = BarPosition.randomPosition();
+    private Bar getBestDefensiveBar(GameEngine engine, Player me) {
+        Bar selectedBar = null;
+
+        List<Bar> bars = getBarsOfBeads(engine, me.activeBeads());
+
+        int suicides = 1;
+        int max = -1;
         int defeats = -1;
-        int max, id = 0;
 
         for ( Bar bar : bars ) {
-            List<Bead> beadsOnBar = getBeadsOnBar(beads, bar.getId(), isHorizontal);
+            List<Bead> myBeadsOnBar = getBeadsOnBar(me.activeBeads(), bar);
 
             if ( BarPosition.INNER.equals(bar.getPosition()) ||
                     BarPosition.OUTER.equals(bar.getPosition())) {
                 bar.setPosition(BarPosition.CENTRAL);
-                max = getDefeatsOnBar(engine, beadsOnBar, bar, isHorizontal, level);
+                max = getDefeatsOnBar(engine, myBeadsOnBar, bar, 3);
+                suicides = getDefeatsOnBar(engine, myBeadsOnBar, bar, 0);
             } else {
                 bar.setPosition(BarPosition.INNER);
-                int defeatedBeadsInner = getDefeatsOnBar(engine, beadsOnBar, bar, isHorizontal, level);
+                int defeatedBeadsInner = getDefeatsOnBar(engine, myBeadsOnBar, bar, 3);
+                int suicidedBeadsInner = getDefeatsOnBar(engine, myBeadsOnBar, bar, 0);
 
                 bar.setPosition(BarPosition.OUTER);
-                int defeatedBeadsOuter = getDefeatsOnBar(engine, beadsOnBar, bar, isHorizontal, level);
+                int defeatedBeadsOuter = getDefeatsOnBar(engine, myBeadsOnBar, bar, 3);
+                int suicidedBeadsOuter = getDefeatsOnBar(engine, myBeadsOnBar, bar, 0);
 
-                if ( defeatedBeadsInner > defeatedBeadsOuter  ) {
+                if ( defeatedBeadsInner > defeatedBeadsOuter && suicidedBeadsInner == 0 ) {
                     max = defeatedBeadsInner;
+                    suicides = suicidedBeadsInner;
                     bar.setPosition(BarPosition.INNER);
-                } else {
+                } else if ( suicidedBeadsOuter == 0 ) {
                     max = defeatedBeadsOuter;
+                    suicides = suicidedBeadsOuter;
                     bar.setPosition(BarPosition.OUTER);
                 }
             }
 
-            if ( isConsecutiveBarMoveValid(engine, me, bar) &&
-                 isSelectedBarMoveValid(engine, me, bar) &&
-                 (max > defeats) ) {
-                id = bar.getId();
-                position = bar.getPosition();
-                defeats = max;
+            if ( isConsecutiveBarMoveValid(engine, me, bar) && isSelectedBarMoveValid(engine, me, bar) && suicides == 0 ) {
+                if ( max > defeats ) {
+                    selectedBar = bar;
+                    defeats = max;
+                }
+            }
+        }
+
+        return selectedBar != null ? selectedBar : getRandomBar(engine, me, bars);
+    }
+
+    /**
+     * Murphy Law, if it isn't possible to find a proper bar to move, will return
+     * the first bar allowed.
+     */
+    private Bar getRandomBar(GameEngine engine, Player me, List<Bar> bars) {
+        List<Bar> allBars = engine.getGame().getBars(BarOrientation.VERTICAL);
+        allBars.addAll(engine.getGame().getBars(BarOrientation.HORIZONTAL));
+        boolean isValid = false;
+
+        for ( Bar bar : allBars ) {
+            boolean isUsed = false;
+
+            for ( Bar usedBar : bars ) {
+                if ( bar.getId() == usedBar.getId() && bar.getOrientation() == usedBar.getOrientation() && bar.getPosition() == usedBar.getPosition() ) {
+                    isUsed = true;
+                    break;
+                }
+            }
+
+            if ( !isUsed ) {
+                if ( BarPosition.INNER.equals(bar.getPosition()) || BarPosition.OUTER.equals(bar.getPosition()) ) {
+                    bar.setPosition(BarPosition.CENTRAL);
+                    isValid = isConsecutiveBarMoveValid(engine, me, bar) && isSelectedBarMoveValid(engine, me, bar);
+                } else if ( BarPosition.CENTRAL.equals(bar.getPosition()) ) {
+                    bar.setPosition(BarPosition.INNER);
+                    isValid = isConsecutiveBarMoveValid(engine, me, bar) && isSelectedBarMoveValid(engine, me, bar);
+                    if ( !isValid ) {
+                        bar.setPosition(BarPosition.OUTER);
+                        isValid = isConsecutiveBarMoveValid(engine, me, bar) && isSelectedBarMoveValid(engine, me, bar);
+                    }
+                }
+
+                if ( isValid ) {
+                    return bar;
+                }
+            }
+
+        }
+
+        return null;
+    }
+
+    /**
+     * For both orientations (horizontal or vertical), the algorithm will search for the bar
+     * and the position in which most of the opponent's beads will fall, by counting the defeats
+     * and validating according to the game rules if the movement is valid, if no, will retrieve
+     * the next best bar/position.
+     */
+    private Map<String,Object> getBestBarToMove(GameEngine engine, Player me, Player theOtherGuy, int level) {
+        List<Bar> bars = getBarsOfBeads(engine, theOtherGuy.activeBeads());
+        Bar selectedBar = null;
+
+        int suicides;
+        int max;
+        int defeats = -1;
+
+        //we need to validate the number of suicides too, to choose the next move
+        for ( Bar bar : bars ) {
+            List<Bead> theOtherGuyBeadsOnBar = getBeadsOnBar(theOtherGuy.activeBeads(), bar);
+            List<Bead> myBeadsOnBar = getBeadsOnBar(me.activeBeads(), bar);
+
+            if ( BarPosition.INNER.equals(bar.getPosition()) ||
+                    BarPosition.OUTER.equals(bar.getPosition())) {
+                bar.setPosition(BarPosition.CENTRAL);
+                max = getDefeatsOnBar(engine, theOtherGuyBeadsOnBar, bar, level);
+                suicides = getDefeatsOnBar(engine, myBeadsOnBar, bar, 0);
+            } else {
+                bar.setPosition(BarPosition.INNER);
+                int defeatedBeadsInner = getDefeatsOnBar(engine, theOtherGuyBeadsOnBar, bar, level);
+                int suicidedBeadsInner = getDefeatsOnBar(engine, myBeadsOnBar, bar, 0);
+
+                bar.setPosition(BarPosition.OUTER);
+                int defeatedBeadsOuter = getDefeatsOnBar(engine, theOtherGuyBeadsOnBar, bar, level);
+                int suicidedBeadsOuter = getDefeatsOnBar(engine, myBeadsOnBar, bar, 0);
+
+                if ( defeatedBeadsInner - (2 * suicidedBeadsInner) > defeatedBeadsOuter  - (2 * suicidedBeadsOuter) ) {
+                    max = defeatedBeadsInner;
+                    suicides = suicidedBeadsInner;
+                    bar.setPosition(BarPosition.INNER);
+                } else {
+                    max = defeatedBeadsOuter;
+                    suicides = suicidedBeadsOuter;
+                    bar.setPosition(BarPosition.OUTER);
+                }
+            }
+
+            if ( isConsecutiveBarMoveValid(engine, me, bar) && isSelectedBarMoveValid(engine, me, bar) ) {
+                if ( theOtherGuy.activeBeads().size() - max == 0 ) { //Kamikaze move
+                    selectedBar = bar;
+                    defeats = 100;
+                    break;
+                } else if ( (max - (2 * suicides)) > defeats ) {
+                    selectedBar = bar;
+                    defeats = max;
+                }
             }
         }
 
         Map<String, Object> map = new HashMap<>();
-        map.put("bar", new Bar(id, isHorizontal ? BarOrientation.HORIZONTAL : BarOrientation.VERTICAL, position));
+        map.put("bar", selectedBar);
         map.put("defeats", defeats);
 
         return map;
@@ -176,19 +271,14 @@ public class GameBrain {
     /**
      * Retrieves all the bars in which the beads provided are present.
      */
-    private List<Bar> getBarsOfBeads(GameEngine engine, List<Bead> beads, boolean isHorizontal) {
+    private List<Bar> getBarsOfBeads(GameEngine engine, List<Bead> beads) {
         List<Bar> bars = new ArrayList<>();
 
-        for ( Bead bead : beads ) {
-            Bar b;
-            if ( isHorizontal ) {
-                b = engine.getGame().findBar(bead.getPosition().getX(), BarOrientation.HORIZONTAL);
-            } else {
-                b = engine.getGame().findBar(bead.getPosition().getY(), BarOrientation.VERTICAL);
-            }
-            Bar bar = new Bar(b.getId(), b.getOrientation(), b.getKeys());
-            bar.setPosition(b.getPosition());
-            bars.add(bar);
+        for (Bead bead : beads) {
+            Bar horizontal = engine.getGame().findBar(bead.getPosition().getX(), BarOrientation.HORIZONTAL);
+            bars.add(new Bar(horizontal.getId(), horizontal.getOrientation(), horizontal.getPosition()));
+            Bar vertical = engine.getGame().findBar(bead.getPosition().getY(), BarOrientation.VERTICAL);
+            bars.add(new Bar(vertical.getId(), vertical.getOrientation(), vertical.getPosition()));
         }
 
         return bars;
@@ -197,14 +287,14 @@ public class GameBrain {
     /**
      * Retrieves all the beads present on the selected bar.
      */
-    private List<Bead> getBeadsOnBar(List<Bead> beads, int id, boolean isHorizontal) {
+    private List<Bead> getBeadsOnBar(List<Bead> beads, Bar bar) {
         List<Bead> beadsOnBar = new ArrayList<>();
 
         for ( Bead bead : beads ) {
-            if ( isHorizontal && bead.getPosition().getX() == id ) {
+            if ( BarOrientation.HORIZONTAL.equals(bar.getOrientation()) && bead.getPosition().getX() == bar.getId() ) {
                 beadsOnBar.add(bead);
             }
-            if ( !isHorizontal && bead.getPosition().getY() == id ) {
+            if ( !BarOrientation.HORIZONTAL.equals(bar.getOrientation()) && bead.getPosition().getY() == bar.getId() ) {
                 beadsOnBar.add(bead);
             }
         }
@@ -218,7 +308,7 @@ public class GameBrain {
      * how many RED or BLUE (depending on the level) slots are discovered by moving
      * the selected bar.
      */
-    private int getDefeatsOnBar(GameEngine engine, List<Bead> beadsOnBar, Bar bar, boolean isHorizontal, int level) {
+    private int getDefeatsOnBar(GameEngine engine, List<Bead> beadsOnBar, Bar bar, int level) {
         List<Bar> horizontals = engine.getGame().getBars(BarOrientation.HORIZONTAL);
         List<Bar> verticals = engine.getGame().getBars(BarOrientation.VERTICAL);
 
@@ -229,7 +319,7 @@ public class GameBrain {
             int x,y;
 
             //x and y denotes the slots we need to validate after "perform" the move
-            if ( isHorizontal ) {
+            if ( BarOrientation.HORIZONTAL.equals(bar.getOrientation()) ) {
                 x = bead.getPosition().getY() + bar.getPosition().getInitialSlot();
                 y = bead.getPosition().getX() + verticals.get(bead.getPosition().getY()).getPosition().getInitialSlot();
             } else {
@@ -242,7 +332,7 @@ public class GameBrain {
 
             //By assigning weights we take the best move into account
             int sum = (infoBlue.equals(SlotInfo.BLUE) ? 2 : 0) +
-                      (infoRed.equals(SlotInfo.RED) ? 1 : 0);
+                    (infoRed.equals(SlotInfo.RED) ? 1 : 0);
 
             if ( sum == level ) { // level will drop bead or find better move
                 defeats++;
@@ -267,7 +357,7 @@ public class GameBrain {
                 SlotInfo infoBlue = verticals.get(c).getKeys()[r + verticals.get(c).getPosition().getInitialSlot()];
                 SlotInfo infoRed = horizontals.get(r).getKeys()[c + horizontals.get(r).getPosition().getInitialSlot()];
                 board[r][c] = (infoBlue.equals(SlotInfo.BLUE) ? 2 : 0) +
-                              (infoRed.equals(SlotInfo.RED) ? 1 : 0);
+                        (infoRed.equals(SlotInfo.RED) ? 1 : 0);
             }
         }
 

@@ -39,44 +39,67 @@ public class HomeActivity extends GenericActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting Characters Activity");
-                startActivity(new Intent(getApplicationContext(), CharactersActivity.class));
+                Intent intent = new Intent(getApplicationContext(), CharactersActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+                startActivity(intent);
             }
         });
         findViewById(R.id.btn_settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting Settings Activity");
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+                startActivity(intent);
             }
         });
         findViewById(R.id.btn_statistics).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting Statistics Activity");
-                startActivity(new Intent(getApplicationContext(), StatisticActivity.class));
+                Intent intent = new Intent(getApplicationContext(), StatisticActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+                startActivity(intent);
             }
         });
         findViewById(R.id.btn_history).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting History Activity");
-                startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+                startActivity(intent);
             }
         });
         findViewById(R.id.btn_help).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting Help Activity");
-                startActivity(new Intent(getApplicationContext(), HelpActivity.class));
+                Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+                startActivity(intent);
             }
         });
         findViewById(R.id.btn_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Starting About Activity");
-                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+                startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
 }

@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/about_icon"
                 android:src="@drawable/img_app"
-                android:contentDescription="@string/app_icon"
+                android:contentDescription="@string/img_desc"
                 android:layout_gravity="center|bottom" />
 
         </LinearLayout>
@@ -265,7 +265,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_about_home"
                 android:layout_gravity="center|bottom"
-                android:contentDescription="@string/ic_home_desc"
+                android:contentDescription="@string/img_desc"
                 android:src="@drawable/ic_home"
                 style="?floatingButtonStyle"/>
 

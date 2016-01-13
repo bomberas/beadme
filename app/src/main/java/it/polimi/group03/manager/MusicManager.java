@@ -156,10 +156,9 @@ public class MusicManager {
      * @param context Calling Activity
      */
     public void initSoundMap(Context context){
-        soundMap = new HashMap<String, Integer>();
+        soundMap = new HashMap<>();
 
         soundMap.put(Constant.MOVE_SFX, soundPool.load(context,getMoveSoundEffect(context),1));
-        soundMap.put(Constant.WIN_SFX, soundPool.load(context,R.raw.ovation,1));
     }
 
     /**
@@ -177,23 +176,6 @@ public class MusicManager {
         }
 
         soundPool.play(soundMap.get(Constant.MOVE_SFX), 1, 1, 0, 0, 1);
-    }
-
-    /**
-     * Plays the corresponding sound effect for the action of moving bars in the game.
-     * <b>Reference</b><br/>
-     * <p/>
-     * {@link #getMoveSoundEffect(Context)}<br/>
-     *
-     * @param context Calling Activity
-     */
-    public void playWinningSoundEffect(Context context) {
-        if (!isSoundOn(context)) {
-            Log.i(TAG, "The sound preference is off");
-            return;
-        }
-
-        soundPool.play(soundMap.get(Constant.WIN_SFX), 1, 1, 0, 5, 1);
     }
 
     /**
