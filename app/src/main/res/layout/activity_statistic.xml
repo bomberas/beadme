@@ -144,7 +144,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_first_place_name"
-                                        style="?textStyle"
+                                        android:textColor="@color/black"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="5dp" />
                                 </LinearLayout>
@@ -159,14 +159,14 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_first_place_games"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_first_place_last"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -210,7 +210,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_second_place_name"
-                                        style="?textStyle"
+                                        android:textColor="@color/black"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="5dp" />
                                 </LinearLayout>
@@ -225,14 +225,14 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_second_place_games"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_second_place_last"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -275,7 +275,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_third_place_name"
-                                        style="?textStyle"
+                                        android:textColor="@color/black"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="5dp" />
                                 </LinearLayout>
@@ -290,14 +290,14 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_third_place_games"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_third_place_last"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -367,7 +367,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_worst_place_name"
-                                        style="?textStyle"
+                                        android:textColor="@color/black"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="5dp" />
                                 </LinearLayout>
@@ -382,14 +382,14 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_worst_place_games"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_worst_place_last"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -433,7 +433,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_worse_place_name"
-                                        style="?textStyle"
+                                        android:textColor="@color/black"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="5dp" />
                                 </LinearLayout>
@@ -448,14 +448,14 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_worse_place_games"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_worse_place_last"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -498,7 +498,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_bad_place_name"
-                                        style="?textStyle"
+                                        android:textColor="@color/black"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="5dp" />
                                 </LinearLayout>
@@ -513,14 +513,14 @@
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_bad_place_games"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="?android:attr/textAppearanceMedium"
                                         android:id="@+id/txt_bad_place_last"
-                                        style="?textStyle" />
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                             </LinearLayout>

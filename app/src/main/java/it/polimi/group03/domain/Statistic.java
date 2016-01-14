@@ -55,7 +55,7 @@ public class Statistic implements Serializable {
     /**
      * Icon picked by the winner.
      */
-    private int winnerIcon;
+    private String winnerIcon;
     /**
      * Name of one of the losers.
      */
@@ -63,7 +63,7 @@ public class Statistic implements Serializable {
     /**
      * Icon picked by the loser 1.
      */
-    private int loser1Icon;
+    private String loser1Icon;
     /**
      * Name of one of the loser 2.
      */
@@ -71,7 +71,7 @@ public class Statistic implements Serializable {
     /**
      * Icon picked by the loser 2.
      */
-    private int loser2Icon;
+    private String loser2Icon;
     /**
      * Name of one of the loser 3.
      */
@@ -79,7 +79,7 @@ public class Statistic implements Serializable {
     /**
      * Icon picked by the loser 3.
      */
-    private int loser3Icon;
+    private String loser3Icon;
     /**
      * Number of rounds played in the game until someone won.
      */
@@ -101,11 +101,11 @@ public class Statistic implements Serializable {
         this.winnerName = winnerName;
     }
 
-    public int getWinnerIcon() {
+    public String getWinnerIcon() {
         return winnerIcon;
     }
 
-    public void setWinnerIcon(int winnerIcon) {
+    public void setWinnerIcon(String winnerIcon) {
         this.winnerIcon = winnerIcon;
     }
 
@@ -173,27 +173,27 @@ public class Statistic implements Serializable {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public int getLoser1Icon() {
+    public String getLoser1Icon() {
         return loser1Icon;
     }
 
-    public void setLoser1Icon(int loser1Icon) {
+    public void setLoser1Icon(String loser1Icon) {
         this.loser1Icon = loser1Icon;
     }
 
-    public int getLoser2Icon() {
+    public String getLoser2Icon() {
         return loser2Icon;
     }
 
-    public void setLoser2Icon(int loser2Icon) {
+    public void setLoser2Icon(String loser2Icon) {
         this.loser2Icon = loser2Icon;
     }
 
-    public int getLoser3Icon() {
+    public String getLoser3Icon() {
         return loser3Icon;
     }
 
-    public void setLoser3Icon(int loser3Icon) {
+    public void setLoser3Icon(String loser3Icon) {
         this.loser3Icon = loser3Icon;
     }
 

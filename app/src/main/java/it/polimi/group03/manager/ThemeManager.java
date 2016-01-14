@@ -309,7 +309,7 @@ public class ThemeManager {
                 paramsSW1.topMargin  = -30;
                 img_TopLeft1.setScaleType(ImageView.ScaleType.FIT_XY);
                 img_TopLeft1.setLayoutParams(paramsSW1);
-                img_TopLeft1.setImageResource(R.drawable.meteorite);
+                img_TopLeft1.setImageResource(R.drawable.shootingstar);
                 box.addView(img_TopLeft1);
                 animations1[0] = img_TopLeft1;
                 offsetX[0] = (int)(1.2 * width);
@@ -321,7 +321,7 @@ public class ThemeManager {
                 paramsSW2.topMargin  = -30;
                 img_TopCenter.setLayoutParams(paramsSW2);
                 img_TopCenter.setScaleType(ImageView.ScaleType.FIT_XY);
-                img_TopCenter.setImageResource(R.drawable.meteorite);
+                img_TopCenter.setImageResource(R.drawable.shootingstar);
                 box.addView(img_TopCenter);
                 animations1[1] = img_TopCenter;
                 offsetX[1] = (int)(1.5 * width);
@@ -333,7 +333,7 @@ public class ThemeManager {
                 paramsSW3.topMargin = -30;
                 img_TopRight1.setLayoutParams(paramsSW3);
                 img_TopRight1.setScaleType(ImageView.ScaleType.FIT_XY);
-                img_TopRight1.setImageResource(R.drawable.meteorite);
+                img_TopRight1.setImageResource(R.drawable.shootingstar);
                 box.addView(img_TopRight1);
                 animations1[2] = img_TopRight1;
                 offsetX[2] = (int)(0.8 * width);
@@ -352,8 +352,8 @@ public class ThemeManager {
                 int iconWidth = (int)(((height > width ? width : height)/ Constant.NUMBER_OF_CELLS) * 2.3);
 
                 ImageView img_TopLeft = new ImageView(context);
-                paramsHP1.topMargin  =  iconHeight;
-                paramsHP1.leftMargin =  iconWidth;
+                paramsHP1.topMargin  =  iconHeight * 4;
+                paramsHP1.leftMargin =  width - iconWidth;
                 paramsHP1.height = iconHeight;
                 paramsHP1.width = iconWidth;
                 img_TopLeft.setLayoutParams(paramsHP1);
@@ -361,8 +361,8 @@ public class ThemeManager {
                 img_TopLeft.setImageResource(R.drawable.dementor);
                 box.addView(img_TopLeft);
                 animations[0] = img_TopLeft;
-                offsetX1[0] = width;
-                offsetY1[0] = (int)(1.2 * height);
+                offsetX1[0] =  -width;
+                offsetY1[0] = (int)(1.4 * height);
 
                 ImageView img_TopRight = new ImageView(context);
                 RelativeLayout.LayoutParams paramsHP2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);

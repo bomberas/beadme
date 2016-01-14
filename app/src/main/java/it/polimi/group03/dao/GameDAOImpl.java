@@ -53,8 +53,8 @@ public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE game (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DATE_CREATED + " DATE, " +
                 DATE_ENDED + " DATE, " + PLAYERS + " INTEGER, " + WINNER_NAME + " TEXT, " +
-                WINNER_ICON + " INTEGER, " + LOSER1_NAME + " TEXT, " + LOSER1_ICON + " INTEGER, " + LOSER2_NAME + " TEXT, " +
-                LOSER2_ICON + " INTEGER, " + LOSER3_NAME + " TEXT, " + LOSER3_ICON + " INTEGER, " + ROUNDS + " INTEGER)";
+                WINNER_ICON + " TEXT, " + LOSER1_NAME + " TEXT, " + LOSER1_ICON + " TEXT, " + LOSER2_NAME + " TEXT, " +
+                LOSER2_ICON + " TEXT, " + LOSER3_NAME + " TEXT, " + LOSER3_ICON + " TEXT, " + ROUNDS + " INTEGER)";
 
         db.execSQL(query);
         Log.d(TAG, "Table game created...");
@@ -125,13 +125,13 @@ public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
                     s.setEndTime(sdf.parse(cursor.getString(2)));
                     s.setNumberOfPlayers(cursor.getInt(3));
                     s.setWinnerName(cursor.getString(4));
-                    s.setWinnerIcon(cursor.getInt(5));
+                    s.setWinnerIcon(cursor.getString(5));
                     s.setLoser1Name(cursor.getString(6));
-                    s.setLoser1Icon(cursor.getInt(7));
+                    s.setLoser1Icon(cursor.getString(7));
                     s.setLoser2Name(cursor.getString(8));
-                    s.setLoser2Icon(cursor.getInt(9));
+                    s.setLoser2Icon(cursor.getString(9));
                     s.setLoser3Name(cursor.getString(10));
-                    s.setLoser3Icon(cursor.getInt(11));
+                    s.setLoser3Icon(cursor.getString(11));
                     s.setRounds(cursor.getInt(12));
                     stats.add(s);
                 } while (cursor.moveToNext());
@@ -249,7 +249,7 @@ public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
                 do {
                     Statistic s = new Statistic();
                     s.setWinnerName(cursor.getString(0));
-                    s.setWinnerIcon(cursor.getInt(1));
+                    s.setWinnerIcon(cursor.getString(1));
                     s.setVictories(cursor.getInt(2));
                     stats.add(s);
                 } while (cursor.moveToNext());
@@ -278,7 +278,7 @@ public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
                     "AS defeats FROM " + TABLE + " G2 WHERE G2." + LOSER2_NAME + " IS NOT NULL GROUP BY 1, 2 UNION " +
                     "SELECT G3." + LOSER3_NAME + " AS loserName, G3." + LOSER3_ICON + " AS loserIcon, COUNT(G3." + LOSER3_NAME + ") " +
                     "AS defeats FROM " + TABLE + " G3 WHERE G3." + LOSER3_NAME + " IS NOT NULL GROUP BY 1, 2 ) " +
-                    "G GROUP BY 1, 2 ORDER BY 3, 2 DESC";
+                    "G GROUP BY 1, 2 ORDER BY 3 DESC";
 
             SQLiteDatabase db = this.getWritableDatabase();
             Cursor cursor = db.rawQuery(selectQuery, null);
@@ -287,7 +287,7 @@ public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
                 do {
                     Statistic s = new Statistic();
                     s.setLoser1Name(cursor.getString(0));
-                    s.setLoser1Icon(cursor.getInt(1));
+                    s.setLoser1Icon(cursor.getString(1));
                     s.setDefeats(cursor.getInt(2));
                     if ( !CommonUtil.isEmpty(s.getLoser1Name()) ) stats.add(s);
                 } while (cursor.moveToNext());

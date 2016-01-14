@@ -75,12 +75,12 @@ public class StatisticActivity extends FlipperActivity {
         //Top 3
         List<Statistic> hallOfFame = gameDAO.findHallOfFame();
         if ( !CommonUtil.isEmpty(hallOfFame) ) {
-            int icon_id_first = hallOfFame.get(0).getWinnerIcon();
+            String icon_id_first = hallOfFame.get(0).getWinnerIcon();
             String name_first = hallOfFame.get(0).getWinnerName();
             int num_victories_first = hallOfFame.get(0).getVictories();
             Date firstLastPlay = gameDAO.getLastDateConnected(name_first);
             ImageView firstPlace = (ImageView) findViewById(R.id.img_stat_first);
-            firstPlace.setImageResource(icon_id_first);
+            firstPlace.setImageResource(getResources().getIdentifier(icon_id_first, "drawable", getPackageName()));
             TextView firstPlaceName = (TextView) findViewById(R.id.txt_first_place_name);
             firstPlaceName.setText(getResources().getString(R.string.stat_first_name, name_first));
             TextView firstPlaceGames = (TextView) findViewById(R.id.txt_first_place_games);
@@ -89,12 +89,12 @@ public class StatisticActivity extends FlipperActivity {
             firstPlaceLastPlay.setText(getResources().getString(R.string.stat_first_date, sdf.format(firstLastPlay)));
 
             if ( hallOfFame.size() > 1 ) {
-                int icon_id_second = hallOfFame.get(1).getWinnerIcon();
+                String icon_id_second = hallOfFame.get(1).getWinnerIcon();
                 String name_second = hallOfFame.get(1).getWinnerName();
                 int num_victories_second = hallOfFame.get(1).getVictories();
                 Date secondLastPlay = gameDAO.getLastDateConnected(name_second);
                 ImageView secondPlace = (ImageView) findViewById(R.id.img_stat_second);
-                secondPlace.setImageResource(icon_id_second);
+                secondPlace.setImageResource(getResources().getIdentifier(icon_id_second, "drawable", getPackageName()));
                 TextView secondPlaceName = (TextView) findViewById(R.id.txt_second_place_name);
                 secondPlaceName.setText(getResources().getString(R.string.stat_second_name, name_second));
                 TextView secondPlaceGames = (TextView) findViewById(R.id.txt_second_place_games);
@@ -104,12 +104,12 @@ public class StatisticActivity extends FlipperActivity {
             }
 
             if ( hallOfFame.size() > 2 ) {
-                int icon_id_third = hallOfFame.get(2).getWinnerIcon();
+                String icon_id_third = hallOfFame.get(2).getWinnerIcon();
                 String name_third = hallOfFame.get(2).getWinnerName();
                 int num_victories_third = hallOfFame.get(2).getVictories();
                 Date thirdLastPlay = gameDAO.getLastDateConnected(name_third);
                 ImageView thirdPlace = (ImageView) findViewById(R.id.img_stat_third);
-                thirdPlace.setImageResource(icon_id_third);
+                thirdPlace.setImageResource(getResources().getIdentifier(icon_id_third, "drawable", getPackageName()));
                 TextView thirdPlaceName = (TextView) findViewById(R.id.txt_third_place_name);
                 thirdPlaceName.setText(getResources().getString(R.string.stat_third_name, name_third));
                 TextView thirdPlaceGames = (TextView) findViewById(R.id.txt_third_place_games);
@@ -123,12 +123,13 @@ public class StatisticActivity extends FlipperActivity {
         List<Statistic> hallOfShame = gameDAO.findHallOfShame();
 
         if ( !CommonUtil.isEmpty(hallOfShame) ) {
-            int icon_id_worst = hallOfShame.get(0).getLoser1Icon();
+
+            String icon_id_worst = hallOfShame.get(0).getLoser1Icon();
             String name_worst = hallOfShame.get(0).getLoser1Name();
             int num_victories_worst = hallOfShame.get(0).getDefeats();
             Date worstLastPlay = gameDAO.getLastDateConnected(name_worst);
             ImageView worstPlace = (ImageView) findViewById(R.id.img_stat_worst);
-            worstPlace.setImageResource(icon_id_worst);
+            worstPlace.setImageResource(getResources().getIdentifier(icon_id_worst, "drawable", getPackageName()));
             TextView worstPlaceName = (TextView) findViewById(R.id.txt_worst_place_name);
             worstPlaceName.setText(getResources().getString(R.string.stat_worst_name, name_worst));
             TextView worstPlaceGames = (TextView) findViewById(R.id.txt_worst_place_games);
@@ -137,12 +138,12 @@ public class StatisticActivity extends FlipperActivity {
             worstPlaceLastPlay.setText(getResources().getString(R.string.stat_worst_date, sdf.format(worstLastPlay)));
 
             if ( hallOfShame.size() > 1 ) {
-                int icon_id_worse = hallOfShame.get(1).getLoser1Icon();
+                String icon_id_worse = hallOfShame.get(1).getLoser1Icon();
                 String name_worse = hallOfShame.get(1).getLoser1Name();
                 int num_victories_worse = hallOfShame.get(1).getDefeats();
                 Date worseLastPlay = gameDAO.getLastDateConnected(name_worse);
                 ImageView worsePlace = (ImageView) findViewById(R.id.img_stat_worse);
-                worsePlace.setImageResource(icon_id_worse);
+                worsePlace.setImageResource(getResources().getIdentifier(icon_id_worse, "drawable", getPackageName()));
                 TextView worsePlaceName = (TextView) findViewById(R.id.txt_worse_place_name);
                 worsePlaceName.setText(getResources().getString(R.string.stat_worse_name, name_worse));
                 TextView worsePlaceGames = (TextView) findViewById(R.id.txt_worse_place_games);
@@ -152,12 +153,12 @@ public class StatisticActivity extends FlipperActivity {
             }
 
             if ( hallOfShame.size() > 2 ) {
-                int icon_id_bad = hallOfShame.get(2).getLoser1Icon();
+                String icon_id_bad = hallOfShame.get(2).getLoser1Icon();
                 String name_bad = hallOfShame.get(2).getLoser1Name();
                 int num_victories_bad = hallOfShame.get(2).getDefeats();
                 Date badLastPlay = gameDAO.getLastDateConnected(name_bad);
                 ImageView badPlace = (ImageView) findViewById(R.id.img_stat_bad);
-                badPlace.setImageResource(icon_id_bad);
+                badPlace.setImageResource(getResources().getIdentifier(icon_id_bad, "drawable", getPackageName()));
                 TextView badPlaceName = (TextView) findViewById(R.id.txt_bad_place_name);
                 badPlaceName.setText(getResources().getString(R.string.stat_bad_name, name_bad));
                 TextView badPlaceGames = (TextView) findViewById(R.id.txt_bad_place_games);

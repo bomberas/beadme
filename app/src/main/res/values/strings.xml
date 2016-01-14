@@ -157,9 +157,9 @@
     <string name="hist_nplayers_text">Number of Players: %1$s</string>
     <string name="hist_round_text">Rounds: %1$s</string>
     <string name="hist_losers_text"><b>Other players:</b></string>
-    <string name="hist_loser1_text">Player 1: %1$s</string>
-    <string name="hist_loser2_text">Player 2: %1$s</string>
-    <string name="hist_loser3_text">Player 3: %1$s</string>
+    <string name="hist_loser1_text">Loser 1: %1$s</string>
+    <string name="hist_loser2_text">Loser 2: %1$s</string>
+    <string name="hist_loser3_text">Loser 3: %1$s</string>
 
     <!-- About Page -->
     <string name="about_authors_title"><b>About the\n@uthors</b></string>

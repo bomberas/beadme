@@ -26,9 +26,9 @@ public class HomeActivity extends GenericActivity {
         setContentView(R.layout.activity_home);
         createGenericListeners();
         getAnimationManager().slideInFromRight(this, findViewById(R.id.btn_play));
+        getAnimationManager().slideInFromLeft(this, findViewById(R.id.btn_statistics));
+        getAnimationManager().slideInFromRight(this, findViewById(R.id.btn_history));
         getAnimationManager().slideInFromLeft(this, findViewById(R.id.btn_settings));
-        getAnimationManager().slideInFromRight(this, findViewById(R.id.btn_statistics));
-        getAnimationManager().slideInFromLeft(this, findViewById(R.id.btn_history));
     }
 
     /**

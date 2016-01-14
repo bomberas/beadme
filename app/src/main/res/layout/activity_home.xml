@@ -65,35 +65,18 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_settings_text"
-                android:id="@+id/btn_settings"
-                style="?buttonStyles"
-                android:layout_below="@+id/btn_play"
-                android:layout_alignEnd="@+id/btn_play"
-                android:drawableLeft="@drawable/ic_setting"
-                android:drawablePadding="-16dp"
-                android:textAlignment="center"
-                android:contextClickable="false"
-                android:layout_marginTop="15dp"
-                android:layout_alignStart="@+id/btn_play"
-                android:paddingStart="16dp"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/btn_statistics_text"
                 android:id="@+id/btn_statistics"
                 style="?buttonStyles"
                 android:layout_marginTop="15dp"
-                android:layout_alignStart="@+id/btn_settings"
-                android:layout_alignEnd="@+id/btn_settings"
+                android:layout_alignStart="@+id/btn_play"
+                android:layout_alignEnd="@+id/btn_play"
                 android:drawableLeft="@drawable/ic_statistic"
                 android:drawablePadding="-12dp"
                 android:textAlignment="center"
                 android:elegantTextHeight="false"
                 android:layout_alignParentStart="false"
-                android:layout_below="@+id/btn_settings"
+                android:layout_below="@+id/btn_play"
                 android:paddingStart="12dp"
                 android:textColor="@color/white"/>
 
@@ -113,6 +96,23 @@
                 android:layout_alignStart="@+id/btn_statistics"
                 android:layout_marginTop="15dp"
                 android:layout_alignEnd="@+id/btn_statistics" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_settings_text"
+                android:id="@+id/btn_settings"
+                style="?buttonStyles"
+                android:layout_below="@+id/btn_history"
+                android:layout_alignEnd="@+id/btn_history"
+                android:drawableLeft="@drawable/ic_setting"
+                android:drawablePadding="-16dp"
+                android:textAlignment="center"
+                android:contextClickable="false"
+                android:layout_marginTop="15dp"
+                android:layout_alignStart="@+id/btn_history"
+                android:paddingStart="16dp"
+                android:textColor="@color/white"/>
 
             <ImageView
                 android:layout_width="wrap_content"

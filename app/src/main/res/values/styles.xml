@@ -555,46 +555,46 @@
     </style>
     <!-- Bars -->
     <style name="barH1hp">
-        <item name="android:background">@drawable/broomh1</item>
+        <item name="android:background">@drawable/wandh1</item>
     </style>
     <style name="barH2hp">
-        <item name="android:background">@drawable/broomh1</item>
+        <item name="android:background">@drawable/wandh2</item>
     </style>
     <style name="barH3hp">
-        <item name="android:background">@drawable/broomh1</item>
+        <item name="android:background">@drawable/wandh3</item>
     </style>
     <style name="barH4hp">
-        <item name="android:background">@drawable/broomh1</item>
+        <item name="android:background">@drawable/wandh4</item>
     </style>
     <style name="barH5hp">
-        <item name="android:background">@drawable/broomh1</item>
+        <item name="android:background">@drawable/wandh5</item>
     </style>
     <style name="barH6hp">
-        <item name="android:background">@drawable/broomh1</item>
+        <item name="android:background">@drawable/wandh6</item>
     </style>
     <style name="barH7hp">
-        <item name="android:background">@drawable/broomh1</item>
+        <item name="android:background">@drawable/wandh7</item>
     </style>
     <style name="barV1hp">
-        <item name="android:background">@drawable/broomv1</item>
+        <item name="android:background">@drawable/wandv1</item>
     </style>
     <style name="barV2hp">
-        <item name="android:background">@drawable/broomv1</item>
+        <item name="android:background">@drawable/wandv2</item>
     </style>
     <style name="barV3hp">
-        <item name="android:background">@drawable/broomv1</item>
+        <item name="android:background">@drawable/wandv3</item>
     </style>
     <style name="barV4hp">
-        <item name="android:background">@drawable/broomv1</item>
+        <item name="android:background">@drawable/wandv4</item>
     </style>
     <style name="barV5hp">
-        <item name="android:background">@drawable/broomv1</item>
+        <item name="android:background">@drawable/wandv5</item>
     </style>
     <style name="barV6hp">
-        <item name="android:background">@drawable/broomv1</item>
+        <item name="android:background">@drawable/wandv6</item>
     </style>
     <style name="barV7hp">
-        <item name="android:background">@drawable/broomv1</item>
+        <item name="android:background">@drawable/wandv7</item>
     </style>
 
     <!-- Generic Text Style -->

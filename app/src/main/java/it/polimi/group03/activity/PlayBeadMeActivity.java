@@ -553,43 +553,42 @@ public class PlayBeadMeActivity extends GenericActivity {
         statistic.setEndTime(new Date());
         statistic.setRounds(engine.getGame().getRound());
         statistic.setWinnerName(engine.getWinner().getNickname());
-        statistic.setWinnerIcon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getWinner().getId(), 0));
+        statistic.setWinnerIcon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getWinner().getId(), 0)));
 
         switch ( numberOfPlayers ){
             case 2 :
 
                 if ( engine.getGame().getPlayers().get(0).isActive() ){
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                    statistic.setLoser1Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0)));
                 } else {
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+                    statistic.setLoser1Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0)));
                 }
-
 
                 break;
             case 3 :
 
                 if ( engine.getGame().getPlayers().get(0).isActive() ){
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                    statistic.setLoser1Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0)));
 
                     statistic.setLoser2Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser2Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0)));
 
                 } else  if ( engine.getGame().getPlayers().get(1).isActive() ){
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+                    statistic.setLoser1Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0)));
 
                     statistic.setLoser2Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser2Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0)));
 
                 } else {
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+                    statistic.setLoser1Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0)));
 
                     statistic.setLoser2Name(engine.getGame().getPlayers().get(1).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                    statistic.setLoser2Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0)));
                 }
 
                 break;
@@ -597,43 +596,43 @@ public class PlayBeadMeActivity extends GenericActivity {
 
                 if ( engine.getGame().getPlayers().get(0).isActive() ){
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(1).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                    statistic.setLoser1Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0)));
 
                     statistic.setLoser2Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser2Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0)));
 
                     statistic.setLoser3Name(engine.getGame().getPlayers().get(3).getNickname());
-                    statistic.setLoser3Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
+                    statistic.setLoser3Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0)));
 
                 } else  if ( engine.getGame().getPlayers().get(1).isActive() ){
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+                    statistic.setLoser1Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0)));
 
                     statistic.setLoser2Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser2Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0)));
 
                     statistic.setLoser3Name(engine.getGame().getPlayers().get(3).getNickname());
-                    statistic.setLoser3Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
+                    statistic.setLoser3Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0)));
 
                 } else  if ( engine.getGame().getPlayers().get(2).isActive() ){
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+                    statistic.setLoser1Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0)));
 
                     statistic.setLoser2Name(engine.getGame().getPlayers().get(1).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                    statistic.setLoser2Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0)));
 
                     statistic.setLoser3Name(engine.getGame().getPlayers().get(3).getNickname());
-                    statistic.setLoser3Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0));
+                    statistic.setLoser3Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(3).getId(), 0)));
 
                 } else {
                     statistic.setLoser1Name(engine.getGame().getPlayers().get(0).getNickname());
-                    statistic.setLoser1Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0));
+                    statistic.setLoser1Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(0).getId(), 0)));
 
                     statistic.setLoser2Name(engine.getGame().getPlayers().get(1).getNickname());
-                    statistic.setLoser2Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0));
+                    statistic.setLoser2Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(1).getId(), 0)));
 
                     statistic.setLoser3Name(engine.getGame().getPlayers().get(2).getNickname());
-                    statistic.setLoser3Icon(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0));
+                    statistic.setLoser3Icon(getResources().getResourceEntryName(getIntent().getIntExtra(Constant.PLAYER_ICON + engine.getGame().getPlayers().get(2).getId(), 0)));
                 }
                 break;
 
@@ -652,8 +651,6 @@ public class PlayBeadMeActivity extends GenericActivity {
         final Rect mDisplaySize = new Rect();
         final LayoutInflater inflate;
         final int[] CONFETTI = {
-
-                //R.drawable.confetti1,
                 R.drawable.confetti1,
                 R.drawable.confetti2,
                 R.drawable.confetti3,

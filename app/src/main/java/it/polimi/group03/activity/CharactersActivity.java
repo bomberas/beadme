@@ -110,7 +110,7 @@ public class CharactersActivity extends FlipperActivity {
 
         if ( numberOfPlayers == 1){ // This means we're playing against Mr. Roboto
             if ( character.getContentDescription().equals(Constant.MR_ROBOTO) ) {
-                Log.i(TAG, "Mr Roboto was picked");
+                Log.i(TAG, "Mr. Roboto was picked");
                 playActivityIntent.putExtra(Constant.PLAYER_ICON + (pickedCharacters - 1), R.drawable.img_app);
                 playActivityIntent.putExtra(Constant.PLAYER_HUMAN + (pickedCharacters - 1), false);
 
@@ -137,7 +137,7 @@ public class CharactersActivity extends FlipperActivity {
             FrameLayout frame = (FrameLayout)findViewById(R.id.characters_frame);
             playActivityIntent.putExtra(Constant.HEIGHT, frame.getHeight());
             playActivityIntent.putExtra(Constant.WIDTH, frame.getWidth());
-
+            finish();
             startActivity(playActivityIntent);
         } else {
             pickedCharacters++;
