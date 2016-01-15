@@ -111,7 +111,7 @@ public class GameDAOImpl extends SQLiteOpenHelper implements GameDAO  {
         List<Statistic> stats = new ArrayList<>();
 
         try {
-            String selectQuery = "SELECT  * FROM  " + TABLE + " ORDER BY " + DATE_CREATED + " DESC ";
+            String selectQuery = "SELECT  * FROM  " + TABLE + " ORDER BY " + ID + " DESC ";
             selectQuery = limit == 0 ? selectQuery : selectQuery + " LIMIT " + limit;
 
             SQLiteDatabase db = this.getWritableDatabase();

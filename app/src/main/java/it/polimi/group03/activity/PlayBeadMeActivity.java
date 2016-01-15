@@ -666,7 +666,7 @@ public class PlayBeadMeActivity extends GenericActivity {
         mScale = metrics.density;
         inflate = LayoutInflater.from(PlayBeadMeActivity.this);
 
-        counterTimer = new CountDownTimer(15000, 300) {
+        counterTimer = new CountDownTimer(10000, 300) {
             public void onFinish() {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
