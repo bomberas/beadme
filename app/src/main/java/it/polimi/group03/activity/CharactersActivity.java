@@ -38,7 +38,7 @@ public class CharactersActivity extends FlipperActivity {
         getThemeManager().setTheme(this);
         setContentView(R.layout.activity_characters);
         setFlipper((ViewFlipper) findViewById(R.id.viewFlipperCharacters));
-        setLayouts(4);
+        setLayouts(8);
 
         findViewById(R.id.btn_characters_home).setOnClickListener(
                 new View.OnClickListener() {
@@ -62,7 +62,7 @@ public class CharactersActivity extends FlipperActivity {
             layout.removeViewAt(0);
         } else {
             isBrainPicked = false;
-            setLayouts(5);
+            setLayouts(9);
         }
     }
 

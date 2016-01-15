@@ -31,6 +31,18 @@
     <attr name="fourthImage" format="reference" />
     <attr name="fourthText" format="reference" />
     <attr name="fourthTextTitle" format="reference" />
+    <attr name="fifthImage" format="reference" />
+    <attr name="fifthText" format="reference" />
+    <attr name="fifthTextTitle" format="reference" />
+    <attr name="sixthImage" format="reference" />
+    <attr name="sixthText" format="reference" />
+    <attr name="sixthTextTitle" format="reference" />
+    <attr name="seventhImage" format="reference" />
+    <attr name="seventhText" format="reference" />
+    <attr name="seventhTextTitle" format="reference" />
+    <attr name="eighthImage" format="reference" />
+    <attr name="eighthText" format="reference" />
+    <attr name="eighthTextTitle" format="reference" />
     <attr name="preference_speaker" format="reference" />
     <attr name="preference_vibration" format="reference" />
     <attr name="preference_notification" format="reference" />
@@ -39,6 +51,9 @@
     <attr name="preference_theme" format="reference" />
     <attr name="preference_bar" format="reference" />
     <attr name="backgroundDialog" format="reference" />
+    <attr name="arrowRight" format="reference" />
+    <attr name="arrowUp" format="reference" />
+    <attr name="shapeStyle" format="reference" />
 
     <attr name="barV1" format="reference" />
     <attr name="barV2" format="reference" />

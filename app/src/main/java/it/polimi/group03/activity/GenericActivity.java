@@ -68,7 +68,7 @@ public class GenericActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        Log.w(TAG, "I'm destroying this activity");
+        Log.w(TAG, "I'm destroying this activity, please Dalvik do your job!");
 
         View rootView = null;
 
@@ -76,12 +76,12 @@ public class GenericActivity extends AppCompatActivity {
             rootView = ((ViewGroup) findViewById(android.R.id.content))
                     .getChildAt(0);
         } catch (Exception e) {
-            Log.w(TAG, "Cannot find root view to call unbindDrawables on");
+            Log.w(TAG, "Cannot find root view to call unbindDrawablesResources on");
         }
 
         if (rootView != null) {
-            Log.i(TAG, "Calling unbindDrawables");
-            unbindDrawables(rootView);
+            Log.i(TAG, "Calling unbindDrawablesResources");
+            unbindDrawablesResources(rootView);
         }
     }
 
@@ -109,7 +109,7 @@ public class GenericActivity extends AppCompatActivity {
      * Utility method to unbind drawables when an activity is destroyed.  This
      * ensures the drawables can be garbage collected.
      */
-    public void unbindDrawables(View view) {
+    private void unbindDrawablesResources(View view) {
 
         if (view.getBackground() != null) {
             view.getBackground().setCallback(null);
@@ -120,7 +120,7 @@ public class GenericActivity extends AppCompatActivity {
             imageView.setImageBitmap(null);
         } else if (view instanceof ViewGroup) {
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                unbindDrawables(((ViewGroup) view).getChildAt(i));
+                unbindDrawablesResources(((ViewGroup) view).getChildAt(i));
             }
 
             try {
@@ -129,7 +129,7 @@ public class GenericActivity extends AppCompatActivity {
                     ((ViewGroup) view).removeAllViews();
                 }
             } catch (Exception e) {
-                Log.w(TAG, "Ignore Exception in unbindDrawables", e);
+                Log.w(TAG, "Ignore Exception in unbindDrawablesResources", e);
             }
         }
     }

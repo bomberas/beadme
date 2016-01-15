@@ -11,6 +11,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import java.util.Random;
 
@@ -173,7 +174,7 @@ public class AnimationManager {
      * @param offsetY List of length to be move on the y axis.
      * @param items List of view to animate
      */
-    public void moveXY(boolean accelerate, boolean reverse, int[] offsetX, int[] offsetY, ImageView ... items) {
+    public void moveXY(boolean effect, boolean accelerate, boolean reverse, int[] offsetX, int[] offsetY, ImageView ... items) {
 
         if (items != null) {
 
@@ -181,19 +182,18 @@ public class AnimationManager {
             int c = 0;
 
             for (int i = 0; i < items.length; ++i) {
-                Log.i(TAG, "moving [" + i + "] x = " + offsetX[i] + " y = " + offsetY[i]);
-                ObjectAnimator animX = ObjectAnimator.ofFloat(items[i], "x", offsetX[i]);
+                ObjectAnimator animX = effect ? ObjectAnimator.ofFloat(items[i], "x", ((RelativeLayout.LayoutParams)items[i].getLayoutParams()).leftMargin,
+                        offsetX[i], -offsetX[i]) : ObjectAnimator.ofFloat(items[i], "x", ((RelativeLayout.LayoutParams)items[i].getLayoutParams()).leftMargin, offsetX[i]);
                 animX.setRepeatCount(ValueAnimator.INFINITE);
                 animX.setRepeatMode(reverse ? ValueAnimator.REVERSE : ValueAnimator.RESTART);
                 if ( accelerate ) animX.setInterpolator(new AccelerateInterpolator());
-                //animX.setStartDelay(new Random().nextInt(3) * 1000);
                 animations[c] = animX;
+
                 c++;
-                ObjectAnimator animY = ObjectAnimator.ofFloat(items[i], "y", offsetY[i]);
+                ObjectAnimator animY = ObjectAnimator.ofFloat(items[i], "y", ((RelativeLayout.LayoutParams)items[i].getLayoutParams()).topMargin, offsetY[i]);
                 animY.setRepeatCount(ValueAnimator.INFINITE);
                 animY.setRepeatMode(reverse ? ValueAnimator.REVERSE : ValueAnimator.RESTART);
                 if ( accelerate ) animY.setInterpolator(new AccelerateInterpolator());
-                //animX.setStartDelay(new Random().nextInt(3) * 1000);
                 animations[c] = animY;
                 c++;
             }

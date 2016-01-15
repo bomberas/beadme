@@ -24,8 +24,8 @@
             android:id="@+id/txtCurrentPlayer"
             android:foreground="#f5ffffff"
             android:gravity="center"
-            android:paddingBottom="8dp"
-            android:layout_marginTop="25dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="18dp"
             style="?textStyle"/>
 
         <LinearLayout
@@ -202,7 +202,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/img_desc"
-                android:src="@drawable/waiting_spot" />
+                style="?shapeStyle" />
 
         </LinearLayout>
 
@@ -217,9 +217,9 @@
         android:layout_marginBottom="5dp">
 
         <ImageView
+            style="?arrowRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_right"
             android:contentDescription="@string/img_desc"
             android:id="@+id/img_arrowRight" />
     </RelativeLayout>
@@ -232,9 +232,9 @@
         android:layout_marginBottom="20dp">
 
         <ImageView
+            style="?arrowUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_up"
             android:contentDescription="@string/img_desc"
             android:id="@+id/img_arrowUp"
             android:visibility="invisible"/>

@@ -313,6 +313,194 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fifth_character_view">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/fifth_character_image"
+                        style="?fifthImage"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:id="@+id/txt_fifth_character_name"
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center"
+                        style="?fifthTextTitle"
+                        android:layout_marginTop="20dp" />
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_fifth_character_desc"
+                        android:textSize="16sp"
+                        style="?fifthText"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"/>
+
+                    <Button
+                        style="?buttonStyles"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_fifth"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/button_choose_character"
+                        android:onClick="pickPlayerCharacter" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/sixth_character_view">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/sixth_character_image"
+                        style="?sixthImage"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_sixth_character_name"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        style="?sixthTextTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_sixth_character_desc"
+                        android:textSize="16sp"
+                        style="?sixthText"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"/>
+
+                    <Button
+                        style="?buttonStyles"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_sixth"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/button_choose_character"
+                        android:onClick="pickPlayerCharacter" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/seventh_character_view">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/seventh_character_image"
+                        style="?seventhImage"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_seventh_character_name"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        style="?seventhTextTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_seventh_character_desc"
+                        android:textSize="16sp"
+                        style="?seventhText"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"/>
+
+                    <Button
+                        style="?buttonStyles"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_seventh"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/button_choose_character"
+                        android:onClick="pickPlayerCharacter" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/eighth_character_view">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/eighth_character_image"
+                        style="?eighthImage"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_eighth_character_name"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        style="?eighthTextTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_eighth_character_desc"
+                        android:textSize="16sp"
+                        style="?eighthText"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"/>
+
+                    <Button
+                        style="?buttonStyles"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_eighth"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/button_choose_character"
+                        android:onClick="pickPlayerCharacter" />
+
+                </LinearLayout>
+
             </ViewFlipper>
 
             <LinearLayout

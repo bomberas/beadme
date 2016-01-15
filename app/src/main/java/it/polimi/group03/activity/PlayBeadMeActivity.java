@@ -295,8 +295,8 @@ public class PlayBeadMeActivity extends GenericActivity {
             imgSummary.setId(CommonUtil.getPlayerSummaryImageId(player.getId()));
             imgSummary.setImageResource(imageSummaryId);
             LinearLayout.LayoutParams paramsS = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            paramsS.width = (int) (cellWidth * 1.5);
-            paramsS.height = (int) (cellWidth * 1.5);
+            paramsS.width = (int) (cellWidth * 1.2);
+            paramsS.height = (int) (cellWidth * 1.2);
             paramsS.leftMargin = leftMargin;
             imgSummary.setLayoutParams(paramsS);
             imgSummary.setScaleType(ImageView.ScaleType.FIT_XY);

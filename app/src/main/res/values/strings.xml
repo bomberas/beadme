@@ -20,8 +20,8 @@
     <string name="e0x3">You cannot move this bar because it was moved in the previous round by one of your opponents.</string>
     <string name="e0x4">You cannot move this bar because it was moved in one of your two previous consecutive turns.</string>
     <string name="e0x5">You cannot move twice in a row.</string>
-    <string name="e0x6">You cannot placed the bead in this position.</string>
-    <string name="e0x7">You cannot moved this bead because is already placed.</string>
+    <string name="e0x6">You cannot place the bead in this position.</string>
+    <string name="e0x7">You cannot move this bead because is already placed.</string>
     <string name="e0x8">The bead must be placed inside the board.</string>
 
     <!-- Home Activity -->
@@ -43,6 +43,14 @@
     <string name="clown_desc"><b>Why aren\'t you allowed to incinerate clowns? They burn funny lol!</b></string>
     <string name="devil_name"><b>The Dreaded Devil</b></string>
     <string name="devil_desc"><b>Let\'s ask him if he wears Prada!</b></string>
+    <string name="witch_name"><b>Winifred Sanderson</b></string>
+    <string name="witch_desc"><b>Oh look, another glorious morning, makes me sick!</b></string>
+    <string name="king_name"><b>King Julian</b></string>
+    <string name="king_desc"><b>I\'m too sexy for my crown!</b></string>
+    <string name="monster_name"><b>Sullivan</b></string>
+    <string name="monster_desc"><b>You\'re in kindergarten, right? Oh, I love kindergarten, best three years of my life!</b></string>
+    <string name="superhero_name"><b>Blue Tornado</b></string>
+    <string name="superhero_desc"><b>Honey, where\'s my super suit?</b></string>
     <string name="harry_name"><b>Harry Potter</b></string>
     <string name="harry_desc"><b>The boy who lived! Beware, you may be the chosen one!</b></string>
     <string name="hermione_name"><b>Hermione Granger</b></string>
@@ -51,6 +59,14 @@
     <string name="snape_desc"><b>The Half-Blood Prince, a good heart with a tough exterior.</b></string>
     <string name="voldemort_name"><b>Voldemort</b></string>
     <string name="voldemort_desc"><b>He-Who-Must-Not-Be-Named, he claims to be pure blood, but we all know the truth.</b></string>
+    <string name="luna_name"><b>Luna Lovegood</b></string>
+    <string name="luna_desc"><b>Don\'t worry, if you pick her, it means that you are just as sane as she is!</b></string>
+    <string name="albus_name"><b>Albus Percival Wulfric Brian Dumbledore</b></string>
+    <string name="albus_desc"><b>Do not pity the dead, young player. Pity the living, and, above all, those who live without love.</b></string>
+    <string name="draco_name"><b>Draco Malfoy</b></string>
+    <string name="draco_desc"><b>Sorry, but only pure-blood wizards can pick him (Muggles stay away!!!). He is a proud Slytherin and Harry Potter\'s arch rival.</b></string>
+    <string name="hagrid_name"><b>Rubeus Hagrid</b></string>
+    <string name="hagrid_desc"><b>He is our favorite half-giant! He loves all creatures and is a tirelessly loyal friend to Harry and Dumbledore.</b></string>
     <string name="c3po_name"><b>C-3PO</b></string>
     <string name="c3po_desc"><b>Artoo says that the chances of survival are 725 to 1. I bet we can win this time!</b></string>
     <string name="darthvader_name"><b>Darth Vader</b></string>
@@ -59,6 +75,14 @@
     <string name="stormtrooper_desc"><b>Mi high combat effectiveness has been the main reason for deploying me almost exclusively in most of the military engagements of the Galactic Empire.</b></string>
     <string name="wookiee_name"><b>Chewbacca</b></string>
     <string name="wookiee_desc"><b>Uuuuuuuu Ahhhhrrrrr Uhrrrr Ahhhhhrrrr Aaaaarrggghhh</b></string>
+    <string name="obiwan_name"><b>Obi-Wan Kenobi</b></string>
+    <string name="obiwan_desc"><b>For now, be proud. You have survived an ordeal few your age could. Welcome home, young Jedi!</b></string>
+    <string name="darthsidious_name"><b>Palpatine</b></string>
+    <string name="darthsidious_desc"><b>My mentor taught me everything about the Force, even the nature of the dark side...</b></string>
+    <string name="jabba_name"><b>Jabba the Hutt</b></string>
+    <string name="jabba_desc"><b>A.K.A The Bloated. One of the most notorious Hutt crime lords in the galaxy!</b></string>
+    <string name="leia_name"><b>Princess Leia</b></string>
+    <string name="leia_desc"><b>Be patient. Be strong. Fight back where you can. The Imperial war machine falls apart one gear, one gun, one stormtrooper at a time. The New Republic is coming. And we want your help to finish the fight!</b></string>
     <string name="choose_character"><b>Choose character for Player</b></string>
     <string name="choose_character_1">1</string>
     <string name="button_choose_character">Pick Me!</string>
@@ -181,11 +205,11 @@
         not sorry! You have to be smart, there is no zombies in this game, so don\'t commit suicide.</b>
     </string>
     <string name="help_intro_expelliarmus"><b>Harry, Hermione, Snape and even He-Who-Must-Not-Be-Named will appreciate your help, all of them are hanging on
-        magic wands, praying to not fall down, so be smart (there are Dementors over there!) or just a move of these borrowed wands of phoenix feather core (we\'re
-        short on budget, Mr Ollivander gave us some ...) could be an Avada kedavra!!!</b>
+        magic wands, praying not to fall down, so be smart (there are Dementors over there!) or just a move of these borrowed wands of phoenix feather core (we\'re
+        short on budget, Mr. Ollivander gave us some ...) could be an Avada kedavra!!!</b>
     </string>
     <string name="help_intro_chewbacca"><b>Help C3PO, the Wookiee, the stormtroopers and even Darth Vader in this war of stars (copyright right? let\'s all embrace
-        the power of the dark side).\n\nAll of them are praying to not be killed and be part of the sequel, we all know about Darth Vader so be careful! don\'t
+        the power of the dark side).\n\nAll of them are praying not to be killed and be part of the sequel, we all know about Darth Vader so be careful! don\'t
         push your luck, no one can survive a lightsaber stab, not even Han Solo!!!</b>
     </string>
     <string name="help_first_title"><b>Game\'s Mechanic</b></string>

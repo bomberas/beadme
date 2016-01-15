@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -149,22 +150,22 @@ public class ThemeManager {
                 switch (beads) {
                     default:
                     case 0:
-                        summaryIconID = R.drawable.star0;
+                        summaryIconID = R.drawable.neon0;
                         break;
                     case 1:
-                        summaryIconID = R.drawable.star1;
+                        summaryIconID = R.drawable.neon1;
                         break;
                     case 2:
-                        summaryIconID = R.drawable.star2;
+                        summaryIconID = R.drawable.neon2;
                         break;
                     case 3:
-                        summaryIconID = R.drawable.star3;
+                        summaryIconID = R.drawable.neon3;
                         break;
                     case 4:
-                        summaryIconID = R.drawable.star4;
+                        summaryIconID = R.drawable.neon4;
                         break;
                     case 5:
-                        summaryIconID = R.drawable.star5;
+                        summaryIconID = R.drawable.neon5;
                         break;
                 }
 
@@ -224,6 +225,18 @@ public class ThemeManager {
                     case 3:
                         playerIconID = R.drawable.devil;
                         break;
+                    case 4:
+                        playerIconID = R.drawable.witch;
+                        break;
+                    case 5:
+                        playerIconID = R.drawable.king;
+                        break;
+                    case 6:
+                        playerIconID = R.drawable.monster;
+                        break;
+                    case 7:
+                        playerIconID = R.drawable.superhero;
+                        break;
                 }
                 break;
             case Constant.PREF_THEME_STAR_WARS:
@@ -241,6 +254,18 @@ public class ThemeManager {
                     case 3:
                         playerIconID = R.drawable.wookiee;
                         break;
+                    case 4:
+                        playerIconID = R.drawable.obiwan;
+                        break;
+                    case 5:
+                        playerIconID = R.drawable.darthsidious;
+                        break;
+                    case 6:
+                        playerIconID = R.drawable.jabba;
+                        break;
+                    case 7:
+                        playerIconID = R.drawable.leia;
+                        break;
                 }
                 break;
             case Constant.PREF_THEME_HARRY_POTTER:
@@ -257,6 +282,18 @@ public class ThemeManager {
                         break;
                     case 3:
                         playerIconID = R.drawable.voldemort;
+                        break;
+                    case 4:
+                        playerIconID = R.drawable.luna;
+                        break;
+                    case 5:
+                        playerIconID = R.drawable.albus;
+                        break;
+                    case 6:
+                        playerIconID = R.drawable.draco;
+                        break;
+                    case 7:
+                        playerIconID = R.drawable.hagrid;
                         break;
                 }
                 break;
@@ -294,19 +331,19 @@ public class ThemeManager {
 
                 box.addView(image2);
 
-                AnimationManager.getInstance().move(image1,"x", (int)(width * 0.8));
+                AnimationManager.getInstance().move(image1,"x",  (int)(width * 0.8));
                 AnimationManager.getInstance().move(image2,"x", -(int)(width * 0.8));
 
                 break;
             case Constant.PREF_THEME_STAR_WARS:
 
                 RelativeLayout.LayoutParams paramsSW1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                ImageView[] animations1 = new ImageView[3];
-                int[] offsetX = new int[3];
-                int[] offsetY = new int[3];
+                ImageView[] animations1 = new ImageView[2];
+                int[] offsetX = new int[2];
+                int[] offsetY = new int[2];
                 ImageView img_TopLeft1 = new ImageView(context);
-                paramsSW1.leftMargin = 10;
-                paramsSW1.topMargin  = -30;
+                paramsSW1.leftMargin = -80;
+                paramsSW1.topMargin  = 180;
                 img_TopLeft1.setScaleType(ImageView.ScaleType.FIT_XY);
                 img_TopLeft1.setLayoutParams(paramsSW1);
                 img_TopLeft1.setImageResource(R.drawable.shootingstar);
@@ -318,7 +355,7 @@ public class ThemeManager {
                 ImageView img_TopCenter = new ImageView(context);
                 RelativeLayout.LayoutParams paramsSW2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                 paramsSW2.leftMargin = 100;
-                paramsSW2.topMargin  = -30;
+                paramsSW2.topMargin  = -120;
                 img_TopCenter.setLayoutParams(paramsSW2);
                 img_TopCenter.setScaleType(ImageView.ScaleType.FIT_XY);
                 img_TopCenter.setImageResource(R.drawable.shootingstar);
@@ -327,19 +364,7 @@ public class ThemeManager {
                 offsetX[1] = (int)(1.5 * width);
                 offsetY[1] = (int)(1.5 * height);
 
-                ImageView img_TopRight1 = new ImageView(context);
-                RelativeLayout.LayoutParams paramsSW3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                paramsSW3.leftMargin =  200;
-                paramsSW3.topMargin = -30;
-                img_TopRight1.setLayoutParams(paramsSW3);
-                img_TopRight1.setScaleType(ImageView.ScaleType.FIT_XY);
-                img_TopRight1.setImageResource(R.drawable.shootingstar);
-                box.addView(img_TopRight1);
-                animations1[2] = img_TopRight1;
-                offsetX[2] = (int)(0.8 * width);
-                offsetY[2] = (int)(0.8 * height);
-
-                AnimationManager.getInstance().moveXY(true, false, offsetX, offsetY, animations1);
+                AnimationManager.getInstance().moveXY(false, false, false, offsetX, offsetY, animations1);
                 break;
 
             case Constant.PREF_THEME_HARRY_POTTER:
@@ -352,8 +377,8 @@ public class ThemeManager {
                 int iconWidth = (int)(((height > width ? width : height)/ Constant.NUMBER_OF_CELLS) * 2.3);
 
                 ImageView img_TopLeft = new ImageView(context);
-                paramsHP1.topMargin  =  iconHeight * 4;
-                paramsHP1.leftMargin =  width - iconWidth;
+                paramsHP1.topMargin  =  iconHeight;
+                paramsHP1.leftMargin =  iconWidth;
                 paramsHP1.height = iconHeight;
                 paramsHP1.width = iconWidth;
                 img_TopLeft.setLayoutParams(paramsHP1);
@@ -361,8 +386,8 @@ public class ThemeManager {
                 img_TopLeft.setImageResource(R.drawable.dementor);
                 box.addView(img_TopLeft);
                 animations[0] = img_TopLeft;
-                offsetX1[0] =  -width;
-                offsetY1[0] = (int)(1.4 * height);
+                offsetX1[0] =  width;
+                offsetY1[0] =  height;
 
                 ImageView img_TopRight = new ImageView(context);
                 RelativeLayout.LayoutParams paramsHP2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -373,12 +398,13 @@ public class ThemeManager {
                 img_TopRight.setLayoutParams(paramsHP2);
                 img_TopRight.setScaleType(ImageView.ScaleType.FIT_XY);
                 img_TopRight.setImageResource(R.drawable.dementor);
+
                 box.addView(img_TopRight);
                 animations[1] = img_TopRight;
-                offsetX1[1] = width;
-                offsetY1[1] = -(int)(1.3 * height);
+                offsetX1[1] = iconWidth;
+                offsetY1[1] = iconHeight;
 
-                AnimationManager.getInstance().moveXY(false, true, offsetX1, offsetY1, animations);
+                AnimationManager.getInstance().moveXY(true, true, true, offsetX1, offsetY1, animations);
 
                 break;
         }

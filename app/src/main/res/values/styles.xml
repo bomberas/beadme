@@ -45,6 +45,18 @@
         <item name="fourthImage">@style/fourthImageP</item>
         <item name="fourthText">@style/fourthTextP</item>
         <item name="fourthTextTitle">@style/fourthTextTitleP</item>
+        <item name="fifthImage">@style/fifthImageP</item>
+        <item name="fifthText">@style/fifthTextP</item>
+        <item name="fifthTextTitle">@style/fifthTextTitleP</item>
+        <item name="sixthImage">@style/sixthImageP</item>
+        <item name="sixthText">@style/sixthTextP</item>
+        <item name="sixthTextTitle">@style/sixthTextTitleP</item>
+        <item name="seventhImage">@style/seventhImageP</item>
+        <item name="seventhText">@style/seventhTextP</item>
+        <item name="seventhTextTitle">@style/seventhTextTitleP</item>
+        <item name="eighthImage">@style/eighthImageP</item>
+        <item name="eighthText">@style/eighthTextP</item>
+        <item name="eighthTextTitle">@style/eighthTextTitleP</item>
         <item name="preference_speaker">@style/speakerp</item>
         <item name="preference_vibration">@style/vibrationp</item>
         <item name="preference_notification">@style/notificationp</item>
@@ -53,6 +65,9 @@
         <item name="preference_theme">@style/themep</item>
         <item name="preference_bar">@style/languagep</item>
         <item name="backgroundDialog">@style/bgdialogp</item>
+        <item name="arrowRight">@style/arrowRightP</item>
+        <item name="arrowUp">@style/arrowUpP</item>
+        <item name="shapeStyle">@style/shapeP</item>
         <item name="barH1">@style/barH1p</item>
         <item name="barH2">@style/barH2p</item>
         <item name="barH3">@style/barH3p</item>
@@ -143,6 +158,59 @@
     </style>
     <style name="fourthTextTitleP" parent="tvpink">
         <item name="android:text">@string/devil_name</item>
+    </style>
+    <style name="fifthImageP">
+        <item name="android:src">@drawable/witch</item>
+        <item name="android:contentDescription">@string/witch_name</item>
+        <item name="android:tag">4</item>
+    </style>
+    <style name="fifthTextP" parent="tvpink">
+        <item name="android:text">@string/witch_desc</item>
+    </style>
+    <style name="fifthTextTitleP" parent="tvpink">
+        <item name="android:text">@string/witch_name</item>
+    </style>
+    <style name="sixthImageP">
+        <item name="android:src">@drawable/king</item>
+        <item name="android:contentDescription">@string/king_name</item>
+        <item name="android:tag">5</item>
+    </style>
+    <style name="sixthTextP" parent="tvpink">
+        <item name="android:text">@string/king_desc</item>
+    </style>
+    <style name="sixthTextTitleP" parent="tvpink">
+        <item name="android:text">@string/king_name</item>
+    </style>
+    <style name="seventhImageP">
+        <item name="android:src">@drawable/monster</item>
+        <item name="android:contentDescription">@string/monster_name</item>
+        <item name="android:tag">6</item>
+    </style>
+    <style name="seventhTextP" parent="tvpink">
+        <item name="android:text">@string/monster_desc</item>
+    </style>
+    <style name="seventhTextTitleP" parent="tvpink">
+        <item name="android:text">@string/monster_name</item>
+    </style>
+    <style name="eighthImageP">
+        <item name="android:src">@drawable/superhero</item>
+        <item name="android:contentDescription">@string/superhero_name</item>
+        <item name="android:tag">7</item>
+    </style>
+    <style name="eighthTextP" parent="tvpink">
+        <item name="android:text">@string/superhero_desc</item>
+    </style>
+    <style name="eighthTextTitleP" parent="tvpink">
+        <item name="android:text">@string/superhero_name</item>
+    </style>
+    <style name="arrowRightP">
+        <item name="android:background">@drawable/arrow_right</item>
+    </style>
+    <style name="arrowUpP">
+        <item name="android:background">@drawable/arrow_up</item>
+    </style>
+    <style name="shapeP">
+        <item name="android:src">@drawable/p_waiting_spot</item>
     </style>
     <!-- Preferences -->
     <style name="speakerp" parent="tvpink">
@@ -239,6 +307,18 @@
         <item name="fourthImage">@style/fourthImageSW</item>
         <item name="fourthText">@style/fourthTextSW</item>
         <item name="fourthTextTitle">@style/fourthTextTitleSW</item>
+        <item name="fifthImage">@style/fifthImageSW</item>
+        <item name="fifthText">@style/fifthTextSW</item>
+        <item name="fifthTextTitle">@style/fifthTextTitleSW</item>
+        <item name="sixthImage">@style/sixthImageSW</item>
+        <item name="sixthText">@style/sixthTextSW</item>
+        <item name="sixthTextTitle">@style/sixthTextTitleSW</item>
+        <item name="seventhImage">@style/seventhImageSW</item>
+        <item name="seventhText">@style/seventhTextSW</item>
+        <item name="seventhTextTitle">@style/seventhTextTitleSW</item>
+        <item name="eighthImage">@style/eighthImageSW</item>
+        <item name="eighthText">@style/eighthTextSW</item>
+        <item name="eighthTextTitle">@style/eighthTextTitleSW</item>
         <item name="preference_speaker">@style/speakersw</item>
         <item name="preference_vibration">@style/vibrationsw</item>
         <item name="preference_notification">@style/notificationsw</item>
@@ -247,6 +327,9 @@
         <item name="preference_theme">@style/themesw</item>
         <item name="preference_bar">@style/languagesw</item>
         <item name="backgroundDialog">@style/bgdialogsw</item>
+        <item name="arrowRight">@style/arrowRightSW</item>
+        <item name="arrowUp">@style/arrowUpSW</item>
+        <item name="shapeStyle">@style/shapeSW</item>
         <item name="barH1">@style/barH1sw</item>
         <item name="barH2">@style/barH2sw</item>
         <item name="barH3">@style/barH3sw</item>
@@ -337,6 +420,59 @@
     </style>
     <style name="fourthTextTitleSW" parent="tvstarwars">
         <item name="android:text">@string/wookiee_name</item>
+    </style>
+    <style name="fifthImageSW">
+        <item name="android:src">@drawable/obiwan</item>
+        <item name="android:contentDescription">@string/obiwan_name</item>
+        <item name="android:tag">4</item>
+    </style>
+    <style name="fifthTextSW" parent="tvstarwars">
+        <item name="android:text">@string/obiwan_desc</item>
+    </style>
+    <style name="fifthTextTitleSW" parent="tvstarwars">
+        <item name="android:text">@string/obiwan_name</item>
+    </style>
+    <style name="sixthImageSW">
+        <item name="android:src">@drawable/darthsidious</item>
+        <item name="android:contentDescription">@string/darthsidious_name</item>
+        <item name="android:tag">5</item>
+    </style>
+    <style name="sixthTextSW" parent="tvstarwars">
+        <item name="android:text">@string/darthsidious_desc</item>
+    </style>
+    <style name="sixthTextTitleSW" parent="tvstarwars">
+        <item name="android:text">@string/darthsidious_name</item>
+    </style>
+    <style name="seventhImageSW">
+        <item name="android:src">@drawable/jabba</item>
+        <item name="android:contentDescription">@string/jabba_name</item>
+        <item name="android:tag">6</item>
+    </style>
+    <style name="seventhTextSW" parent="tvstarwars">
+        <item name="android:text">@string/jabba_desc</item>
+    </style>
+    <style name="seventhTextTitleSW" parent="tvstarwars">
+        <item name="android:text">@string/jabba_name</item>
+    </style>
+    <style name="eighthImageSW">
+        <item name="android:src">@drawable/leia</item>
+        <item name="android:contentDescription">@string/leia_name</item>
+        <item name="android:tag">7</item>
+    </style>
+    <style name="eighthTextSW" parent="tvstarwars">
+        <item name="android:text">@string/leia_desc</item>
+    </style>
+    <style name="eighthTextTitleSW" parent="tvstarwars">
+        <item name="android:text">@string/leia_name</item>
+    </style>
+    <style name="arrowRightSW">
+        <item name="android:background">@drawable/sw_arrow_right</item>
+    </style>
+    <style name="arrowUpSW">
+        <item name="android:background">@drawable/sw_arrow_up</item>
+    </style>
+    <style name="shapeSW">
+        <item name="android:src">@drawable/sw_waiting_spot</item>
     </style>
     <!-- Preferences -->
     <style name="speakersw" parent="tvstarwars">
@@ -432,6 +568,18 @@
         <item name="fourthImage">@style/fourthImageHP</item>
         <item name="fourthText">@style/fourthTextHP</item>
         <item name="fourthTextTitle">@style/fourthTextTitleHP</item>
+        <item name="fifthImage">@style/fifthImageHP</item>
+        <item name="fifthText">@style/fifthTextHP</item>
+        <item name="fifthTextTitle">@style/fifthTextTitleHP</item>
+        <item name="sixthImage">@style/sixthImageHP</item>
+        <item name="sixthText">@style/sixthTextHP</item>
+        <item name="sixthTextTitle">@style/sixthTextTitleHP</item>
+        <item name="seventhImage">@style/seventhImageHP</item>
+        <item name="seventhText">@style/seventhTextHP</item>
+        <item name="seventhTextTitle">@style/seventhTextTitleHP</item>
+        <item name="eighthImage">@style/eighthImageHP</item>
+        <item name="eighthText">@style/eighthTextHP</item>
+        <item name="eighthTextTitle">@style/eighthTextTitleHP</item>
         <item name="preference_speaker">@style/speakerhp</item>
         <item name="preference_vibration">@style/vibrationhp</item>
         <item name="preference_notification">@style/notificationhp</item>
@@ -440,6 +588,9 @@
         <item name="preference_theme">@style/themehp</item>
         <item name="preference_bar">@style/languagehp</item>
         <item name="backgroundDialog">@style/bgdialoghp</item>
+        <item name="arrowRight">@style/arrowRightHP</item>
+        <item name="arrowUp">@style/arrowUpHP</item>
+        <item name="shapeStyle">@style/shapeHP</item>
         <item name="barH1">@style/barH1hp</item>
         <item name="barH2">@style/barH2hp</item>
         <item name="barH3">@style/barH3hp</item>
@@ -530,6 +681,59 @@
     </style>
     <style name="fourthTextTitleHP" parent="tvharrypotter">
         <item name="android:text">@string/voldemort_name</item>
+    </style>
+    <style name="fifthImageHP">
+        <item name="android:src">@drawable/luna</item>
+        <item name="android:contentDescription">@string/luna_name</item>
+        <item name="android:tag">4</item>
+    </style>
+    <style name="fifthTextHP" parent="tvharrypotter">
+        <item name="android:text">@string/luna_desc</item>
+    </style>
+    <style name="fifthTextTitleHP" parent="tvharrypotter">
+        <item name="android:text">@string/luna_name</item>
+    </style>
+    <style name="sixthImageHP">
+        <item name="android:src">@drawable/albus</item>
+        <item name="android:contentDescription">@string/albus_name</item>
+        <item name="android:tag">5</item>
+    </style>
+    <style name="sixthTextHP" parent="tvharrypotter">
+        <item name="android:text">@string/albus_desc</item>
+    </style>
+    <style name="sixthTextTitleHP" parent="tvharrypotter">
+        <item name="android:text">@string/albus_name</item>
+    </style>
+    <style name="seventhImageHP">
+        <item name="android:src">@drawable/draco</item>
+        <item name="android:contentDescription">@string/draco_name</item>
+        <item name="android:tag">6</item>
+    </style>
+    <style name="seventhTextHP" parent="tvharrypotter">
+        <item name="android:text">@string/draco_desc</item>
+    </style>
+    <style name="seventhTextTitleHP" parent="tvharrypotter">
+        <item name="android:text">@string/draco_name</item>
+    </style>
+    <style name="eighthImageHP">
+        <item name="android:src">@drawable/hagrid</item>
+        <item name="android:contentDescription">@string/hagrid_name</item>
+        <item name="android:tag">7</item>
+    </style>
+    <style name="eighthTextHP" parent="tvharrypotter">
+        <item name="android:text">@string/hagrid_desc</item>
+    </style>
+    <style name="eighthTextTitleHP" parent="tvharrypotter">
+        <item name="android:text">@string/hagrid_name</item>
+    </style>
+    <style name="arrowRightHP">
+        <item name="android:background">@drawable/hp_arrow_right</item>
+    </style>
+    <style name="arrowUpHP">
+        <item name="android:background">@drawable/hp_arrow_up</item>
+    </style>
+    <style name="shapeHP">
+        <item name="android:src">@drawable/hp_waiting_spot</item>
     </style>
     <!-- Preferences -->
     <style name="speakerhp" parent="tvharrypotter">
